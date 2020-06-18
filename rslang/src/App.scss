@@ -7,6 +7,13 @@ html {
   background-color: coral;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #fff;
+}
+
 .title {
   color: #fff;
   font-size: 6rem;
@@ -21,6 +28,7 @@ html {
   display: flex;
   justify-content: space-around;
   & li {
+    margin-left: 20px;
     font-size: 2rem;
     list-style-type: none;
   }
