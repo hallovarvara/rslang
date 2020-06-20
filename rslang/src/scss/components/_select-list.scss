@@ -1,0 +1,12 @@
+.select-list {
+  div {
+    padding: 5px 24px 5px 5px !important;
+  }
+  svg {
+    top: 50% !important;
+    transform: translateY(-50%);
+  }
+  &__item {
+    font-size: 1.5rem !important;
+  }
+}

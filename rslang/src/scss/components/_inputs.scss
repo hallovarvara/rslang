@@ -1,0 +1,11 @@
+.input {
+  padding: 20px 90px;
+  font-size: 3rem;
+  text-align: center;
+  &::placeholder {
+    font-weight: normal;
+    font-size: 40px;
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+  }
+}

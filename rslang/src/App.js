@@ -3,8 +3,8 @@ import './App.scss';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore } from 'redux';
 
-import Header from './Components/Header';
-import Main from './Components/Main';
+import Header from './components/Header';
+import Main from './components/Main';
 
 const reducer = (state = 0, action) => state;
 

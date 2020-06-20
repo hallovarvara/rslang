@@ -1,7 +1,9 @@
 import React from 'react';
 
 const MainPage = () => (
-  <h2 className='title'>Main Page</h2>
+  <React.Fragment>
+    <h2 className='title'>Main Page</h2>
+  </React.Fragment>
 );
 
 export default MainPage;
