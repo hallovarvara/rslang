@@ -11,15 +11,13 @@ const reducer = (state = 0, action) => state;
 const store = createStore(reducer);
 console.log(store.getState());
 
-function App() {
-  return (
+const App = () => (
     <Router>
-      <div className='App'>
+      <div className="App">
         <Header />
         <Main />
       </div>
     </Router>
-  );
-}
+);
 
 export default App;

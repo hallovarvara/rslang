@@ -1,18 +1,16 @@
 import React from 'react';
 
 import HeaderView from './HeaderView.jsx';
+import { loggedHeaderLinkTitles, unloggedHeaderLinkTitles } from '../../helpers/constants';
 
 class Header extends React.Component {
-  unloggedHeaderLinkTitles = ['About us', 'Learn words', 'Play games', 'Statistics', 'Vocabulary', 'Sign In'];
-
-  loggedHeaderLinkTitles = ['Learn words', 'Play games', 'About us', 'Statistics', 'Vocabulary', 'Settings'];
-
-  isUserLogged = true; // we will get it from state in the future
+  isUserLogged = false; // TODO: unmock isUserLogged
 
   render() {
+    const linkTitles = this.isUserLogged ? loggedHeaderLinkTitles : unloggedHeaderLinkTitles;
     return (
       <HeaderView
-        linkTitles={this.isUserLogged ? this.loggedHeaderLinkTitles : this.unloggedHeaderLinkTitles}
+        linkTitles={linkTitles}
         isUserLogged={this.isUserLogged} />
     );
   }

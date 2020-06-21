@@ -2,13 +2,15 @@
   padding: 90px 152px;
   background-color: $color-primary;
   @include flex(column, center, center);
-  &__title {
-    margin-bottom: 50px;
-    font-weight: 300;
-    font-size: 5.2rem;
-  }
-  &__video {
-    width: 100%;
-    margin-bottom: 90px;
-  }
+}
+
+.demonstration-container__title {
+  margin-bottom: 50px;
+  font-weight: 300;
+  font-size: 5.2rem;
+}
+
+.demonstration-container__video {
+  width: 100%;
+  margin-bottom: 90px;
 }

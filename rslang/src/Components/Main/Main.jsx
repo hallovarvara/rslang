@@ -8,13 +8,13 @@ import TeamPage from '../pages/Team';
 import PromoPage from '../pages/Promo';
 
 const Main = () => (
-  <main>
+  <main className="main">
     <Switch>
-      <Route exact path='/' component={MainPage} />
-      <Route path='/settings' component={SettingsPage} />
-      <Route path='/statistic' component={StatisticPage} />
-      <Route path='/team' component={TeamPage} />
-      <Route path='/promo-page' component={PromoPage} />
+      <Route exact path="/" component={MainPage} />
+      <Route path="/settings" component={SettingsPage} />
+      <Route path="/statistic" component={StatisticPage} />
+      <Route path="/team" component={TeamPage} />
+      <Route path="/promo" component={PromoPage} />
     </Switch>
   </main>
 );

@@ -4,9 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
 
-const ButtonView = (props) => {
-  const { value = 'Button' } = props;
-
+const ButtonView = ({ value = 'Button' }) => {
   const StyledButton = withStyles({
     root: {
       fontSize: '5rem',
@@ -21,7 +19,7 @@ const ButtonView = (props) => {
   })(Button);
 
   return (
-    <StyledButton variant='contained' size='large'>{value}</StyledButton>
+    <StyledButton variant="contained" size="large">{value}</StyledButton>
   );
 };
 
