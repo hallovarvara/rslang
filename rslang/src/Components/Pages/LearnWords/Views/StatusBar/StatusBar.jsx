@@ -21,10 +21,4 @@ StatusBar.propTypes = {
   isShownComplicatedButton: PropTypes.bool,
 };
 
-StatusBar.defaultProps = {
-  wordCount: 0,
-  totalWords: 0,
-  isShownComplicatedButton: true,
-};
-
 export default StatusBar;

@@ -30,14 +30,4 @@ WordExtraInfo.propTypes = {
   isShownMeaning: PropTypes.bool,
 };
 
-WordExtraInfo.defaultProps = {
-  word: '',
-  transcription: '',
-  textMeaning: '',
-  textMeaningTranslate: '',
-  isShownTranscription: true,
-  isShownExampleSentence: true,
-  isShownMeaning: true,
-};
-
 export default WordExtraInfo;

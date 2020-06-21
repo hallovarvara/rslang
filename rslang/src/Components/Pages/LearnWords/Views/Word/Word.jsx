@@ -19,10 +19,4 @@ Word.propTypes = {
   isShownTranslation: PropTypes.bool,
 };
 
-Word.defaultProps = {
-  textExampleTranslate: '',
-  textExample: '',
-  isShownTranslation: true,
-};
-
 export default Word;

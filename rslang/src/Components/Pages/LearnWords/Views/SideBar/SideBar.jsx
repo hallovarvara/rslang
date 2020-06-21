@@ -26,11 +26,4 @@ SideBar.propTypes = {
   isShownImageAssociation: PropTypes.bool,
 };
 
-SideBar.defaultProps = {
-  baseUrl: '',
-  image: '',
-  isShownAnswerButton: true,
-  isShownImageAssociation: true,
-};
-
 export default SideBar;
