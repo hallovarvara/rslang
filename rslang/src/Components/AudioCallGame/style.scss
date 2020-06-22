@@ -1,0 +1,18 @@
+.question__container {
+  background: #ffffff;
+  padding: 20px;
+}
+
+.answer__container {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  list-style-position: inside;
+  background: red;
+}
+
+.answer__item {
+  width: 100px;
+  height: 50px;
+  background-color: coral;
+}

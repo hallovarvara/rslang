@@ -10,6 +10,7 @@ const Header = () => (
         <li><Link to='/settings'>Settings</Link></li>
         <li><Link to='/statistic'>Statistic</Link></li>
         <li><Link to='/team'>Our Team</Link></li>
+        <li><Link to='/audioCall'>Audio Call</Link></li>
       </ul>
     </nav>
   </header>
