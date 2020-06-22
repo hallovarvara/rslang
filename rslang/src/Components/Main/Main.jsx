@@ -5,7 +5,7 @@ import MainPage from '../MainPage';
 import SettingsPage from '../SettingPage';
 import StatisticPage from '../StatisticPage';
 import TeamPage from '../TeamPage';
-import Vocabulary from '../Vocabulary';
+import VocabularyPage from '../VocabularyPage';
 
 const Main = () => (
   <main>
@@ -14,7 +14,7 @@ const Main = () => (
       <Route path='/settings' component={SettingsPage} />
       <Route path='/statistic' component={StatisticPage} />
       <Route path='/team' component={TeamPage} />
-      <Route path='/vocabulary' component={Vocabulary} />
+      <Route path='/vocabulary' component={VocabularyPage} />
     </Switch>
   </main>
 );

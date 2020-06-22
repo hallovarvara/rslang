@@ -1,7 +1,7 @@
 import React from 'react';
-import VocabularyView from './Vocabulary.jsx';
+import VocabularyView from './VocabularyPage.jsx';
 
-const Vocabulary = (props) => {
+const VocabularyPage = (props) => {
 
   const selectorOptions = [
     ['new', 'new & repeating'],
@@ -114,4 +114,4 @@ const Vocabulary = (props) => {
 }
 
 
-export default Vocabulary;
+export default VocabularyPage;
