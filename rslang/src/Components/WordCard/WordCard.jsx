@@ -11,6 +11,10 @@ function WordCardView(props) {
     restoreWord(wordData.id);
   }
 
+  const createMarkup = (markup) => {
+    return {__html: markup};
+  }
+
   return (
     <div className="word-card-container">
       <div className="word-card-preview-wrapper">
@@ -28,8 +32,8 @@ function WordCardView(props) {
       </div>
       <div className="word-card-additional-info">
         <p className="word-card-additional-info__transciption">{`/ ${wordData.transcription} /`}</p>
-        <p className="word-card-additional-info__meaning">{ wordData.textMeaning }</p>
-        <p className="word-card-additional-info__example-sentence">{ wordData.textExample }</p>
+        <p className="word-card-additional-info__meaning" dangerouslySetInnerHTML = { createMarkup(wordData.textMeaning) }></p>
+        <p className="word-card-additional-info__example-sentence" dangerouslySetInnerHTML = { createMarkup(wordData.textExample) }></p>
       </div>
     </div>
   )
