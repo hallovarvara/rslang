@@ -1,18 +1,42 @@
+.game__container {
+  padding: 40px;
+}
+
 .question__container {
-  background: #ffffff;
+  width: 100px;
+  height: 100px;
+  margin: 10px auto;
   padding: 20px;
+  font-size: 22px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  background-image: url(../../assets/sound.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+  border-radius: 50%;
 }
 
 .answer__container {
   display: flex;
-  padding: 10px;
   justify-content: space-between;
+  padding: 10px;
   list-style-position: inside;
-  background: red;
 }
 
 .answer__item {
-  width: 100px;
-  height: 50px;
-  background-color: coral;
+  margin: 10px auto;
+  padding: 15px;
+  font-size: 22px;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.button {
+  padding: 10px 20px;
+  font-size: 25px;  
 }
