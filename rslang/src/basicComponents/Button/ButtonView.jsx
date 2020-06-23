@@ -1,30 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
-import Button from '@material-ui/core/Button';
-
-const ButtonView = ({ value = 'Button' }) => {
-  const StyledButton = withStyles({
-    root: {
-      fontSize: '5rem',
-      textTransform: 'none',
-      backgroundColor: 'black',
-      color: 'white',
-      '&:hover': {
-        backgroundColor: 'white',
-        color: 'black',
-      },
-    },
-  })(Button);
-
+const ButtonView = ({ value = 'Button', type = 'primary', className = '' }) => {
+  const classes = classNames({
+    btn: true,
+    [`btn-${type}`]: true,
+    [className]: true,
+  });
   return (
-    <StyledButton variant="contained" size="large">{value}</StyledButton>
+    <button className={classes}>{value}</button>
   );
 };
 
 ButtonView.propTypes = {
   value: PropTypes.string,
+  type: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default ButtonView;

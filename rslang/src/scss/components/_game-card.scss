@@ -1,0 +1,38 @@
+.game-card {
+  position: relative;
+  width: 670px;
+  margin: 0px 20px 40px 20px;
+  padding: 40px;
+  @include flex(column, flex-start, flex-start);
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.4) blur(1px);
+    content: '';
+    @include background-image(url('../../assets/images/game-card-bg.jpg'));
+  }
+}
+
+.game-card > * {
+  position: relative;
+}
+
+.game-card__title {
+  margin-bottom: 10px;
+  color: $color-text-light;
+  font-size: 6rem;
+}
+
+.game-card__description {
+  margin-bottom: 40px;
+  color: $color-text-light;
+  font-size: 3.4rem;
+}
+
+.game-card__link-button-container button {
+  padding: 20px 28px;
+  font-size: 2.8rem;
+}

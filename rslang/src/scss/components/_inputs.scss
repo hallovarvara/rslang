@@ -3,9 +3,7 @@
   font-size: 3rem;
   text-align: center;
   &::placeholder {
-    font-weight: normal;
-    font-size: 4rem;
     font-family: 'Inter', sans-serif;
-    font-style: italic;
+    @include font(4rem, 400, italic);
   }
 }

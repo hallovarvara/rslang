@@ -4,3 +4,15 @@
   align-items: $align-items;
   justify-content: $justify-content;
 }
+
+@mixin background-image($url, $size: cover, $position: center) {
+  background-image: $url;
+  background-position: $position;
+  background-size: $size;
+}
+
+@mixin font($size: 2rem, $weight: 400, $style: normal) {
+  font-weight: $weight;
+  font-size: $size;
+  font-style: $style;
+}

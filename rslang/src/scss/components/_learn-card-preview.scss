@@ -1,0 +1,160 @@
+.learn-word-card-wrapper * {
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
+.learn-word-card-wrapper {
+  width: 100%;
+  cursor: default;
+  @include flex(column, flex-start, center);
+}
+
+.learn-word-card-wrapper .linear-progress {
+  height: 10px;
+}
+
+.learn-word-card {
+  width: 100%;
+  height: 440px;
+  @include flex(row, flex-start, flex-start);
+}
+
+.learn-word-card-info {
+  flex-basis: 70%;
+  height: 100%;
+  padding: 15px 30px 0px 30px;
+  background-color: $color-text-light;
+}
+
+.learn-word-card-control {
+  position: relative;
+  flex-basis: 30%;
+  height: 100%;
+  @include background-image(url('../../assets/images/learn-word-card-bg.png'));
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $color-text-light;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    content: '';
+  }
+}
+
+.learn-word-card-control > * {
+  position: relative;
+}
+
+.learn-word-card-general-info {
+  margin-bottom: 30px;
+  @include flex(row, space-between, center);
+}
+
+.learn-word-card-general-info__all-done {
+  @include font(2.5rem, 300, normal);
+}
+
+.learn-word-status-settings {
+  color: rgba($color: $color-text-dark, $alpha: 0.4);
+  @include flex(row, center, center);
+  @include font(2.5rem, 600, normal);
+}
+
+.learn-word-status-settings__complicated,
+.learn-word-status-settings__remove {
+  @include flex(row, center, center);
+}
+
+.learn-word-status-settings__complicated {
+  margin-right: 33px;
+}
+
+.learn-word-status-settings__complicated span,
+.learn-word-status-settings__remove span {
+  display: inline-block;
+  height: 30px;
+  margin-right: 8px;
+}
+.learn-word-status-settings__complicated span {
+  width: 30px;
+  @include background-image(url('../../assets/images/complicated-icon.png'));
+}
+
+.learn-word-status-settings__remove span {
+  width: 24px;
+  @include background-image(url('../../assets/images/delete-icon.png'));
+}
+
+.learn-word-card-sentence {
+  margin-bottom: 5px;
+  @include font(5.2rem, 600, normal);
+}
+
+.learn-word-card-sentence__target-word {
+  padding: 0px 8px;
+  background-color: $color-primary;
+}
+
+.learn-word-card-info__sentence-translation {
+  margin-bottom: 26px;
+  color: rgba($color: $color-text-dark, $alpha: 0.6);
+  @include font(3.2rem, 300, normal);
+}
+
+.learn-word-card-info__line {
+  margin-bottom: 30px;
+}
+
+.target-learn-word-container {
+  margin-bottom: 20px;
+  @include flex(row, flex-start, baseline);
+}
+
+.target-learn-word-container__target-word {
+  margin-right: 20px;
+  @include font(5.2rem, 600, normal);
+}
+
+.target-learn-word-container__transcription {
+  color: rgba($color: $color-text-dark, $alpha: 0.4);
+  @include font(3rem, 300, normal);
+}
+
+.learn-word-card-info__explanation {
+  margin-bottom: 15px;
+  @include font(3rem, 400, normal);
+}
+
+.learn-word-card-info__example-sentence {
+  color: rgba($color: $color-text-dark, $alpha: 0.4);
+  @include font(3rem, 400, normal);
+}
+
+.learn-word-card-control {
+  @include flex(column, flex-end, center);
+}
+
+.learn-word-card-control__show-answer-button {
+  margin-bottom: 20px;
+  padding: 20px 40px;
+  background-color: $color-text-light;
+  @include font(2.8rem, 600, normal);
+}
+
+.flip-buttons-container {
+  width: 100%;
+  @include flex(row, flex-start, flex-start);
+}
+
+.flip-buttons-container__prev-button,
+.flip-buttons-container__next-button {
+  flex-basis: 50%;
+  padding: 25px 0px;
+  color: $color-text-light;
+  text-align: center;
+  background-color: $color-text-dark;
+  @include font(4rem, 500, normal);
+}

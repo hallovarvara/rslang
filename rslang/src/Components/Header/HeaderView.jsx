@@ -1,24 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import classNames from 'classnames';
 
 const mapLinkTitlesToItems = (linkTitle, index) => {
-  const activeLinkTitle = 'About us'; // TODO: get active link from redux
-  const classes = classNames({
-    navigation__item: true,
-    navigation__item_active: linkTitle === activeLinkTitle,
-  });
   const linkPath = linkTitle.toLowerCase().split(' ').join('-');
   return (
-    <li key={index} className={classes}><Link to={`/${linkPath}`}>{linkTitle}</Link></li>
+    <li key={index} className="navigation__item">
+      <NavLink activeClassName="navigation__item_active" to={`/${linkPath}`}>{linkTitle}</NavLink>
+    </li>
   );
 };
 
 const HeaderView = ({ linkTitles, isUserLogged }) => (
       <header className="header">
-        <h1 className="header__title"><Link to="/promo">RS Lang</Link></h1>
+        <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
         <nav>
           <ul className="navigation">
             {
@@ -26,9 +22,9 @@ const HeaderView = ({ linkTitles, isUserLogged }) => (
             }
             {
               isUserLogged && <li className="navigation__item">
-                <Link to="sign-up">
+                <NavLink activeClassName="navigation__item_active" to="sign-up">
                   <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }}/>
-                </Link>
+                </NavLink>
               </li>
             }
           </ul>

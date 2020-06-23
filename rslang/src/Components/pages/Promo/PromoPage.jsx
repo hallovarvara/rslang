@@ -11,8 +11,8 @@ const PromoPageView = () => (
           <source src="https://www.w3schools.com/html/mov_bbb.mp4"></source>
           Your browser does not support the video tag.
         </video>
-        <Link to="learn-words">
-          <Button className="demonstration-container__start-button" value="Start learn English with us" />
+        <Link className="link-btn demonstration-container__start-link-button-container" to="learn-words">
+          <Button value="Start learn English with us" />
         </Link>
       </section>
     </div>
