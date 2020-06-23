@@ -1,7 +1,7 @@
 import React from 'react';
 import WordCardView from './WordCard.jsx';
 
-function WordCard( props ) {
+const WordCard = ( props ) => {
   const { wordData } = props;
 
   const audio = new Audio( wordData.audioExample ) //mp3 URL from state
@@ -11,12 +11,12 @@ function WordCard( props ) {
   }
 
   const restoreWord = (id) => {
-    alert('restore'); //This function will change State
+    // TODO This function will change State
   }
 
   return (
     <WordCardView 
-      wordData = {wordData}
+      wordData = { wordData }
       playSound = { playSound }
       restoreWord = { restoreWord }
     />
