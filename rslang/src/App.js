@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 
 import Header from './Components/Header';
 import Main from './Components/Main';
+import Savannah from './Components/Savannah';
 
 const reducer = (state = 0, action) => state;
 
