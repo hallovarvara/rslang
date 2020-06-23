@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
@@ -16,18 +17,19 @@ const Header = ({
   const arrMistake = Array(mistakeTotal).fill(<FavoriteBorderIcon />);
   return (
     <div className={classes.Header}>
-
-      {volume ? <VolumeUpIcon
-        onClick={handleVolume}
-      /> : <VolumeOffIcon
-          onClick={handleVolume}
-        />}
+      <IconButton onClick={handleVolume}>
+        {volume
+          ? <VolumeUpIcon className={classes.Icon} />
+          : <VolumeOffIcon className={classes.Icon} />}
+      </IconButton>
       <div>
         {arrMistake.map((value) => value)}
         {arrComplete.map((value) => value)}
-        <CloseIcon
+        <IconButton
           onClick={handleClose}
-        />
+          className={classes.CloseButton}>
+          <CloseIcon className={classes.Icon} />
+        </IconButton>
       </div>
     </div>
 

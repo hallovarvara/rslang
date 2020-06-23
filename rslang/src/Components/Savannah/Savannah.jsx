@@ -3,41 +3,48 @@ import Header from './components/Header';
 import StartPage from './components/StartPage';
 import FinishPage from './components/FinishPage';
 import ActiveQuiz from './components/ActiveQuiz';
-import { getCards, getRandomIntInclusive, totalQuizInGroup } from './components/services/services';
+import {
+  getCards, getRandomIntInclusive, totalQuizInGroup, audioPlay,
+} from './components/services/services';
 import classes from './Savannah.module.scss';
 
 const initialState = {
-  totalAnswers: 2,
+  activeQuestion: '',
+  activeCard: 0,
+  audio: [],
+  allCards: [],
+  answerState: null,
   currentGroup: null,
   counter: 1,
+  changeGroup: false,
+  idWords: [],
+  isFinished: false,
+  isStarted: false,
+  totalAnswers: 2,
+  translateWords: [],
+  totalQuestions: 0,
   volume: true,
   heartCount: 5,
   words: '',
-  translateWords: [],
-  idWords: [],
-  activeQuestion: '',
-  allCards: [],
-  activeCard: 0,
-  answerState: null,
-  isFinished: false,
-  isStarted: false,
-  changeGroup: false,
-  totalQuestions: 0,
   mistake: {
     total: 0,
     words: [],
     translate: [],
+    audio: [],
   },
   complete: {
     total: 0,
     words: [],
     translate: [],
+    audio: [],
   },
   resultTitle: ['Ошибок', 'Знаю'],
 };
 
 class Savannah extends Component {
   status = ['error', 'success'];
+
+  audioPath = ['files/success.mp3', 'files/error.mp3', 'files/to_finish_page.mp3'];
 
   state = initialState
 
@@ -47,6 +54,7 @@ class Savannah extends Component {
     const idWords = [];
     const answerState = null;
     const timer = false;
+    const audio = [];
     try {
       const allCards = await getCards(group, totalAnswers);
 
@@ -54,12 +62,14 @@ class Savannah extends Component {
         words.push(card.word);
         translateWords.push(card.wordTranslate);
         idWords.push(card.id);
+        audio.push(card.audio);
       });
       const activeCard = getRandomIntInclusive(0, allCards.length - 1);
       const activeQuestion = allCards[activeCard].word;
 
       this.setState({
-        words, translateWords, idWords, answerState, activeCard, activeQuestion, timer,
+        words, translateWords, idWords, answerState, activeCard, activeQuestion, timer, audio
+        ,
       });
     } catch (e) {
       console.log(e);
@@ -100,19 +110,27 @@ class Savannah extends Component {
 
   handleClose = () => {
     this.setState({ isFinished: true });
+    this.audioPlay(this.audioPath[2]);
+  }
+
+  audioPlay = (path) => {
+    if (this.state.volume) audioPlay(path);
   }
 
   handleComplete = () => {
     const words = [...this.state.complete.words];
     const translate = [...this.state.complete.translate];
     const total = this.state.complete.total + 1;
+    const audio = [...this.state.complete.audio];
     translate.push(this.state.translateWords[this.state.activeCard]);
+    audio.push(this.state.audio[this.state.activeCard]);
     words.push(this.state.activeQuestion);
     this.setState({
       complete: {
         total,
         words,
         translate,
+        audio,
       },
     });
   }
@@ -121,13 +139,16 @@ class Savannah extends Component {
     const words = [...this.state.mistake.words];
     const translate = [...this.state.mistake.translate];
     const total = this.state.mistake.total + 1;
+    const audio = [...this.state.mistake.audio];
     translate.push(this.state.translateWords[this.state.activeCard]);
     words.push(this.state.activeQuestion);
+    audio.push(this.state.audio[this.state.activeCard]);
     this.setState({
       mistake: {
         total,
         words,
         translate,
+        audio,
       },
     });
   }
@@ -149,7 +170,6 @@ class Savannah extends Component {
   onClickHandler = () => {
     if (this.state.currentGroup !== null) this.setState({ isStarted: true });
     this.updateState(this.state.currentGroup, this.state.totalAnswers);
-    this.isTimerOn();
   }
 
   onAnswerClickHandler = (e) => {
@@ -179,57 +199,61 @@ class Savannah extends Component {
     if (e.target.id === this.state.idWords[this.state.activeCard]) {
       this.handleComplete();
       this.guessedWords(e.target.id, null, 'success');
+      this.audioPlay(this.audioPath[0]);
     } else {
       this.handleMistake();
       this.handleHeart();
       this.guessedWords(e.target.id, 'error', 'success');
+      this.audioPlay(this.audioPath[1]);
     }
   }
 
   render() {
     const {
       heartCount, volume, complete, mistake, translateWords, idWords,
-      answerState, activeQuestion, isStarted, resultTitle,
+      answerState, activeQuestion, isStarted, resultTitle, isFinished, audio,
     } = this.state;
+
+    let page;
+    if (!isStarted) {
+      page = < StartPage
+        onTotalQuizUpdate={this.onTotalQuizUpdate}
+        onSubmitForm={this.onClickHandler}
+        handleCurrentGroup={this.handleCurrentGroup}
+        handleTotalAnswer={this.handleTotalAnswer}
+      />;
+    } else if (isStarted && isFinished) {
+      page = <FinishPage
+        complete={complete}
+        mistake={mistake}
+        resultTitle={resultTitle}
+        status={this.status}
+        pathAudio={audio}
+      />;
+    } else if (isStarted && !isFinished) {
+      page = <div>
+        <Header
+          volume={volume}
+          heartCount={heartCount}
+          handleVolume={this.handleVolume}
+          mistakeTotal={mistake.total}
+          handleClose={this.handleClose}
+        />
+        <ActiveQuiz
+          guessedWords={this.onAnswerClickHandler}
+          translateWords={translateWords}
+          id={idWords}
+          state={answerState}
+          activeQuestion={activeQuestion}
+          isStarted={isStarted}
+        />
+      </div>;
+    }
 
     return (
       <div className={classes.Savannah}>
         <div className={classes.Container}>
-
-          {
-            // eslint-disable-next-line no-nested-ternary
-            !this.state.isStarted
-              ? < StartPage
-                onTotalQuizUpdate={this.onTotalQuizUpdate}
-                onSubmitForm={this.onClickHandler}
-                handleCurrentGroup={this.handleCurrentGroup}
-                handleTotalAnswer={this.handleTotalAnswer}
-              />
-              : (this.state.isFinished
-                ? <FinishPage
-                  complete={complete}
-                  mistake={mistake}
-                  resultTitle={resultTitle}
-                  status={this.status}
-                />
-                : <div>
-                  <Header
-                    volume={volume}
-                    heartCount={heartCount}
-                    handleVolume={this.handleVolume}
-                    mistakeTotal={mistake.total}
-                    handleClose={this.handleClose}
-                  />
-                  <ActiveQuiz
-                    guessedWords={this.onAnswerClickHandler}
-                    translateWords={translateWords}
-                    id={idWords}
-                    state={answerState}
-                    activeQuestion={activeQuestion}
-                    isStarted={isStarted}
-                  />
-                </div>
-              )}
+          {page}
         </div>
       </div>
     );

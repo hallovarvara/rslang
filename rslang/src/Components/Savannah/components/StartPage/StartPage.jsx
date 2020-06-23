@@ -13,7 +13,7 @@ const StartPage = ({
     <div className={classes.StartPage}>
       <div className={classes.titleName}>SAVANAH GAME</div>
       <form className={classes.form} onSubmit={onSubmitForm}>
-        <select
+        <select name="select"
           onChange={handleCurrentGroup}
         >
           <option disabled selected

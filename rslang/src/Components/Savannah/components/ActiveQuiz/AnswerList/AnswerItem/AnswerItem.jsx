@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classes from './AnswerItem.module.scss';
 
 const AnswerItem = ({
-  id, guessedWords, trueAnswer, state, value, key,
+  id, guessedWords, trueAnswer, state, value,
 }) => {
   const cls = [classes.AnswerItem];
   if (state) {
@@ -20,7 +20,7 @@ const AnswerItem = ({
       className={cls.join(' ')}
       id={id}
       onClick={guessedWords}
-      key={key}
+      key={Math.random()}
     >
       {value}
     </span>
@@ -28,7 +28,6 @@ const AnswerItem = ({
 };
 
 AnswerItem.propTypes = {
-  key: PropTypes.number,
   id: PropTypes.string,
   guessedWords: PropTypes.func,
   trueAnswer: PropTypes.string,

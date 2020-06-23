@@ -6,10 +6,11 @@ import classes from './ResultList.module.scss';
 
 const ResultList = ({ result, resultTitle, status }) => {
   const {
-    words, translate, total,
+    words, translate, total, audio,
   } = result;
   const cls = [classes.Total];
   cls.push(classes[status]);
+  console.log(audio);
   return (
     <div className={classes.Wrapper}>
       <div className={classes.Title}>
@@ -23,6 +24,7 @@ const ResultList = ({ result, resultTitle, status }) => {
             word={word}
             translate={translate[key]}
             result={result}
+            audio={audio[key]}
           />
         ))}
 
@@ -42,6 +44,7 @@ ResultList.defaultProps = {
     total: 0,
     words: [],
     translate: [],
+    audio: [],
   },
   resultTitle: '',
   status: '',

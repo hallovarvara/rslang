@@ -1,5 +1,5 @@
 import {
-  ALL_PAGE, ALL_PAGE_IN_QUERY, TOTAL_GROUP,
+  ALL_PAGE, ALL_PAGE_IN_QUERY, TOTAL_GROUP, URL_DATA_RSLANG,
 } from './constants';
 
 export const getWords = async (page, group) => {
@@ -24,13 +24,16 @@ const randomCard = async (group) => {
 
 export const getCards = async (group, totalAnswers) => {
   const arr = [];
-
   for (let i = 0; i < totalAnswers; i += 1) {
-    // eslint-disable-next-line no-await-in-loop
-    arr.push(await randomCard(group));
+    arr.push(randomCard(group));
   }
-
-  return arr;
+  const result = await Promise.all(arr);
+  return result;
 };
 
 export const totalQuizInGroup = (totalQuestions) => Math.round(totalQuestions / TOTAL_GROUP);
+
+export const audioPlay = (path) => {
+  const audio = new Audio(URL_DATA_RSLANG + path);
+  audio.play();
+};
