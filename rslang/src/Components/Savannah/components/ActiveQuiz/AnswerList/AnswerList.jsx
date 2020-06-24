@@ -5,7 +5,7 @@ import AnswerItem from './AnswerItem';
 import classes from './AnswerList.module.scss';
 
 const AnswerList = ({
-  translateWords, id, guessedWords, state,
+  translateWords, id, guessedWords, state, keyPressed,
 }) => {
   const trueNumberAnswer = state ? Object.keys(state[1])[0] : null;
 
@@ -17,9 +17,10 @@ const AnswerList = ({
           key={key}
           id={id[key]}
           guessedWords={guessedWords}
-          value={value}
+          value={`${key + 1} ${value}`}
           state={state ? state[0][id[key]] : null}
           trueAnswer={state && key === +trueNumberAnswer ? state[1][trueNumberAnswer] : null}
+          keyPressed={keyPressed}
         />
       ))
       }
@@ -32,6 +33,7 @@ AnswerList.propTypes = {
   id: PropTypes.array,
   guessedWords: PropTypes.func,
   state: PropTypes.array,
+  keyPressed: PropTypes.func,
 };
 
 export default AnswerList;

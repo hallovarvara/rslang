@@ -10,7 +10,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import classes from './Header.module.scss';
 
 const Header = ({
-  // eslint-disable-next-line react/prop-types
   volume, heartCount, handleVolume, mistakeTotal, handleClose,
 }) => {
   const arrComplete = Array(heartCount).fill(<FavoriteIcon />);
