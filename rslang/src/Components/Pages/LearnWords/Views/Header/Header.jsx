@@ -5,11 +5,11 @@ const Header = ({ categoriesSelect }) => (
   <div>
     <div>
       <h1>Learn words</h1>
-      {/* Here will be helper: Add right English word to sentence */}
+      {/* //TODO: Here will be helper: Add right English word to sentence */}
     </div>
-    {/* Here will be two UI components */}
-    {/* Button: Auto paly on */}
-    {/* Drop-dawn: `Learn` category */}
+    {/* //TODO: Here will be two UI components */}
+    {/* //TODO: Button: Auto paly on */}
+    {/* //TODO: Drop-dawn: `Learn` category */}
     <div>{categoriesSelect}</div>
   </div>
 );

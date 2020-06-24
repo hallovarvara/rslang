@@ -25,7 +25,7 @@ const WordCard = ({
   isShownMeaning,
 }) => (
   <div>
-      {/* Here will be Material UI ProgressBar with value 'totalWords' and progress 'wordCount' */}
+      {/* //TODO: Here will be Material UI ProgressBar with 'totalWords' / 'wordCount' */}
       <div>
         <StatusBar
           wordCount={wordCount}

@@ -7,7 +7,7 @@ const Word = ({
   isShownTranslation,
 }) => (
   <div>
-    {/* part of the word, where user will enter the word will be S styled by myself from React */}
+    {/* //TODO: part of the word, where user will enter the word will be styled by myself */}
     <h3>{textExample}</h3>
     {isShownTranslation && <p>{textExampleTranslate}</p>}
   </div>
