@@ -11,9 +11,19 @@ const GameView = ({
   level,
   numberLevel,
   answerArray,
+  isRightAnswer,
+  changeLevel,
+  countError,
+  isFalseAnswer,
+  error,
 }) => (
   <div className="game__container">
-    <Question />
+    <Question
+      question = {question}
+      level = {level}
+      isFalseAnswer = {isFalseAnswer}
+      isRightAnswer= {isRightAnswer}
+    />
     <AnswerPanel
       answerArray={answerArray}
       dataWords={dataWords}
@@ -21,7 +31,13 @@ const GameView = ({
       level={level}
       numberLevel={numberLevel}
     />
-    <Button />
+    <Button
+      isRightAnswer={isRightAnswer}
+      changeLevel={changeLevel}
+      countError={countError}
+      isFalseAnswer={isFalseAnswer}
+      error={error}
+    />
   </div>
 );
 
@@ -31,6 +47,11 @@ GameView.propTypes = {
   question: PropTypes.array,
   level: PropTypes.number,
   numberLevel: PropTypes.number,
+  isRightAnswer: PropTypes.bool,
+  changeLevel: PropTypes.func,
+  countError: PropTypes.func,
+  isFalseAnswer: PropTypes.bool,
+  error: PropTypes.number,
 };
 
 export default GameView;

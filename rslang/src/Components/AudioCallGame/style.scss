@@ -38,5 +38,33 @@
 
 .button {
   padding: 10px 20px;
-  font-size: 25px;  
+  font-size: 25px;
+}
+
+.iconButton .volumeUpRounded {
+  font-size: 5rem;
+}
+
+.picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1;
+}
+
+.word {font-size: 2rem;
 }

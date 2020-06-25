@@ -7,6 +7,13 @@ export const replaceAudioSrc = (audio) => (
     .replace('{audio}', audio)
 );
 
+export const replaceImageSrc = (image) => (
+  constants.imageSrc
+    .replace('{image}', image)
+);
+
 export const generateQuestionsArray = (data, amountLevels = 12) => (
   shuffle(data).slice(0, amountLevels)
 );
+
+
