@@ -18,6 +18,7 @@ function App() {
       <div className='App'>
         {/*   <Header />
         <Main /> */}
+        <Sprint />
 
       </div>
     </Router>

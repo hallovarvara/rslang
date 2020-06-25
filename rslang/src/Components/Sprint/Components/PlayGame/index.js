@@ -1,3 +1,3 @@
-import PlayGame from './PlayGame.jsx';
+import PlayGame from './PalyGame.jsx';
 
 export default PlayGame;

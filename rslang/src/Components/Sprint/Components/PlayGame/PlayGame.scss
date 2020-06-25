@@ -1,0 +1,53 @@
+.sprint-play__container{
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+}
+.sprint-play__header{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+.sprint-play__volume{
+  color: #000000;
+}
+.sprint-play__board{
+  background-color: #cccccc;
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.sprint-play__rangs{
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 80px;
+}
+.sprint-play__rang-item{
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.sprint-play__word{
+margin-bottom: 20px;
+}
+.sprint-play__translate{
+  
+}
+.sprint-play__control{
+  display: flex;
+  justify-content: space-around;
+}
+.sprint-play__success {
+  background: #eede53;
+}
+
+.sprint-play__error {
+  background: #c986d6;
+}
+.sprint-play__default{
+  border: 2px solid #919191;
+}
