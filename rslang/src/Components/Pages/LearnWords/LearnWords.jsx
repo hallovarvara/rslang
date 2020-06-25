@@ -5,15 +5,12 @@ import WordCard from './Views/WordCard';
 import * as settings from './helpers/settings';
 
 export default class LearnWords extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      wordCount: 0,
-      totalWords: 0,
-      isAutoPlay: false,
-      currentWord: '',
-    };
-  }
+  state = {
+    wordCount: 0,
+    totalWords: 0,
+    isAutoPlay: false,
+    currentWord: '',
+  };
 
   toggleAutoPlay = () => {
     const { isAutoPlay } = this.state;
@@ -23,7 +20,6 @@ export default class LearnWords extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     const { data } = this.props;
     this.setState({
       totalWords: data.length + 1,
