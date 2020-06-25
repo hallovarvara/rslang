@@ -22,8 +22,8 @@ const initialState = {
   isFinished: false,
   isStarted: false,
   totalAnswers: 2,
+  totalQuestions: 5,
   translateWords: [],
-  totalQuestions: 0,
   volume: true,
   heartCount: 5,
   keyPressed: null,
@@ -79,8 +79,7 @@ class Savannah extends Component {
   }
 
   onTotalQuizUpdate = (e) => {
-    const { value } = e.target;
-    this.setState({ totalQuestions: value });
+    this.setState({ totalQuestions: +e.target.value });
   }
 
   guessedWords = (currentAnswer, error, success) => {
@@ -112,7 +111,7 @@ class Savannah extends Component {
 
   handleClose = () => {
     this.setState({ isFinished: true });
-    this.audioPlay(this.audioPath[2]);
+    this.audioPlay(this.audioPath.finish);
   }
 
   audioPlay = (path) => {
@@ -138,16 +137,16 @@ class Savannah extends Component {
     });
   }
 
-  handleCurrentGroup = (e) => {
-    if (e.target.value === '-1') {
+  handleCurrentGroup = (event) => {
+    if (event.target.value === -1) {
       this.setState({ changeGroup: true, currentGroup: 0 });
     } else {
-      this.setState({ currentGroup: +e.target.value, changeGroup: false });
+      this.setState({ currentGroup: event.target.value, changeGroup: false });
     }
   }
 
   handleTotalAnswer = (e) => {
-    this.setState({ totalAnswers: +e.target.value });
+    this.setState({ totalAnswers: Number(e.target.value) });
   }
 
   onClickHandler = () => {
@@ -189,23 +188,24 @@ class Savannah extends Component {
     if (idWordPressed === this.state.idWords[this.state.activeCard]) {
       this.resultCurrentQuiz('complete');
       this.guessedWords(idWordPressed, null, 'success');
-      this.audioPlay(this.audioPath[0]);
+      this.audioPlay(this.audioPath.success);
     } else {
       this.resultCurrentQuiz('mistake');
       this.handleHeart();
-      this.audioPlay(this.audioPath[1]);
+      this.audioPlay(this.audioPath.error);
       this.guessedWords(idWordPressed, (idWordPressed === 'default' ? null : 'error'), 'success');
     }
   }
 
   onAnswerClickHandler = (e) => {
+    e.preventDefault();
     const { idWords, answerState } = this.state;
     this.setState({ timer: 0 });
     const idWordPressed = e.target.id || idWords[Number(e.key) - 1];
 
     if (answerState) {
       const key = Object.keys(answerState)[0];
-      if (answerState[key] === this.status[0] || this.status[1]) {
+      if (answerState[key] === this.status.error || this.status.success) {
         return;
       }
     }
@@ -225,7 +225,8 @@ class Savannah extends Component {
   render() {
     const {
       heartCount, volume, complete, mistake, translateWords, idWords, timer,
-      answerState, activeQuestion, isStarted, isFinished, audio,
+      answerState, activeQuestion, isStarted, isFinished, audio, totalAnswers,
+      totalQuestions,
     } = this.state;
 
     let page;
@@ -235,6 +236,8 @@ class Savannah extends Component {
         onSubmitForm={this.onClickHandler}
         handleCurrentGroup={this.handleCurrentGroup}
         handleTotalAnswer={this.handleTotalAnswer}
+        totalAnswers={totalAnswers}
+        totalQuestions={totalQuestions}
       />;
     } else if (isStarted && isFinished) {
       page = <FinishPage

@@ -10,7 +10,6 @@ const ResultList = ({ result, resultTitle, status }) => {
   } = result;
   const cls = [classes.Total];
   cls.push(classes[status]);
-  console.log(audio);
   return (
     <div className={classes.Wrapper}>
       <div className={classes.Title}>

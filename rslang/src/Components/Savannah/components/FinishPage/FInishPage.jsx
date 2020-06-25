@@ -10,14 +10,14 @@ const FinishPage = ({
       <div className={classes.finishWrapper}>
         <ResultList
           result={mistake}
-          resultTitle={resultTitle[0]}
-          status={status[0]}
+          resultTitle={resultTitle.error}
+          status={status.error}
         />
         <hr />
         <ResultList
           result={complete}
-          resultTitle={resultTitle[1]}
-          status={status[1]}
+          resultTitle={resultTitle.error}
+          status={status.success}
         />
         <div className={classes.completeWrapper}></div>
       </div>
@@ -31,7 +31,7 @@ FinishPage.propTypes = {
 };
 
 FinishPage.defaultProps = {
-  status: [],
+  status: {},
   resultTitle: [],
   complete: {
     total: 0,
