@@ -5,7 +5,6 @@ import { createStore } from 'redux';
 
 import Header from './Components/Header';
 import Main from './Components/Main';
-import Savannah from './Components/Savannah/Savannah.jsx'
 
 const reducer = (state = 0, action) => state;
 
@@ -16,9 +15,8 @@ function App() {
   return (
     <Router>
       <div className='App'>
-        {/*  <Header />
-        <Main /> */}
-        <Savannah />
+        <Header />
+        <Main />
       </div>
     </Router>
   );
