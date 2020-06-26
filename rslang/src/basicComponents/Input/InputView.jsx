@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-const InputView = ({ placeholder = 'Type', className = '' }) => {
-  const classes = classNames({
-    input: true,
-    [className]: true,
-  });
+import Input from '@material-ui/core/Input';
 
-  return (
-    <input className={classes} placeholder={placeholder}></input>
-  );
-};
+const InputView = ({ placeholder = 'Type', className = '' }) => (
+  <Input
+    className={className}
+    classes={{ input: 'input' }}
+    placeholder={placeholder}></Input>
+);
 
 InputView.propTypes = {
-  placeholder: PropTypes.string,
   className: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 export default InputView;

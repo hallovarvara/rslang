@@ -1,31 +1,23 @@
-.btn {
-  padding: 10px 50px;
-  border: 0;
-  outline: none;
-  cursor: pointer;
+body .btn {
+  font-size: 5rem;
+  text-transform: none;
   transition: all 0.7s ease;
-  @include font(2rem, 500, normal);
 }
 
-.btn-primary {
-  color: $color-text-light;
-  background-color: $color-text-dark;
+body .btn-primary {
+  color: white;
+  background-color: black;
   &:hover {
-    color: $color-text-dark;
-    background-color: $color-text-light;
+    color: black;
+    background-color: white;
   }
 }
 
-.btn-secondary {
-  color: $color-text-dark;
-  background-color: $color-text-light;
+body .btn-secondary {
+  color: black;
+  background-color: white;
   &:hover {
-    color: $color-text-light;
-    background-color: $color-text-dark;
+    color: white;
+    background-color: black;
   }
-}
-
-.link-btn:focus {
-  border: 0;
-  outline: 0;
 }

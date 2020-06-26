@@ -1,9 +1,8 @@
-.input {
+body .input {
   padding: 20px 90px;
-  font-size: 3rem;
+  font-weight: normal;
+  font-size: 4rem;
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
   text-align: center;
-  &::placeholder {
-    font-family: 'Inter', sans-serif;
-    @include font(4rem, 400, italic);
-  }
 }
