@@ -21,3 +21,5 @@ export const AUDIO_PATH = {
   error: 'files/error.mp3',
   finish: 'files/to_finish_page.mp3',
 };
+
+export const MENU_ITEM_LIST = ['Все', 'Первый', 'Второй', 'Трерий', 'Четвертый', 'Пятый', 'Шестой'];

@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import {
-  ANSWERS_TOTAL_MIN, ANSWERS_TOTAL_MAX, QUESTIONS_TOTAL_MIN, QUESTIONS_TOTAL_MAX,
+  ANSWERS_TOTAL_MIN, ANSWERS_TOTAL_MAX, QUESTIONS_TOTAL_MIN, QUESTIONS_TOTAL_MAX, MENU_ITEM_LIST,
 } from '../services/constants';
 
 import classes from './StartPage.module.scss';
@@ -34,6 +34,8 @@ const StartPage = ({
     handleCurrentGroup(event);
   };
 
+  const menuItemList = MENU_ITEM_LIST;
+
   return (
     <div className={classes.StartPage}>
       <div className={classes.titleName}>SAVANAH GAME</div>
@@ -46,13 +48,9 @@ const StartPage = ({
             value={age}
             onChange={handleChange}
           >
-            <MenuItem value={-1}>Все</MenuItem>
-            <MenuItem value={0}>Первый</MenuItem>
-            <MenuItem value={1}>Второй</MenuItem>
-            <MenuItem value={2}>Третий</MenuItem>
-            <MenuItem value={3}>Четвертый</MenuItem>
-            <MenuItem value={4}>Пятый</MenuItem>
-            <MenuItem value={5}>Шестой</MenuItem>
+            {menuItemList.map((value, key) => (
+              <MenuItem value={key - 1} key={key}>{value}</MenuItem>
+            ))}
           </Select>
         </FormControl>
 
@@ -75,6 +73,7 @@ const StartPage = ({
           variant="filled"
           onChange={handleTotalAnswer}
           style={{ marginBottom: 20 }}
+          labelColor='#fff'
         />
         <Button
           type="submit"
