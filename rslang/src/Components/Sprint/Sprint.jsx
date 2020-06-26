@@ -24,6 +24,7 @@ const initialState = {
   counter: {
     rang: 0,
     total: 0,
+    win: 0,
   },
   changeGroup: false,
   idWords: [],
@@ -162,11 +163,11 @@ class Sprint extends Component {
     this.updateCounterRang();
 
     if (isTrue === this.state.isTrue) {
-      this.setState({ isAnswerQuiz: 'success' });
+      this.setState({ isAnswerQuiz: 'check' });
       this.audioPlay(this.audioPath[0]);
     } else {
       this.audioPlay(this.audioPath[1]);
-      this.setState({ isAnswerQuiz: 'error' });
+      this.setState({ isAnswerQuiz: 'times' });
     }
     this.updateState(3, 2);
   }

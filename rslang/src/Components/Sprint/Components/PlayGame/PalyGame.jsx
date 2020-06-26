@@ -7,20 +7,21 @@ import PetsIcon from '@material-ui/icons/Pets';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import Button from '@material-ui/core/Button';
+import SimpleCard from '../UI/SimpleCard/SimpleCard.jsx'
 
 import './PlayGame.scss';
 
 class PlayGame extends Component {
-  arr = ['default', 'default', 'default']
+  arr = Array(3).fill(this.props.isAnswerQuiz)
 
   componentDidUpdate(prevProps) {
-    if (prevProps.activeAnswer !== this.props.activeAnswer) {
+    if (prevProps.counterRang !== this.props.counterRang) {
       this.arr.unshift(this.props.isAnswerQuiz)
       this.arr.pop()
     }
-    if (this.props.isAnswerQuiz === 'error') {
-      this.arr = ['default', 'default', 'default']
-    }
+    /*     if (this.props.isAnswerQuiz === 'error') {
+          this.arr = ['default', 'default', 'default']
+        } */
   }
 
   render() {
@@ -55,21 +56,38 @@ class PlayGame extends Component {
         <div className={'sprint-play__board'}>
           <div className={'sprint-play__rangs'}>
             {this.arr.map((value, key) => (
-              <div className={`sprint-play__rang-item sprint-play__${counterRang - 1 === key ? isAnswerQuiz : value}`} key={key}></div>
+              <div className={`sprint-play__rang-item sprint-play__${value}`} key={key}>
+                <i className={`fa fa-${value}`} key={key}></i>
+              </div>
             ))}
 
             {/*           <div className={rangClass}><i className={'fa fa-times'}></i></div>
           <div className={rangClass}><i className={'fa fa-check'}></i></div> */}
           </div>
           <div className={'sprint-play__word'}>{words[0]}</div>
+
           <div className={'sprint-play__translate'}>{activeAnswer}</div>
 
         </div>
         <div className={'sprint-play__control'}>
-          <Button variant="contained" color="secondary" size="large" onClick={onCLick} value={false}>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            onClick={onCLick}
+            value={false}
+            style={{ width: 120 }}
+          >
             НЕВЕРНО
       </Button>
-          <Button variant="contained" color="primary" size="large" onClick={onCLick} value={true}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={onCLick}
+            value={true}
+            style={{ width: 120 }}
+          >
             ВЕРНО
       </Button>
 

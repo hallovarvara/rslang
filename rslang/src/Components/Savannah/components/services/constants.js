@@ -7,3 +7,4 @@ export const URL_DATA_RSLANG = 'https://raw.githubusercontent.com/kejno/rslang-d
 export const STATUS_QUIZ = ['error', 'success'];
 export const RESULT_TITLE = ['Ошибок', 'Знаю'];
 export const AUDIO_PATH = ['files/success.mp3', 'files/error.mp3', 'files/to_finish_page.mp3'];
+
