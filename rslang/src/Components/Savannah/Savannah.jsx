@@ -184,7 +184,7 @@ class Savannah extends Component {
     }
   }
 
-  onCorrectAnswer = (idWordPressed = 'default') => {
+  onCorrectAnswer = (idWordPressed) => {
     if (idWordPressed === this.state.idWords[this.state.activeCard]) {
       this.resultCurrentQuiz('complete');
       this.guessedWords(idWordPressed, null, 'success');
@@ -193,11 +193,13 @@ class Savannah extends Component {
       this.resultCurrentQuiz('mistake');
       this.handleHeart();
       this.audioPlay(this.audioPath.error);
-      this.guessedWords(idWordPressed, (idWordPressed === 'default' ? null : 'error'), 'success');
+      this.guessedWords(idWordPressed, (!idWordPressed ? null : 'error'), 'success');
     }
   }
 
   onAnswerClickHandler = (e) => {
+    const keys = [1, 2, 3, 4];
+
     e.preventDefault();
     const { idWords, answerState } = this.state;
     this.setState({ timer: 0 });
@@ -210,9 +212,13 @@ class Savannah extends Component {
       }
     }
 
-    this.gameStatus(idWordPressed);
-    this.onChangeGroupwords();
-    this.onCorrectAnswer(idWordPressed);
+    keys.forEach((value) => {
+      if (Number(e.key) === value) {
+        this.gameStatus(idWordPressed);
+        this.onChangeGroupwords();
+        this.onCorrectAnswer(idWordPressed);
+      }
+    });
   }
 
   onDefault = () => {
