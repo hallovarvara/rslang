@@ -7,17 +7,27 @@ import PetsIcon from '@material-ui/icons/Pets';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import Button from '@material-ui/core/Button';
-import SimpleCard from '../UI/SimpleCard/SimpleCard.jsx'
+
+import SimpleCard from '../UI/SimpleCard/SimpleCard.jsx';
 
 import './PlayGame.scss';
 
 class PlayGame extends Component {
+
+  componentDidMount() {
+    this.props.updateTimer();
+  }
+
   arr = Array(3).fill(this.props.isAnswerQuiz)
 
   componentDidUpdate(prevProps) {
-    if (prevProps.counterRang !== this.props.counterRang) {
-      this.arr.unshift(this.props.isAnswerQuiz)
-      this.arr.pop()
+    if (prevProps.counterTotal !== this.props.counterTotal) {
+      this.arr.unshift(this.props.isAnswerQuiz);
+      this.arr.pop();
+    }
+
+    if (prevProps.timer !== this.props.timer) {
+      this.props.updateTimer()
     }
     /*     if (this.props.isAnswerQuiz === 'error') {
           this.arr = ['default', 'default', 'default']
@@ -25,9 +35,9 @@ class PlayGame extends Component {
   }
 
   render() {
-
     const {
       words, activeAnswer, translateWords, onCLick, isAnswerQuiz, counterRang, volume, handleVolume,
+      score, timer
     } = this.props;
 
     const rangs = `sprint-play__${isAnswerQuiz}`;
@@ -37,16 +47,22 @@ class PlayGame extends Component {
       rangs,
     );
 
-
     // arr.unshift(isAnswerQuiz);
 
     return (
       <div className={'sprint-play__container'}>
         <div className={'sprint-play__header'}>
-          <TimerIcon
-            className={'sprint-play__timer'} />
-          <PetsIcon
-            className={'sprint-play__point'} />
+
+          <div className={'sprint-play__timer-wrapper'}>
+            <TimerIcon />
+            <div className={'sprint-play__timer'}>{timer}</div>
+          </div>
+
+          <div className={'sprint-play__point-wrapper'}>
+            <PetsIcon />
+            <div className={'sprint-play__point-score'}>{score}</div>
+          </div>
+
           <IconButton onClick={handleVolume}>
             {volume
               ? <VolumeUpIcon className={'sprint-play__volume'} />
@@ -75,7 +91,7 @@ class PlayGame extends Component {
             color="secondary"
             size="large"
             onClick={onCLick}
-            value={false}
+            value={0}
             style={{ width: 120 }}
           >
             НЕВЕРНО
@@ -85,7 +101,7 @@ class PlayGame extends Component {
             color="primary"
             size="large"
             onClick={onCLick}
-            value={true}
+            value={1}
             style={{ width: 120 }}
           >
             ВЕРНО

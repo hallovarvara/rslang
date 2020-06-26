@@ -4,15 +4,20 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import StartGame from './Components/StartGame';
 import PlayGame from './Components/PlayGame';
+import FinishGame from './Components/FinishGame';
 import {
   getCards, getRandomIntInclusive, totalQuizInGroup, audioPlay,
 } from './services/services';
-import { STATUS_QUIZ, RESULT_TITLE, AUDIO_PATH } from './services/constants';
+import {
+  STATUS_QUIZ, RESULT_TITLE, AUDIO_PATH, BASIC, CORRECT_ANSWER_ONCE
+} from './services/constants';
 
 import './Sprint.scss';
 
 const initialState = {
 
+  timer: 5,
+  score: 0,
   activeQuestion: '',
   activeAnswer: '',
   activeCard: 0,
@@ -22,9 +27,9 @@ const initialState = {
   answerState: null,
   currentGroup: null,
   counter: {
-    rang: 0,
     total: 0,
-    win: 0,
+    multiplier: 1,
+    win: 1,
   },
   changeGroup: false,
   idWords: [],
@@ -50,6 +55,8 @@ const initialState = {
 
 class Sprint extends Component {
   audioPath = AUDIO_PATH;
+
+  basic = BASIC
 
   state = initialState
 
@@ -109,7 +116,7 @@ class Sprint extends Component {
         total: total + 1,
         words: [...words],
         translate: [...translate],
-        audio: [...translate],
+        audio: [...audio],
       },
     });
   }
@@ -123,51 +130,57 @@ class Sprint extends Component {
     });
   }
 
-  /*  onCorrectAnswer = (idWordPressed) => {
-     if (idWordPressed === this.state.translateWords[idWordPressed]) {
-       this.resultCurrentQuiz('complete');
-       this.guessedWords(idWordPressed, null, 'success');
-       this.audioPlay(this.audioPath[0]);
-     } else {
-       this.resultCurrentQuiz('mistake');
-       this.audioPlay(this.audioPath[1]);
-       this.guessedWords(idWordPressed, 'error', null);
-     }
-   } */
-  updateCounterRang = () => {
+  updateCounter = (total, mult = 1, win = 0) => {
+    const multiplier = win && this.state.counter.win % CORRECT_ANSWER_ONCE === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
-        rang: counter.rang + 1,
-        total: 0,
+        total: counter.total + total,
+        multiplier: win ? counter.multiplier * multiplier : mult,
+        win: win ? counter.win + win : 1,
       },
     }));
-    if (this.state.counter.rang === 3 || this.state.isAnswerQuiz === 'error') {
-      this.setState({
-        counter: {
-          rang: 1,
-          total: 0,
-        },
-      });
+  }
+
+  updateScore = (basic) => {
+    this.setState(({ score }) => ({
+      score: score + this.state.counter.multiplier * basic,
+    }));
+  }
+
+  updateTimer = () => {
+    const timerId = setTimeout(() => {
+      this.setState(({ timer }) => ({
+        timer: timer - 1,
+      }));
+    }, 1000);
+    if (this.state.timer === 0) {
+      clearTimeout(timerId);
+      this.setState({ isFinished: true });
     }
   }
 
   onClickHandler = (e) => {
     const { answerState } = this.state;
-    const isTrue = Boolean(e.currentTarget.value);
+    const isTrue = Boolean(Number(e.currentTarget.value));
 
     if (answerState) {
       return;
     }
 
     this.setState({ answerState: true });
-    this.updateCounterRang();
+    // this.updateCounter(1);
 
     if (isTrue === this.state.isTrue) {
       this.setState({ isAnswerQuiz: 'check' });
-      this.audioPlay(this.audioPath[0]);
+      this.audioPlay(this.audioPath.success);
+      this.updateCounter(1, 2, 1);
+      this.updateScore(this.basic);
+      this.resultCurrentQuiz('complete')
     } else {
-      this.audioPlay(this.audioPath[1]);
+      this.audioPlay(this.audioPath.error);
       this.setState({ isAnswerQuiz: 'times' });
+      this.updateCounter(1);
+      this.resultCurrentQuiz('mistake')
     }
     this.updateState(3, 2);
   }
@@ -179,21 +192,34 @@ class Sprint extends Component {
   render() {
     const {
       words, activeAnswer, translateWords, isAnswerQuiz, counter,
-      volume,
+      volume, score, timer, isFinished, mistake, complete
     } = this.state;
     return (
       <div className={'sprint__wrapper'}>
         <div className={'sprint__container'}>
-          <PlayGame
-            words={words}
-            activeAnswer={activeAnswer}
-            onCLick={this.onClickHandler}
-            translateWords={translateWords}
-            isAnswerQuiz={isAnswerQuiz}
-            counterRang={counter.rang}
-            volume={volume}
-            handleVolume={this.handleVolume}
-          />
+          {
+            isFinished
+              ? <FinishGame
+                isFinished={isFinished}
+                mistake={mistake}
+                complete={complete}
+                audioPlay={this.audioPlay}
+              />
+              : <PlayGame
+                words={words}
+                activeAnswer={activeAnswer}
+                onCLick={this.onClickHandler}
+                translateWords={translateWords}
+                isAnswerQuiz={isAnswerQuiz}
+                counterTotal={counter.total}
+                volume={volume}
+                handleVolume={this.handleVolume}
+                score={score}
+                timer={timer}
+                updateTimer={this.updateTimer}
+              />
+          }
+
         </div>
       </div>
 

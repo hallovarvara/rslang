@@ -2,14 +2,32 @@
   width: 600px;
   height: 400px;
   margin: 0 auto;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
 }
 .sprint-play__header{
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
 }
+.sprint-play__point-wrapper{
+  display: flex;
+}
+.sprint-play__point-score{
+  margin-left: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.sprint-play__timer-wrapper{
+  display: flex;
+}
+.sprint-play__timer{
+margin-left: 10px;
+}
 .sprint-play__volume{
   color: #000000;
+ position: relative;
+ bottom: 12px;
 }
 .sprint-play__board{
   background-color: rgb(233, 233, 233);
@@ -37,19 +55,16 @@
 }
 .sprint-play__word{
   margin-bottom: 20px;
-  font-size: 1.5rem;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
+  font-size: 3.5rem;
   line-height: 1.334;
   letter-spacing: 0em;
 }
 .sprint-play__translate{
-  font-size: 0.875rem;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 400;
+  font-size: 1.875rem;
   line-height: 1.43;
   letter-spacing: 0.01071em;
   padding-bottom: 80px;
+  color: #7c7c7c;
 }
 .sprint-play__control{
   display: flex;
