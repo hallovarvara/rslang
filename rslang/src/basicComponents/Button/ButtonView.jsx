@@ -5,22 +5,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 const ButtonView = ({ value = 'Button' }) => {
-  const StyledButton = withStyles({
-    root: {
-      fontSize: '5rem',
-      textTransform: 'none',
-      backgroundColor: 'black',
-      color: 'white',
-      '&:hover': {
-        backgroundColor: 'white',
-        color: 'black',
-      },
-    },
-  })(Button);
-
-  return (
-    <StyledButton variant="contained" size="large">{value}</StyledButton>
-  );
+  return <Button
+    classes={{ root: 'btn-primary' }}
+    variant="contained"
+    size="large">{value}</Button>;
 };
 
 ButtonView.propTypes = {

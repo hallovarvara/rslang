@@ -4,26 +4,17 @@ import { Select, MenuItem } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const mapSelectTitlesToItems = (title, index) => (
-    <MenuItem key={index} value={title} className="select-list__item">{title}</MenuItem>
+    <MenuItem key={index} value={title} classes={{ root: 'menu-item' }}>{title}</MenuItem>
 );
 
 const SelectView = ({ selectTitles = ['first', 'second', 'third'] }) => {
-  const StyledSelect = withStyles({
-    root: {
-      fontWeight: '600',
-      fontSize: '2.5rem',
-      fontFamily: '"Inter", sans-serif',
-      fontStyle: 'normal',
-      lineHeight: '100%',
-    },
-  })(Select);
   // TODO: get defaultValue from redux
   return (
-    <StyledSelect className="select-list" defaultValue={selectTitles[0]}>
+    <Select classes={{ root: 'select-input', icon: 'select-arrow' }} defaultValue={selectTitles[0]}>
       {
         selectTitles.map(mapSelectTitlesToItems)
       }
-    </StyledSelect>
+    </Select>
   );
 };
 
