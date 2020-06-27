@@ -1,6 +1,7 @@
 .item {
   margin: 10px auto;
   padding: 15px;
+  color: #000000;
   font-size: 22px;
   line-height: 1;
   text-align: center;
@@ -11,10 +12,15 @@
   }
 }
 
+.disable {
+  color: rgba(0, 0, 0, 0.2);
+}
 .right {
+  color: #000000;
   background: rgba(161, 240, 69, 0.7);
 }
 
 .wrong {
+  color: #000000;
   background: rgba(240, 87, 108, 0.7);
 }

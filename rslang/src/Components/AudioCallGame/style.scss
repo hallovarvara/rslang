@@ -35,21 +35,6 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce03ed', endColorstr='#dbd086', GradientType=0 );
 }
 
-.question__container {
-  width: 100px;
-  height: 100px;
-  margin: 10px auto;
-  padding: 20px;
-  font-size: 22px;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.2);
-  background-image: url(../../assets/sound.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 50%;
-  border-radius: 50%;
-}
-
 .answer__container {
   display: flex;
   justify-content: space-between;

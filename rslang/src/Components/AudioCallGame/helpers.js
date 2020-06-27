@@ -16,4 +16,7 @@ export const generateQuestionsArray = (data, amountLevels = 12) => (
   shuffle(data).slice(0, amountLevels)
 );
 
-
+export const playAudio = (audio) => {
+  const audioElement = new Audio(audio);
+  audioElement.play();
+};

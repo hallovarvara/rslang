@@ -5,7 +5,7 @@ import FinishGameItem from '../FinishGameItem';
 
 const FinishGameView = ({ errorAnswerArray, rightAnswerArray }) => {
   const generateErrorWords = () => {
-    if (errorAnswerArray) {
+    if (errorAnswerArray.length !== 0) {
       return errorAnswerArray.map((word) => (
         <FinishGameItem
           key={word.id}
@@ -15,7 +15,7 @@ const FinishGameView = ({ errorAnswerArray, rightAnswerArray }) => {
     } return null;
   };
   const generateRightWords = () => {
-    if (errorAnswerArray) {
+    if (errorAnswerArray.length !== 0) {
       return rightAnswerArray.map((word) => (
         <FinishGameItem
           key={word.id}

@@ -1,20 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import GameView from './GameView.jsx';
 import data from '../../mockData';
-import { shuffle, generateQuestionsArray } from '../../helpers';
+import { shuffle, generateQuestionsArray, playAudio } from '../../helpers';
+import { audio } from '../../constants';
 
 class Game extends React.Component {
-  state = {
-    dataWords: data, // TODO API
-    level: 0,
-    numberLevel: 12, // TODO: use settings
-    numberAnswers: 5, // TODO: use settings
-    questionList: [],
-    errorAnswerArray: [],
-    rightAnswerArray: [],
-    isRightAnswer: false,
-    isFalseAnswer: false,
-    isClickable: true,
+  constructor(props) {
+    super(props);
+    const { numberLevel, numberAnswers } = props;
+    this.state = {
+      dataWords: data, // TODO API
+      level: 0,
+      numberLevel, // TODO: use settings
+      numberAnswers, // TODO: use settings
+      questionList: [],
+      errorAnswerArray: [],
+      rightAnswerArray: [],
+      isRightAnswer: false,
+      isFalseAnswer: false,
+    };
   }
 
   componentDidMount() {
@@ -47,24 +52,25 @@ class Game extends React.Component {
         isRightAnswer: false,
         isFalseAnswer: false,
         answerArray,
-        isClickable: true,
       });
-    } else console.log('The end');
-  }
-
-  countError = () => {
-    let { error } = this.state;
-    error += 1;
-    this.setState({ error });
+    }
   }
 
   handlerClickButton = (e) => {
-    const { isRightAnswer } = this.state;
+    const {
+      isRightAnswer,
+      isFalseAnswer,
+      errorAnswerArray,
+      questionList,
+      level,
+      id,
+    } = this.state;
     e.preventDefault();
-    this.changeLevel();
-    if (!isRightAnswer) {
-      this.countError();
-    }
+    const question = questionList[level];
+    if (!isRightAnswer && !isFalseAnswer) {
+      this.setErrorAnswer(errorAnswerArray, question, id);
+      playAudio(audio.error);
+    } else this.changeLevel();
   }
 
   setRightAnswer = (rightAnswerArray, question, id) => {
@@ -73,7 +79,6 @@ class Game extends React.Component {
       rightAnswerArray: [...rightAnswerArray],
       isRightAnswer: true,
       currentAnswerId: id,
-      isClickable: false,
     });
   }
 
@@ -83,7 +88,6 @@ class Game extends React.Component {
       errorAnswerArray: [...errorAnswerArray],
       isFalseAnswer: true,
       currentAnswerId: id,
-      isClickable: false,
     });
   }
 
@@ -91,48 +95,43 @@ class Game extends React.Component {
     const {
       questionList,
       level,
-      isClickable,
+      isRightAnswer,
+      isFalseAnswer,
       rightAnswerArray,
       errorAnswerArray,
     } = this.state;
     const question = questionList[level];
-    if (isClickable) {
+    if (!isRightAnswer && !isFalseAnswer) {
       if (id === question.id) {
         this.setRightAnswer(rightAnswerArray, question, id);
+        playAudio(audio.sucsess);
       } else {
         this.setErrorAnswer(errorAnswerArray, question, id);
+        playAudio(audio.error);
       }
     }
   }
 
   render() {
     const {
-      dataWords,
       questionList,
       level,
-      numberLevel,
       isRightAnswer,
       isFalseAnswer,
       currentAnswerId,
       answerArray,
-      isClickable,
       rightAnswerArray,
       errorAnswerArray,
     } = this.state;
     return (
       <GameView
         answerArray={answerArray}
-        isClickable={isClickable}
         handlerClickAnswer = {this.handlerClickAnswer}
-        dataWords={dataWords}
         questionsList={questionList}
         level={level}
-        numberLevel={numberLevel}
         isRightAnswer={isRightAnswer}
         rightAnswerArray={rightAnswerArray}
         errorAnswerArray={errorAnswerArray}
-        // changeLevel={this.changeLevel}
-        // countError={this.countError}
         isFalseAnswer={isFalseAnswer}
         currentAnswerId={currentAnswerId}
         handlerClickButton={this.handlerClickButton}
@@ -140,5 +139,10 @@ class Game extends React.Component {
     );
   }
 }
+
+Game.propTypes = {
+  numberLevel: PropTypes.number,
+  numberAnswers: PropTypes.number,
+};
 
 export default Game;

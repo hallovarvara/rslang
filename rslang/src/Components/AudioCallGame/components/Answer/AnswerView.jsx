@@ -15,6 +15,7 @@ const AnswerView = ({
     style.item,
     { [style.right]: ((isRightAnswer || isFalseAnswer) && answer.id === question.id) },
     { [style.wrong]: isFalseAnswer && answer.id === currentAnswerId },
+    { [style.disable]: isRightAnswer || isFalseAnswer },
   );
   return (
   <li className={answerItem}

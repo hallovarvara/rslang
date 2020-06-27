@@ -37,7 +37,6 @@ const AnswerPanelView = ({
 AnswerPanelView.propTypes = {
   answerArray: PropTypes.array,
   question: PropTypes.object,
-  level: PropTypes.number,
   handlerClickAnswer: PropTypes.func,
   isRightAnswer: PropTypes.bool,
   isFalseAnswer: PropTypes.bool,
