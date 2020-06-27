@@ -1,26 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../style.scss';
+import style from './AnswerPanelView.module.scss';
 
 import Answer from '../Answer';
 
 const AnswerPanelView = ({
   answerArray,
   question,
-  level,
+  handlerClickAnswer,
+  isRightAnswer,
+  isFalseAnswer,
+  currentAnswerId,
 }) => {
   const generateAnswers = () => {
-    if (question.length !== 0 && question.length !== (level)) {
+    if (question && answerArray) {
       return answerArray.map((answer) => (
         <Answer
+          isRightAnswer={isRightAnswer}
+          isFalseAnswer={isFalseAnswer}
+          handlerClickAnswer = {handlerClickAnswer}
+          question={question}
           answer={answer}
           key={answer.id}
+          currentAnswerId={currentAnswerId}
         />
       ));
-    } return console.log('end');
+    } return null;
   };
   return (
-    <ol className="answer__container">
+    <ol className={style.container}>
       {generateAnswers()}
     </ol>
   );
@@ -28,8 +36,12 @@ const AnswerPanelView = ({
 
 AnswerPanelView.propTypes = {
   answerArray: PropTypes.array,
-  question: PropTypes.array,
+  question: PropTypes.object,
   level: PropTypes.number,
+  handlerClickAnswer: PropTypes.func,
+  isRightAnswer: PropTypes.bool,
+  isFalseAnswer: PropTypes.bool,
+  currentAnswerId: PropTypes.string,
 };
 
 export default AnswerPanelView;

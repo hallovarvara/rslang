@@ -1,50 +1,42 @@
 import React from 'react';
-import PropTypes, { object } from 'prop-types';
-import { replaceAudioSrc } from '../../helpers';
+import PropTypes from 'prop-types';
+import { replaceAudioSrc, replaceImageSrc } from '../../helpers';
 import QuestionView from './QuestionView.jsx';
 
-class Question extends React.Component {
-  constructor(props) {
-    super(props);
-    this.props = props;
-  }
+const Question = (props) => {
+  const {
+    question, isFalseAnswer, isRightAnswer,
+  } = props;
+  if (!question) return null;
+  const {
+    image,
+    id,
+    word,
+    audio,
+  } = question;
 
-  generateAudio() {
-    const { question, level } = this.props;
-    if (question.length !== 0 && question.length !== level) {
-      const { audio, id, word } = question[level];
-      this.id = id;
-      this.audio = new Audio(replaceAudioSrc(audio));
-      const playPromise = this.audio.play();
-      console.log(word, 15);
-      if (playPromise) {
-        playPromise
-          .then((res) => {
-            console.log('audio played auto');
-          })
-          .catch((error) => {
-            console.log('playback prevented');
-          });
-      }
+  const audioElement = new Audio(replaceAudioSrc(audio));
+  audioElement.oncanplay = () => {
+    if (!isFalseAnswer && !isRightAnswer) {
+      audioElement.play();
     }
-  }
+  };
+  const srcImage = replaceImageSrc(image);
 
-  render() {
-    const { question, level, isFalseAnswer, isRightAnswer } = this.props;
-    this.generateAudio();
-    return (
-      <QuestionView
-        question={question}
-        level={level}
-        isFalseAnswer={isFalseAnswer}
-        isRightAnswer={isRightAnswer}
-      />
-    );
-  }
-}
+  return (
+    <QuestionView
+      id={id}
+      word={word}
+      audioElement={audioElement}
+      srcImage={srcImage}
+      isFalseAnswer={isFalseAnswer}
+      isRightAnswer={isRightAnswer}
+    />
+  );
+};
 
 Question.propTypes = {
-  question: PropTypes.array,
+  question: PropTypes.object,
   level: PropTypes.number,
   isFalseAnswer: PropTypes.bool,
   isRightAnswer: PropTypes.bool,

@@ -5,7 +5,7 @@ import MainPage from '../MainPage';
 import SettingsPage from '../SettingPage';
 import StatisticPage from '../StatisticPage';
 import TeamPage from '../TeamPage';
-import AudioCall from '../AudioCallGame/Game';
+import AudioCall from '../AudioCallGame';
 
 const Main = () => (
   <main>

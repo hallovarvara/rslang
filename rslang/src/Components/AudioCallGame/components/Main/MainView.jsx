@@ -3,7 +3,9 @@ import Game from '../Game';
 
 const MainView = () => {
   return (
-    <Game />
+    <main>
+      <Game />
+    </main>
   );
 };
 

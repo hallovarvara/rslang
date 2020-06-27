@@ -1,0 +1,20 @@
+.item {
+  margin: 10px auto;
+  padding: 15px;
+  font-size: 22px;
+  line-height: 1;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.right {
+  background: rgba(161, 240, 69, 0.7);
+}
+
+.wrong {
+  background: rgba(240, 87, 108, 0.7);
+}
