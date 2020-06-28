@@ -10,10 +10,21 @@
   font-size: 3rem;
   letter-spacing: 15px;
   text-transform: uppercase;
+  @media (max-width: 720px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 520px) {
+    font-size: 1.4rem;
+  }
 }
 
 .text {
   font-size: 1.8rem;
+  width: 80%;
+  text-align: center;
+  @media (max-width: 720px) {
+    font-size: 1rem;
+  }
 }
 
 .form {
@@ -21,4 +32,8 @@
   flex-direction: column;
   width: 40%;
   margin-top: 40px;
+  padding: 10px;
+  @media (max-width: 720px) {
+    width: 70%;
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Game from '../Game';
-import StartGame from '../StartGame';
+import GamePage from '../GamePage';
+import StartGamePage from '../StartGamePage';
 
 const MainView = ({
   handleChooseLevel,
@@ -14,13 +14,13 @@ const MainView = ({
   numberLevel,
 }) => (
   (!isStart)
-    ? <StartGame
+    ? <StartGamePage
       handleChooseLevel={handleChooseLevel}
       setNumberLevel={setNumberLevel}
       setNumberAnswers={setNumberAnswers}
       handleSubmitForm={handleSubmitForm}
     />
-    : <Game
+    : <GamePage
       level={level}
       numberAnswers={numberAnswers}
       isStart={isStart}

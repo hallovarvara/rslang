@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './FinishGameView.module.scss';
+import style from './FinishGamePageView.module.scss';
 import FinishGameItem from '../FinishGameItem';
 
-const FinishGameView = ({ errorAnswerArray, rightAnswerArray }) => {
+const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray }) => {
   const generateErrorWords = () => {
     if (errorAnswerArray.length !== 0) {
       return errorAnswerArray.map((word) => (
@@ -44,9 +44,9 @@ const FinishGameView = ({ errorAnswerArray, rightAnswerArray }) => {
   );
 };
 
-FinishGameView.propTypes = {
+FinishGamePageView.propTypes = {
   errorAnswerArray: PropTypes.array,
   rightAnswerArray: PropTypes.array,
 };
 
-export default FinishGameView;
+export default FinishGamePageView;

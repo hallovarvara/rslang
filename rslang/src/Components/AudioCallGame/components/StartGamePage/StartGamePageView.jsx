@@ -8,9 +8,9 @@ import {
   Button,
 } from '@material-ui/core';
 import { levelArray } from '../../constants';
-import style from './StartGameView.module.scss';
+import style from './StartGamePageView.module.scss';
 
-const StartGameView = ({
+const StartGamePageView = ({
   handleChooseLevel,
   level, setNumberLevel,
   setNumberAnswers,
@@ -23,7 +23,7 @@ const StartGameView = ({
     <div className={style.container}>
       <h2 className={style.title}>Aудиовызов</h2>
       <p className={style.text}>Тренировка улучшает восприятие англиской речи на слух</p>
-      <form action="" className={style.form} onSubmit={handleSubmitForm}>
+      <form className={style.form} onSubmit={handleSubmitForm}>
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-level-native-simple">Выберите уровень</InputLabel>
           <Select
@@ -41,12 +41,12 @@ const StartGameView = ({
         </FormControl>
         <TextField
           required
+          className={style.input}
           id="audiocall-start__questions"
           label="Количество вопросов от 5 до 12"
-          inputProps={{ min: 5, max: 12 }}
+          inputProps={{ pattern: '[0-9]', min: '5', max: '12' }}
           variant="filled"
           onChange={setNumberLevel}
-
         />
         <TextField
           required
@@ -61,13 +61,13 @@ const StartGameView = ({
           variant="contained"
         >
           Начать игру
-      </Button>
+        </Button>
       </form>
     </div>
   );
 };
 
-StartGameView.propTypes = {
+StartGamePageView.propTypes = {
   handleChooseLevel: PropTypes.func,
   level: PropTypes.number,
   setNumberLevel: PropTypes.func,
@@ -75,4 +75,4 @@ StartGameView.propTypes = {
   handleSubmitForm: PropTypes.func,
 };
 
-export default StartGameView;
+export default StartGamePageView;

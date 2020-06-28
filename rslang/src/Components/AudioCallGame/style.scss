@@ -1,4 +1,4 @@
-.game__container {
+.container {
   min-height: 100vh;
   background: rgba(206, 3, 237, 1);
   background: -moz-linear-gradient(
@@ -35,43 +35,38 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ce03ed', endColorstr='#dbd086', GradientType=0 );
 }
 
-.answer__container {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  list-style-position: inside;
-}
+// .answer__container {
+//   display: flex;
+//   justify-content: space-between;
+//   padding: 10px;
+//   list-style-position: inside;
+// }
 
-.button {
-  padding: 10px 20px;
-  font-size: 25px;
-}
+// .iconButton .volumeUpRounded {
+//   font-size: 5rem;
+// }
 
-.iconButton .volumeUpRounded {
-  font-size: 5rem;
-}
+// .picture {
+//   width: 150px;
+//   height: 150px;
+//   object-fit: cover;
+//   border-radius: 50%;
+// }
 
-.picture {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-}
+// .question {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+// }
 
-.question {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+// .description {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   line-height: 1;
+// }
 
-.description {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  line-height: 1;
-}
-
-.word {
-  font-size: 2rem;
-}
+// .word {
+//   font-size: 2rem;
+// }

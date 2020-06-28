@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './GameView.module.scss';
+import style from './GamePageView.module.scss';
 
 import Question from '../Question';
 import AnswerPanel from '../AnswerPanel';
 import Button from '../Button';
-import FinishGame from '../FinishGame';
+import FinishGamePage from '../FinishGamePage';
 
-const GameView = ({
+const GamePageView = ({
   questionsList,
   level,
   answerArray,
@@ -43,7 +43,7 @@ const GameView = ({
         />
       </div>
     )
-    : <FinishGame
+    : <FinishGamePage
         rightAnswerArray={rightAnswerArray}
         errorAnswerArray={errorAnswerArray}
       />;
@@ -55,7 +55,7 @@ const GameView = ({
   );
 };
 
-GameView.propTypes = {
+GamePageView.propTypes = {
   questionsList: PropTypes.array,
   answerArray: PropTypes.array,
   level: PropTypes.number,
@@ -70,4 +70,4 @@ GameView.propTypes = {
   rightAnswerArray: PropTypes.array,
 };
 
-export default GameView;
+export default GamePageView;

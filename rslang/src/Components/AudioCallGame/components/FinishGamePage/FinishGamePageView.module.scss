@@ -2,6 +2,9 @@
   display: flex;
   justify-content: space-around;
   padding: 40px;
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
 }
 
 .title {

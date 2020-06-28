@@ -23,7 +23,7 @@ const QuestionView = ({
   return (
     <div className={style.container} dataid= {id}>
       <img src={srcImage} alt={word} className={pictureClasses}/>
-      <div className="description">
+      <div className={style.description}>
         <IconButton aria-label="audio" className={style.iconButton} onClick = {() => audioElement.play()}>
           <VolumeUpRounded fontSize="large" className={iconClass}/>
         </IconButton>

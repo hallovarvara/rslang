@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../style.scss';
+import {
+  Button,
+} from '@material-ui/core';
+import style from './ButtonView.module.scss';
 
 const ButtonView = ({
   isRightAnswer,
@@ -9,7 +12,7 @@ const ButtonView = ({
 }) => {
   const buttonTextContent = (isRightAnswer || isFalseAnswer) ? 'Далее' : 'Я не знаю';
   return (
-    <button className='button' onClick={handlerClickButton}>{buttonTextContent}</button>
+    <Button variant="contained" size="large" className={style.button} onClick={handlerClickButton}>{buttonTextContent}</Button>
   );
 };
 
