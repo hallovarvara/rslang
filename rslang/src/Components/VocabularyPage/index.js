@@ -1,6 +1,7 @@
 import React from 'react';
 import VocabularyView from './VocabularyPage.jsx';
-import { wordsData, selectorOptions } from '../../Helpers/constants';
+import { selectorOptions } from '../../Helpers/constants';
+import { wordsData } from '../../Helpers/wordsData';
 
 const VocabularyPage = ( props ) => {
 

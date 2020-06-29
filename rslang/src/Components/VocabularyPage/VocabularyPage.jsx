@@ -1,9 +1,7 @@
 import React from 'react';
 import WordCard from '../WordCard';
 
-const VocabularyView = ( props ) => {
-
-  const { selectorOptions, changeVocabularyType, selectedOption, words } = props;
+const VocabularyView = ( { selectorOptions, changeVocabularyType, selectedOption, words } ) => {
   const options = selectorOptions.map( ([ key, value ]) => <option value={ key } key={ key }> { value } </option> );
   const cards = words.map( (word) => <WordCard wordData={ word } key={ word.id } />)
 

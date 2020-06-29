@@ -1,9 +1,7 @@
 import React from 'react';
 import WordCardView from './WordCard.jsx';
 
-const WordCard = ( props ) => {
-  const { wordData } = props;
-
+const WordCard = ( { wordData } ) => {
   const audio = new Audio( wordData.audioExample ) //mp3 URL from state
 
   const playSound = () => {

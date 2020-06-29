@@ -1,8 +1,6 @@
 import React from 'react';
 
-const WordCardView = ( props ) => {
-  const { wordData, playSound, restoreWord } = props;
-
+const WordCardView = ( { wordData, playSound, restoreWord } ) => {
   const onPlaySound = () => {
     playSound();
   }
