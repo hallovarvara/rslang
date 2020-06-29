@@ -1,9 +1,19 @@
+// Abstacts from main
+@import '../../../scss/abstracts/constants';
+@import '../../../scss/abstracts/mixins';
+
+// Abstarcs
+@import './scss/abstracts/contants';
+
 // Base
 @import './scss/base/base';
 @import './scss/base/typography';
+@import './scss/base/fonts';
 
 // Layouts
 @import './scss/layouts/start-page';
+
+// Components
 
 // Vendors
 @import './scss/vendors/normalize';
