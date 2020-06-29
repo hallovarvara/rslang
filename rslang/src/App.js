@@ -3,8 +3,9 @@ import './App.scss';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore } from 'redux';
 
-import Header from './Components/Header';
-import Main from './Components/Main';
+import Header from './components/Header';
+import Main from './components/Main';
+import Unmess from './components/games/Unmess/App';
 
 const reducer = (state = 0, action) => state;
 
@@ -16,7 +17,7 @@ function App() {
     <Router>
       <div className='App'>
         <Header />
-        <Main />
+        <Unmess />
       </div>
     </Router>
   );
