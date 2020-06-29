@@ -5,7 +5,6 @@ import { createStore } from 'redux';
 
 import Header from './Components/Header';
 import Main from './Components/Main';
-import Sprint from './Components/Sprint';
 
 const reducer = (state = 0, action) => state;
 
@@ -16,9 +15,8 @@ function App() {
   return (
     <Router>
       <div className='App'>
-        {/*   <Header />
-        <Main /> */}
-        <Sprint />
+        <Header />
+        <Main />
 
       </div>
     </Router>
