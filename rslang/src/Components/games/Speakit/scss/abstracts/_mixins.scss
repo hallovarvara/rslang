@@ -1,0 +1,10 @@
+@mixin media-hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin font($size, $weight) {
+  font-weight: $weight;
+  font-size: $size;
+}

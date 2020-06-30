@@ -8,7 +8,7 @@ const GameCardView = ({ data: { title, description, link } }) => (
     <div className="game-card">
       <h5 className="game-card__title">{title}</h5>
       <p className="game-card__description">{description}</p>
-      <Link className="link-btn game-card__link-button-container" to={`/play-games/${link}`}>
+      <Link className="link-btn game-card__link-button-container" to={link}>
         <Button type="secondary" value="Play Game title"/>
       </Link>
     </div>

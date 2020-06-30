@@ -10,7 +10,7 @@ const gamesData = [
   {
     title: 'SpeakIt',
     description: 'Description with advantages and answer the question why this game will be useful.',
-    link: 'speakit',
+    link: '/speakit/home',
   },
   {
     title: 'English puzzle',

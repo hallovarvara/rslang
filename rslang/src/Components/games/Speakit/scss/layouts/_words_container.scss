@@ -1,0 +1,82 @@
+.speakit-game-container .words-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  margin: 0px 0px 20px 0px;
+}
+
+.speakit-game-container .word-item {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 200px;
+  height: 77px;
+  margin: 10px;
+  overflow: hidden;
+  background: rgba(242, 255, 245, 0.1);
+  border: 1px solid $color-light;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border 0.5s, box-shadow 0.5s;
+  @include media-hover {
+    &:hover::before {
+      top: -30px;
+      left: -30px;
+    }
+  }
+  &:hover {
+    box-shadow: 0px 0px 8px $color-light;
+  }
+  &::before {
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    z-index: 0;
+    width: 270px;
+    height: 147px;
+    background: linear-gradient(#140035, #244e8c);
+    border-radius: 50%;
+    opacity: 0.9;
+    transition: top 0.7s, left 0.7s;
+    content: '';
+  }
+}
+
+.speakit-game-container .word-item_active {
+  background: linear-gradient(#140035, #244e8c);
+}
+
+.speakit-game-container .word-item__transcription-image {
+  z-index: 1;
+  display: inline-block;
+  width: 21px;
+  height: 21px;
+  background: url('../../assets/speaker.svg');
+  background-size: cover;
+}
+
+.speakit-game-container .word {
+  z-index: 1;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+}
+
+.speakit-game-container .word__eng {
+  color: $color-light;
+  transition: color 0.5s;
+  @include font(22px, 400);
+}
+
+.speakit-game-container .word__transcription {
+  color: $color-light;
+  transition: color 0.5s;
+  @include font(18px, 400);
+}
+
+.speakit-game-container .word__translation {
+  display: none;
+}

@@ -1,0 +1,20 @@
+.speakit-game-container * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.speakit-game-container .container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1140px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.speakit-game-container {
+  padding-top: $header-height;
+  background-image: url('../../assets/hove_page_background1.jpg');
+  background-position: center;
+  background-size: cover;
+}

@@ -1,0 +1,72 @@
+.speakit-game-container .home-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 135px 15px 50px 15px;
+}
+
+.speakit-game-container .home-page-container__title {
+  margin-bottom: 25px;
+  color: $color-light;
+  font-family: 'Cutive Mono', monospace;
+  letter-spacing: 23px;
+  text-align: center;
+  text-shadow: 0px 0px 8px $color-light;
+  @include font(60px, 100);
+}
+
+.speakit-game-container .home-page-container__description {
+  margin-bottom: 50px;
+  color: $color-light;
+  font-family: 'Cutive Mono', monospace;
+  text-align: center;
+  text-shadow: 0px 0px 15px $color-light;
+  @include font(30px, 100);
+}
+
+.speakit-game-container .home-page-container__gif {
+  width: 63px;
+  height: 63px;
+}
+
+.speakit-game-container .home-page-container__button {
+  position: relative;
+  width: 201px;
+  height: 63px;
+  overflow: hidden;
+  color: $color-light;
+  font-family: 'Cutive Mono', monospace;
+  background: transparent;
+  border: 2px solid $color-light;
+  outline: none;
+  cursor: pointer;
+  transition: color 0.5s;
+  @include font(30px, 100);
+  @include media-hover {
+    &:hover {
+      color: $color-active;
+    }
+    &:hover::before {
+      top: -30px;
+      left: -30px;
+    }
+  }
+  &::before {
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    width: 270px;
+    height: 140px;
+    background: $color-light;
+    border-radius: 50%;
+    transition: top 0.7s, left 0.7s;
+    content: '';
+  }
+  * {
+    position: relative;
+  }
+}

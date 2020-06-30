@@ -9,6 +9,7 @@ import PromoPage from '../pages/Promo';
 import PlayGamesPage from '../pages/PlayGames';
 import SignInPage from '../pages/SignIn';
 import SignUpPage from '../pages/SignUp';
+import Speakit from '../games/Speakit';
 
 const Main = () => (
   <main className="main">
@@ -21,6 +22,7 @@ const Main = () => (
       <Route path="/play-games" component={PlayGamesPage} />
       <Route path="/sign-in" component={SignInPage} />
       <Route path="/sign-up" component={SignUpPage} />
+      <Route path="/speakit" component={Speakit} />
     </Switch>
   </main>
 );
