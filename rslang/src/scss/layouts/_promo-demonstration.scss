@@ -6,11 +6,15 @@
 
 .demonstration-container__title {
   margin-bottom: 50px;
-  font-weight: 300;
-  font-size: 5.2rem;
+  @include font(5.2rem, 300, normal);
 }
 
 .demonstration-container__video {
   width: 100%;
   margin-bottom: 90px;
+}
+
+.demonstration-container__start-link-button-container button {
+  padding: 15px 85px;
+  font-size: 4rem;
 }

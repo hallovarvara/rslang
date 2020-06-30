@@ -4,7 +4,7 @@ import HeaderView from './HeaderView.jsx';
 import { loggedHeaderLinkTitles, unloggedHeaderLinkTitles } from '../../helpers/constants';
 
 class Header extends React.Component {
-  isUserLogged = false; // TODO: unmock isUserLogged
+  isUserLogged = true; // TODO: unmock isUserLogged
 
   render() {
     const linkTitles = this.isUserLogged ? loggedHeaderLinkTitles : unloggedHeaderLinkTitles;
