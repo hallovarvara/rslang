@@ -6,6 +6,7 @@ export const QUESTIONS_TOTAL_MIN = 5;
 export const QUESTIONS_TOTAL_MAX = 50;
 export const TOTAL_GROUP = 6;
 export const URL_DATA_RSLANG = 'https://raw.githubusercontent.com/kejno/rslang-data/master/';
+export const URL_WORDS_RSLANG = 'https://kagafon-learn-words.herokuapp.com/words';
 export const STATUS_QUIZ = {
   success: 'success',
   error: 'error',

@@ -27,7 +27,7 @@ const initialState = {
   volume: true,
   heartCount: 5,
   keyPressed: null,
-  words: '',
+  words: [],
   mistake: {
     total: 0,
     words: [],
@@ -198,7 +198,7 @@ class Savannah extends Component {
   }
 
   onAnswerClickHandler = (e) => {
-    const keys = [1, 2, 3, 4];
+    const keys = this.state.words;
 
     e.preventDefault();
     const { idWords, answerState } = this.state;
@@ -212,13 +212,19 @@ class Savannah extends Component {
       }
     }
 
-    keys.forEach((value) => {
-      if (Number(e.key) === value) {
+    keys.forEach((value, key) => {
+      if (Number(e.key) === key + 1) {
         this.gameStatus(idWordPressed);
         this.onChangeGroupwords();
         this.onCorrectAnswer(idWordPressed);
       }
     });
+
+    if (e.target.id) {
+      this.gameStatus(idWordPressed);
+      this.onChangeGroupwords();
+      this.onCorrectAnswer(idWordPressed);
+    }
   }
 
   onDefault = () => {

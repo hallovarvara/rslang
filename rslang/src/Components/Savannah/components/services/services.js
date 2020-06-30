@@ -1,9 +1,9 @@
 import {
-  ALL_PAGE, ALL_PAGE_IN_QUERY, TOTAL_GROUP, URL_DATA_RSLANG,
+  ALL_PAGE, ALL_PAGE_IN_QUERY, TOTAL_GROUP, URL_DATA_RSLANG, URL_WORDS_RSLANG,
 } from './constants';
 
 export const getWords = async (page, group) => {
-  const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
+  const url = `${URL_WORDS_RSLANG}?page=${page}&group=${group}`;
   const res = await fetch(url);
   const json = await res.json();
   return json;
