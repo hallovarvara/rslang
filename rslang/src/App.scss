@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html {
   width: 100vw;
   height: 100vh;
@@ -6,30 +7,26 @@ html {
   font-size: 16px;
   background-color: coral;
 }
+=======
+// Abstracts
+@import './scss/abstracts/constants';
+@import './scss/abstracts/mixins';
+>>>>>>> d34c45377778067a333702455a9c7d18b27002ee
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: #fff;
-}
+// Vendors
+@import './scss/vendor/normalize';
 
-.title {
-  color: #fff;
-  font-size: 6rem;
-  text-align: center;
-}
+// Base
+@import './scss/base/typography';
+@import './scss/base/base';
 
-.text {
-  font-size: 3rem;
-}
+// Components
+@import './scss/components/select-list';
+@import './scss/components/paginaition';
+@import './scss/components/buttons';
+@import './scss/components/inputs';
 
-.navigation {
-  display: flex;
-  justify-content: space-around;
-  & li {
-    margin-left: 20px;
-    font-size: 2rem;
-    list-style-type: none;
-  }
-}
+//Layouts
+@import './scss/layouts/header';
+@import './scss/layouts/main';
+@import './scss/layouts/promo-demonstration';

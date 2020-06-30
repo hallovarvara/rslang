@@ -1,0 +1,29 @@
+html {
+  font-size: 10px;
+}
+
+html body {
+  font-weight: normal;
+  font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: $color-text-dark;
+  font-weight: 900;
+  font-family: 'Alegreya', serif;
+  font-style: italic;
+}
+
+h1 {
+  font-size: 9rem;
+}
+
+p {
+  margin: 0;
+}

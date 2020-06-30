@@ -1,0 +1,46 @@
+.header {
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  height: $header-height;
+  padding: 20px 50px;
+  background-color: $color-secondary;
+  @include flex(row, space-between, center);
+}
+
+.header__title {
+  font-size: 6rem;
+}
+
+.header__title a {
+  color: $color-text-dark;
+}
+
+.navigation {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  @include flex(row, center, center);
+}
+
+.navigation__item {
+  padding: 0px 20px;
+  line-height: 0px;
+  &:first-child {
+    padding-left: 0px;
+  }
+  &:last-child {
+    padding-right: 0px;
+  }
+  &_active {
+    font-weight: 900;
+  }
+}
+
+.navigation__item a {
+  color: $color-text-dark;
+  font-size: 2.4rem;
+  &:hover {
+    text-decoration: underline;
+  }
+}
