@@ -3,10 +3,10 @@ import './App.scss';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore } from 'redux';
 
-import Header from './Components/Header';
-import Main from './Components/Main';
-import LearnWords from './Components/Pages/LearnWords';
-import response from './Components/Pages/LearnWords/helpers/response.json';
+import Header from './components/Header';
+import Main from './components/Main';
+import LearnWords from './components/pages/LearnWords';
+import response from './components/pages/LearnWords/helpers/response.json';
 
 const reducer = (state = 0, action) => state;
 
