@@ -5,7 +5,8 @@ import {
   manyErrorsColor,
 } from './style-options';
 
-export const ImageUrl = (image) => (`${baseUrl}${image}`);
+// export const ImageUrl = (image) => (`${baseUrl}${image}`);
+export const resourceUrl = (path) => (`${baseUrl}${path}`);
 
 export const extractEmphasizedWord = (str, surroundingTag) => {
   const sentence = {};
@@ -82,6 +83,28 @@ export const prepareWrongAnswerStyles = (isShownWord, isWordSemiOpacity) => {
     styles.opacity = 0;
   }
   return styles;
+};
+
+export const playAudios = (audios) => {
+  const audio = new Audio();
+  if (!Array.isArray(audios)) {
+    audio.src = resourceUrl(audios);
+    audio.play();
+  } else {
+    let index = 0;
+    audio.src = resourceUrl(audios[index]);
+    audio.play();
+
+    audio.onended = () => {
+      if (index < audios.length) {
+        setTimeout(() => {
+          index += 1;
+          audio.src = resourceUrl(audios[index]);
+          audio.play();
+        }, 300);
+      }
+    };
+  }
 };
 
 export const encreaseRate = (wordObject, funcToConvertDate) => {

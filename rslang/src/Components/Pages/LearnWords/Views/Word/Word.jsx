@@ -48,12 +48,13 @@ class Word extends Component {
   }
 
   handleSuccess = () => {
-    const { onChangeProgress } = this.props;
+    const { onChangeProgress, onPlayAudio } = this.props;
     onChangeProgress({
       isGuessed: true,
       isShownWord: true,
       difference: null,
     });
+    onPlayAudio();
   }
 
   render() {
@@ -62,6 +63,7 @@ class Word extends Component {
       textExample,
       textExampleTranslate,
       isShownTranslation,
+      onPlayAudio,
     } = this.props;
     const { begin, emphasis, end } = textExample;
     const {
@@ -81,6 +83,7 @@ class Word extends Component {
     return (
       <div>
         <div>
+          {isGuessed && <button onClick={() => onPlayAudio('audioExample')}>Play</button>}
           <span>{begin}</span>
           <div style={{ position: 'relative', display: 'inline' }}>
             {output}
@@ -111,6 +114,7 @@ Word.propTypes = {
   textExample: PropTypes.object,
   isShownTranslation: PropTypes.bool,
   onChangeProgress: PropTypes.func,
+  onPlayAudio: PropTypes.func,
 };
 
 export default Word;

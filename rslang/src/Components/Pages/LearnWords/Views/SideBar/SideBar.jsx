@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ImageUrl } from '../../helpers/helpers';
+import { resourceUrl } from '../../helpers/helpers';
 
 const SideBar = ({
   word,
@@ -13,7 +13,7 @@ const SideBar = ({
 }) => (
   <div>
     <div>
-        {isShownImageAssociation && <img src={ImageUrl(image)} alt={word} />}
+        {isShownImageAssociation && <img src={resourceUrl(image)} alt={word} />}
         {
           isShownAnswerButton
           && <button onClick={

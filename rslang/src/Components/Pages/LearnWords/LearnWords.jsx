@@ -9,14 +9,16 @@ import {
   setSessionProgress,
   clearSessionProgress,
   checkSessionProgress,
+  playAudios,
 } from './helpers/helpers';
 
 export default class LearnWords extends Component {
   state = {
     wordCount: 0,
     totalWords: 0,
-    isAutoPlay: false,
+    isAutoPlay: true,
     progress: [],
+    isPlaying: false,
   };
 
   toggleAutoPlay = () => {
@@ -59,6 +61,17 @@ export default class LearnWords extends Component {
     if (!checkSessionProgress(progress) && totalWords !== 0) {
       clearSessionProgress();
       // TODO: add modal pop-up with short stats
+    }
+  }
+
+  playAudio = (audioName) => {
+    const { data } = this.props;
+    const { wordCount, isAutoPlay } = this.state;
+    if (audioName) {
+      playAudios(data[wordCount][audioName]);
+    } else if (isAutoPlay) {
+      const { audio, audioMeaning, audioExample } = data[wordCount];
+      playAudios([audio, audioMeaning, audioExample]);
     }
   }
 
@@ -152,6 +165,7 @@ export default class LearnWords extends Component {
           onNextWord={this.handleNextWord}
           onPrevWord={this.handlePrevWord}
           onChangeProgress={this.handleChangeProgress}
+          onPlayAudio={this.playAudio}
         />
       </div>
     );

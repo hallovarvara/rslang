@@ -29,6 +29,7 @@ const WordCard = ({
   onNextWord,
   onPrevWord,
   onChangeProgress,
+  onPlayAudio,
 }) => (
   <div>
       {/* //TODO: Here will be Material UI ProgressBar with 'totalWords' / 'wordCount' */}
@@ -44,6 +45,7 @@ const WordCard = ({
           textExampleTranslate={textExampleTranslate}
           isShownTranslation={isShownTranslation}
           onChangeProgress={onChangeProgress}
+          onPlayAudio={onPlayAudio}
         />
         <WordExtraInfo
           progress={progress}
@@ -55,6 +57,7 @@ const WordCard = ({
           isShownTranscription={isShownTranscription}
           isShownExampleSentence={isShownExampleSentence}
           isShownMeaning={isShownMeaning}
+          onPlayAudio={onPlayAudio}
         />
       </div>
       <div>
@@ -95,6 +98,7 @@ WordCard.propTypes = {
   onNextWord: PropTypes.func,
   onPrevWord: PropTypes.func,
   onChangeProgress: PropTypes.func,
+  onPlayAudio: PropTypes.func,
 };
 
 WordCard.defaultProps = {
@@ -120,6 +124,7 @@ WordCard.defaultProps = {
   onNextWord: () => {},
   onPrevWord: () => {},
   onChangeProgress: () => {},
+  onPlayAudio: () => {},
 };
 
 export default WordCard;

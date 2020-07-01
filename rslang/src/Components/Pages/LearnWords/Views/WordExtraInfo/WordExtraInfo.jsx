@@ -12,6 +12,7 @@ const WordExtraInfo = ({
   isShownTranscription,
   isShownExampleSentence,
   isShownMeaning,
+  onPlayAudio,
 }) => {
   const { begin, emphasis, end } = textMeaning;
   const { isGuessed } = progress;
@@ -21,7 +22,7 @@ const WordExtraInfo = ({
         {
           isGuessed && <div>
           {/* TODO: Please, replace buton text 'play' to an appropriate icon */}
-            <button>Play</button>
+            <button onClick={() => onPlayAudio('audio')}>Play</button>
             <p>{word}</p>
           </div>
         }
@@ -31,7 +32,7 @@ const WordExtraInfo = ({
       {
         isShownExampleSentence && <div>
           {/* TODO: Please, replace buton text 'play' to an appropriate icon */}
-          {isGuessed && <button>Play</button>}
+          {isGuessed && <button onClick={() => onPlayAudio('audioMeaning')}>Play</button>}
           <span>{begin}</span>
           <span style={isGuessed ? showWordStyles : hideWordStyles}>{emphasis}</span>
           <span>{end}</span>
@@ -39,7 +40,6 @@ const WordExtraInfo = ({
       }
       {isGuessed && isShownMeaning && <div>
         {/* TODO: Please, replace buton text 'play' to an appropriate icon */}
-        <button>Play</button>
         <p>{textMeaningTranslate}</p>
       </div>}
     </div>
@@ -56,6 +56,7 @@ WordExtraInfo.propTypes = {
   isShownTranscription: PropTypes.bool,
   isShownExampleSentence: PropTypes.bool,
   isShownMeaning: PropTypes.bool,
+  onPlayAudio: PropTypes.func,
 };
 
 export default WordExtraInfo;
