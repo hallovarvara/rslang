@@ -33,9 +33,9 @@ const gamesData = [
     link: 'sprint',
   },
   {
-    title: 'Своя игра',
+    title: 'Unmess',
     description: 'Description with advantages and answer the question why this game will be useful.',
-    link: 'own-game',
+    link: '/unmess/home',
   },
 ];
 const teamMembers = [

@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 
 import Header from './components/Header';
 import Main from './components/Main';
-import Unmess from './components/games/Unmess/App';
 
 import store from './redux/store';
 
@@ -14,7 +13,7 @@ const App = () => (
     <Router>
       <div className="App">
         <Header />
-        <Unmess />
+        <Main />
       </div>
     </Router>
   </Provider>
