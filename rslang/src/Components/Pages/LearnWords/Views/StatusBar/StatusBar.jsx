@@ -9,8 +9,8 @@ const StatusBar = ({
   <div>
     <div>{`${wordCount} / ${totalWords}`}</div>
     <div>
-        {isShownComplicatedButton && <button>Complicated</button>}
-        <button>Remove</button>
+      {isShownComplicatedButton && <button>Сложное слово</button>}
+      <button>Удалить</button>
     </div>
   </div>
 );

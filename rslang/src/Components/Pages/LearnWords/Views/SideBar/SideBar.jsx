@@ -1,29 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ImageUrl } from '../../helpers/helpers';
 
 const SideBar = ({
-  baseUrl,
+  word,
   image,
   isShownAnswerButton,
   isShownImageAssociation,
+  onNextWord,
+  onPrevWord,
+  onChangeProgress,
 }) => (
   <div>
     <div>
-        {isShownImageAssociation && <img src={`${baseUrl}${image}`} alt="" />}
-        {isShownAnswerButton && <button>Show answer</button>}
+        {isShownImageAssociation && <img src={ImageUrl(image)} alt={word} />}
+        {
+          isShownAnswerButton
+          && <button onClick={() => onChangeProgress({ isShownWord: true })}>Показать ответ</button>
+        }
     </div>
     <div>
-      <button>prev</button>
-      <button>next</button>
+        <button onClick={() => onPrevWord()}>Назад</button>
+        <button onClick={() => onNextWord()}>Вперед</button>
     </div>
   </div>
 );
 
 SideBar.propTypes = {
-  baseUrl: PropTypes.string,
+  word: PropTypes.string,
   image: PropTypes.string,
   isShownAnswerButton: PropTypes.bool,
   isShownImageAssociation: PropTypes.bool,
+  onNextWord: PropTypes.func,
+  onPrevWord: PropTypes.func,
+  onChangeProgress: PropTypes.func,
 };
 
 export default SideBar;

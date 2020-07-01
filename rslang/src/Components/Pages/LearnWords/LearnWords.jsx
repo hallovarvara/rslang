@@ -3,13 +3,20 @@ import PropTypes from 'prop-types';
 import Header from './Views/Header';
 import WordCard from './Views/WordCard';
 import * as settings from './helpers/settings';
+import {
+  extractEmphasizedWord,
+  getSessionProgress,
+  setSessionProgress,
+  clearSessionProgress,
+  checkSessionProgress,
+} from './helpers/helpers';
 
 export default class LearnWords extends Component {
   state = {
     wordCount: 0,
     totalWords: 0,
     isAutoPlay: false,
-    currentWord: '',
+    progress: [],
   };
 
   toggleAutoPlay = () => {
@@ -21,26 +28,93 @@ export default class LearnWords extends Component {
 
   componentDidMount() {
     const { data } = this.props;
+    const { totalWords } = this.state;
+    const { initialProgressObject } = settings;
+    let progress = getSessionProgress();
+    if (totalWords === 0) {
+      const { learnSessionProgress } = JSON.parse(localStorage.getItem('rslang'));
+      if (learnSessionProgress.length) {
+        progress = learnSessionProgress;
+      } else {
+        progress = new Array(data.length);
+        progress.fill(initialProgressObject);
+      }
+      this.setState({
+        totalWords: data.length,
+        progress,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.progress !== prevState.progress) {
+      const { progress } = this.state;
+      setSessionProgress(progress);
+      this.checkForEndOfGame();
+    }
+  }
+
+  checkForEndOfGame = () => {
+    const { progress, totalWords } = this.state;
+    if (!checkSessionProgress(progress) && totalWords !== 0) {
+      clearSessionProgress();
+      // TODO: add modal pop-up with short stats
+    }
+  }
+
+  handleNextWord = () => {
+    const { data } = this.props;
+    const { wordCount } = this.state;
+    if (wordCount + 1 === data.length) {
+      this.handleEndOfCards();
+    } else {
+      this.setState({
+        wordCount: wordCount + 1,
+      });
+    }
+  }
+
+  handlePrevWord = () => {
+    const { wordCount } = this.state;
+    if (wordCount !== 0) {
+      this.setState({
+        wordCount: wordCount - 1,
+      });
+    }
+  }
+
+  handleChangeProgress = (updated) => {
+    const { progress, wordCount } = this.state;
     this.setState({
-      totalWords: data.length + 1,
+      progress: progress.map((el, i) => (i === wordCount ? { ...el, ...updated } : el)),
     });
+  }
+
+  handleEndOfCards = () => {
+    // TODO: maube here will be nice to add some info pop up
+    console.log('end of cards');
   }
 
   render() {
     const { data } = this.props;
-    const { wordCount } = this.state;
+    const {
+      wordCount,
+      totalWords,
+      progress,
+      currentInput,
+    } = this.state;
     const currentWord = data[wordCount];
     const {
       textExample,
       textExampleTranslate,
       image,
       word,
+      wordTranslate,
       transcription,
       textMeaning,
       textMeaningTranslate,
     } = currentWord;
     const {
-      baseUrl,
       isShownComplicatedButton,
       isShownAnswerButton,
       isShownImageAssociation,
@@ -50,18 +124,24 @@ export default class LearnWords extends Component {
       isShownMeaning,
       categoriesSelect,
     } = settings;
+    const textExampleSentence = extractEmphasizedWord(textExample, 'b');
+    const textMeaningSentence = extractEmphasizedWord(textMeaning, 'i');
     return (
       <div>
         <Header categoriesSelect={categoriesSelect} />
         <WordCard
-          textExample={textExample}
+          currentInput={currentInput}
+          progress={progress[wordCount]}
+          wordCount={wordCount + 1}
+          totalWords={totalWords}
+          textExample={textExampleSentence}
           textExampleTranslate={textExampleTranslate}
           image={image}
           word={word}
+          wordTranslate={wordTranslate}
           transcription={transcription}
-          textMeaning={textMeaning}
+          textMeaning={textMeaningSentence}
           textMeaningTranslate={textMeaningTranslate}
-          baseUrl={baseUrl}
           isShownComplicatedButton={isShownComplicatedButton}
           isShownAnswerButton={isShownAnswerButton}
           isShownImageAssociation={isShownImageAssociation}
@@ -69,6 +149,9 @@ export default class LearnWords extends Component {
           isShownTranscription={isShownTranscription}
           isShownExampleSentence={isShownExampleSentence}
           isShownMeaning={isShownMeaning}
+          onNextWord={this.handleNextWord}
+          onPrevWord={this.handlePrevWord}
+          onChangeProgress={this.handleChangeProgress}
         />
       </div>
     );
