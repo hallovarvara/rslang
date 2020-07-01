@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './App.scss';
 import { Switch, Route } from 'react-router-dom';
 
-import { withWordsService, withRecognitionService, withLocalStorageService } from './components/hoc';
+import { withWordsService, withRecognitionService, withLocalStorageService } from '../hoc';
 import {
   pagesCount, levelsCount, amountOfWordsOnOnePage, apiLinks,
 } from './helpers/constants';
@@ -12,7 +12,7 @@ import GamePage from './components/pages/Game';
 import CurrentResultsPage from './components/pages/CurrentResults';
 import LatestResultsPage from './components/pages/LatestResults';
 
-import playAudio from './helpers/play_audio';
+import playAudio from '../../../helpers/play_audio';
 
 import correctAudioSrc from './assets/correct.mp3';
 

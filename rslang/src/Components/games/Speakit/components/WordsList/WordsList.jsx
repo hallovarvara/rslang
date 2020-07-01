@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import WordItem from '../WordItem';
-import { withLocalStorageService } from '../hoc';
+import { withLocalStorageService } from '../../../hoc';
 
 const mapWordObjToItem = (wordObj, currentActiveWordsChanged, currentActiveWords) => {
   const isActive = currentActiveWords.includes(wordObj);

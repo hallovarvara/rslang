@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { apiLinks } from './constants';
-import playAudio from './play_audio';
+import playAudio from '../../../../helpers/play_audio';
 
 const mapWordObjectToRowItem = (wordObj) => {
   const {

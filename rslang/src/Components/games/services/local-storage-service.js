@@ -1,4 +1,4 @@
-import { localStorageItems, maxLatestResultsCount } from '../helpers/constants';
+import { localStorageItems, maxLatestResultsCount } from '../Speakit/helpers/constants';
 
 export default class LocalStorageService {
   constructor() {

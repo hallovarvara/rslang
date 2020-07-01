@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { withLocalStorageService } from '../../hoc';
+import { withLocalStorageService } from '../../../../hoc';
 import divideWordsIntoKnownAndMistakes from '../../../helpers/divide_words_into_known_and_mistakes';
 import mapWordObjectToRowItem from '../../../helpers/map_word_object_to_row_item';
 
