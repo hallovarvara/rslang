@@ -4,12 +4,12 @@ import { Route, Switch } from 'react-router-dom';
 import MainPage from '../pages/Main';
 import SettingsPage from '../pages/Settings';
 import StatisticPage from '../pages/Statistic';
-import TeamPage from '../pages/Team';
 import PromoPage from '../pages/Promo';
+import TeamPage from '../pages/Team';
 import VocabularyPage from '../pages/Vocabulary';
 
 const Main = () => (
-  <main className="main">
+  <main>
     <Switch>
       <Route exact path="/" component={MainPage} />
       <Route path="/settings" component={SettingsPage} />
