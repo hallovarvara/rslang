@@ -16,5 +16,6 @@ export const initialProgressObject = {
   isGuessed: false,
   isShownWord: false,
   isWordSemiOpacity: false,
+  isUsedTip: false,
   difference: null,
 };

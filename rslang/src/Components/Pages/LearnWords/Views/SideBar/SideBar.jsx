@@ -16,7 +16,13 @@ const SideBar = ({
         {isShownImageAssociation && <img src={ImageUrl(image)} alt={word} />}
         {
           isShownAnswerButton
-          && <button onClick={() => onChangeProgress({ isShownWord: true })}>Показать ответ</button>
+          && <button onClick={
+            () => onChangeProgress({
+              isGuessed: true,
+              isShownWord: true,
+              isUsedTip: true,
+            })
+            }>Показать ответ</button>
         }
     </div>
     <div>
