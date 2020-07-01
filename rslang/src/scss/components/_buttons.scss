@@ -1,0 +1,10 @@
+body .btn-primary {
+  color: white;
+  font-size: 5rem;
+  text-transform: none;
+  background-color: black;
+  &:hover {
+    color: black;
+    background-color: white;
+  }
+}
