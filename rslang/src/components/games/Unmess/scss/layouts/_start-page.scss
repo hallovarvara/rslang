@@ -2,6 +2,7 @@
   width: 100%;
   min-height: calc(100vh - 110px);
   padding: 30px 0px;
+  backdrop-filter: opacity(0.8);
   @include flex(column, center, center);
 }
 
@@ -13,32 +14,61 @@
 }
 
 .start-page__description {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   color: $color-text-light;
   font-size: 4rem;
   font-family: 'RuHandwrite', cursive;
+  opacity: 0.8;
 }
 
 .start-page__start-button {
-  padding: 7px 35px 7px 35px;
-  color: $color-text-light;
-  font-size: 4rem;
+  padding: 20px 100px;
+  color: #4082a2;
+  font-size: 2.4rem;
   font-family: 'Inter', sans-serif;
-  background-color: transparent;
+  background-color: $color-text-light;
   border: 1px solid $color-text-light;
   outline: none;
   cursor: pointer;
   transition: all 0.7s ease;
-  &:hover {
-    color: #4082a2;
-    background-color: $color-text-light;
-  }
 }
 
-.unmess-level-stepper .MuiTypography-root {
-  margin-bottom: 0px;
-  color: $color-text-light;
-  font-size: 3rem;
-  font-family: 'Inter', sans-serif;
-  text-align: center;
+.unmess-level-stepper {
+  margin: 50px 0px;
+
+  .MuiTypography-root {
+    margin-bottom: 0px;
+    color: $color-text-light;
+    font-size: 2.2rem;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+  }
+
+  .MuiSlider-rail {
+    background-color: white;
+    opacity: 1;
+  }
+
+  .MuiSlider-valueLabel {
+    color: black;
+  }
+
+  .MuiSlider-thumb {
+    &:hover {
+      box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.16);
+    }
+  }
+
+  .MuiSlider-mark {
+    color: black;
+  }
+
+  .MuiSlider-markLabel {
+    color: white;
+    font-size: 1.5rem;
+  }
+
+  .PrivateValueLabel-circle-4 {
+    font-size: 1rem;
+  }
 }

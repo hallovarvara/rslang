@@ -13,7 +13,11 @@ const StartPage = (props) => {
     loading,
   } = props;
 
-  const stepperMarks = new Array(levelsCount).fill({});
+  const stepperMarks = (new Array(levelsCount).fill({}))
+    .map((obj, index) => ({
+      value: index + 1,
+      label: `${index + 1}`,
+    }));
 
   return (
     <div className="start-page">
@@ -24,8 +28,13 @@ const StartPage = (props) => {
           ? <Preloader />
           : (<React.Fragment>
               <Stepper
+                step={null}
+                max={levelsCount}
+                marks={stepperMarks}
                 className="unmess-level-stepper"
-                label="Выберите уровень:" />
+                label="Выберите уровень:"
+                arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#F9C74F', '#F8961E', '#F3722C', '#F94144']}
+                />
               <Link to="/unmess/game"><StartButton /></Link>
             </React.Fragment>)
       }
