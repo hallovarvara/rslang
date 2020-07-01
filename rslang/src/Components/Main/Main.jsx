@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import MainPage from '../MainPage';
-import SettingsPage from '../SettingPage';
-import StatisticPage from '../StatisticPage';
-import TeamPage from '../TeamPage';
+import MainPage from '../pages/Main';
+import SettingsPage from '../pages/Settings';
+import StatisticPage from '../pages/Statistic';
+import TeamPage from '../pages/Team';
 import AudioCall from '../AudioCallGame';
 
 const Main = () => (

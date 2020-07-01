@@ -22,14 +22,14 @@ class GamePage extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     const { dataWords, maxLevel, level } = this.state;
     const questionList = generateQuestionsArray(dataWords, maxLevel);
     const answerArray = this.getAnswersArray(dataWords, questionList, level);
     this.setState({ questionList, answerArray });
   }
 
-  getAnswersArray(dataWords, questionList, level) {
+  getAnswersArray = (dataWords, questionList, level) => {
     const { numberLevel, numberAnswers } = this.state;
     if (dataWords && questionList.length !== 0 && numberLevel !== level) {
       const currentQuestion = questionList[level];
@@ -58,7 +58,7 @@ class GamePage extends React.Component {
     }
   }
 
-  handlerClickButton = (e) => {
+  handleClickButton = (e) => {
     const {
       isRightAnswer,
       isFalseAnswer,
@@ -75,25 +75,16 @@ class GamePage extends React.Component {
     } else this.changeLevel();
   }
 
-  setRightAnswer = (rightAnswerArray, question, id) => {
-    rightAnswerArray.push(question);
+  setAnswer = (array, question, id) => {
+    array.push(question);
     this.setState({
-      rightAnswerArray: [...rightAnswerArray],
+      array: [...array],
       isRightAnswer: true,
       currentAnswerId: id,
     });
   }
 
-  setErrorAnswer = (errorAnswerArray, question, id) => {
-    errorAnswerArray.push(question);
-    this.setState({
-      errorAnswerArray: [...errorAnswerArray],
-      isFalseAnswer: true,
-      currentAnswerId: id,
-    });
-  }
-
-  handlerClickAnswer = (id) => {
+  handleClickAnswer = (id) => {
     const {
       questionList,
       level,
@@ -105,10 +96,10 @@ class GamePage extends React.Component {
     const question = questionList[level];
     if (!isRightAnswer && !isFalseAnswer) {
       if (id === question.id) {
-        this.setRightAnswer(rightAnswerArray, question, id);
+        this.setAnswer(rightAnswerArray, question, id);
         playAudio(audio.sucsess);
       } else {
-        this.setErrorAnswer(errorAnswerArray, question, id);
+        this.setAnswer(errorAnswerArray, question, id);
         playAudio(audio.error);
       }
     }
@@ -128,7 +119,7 @@ class GamePage extends React.Component {
     return (
       <GamePageView
         answerArray={answerArray}
-        handlerClickAnswer = {this.handlerClickAnswer}
+        handleClickAnswer = {this.handleClickAnswer}
         questionsList={questionList}
         level={level}
         isRightAnswer={isRightAnswer}
@@ -136,7 +127,7 @@ class GamePage extends React.Component {
         errorAnswerArray={errorAnswerArray}
         isFalseAnswer={isFalseAnswer}
         currentAnswerId={currentAnswerId}
-        handlerClickButton={this.handlerClickButton}
+        handleClickButton={this.handleClickButton}
       />
     );
   }

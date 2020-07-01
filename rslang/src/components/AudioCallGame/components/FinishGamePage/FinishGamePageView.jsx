@@ -1,44 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { textContent } from '../../constants';
 import style from './FinishGamePageView.module.scss';
 import FinishGameItem from '../FinishGameItem';
 
 const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray }) => {
-  const generateErrorWords = () => {
-    if (errorAnswerArray.length !== 0) {
-      return errorAnswerArray.map((word) => (
-        <FinishGameItem
-          key={word.id}
-          word={word}
-        />
-      ));
-    } return null;
-  };
-  const generateRightWords = () => {
-    if (errorAnswerArray.length !== 0) {
-      return rightAnswerArray.map((word) => (
-        <FinishGameItem
-          key={word.id}
-          word={word}
-        />
-      ));
-    } return null;
-  };
+  const { correct, error } = textContent;
+  const generateItemsWords = (array) => (
+    array.length !== 0 && array.map((word) => (
+      <FinishGameItem
+        key={word.id}
+        word={word}
+      />
+    ))
+  );
   return (
     <div className={style.container}>
       <div>
         <h2 className={style.title}>
-          {'Знаю '}
+          {correct}
           <span className={style.right}>{rightAnswerArray.length}</span>
         </h2>
-        {generateRightWords()}
+        {generateItemsWords(rightAnswerArray)}
       </div>
       <div>
         <h2 className={style.title}>
-         {'Не знаю '}
+         {error}
           <span className={style.wrong}>{errorAnswerArray.length}</span>
         </h2>
-        {generateErrorWords()}
+        {generateItemsWords(errorAnswerArray)}
       </div>
     </div>
   );

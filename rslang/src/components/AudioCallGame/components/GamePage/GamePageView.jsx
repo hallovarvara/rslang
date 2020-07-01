@@ -12,16 +12,17 @@ const GamePageView = ({
   level,
   answerArray,
   isRightAnswer,
-  handlerClickButton,
+  handleClickButton,
   errorAnswerArray,
   rightAnswerArray,
   isFalseAnswer,
-  handlerClickAnswer,
+  handleClickAnswer,
   currentAnswerId,
 }) => {
   const question = questionsList[level];
-  const content = question && answerArray
-    ? (
+  return (
+    question && answerArray
+      ? (
       <div className={style.container}>
         <Question
           question = {question}
@@ -31,27 +32,22 @@ const GamePageView = ({
         <AnswerPanel
           answerArray={answerArray}
           question={question}
-          handlerClickAnswer = {handlerClickAnswer}
+          handleClickAnswer = {handleClickAnswer}
           isRightAnswer={isRightAnswer}
           isFalseAnswer={isFalseAnswer}
           currentAnswerId={currentAnswerId}
         />
         <Button
           isRightAnswer={isRightAnswer}
-          handlerClickButton={handlerClickButton}
+          handleClickButton={handleClickButton}
           isFalseAnswer={isFalseAnswer}
         />
       </div>
-    )
-    : <FinishGamePage
+      )
+      : <FinishGamePage
         rightAnswerArray={rightAnswerArray}
         errorAnswerArray={errorAnswerArray}
-      />;
-
-  return (
-    <>
-      {content}
-    </>
+      />
   );
 };
 
@@ -62,9 +58,9 @@ GamePageView.propTypes = {
   isRightAnswer: PropTypes.bool,
   changeLevel: PropTypes.func,
   countError: PropTypes.func,
-  handlerClickButton: PropTypes.func,
+  handleClickButton: PropTypes.func,
   isFalseAnswer: PropTypes.bool,
-  handlerClickAnswer: PropTypes.func,
+  handleClickAnswer: PropTypes.func,
   currentAnswerId: PropTypes.string,
   errorAnswerArray: PropTypes.array,
   rightAnswerArray: PropTypes.array,

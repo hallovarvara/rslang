@@ -7,7 +7,7 @@ import Answer from '../Answer';
 const AnswerPanelView = ({
   answerArray,
   question,
-  handlerClickAnswer,
+  handleClickAnswer,
   isRightAnswer,
   isFalseAnswer,
   currentAnswerId,
@@ -18,7 +18,7 @@ const AnswerPanelView = ({
         <Answer
           isRightAnswer={isRightAnswer}
           isFalseAnswer={isFalseAnswer}
-          handlerClickAnswer = {handlerClickAnswer}
+          handleClickAnswer = {handleClickAnswer}
           question={question}
           answer={answer}
           key={answer.id}
@@ -37,7 +37,7 @@ const AnswerPanelView = ({
 AnswerPanelView.propTypes = {
   answerArray: PropTypes.array,
   question: PropTypes.object,
-  handlerClickAnswer: PropTypes.func,
+  handleClickAnswer: PropTypes.func,
   isRightAnswer: PropTypes.bool,
   isFalseAnswer: PropTypes.bool,
   currentAnswerId: PropTypes.string,

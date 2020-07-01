@@ -9,7 +9,7 @@ const FinishGameItemView = ({ word }) => {
   const audioElement = new Audio(replaceAudioSrc(word.audio));
   return (
     <div className={style.container}>
-      <IconButton aria-label="audio" onClick={() => (audioElement.play())}>
+      <IconButton aria-label="audio" onClick = {() => audioElement.play()}>
         <VolumeUpRounded fontSize="large"/>
       </IconButton>
       <p className={style.text}>{word.word}</p>

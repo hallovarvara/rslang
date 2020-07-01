@@ -5,7 +5,7 @@ import style from './AnswerView.module.scss';
 
 const AnswerView = ({
   answer,
-  handlerClickAnswer,
+  handleClickAnswer,
   question,
   currentAnswerId,
   isRightAnswer,
@@ -20,14 +20,14 @@ const AnswerView = ({
   return (
   <li className={answerItem}
     key={answer.id}
-    onClick = {() => handlerClickAnswer(answer.id)}
+    onClick = {() => handleClickAnswer(answer.id)}
   >{answer.wordTranslate}</li>
   );
 };
 
 AnswerView.propTypes = {
   answer: PropTypes.object,
-  handlerClickAnswer: PropTypes.func,
+  handleClickAnswer: PropTypes.func,
   question: PropTypes.object,
   isRightAnswer: PropTypes.bool,
   isFalseAnswer: PropTypes.bool,

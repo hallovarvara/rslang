@@ -7,7 +7,7 @@ import {
   TextField,
   Button,
 } from '@material-ui/core';
-import { levelArray } from '../../constants';
+import { buttonTextContent, maxLevel } from '../../constants';
 import style from './StartGamePageView.module.scss';
 
 const StartGamePageView = ({
@@ -16,9 +16,10 @@ const StartGamePageView = ({
   setNumberAnswers,
   handleSubmitForm,
 }) => {
-  const options = levelArray.map((item) => (
-    <option value={item} key={item}>{`Уровень: ${item}`}</option>
-  ));
+  const options = [];
+  for (let numberLevel = 0; numberLevel <= maxLevel; numberLevel += 1) {
+    options.push(<option value={numberLevel} key={numberLevel}>{`Уровень: ${numberLevel}`}</option>);
+  }
   return (
     <div className={style.container}>
       <h2 className={style.title}>Aудиовызов</h2>
@@ -60,7 +61,7 @@ const StartGamePageView = ({
           type="submit"
           variant="contained"
         >
-          Начать игру
+         {buttonTextContent.startGame}
         </Button>
       </form>
     </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
-import AudioCall from './Components/AudioCallGame';
+// import App from './App'; // TODO delete comment
+import AudioCall from './components/AudioCallGame';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

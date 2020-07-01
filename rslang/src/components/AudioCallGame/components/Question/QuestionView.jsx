@@ -13,7 +13,7 @@ const QuestionView = ({
   word,
   audioElement,
 }) => {
-  const iconClass = classNames({ [style.volumeUpRounded]: !isFalseAnswer && !isRightAnswer });
+  const iconClasses = classNames({ [style.volumeUpRounded]: !isFalseAnswer && !isRightAnswer });
   const wordClasses = classNames(style.word, { [style.hidden]: !isFalseAnswer && !isRightAnswer });
   const pictureClasses = classNames(
     style.picture,
@@ -25,7 +25,7 @@ const QuestionView = ({
       <img src={srcImage} alt={word} className={pictureClasses}/>
       <div className={style.description}>
         <IconButton aria-label="audio" className={style.iconButton} onClick = {() => audioElement.play()}>
-          <VolumeUpRounded fontSize="large" className={iconClass}/>
+          <VolumeUpRounded fontSize="large" className={iconClasses}/>
         </IconButton>
         <p className={wordClasses}>{word}</p>
       </div>

@@ -3,22 +3,24 @@ import PropTypes from 'prop-types';
 import {
   Button,
 } from '@material-ui/core';
+import { buttonTextContent } from '../../constants';
 import style from './ButtonView.module.scss';
 
 const ButtonView = ({
   isRightAnswer,
-  handlerClickButton,
+  handleClickButton,
   isFalseAnswer,
 }) => {
-  const buttonTextContent = (isRightAnswer || isFalseAnswer) ? 'Далее' : 'Я не знаю';
+  const { next, dontKnow } = buttonTextContent;
+  const buttonValue = (isRightAnswer || isFalseAnswer) ? next : dontKnow;
   return (
-    <Button variant="contained" size="large" className={style.button} onClick={handlerClickButton}>{buttonTextContent}</Button>
+    <Button variant="contained" size="large" className={style.button} onClick={handleClickButton}>{buttonValue}</Button>
   );
 };
 
 ButtonView.propTypes = {
   isRightAnswer: PropTypes.bool,
-  handlerClickButton: PropTypes.func,
+  handleClickButton: PropTypes.func,
   isFalseAnswer: PropTypes.bool,
 };
 

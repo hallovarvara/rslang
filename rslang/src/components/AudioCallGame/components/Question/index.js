@@ -7,7 +7,6 @@ const Question = (props) => {
   const {
     question, isFalseAnswer, isRightAnswer,
   } = props;
-  if (!question) return null;
   const {
     image,
     id,
