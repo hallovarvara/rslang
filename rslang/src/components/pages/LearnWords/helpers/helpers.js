@@ -5,7 +5,6 @@ import {
   manyErrorsColor,
 } from './style-options';
 
-// export const ImageUrl = (image) => (`${baseUrl}${image}`);
 export const resourceUrl = (path) => (`${baseUrl}${path}`);
 
 export const extractEmphasizedWord = (str, surroundingTag) => {
