@@ -1,8 +1,10 @@
+@import '../../../../scss/abstracts/constants';
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #ffffff;
+  color: $color-audiocall-text-light;
 }
 
 .title {

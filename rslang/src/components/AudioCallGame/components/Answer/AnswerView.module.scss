@@ -1,26 +1,28 @@
+@import '../../../../scss/abstracts/constants';
+
 .item {
   margin: 10px auto;
   padding: 15px;
-  color: #000000;
+  color: $color-audiocall-text-dark;
   font-size: 22px;
   line-height: 1;
   text-align: center;
   border-radius: 20px;
   cursor: pointer;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: $color-audiocall-hover;
   }
 }
 
 .disable {
-  color: rgba(0, 0, 0, 0.2);
+  color: $color-audiocall-hover;
 }
 .right {
-  color: #000000;
-  background: rgba(161, 240, 69, 0.7);
+  color: $color-audiocall-text-dark;
+  background: $color-right-answer;
 }
 
 .wrong {
-  color: #000000;
-  background: rgba(240, 87, 108, 0.7);
+  color: $color-audiocall-text-dark;
+  background: $color-wrong-answer;
 }

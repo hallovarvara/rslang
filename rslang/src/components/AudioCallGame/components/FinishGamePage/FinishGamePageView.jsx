@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
-import { textContent, buttonTextContent } from '../../constants';
+import { textContent, buttonTextContent } from '../../../../helpers/constants';
 import style from './FinishGamePageView.module.scss';
 import FinishGameItem from '../FinishGameItem';
 

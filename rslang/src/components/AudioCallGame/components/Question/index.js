@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { replaceAudioSrc, replaceImageSrc } from '../../helpers';
+import { replaceAudioSrc, replaceImageSrc } from '../../../../helpers/helpers';
 import QuestionView from './QuestionView.jsx';
 
 const Question = (props) => {

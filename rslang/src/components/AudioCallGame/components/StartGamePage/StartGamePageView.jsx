@@ -7,7 +7,7 @@ import {
   TextField,
   Button,
 } from '@material-ui/core';
-import { buttonTextContent, maxLevel, formLabel } from '../../constants';
+import { buttonTextContent, maxLevel, formLabel } from '../../../../helpers/constants';
 import style from './StartGamePageView.module.scss';
 
 const StartGamePageView = ({

@@ -1,9 +1,11 @@
+@import '../../scss/abstracts/constants';
+
 .container {
   min-height: 100vh;
-  background: rgba(206, 3, 237, 1);
+  background: $color-audiocall-primary;
   background: linear-gradient(
     to bottom,
-    rgba(206, 3, 237, 1) 0%,
-    rgba(219, 208, 134, 1) 100%
+    $color-audiocall-primary 0%,
+    $color-audiocall-secondary 100%
   );
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { VolumeUpRounded } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import style from './FinishGameItemView.module.scss';
-import { replaceAudioSrc } from '../../helpers';
+import { replaceAudioSrc } from '../../../../helpers/helpers';
 
 const FinishGameItemView = ({ word }) => {
   const audioElement = new Audio(replaceAudioSrc(word.audio));

@@ -1,5 +1,7 @@
+@import '../../../../scss/abstracts/constants';
+
 .iconButton {
-  background-color: #000;
+  background-color: $color-audiocall-text-dark;
   & .volumeUpRounded {
     font-size: 8rem;
   }

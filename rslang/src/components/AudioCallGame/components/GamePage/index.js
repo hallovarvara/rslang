@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GamePageView from './GamePageView.jsx';
 import data from '../../mockData';
-import { shuffle, generateQuestionsArray, playAudio } from '../../helpers';
-import { audio } from '../../constants';
+import { shuffle, generateQuestionsArray, playAudio } from '../../../../helpers/helpers';
+import { audio } from '../../../../helpers/constants';
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -13,9 +13,7 @@ class GamePage extends React.Component {
     this.handleClickNewGame = handleClickNewGame;
     this.state = {
       dataWords: data, // TODO API
-      level: 0, // TODO: use settings
-      // numberLevel, // TODO: use settings
-      // numberAnswers, // TODO: use settings
+      level: 0,
       questionList: [],
       errorAnswerArray: [],
       rightAnswerArray: [],
@@ -103,7 +101,7 @@ class GamePage extends React.Component {
       if (id === question.id) {
         this.setAnswer(rightAnswerArray, question, id);
         this.setState({ isRightAnswer: true });
-        playAudio(audio.sucsess);
+        playAudio(audio.success);
         this.nextLevel = setTimeout(this.changeLevel, 2000);
       } else {
         this.setAnswer(errorAnswerArray, question, id);
