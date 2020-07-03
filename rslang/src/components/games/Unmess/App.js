@@ -10,10 +10,10 @@ import GamePage from './components/pages/Game';
 import { withWordsService } from '../hoc';
 
 import { pagesCount, levelsCount, wordsPerPage } from './helpers/contants';
-import getRandomNumber from './helpers/get_random_number';
 
 class App extends React.Component {
   state = {
+    currentLevel: 0,
     loading: true,
     currentWords: null,
   }
@@ -25,30 +25,47 @@ class App extends React.Component {
     wordsService.getAllWords(pagesCount, levelsCount)
       .then((result) => {
         this.allWords = result;
-        const randomLevel = getRandomNumber(0, levelsCount);
-        const randomWords = this.allWords[randomLevel]
+        const currentWords = this.allWords[this.state.currentLevel]
           .sort(() => Math.random() - 0.5)
           .slice(0, wordsPerPage);
         this.setState({
           loading: false,
-          currentWords: randomWords,
+          currentWords,
         });
       });
+  }
+
+  levelChanged = (level) => {
+    this.setState({
+      currentLevel: level,
+      currentWords: this.allWords[level]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, wordsPerPage)
+        .map((obj) => ({ ...obj })),
+    });
   }
 
   render() {
     const {
       loading,
       currentWords,
+      currentLevel,
     } = this.state;
 
     return (
       <div className="unmess-game-container">
         <Switch>
-          <Route path="/unmess/home" render={() => <StartPage loading={loading}/>} />
+          <Route path="/unmess/home" render={() => (
+            <StartPage
+              currentLevel={currentLevel}
+              loading={loading}
+              levelChanged={this.levelChanged}
+            />
+          )} />
           <Route path="/unmess/game" render={() => (
             <GamePage
-              currentWords={currentWords}/>
+              currentWords={currentWords}
+            />
           )} />
         </Switch>
       </div>

@@ -11,6 +11,8 @@ import { levelsCount } from '../../../helpers/contants';
 const StartPage = (props) => {
   const {
     loading,
+    levelChanged,
+    currentLevel,
   } = props;
 
   const stepperMarks = (new Array(levelsCount).fill({}))
@@ -21,13 +23,15 @@ const StartPage = (props) => {
 
   return (
     <div className="start-page">
-      <h2 className="start-page__title">Unmess</h2>
+      <h2 className="start-page__title game-title">Unmess</h2>
       <p className="start-page__description">Соедините правильно слова и их значения</p>
       {
         loading
           ? <Preloader />
           : (<React.Fragment>
               <Stepper
+                defaultValue={currentLevel + 1}
+                onChangeCommitted={(event, value) => levelChanged(value - 1)}
                 step={null}
                 max={levelsCount}
                 marks={stepperMarks}
@@ -44,6 +48,8 @@ const StartPage = (props) => {
 
 StartPage.propTypes = {
   loading: PropTypes.bool,
+  levelChanged: PropTypes.func,
+  currentLevel: PropTypes.number,
 };
 
 export default StartPage;

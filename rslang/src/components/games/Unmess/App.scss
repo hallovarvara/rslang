@@ -12,9 +12,11 @@
 
 // Layouts
 @import './scss/layouts/start-page';
+@import './scss/layouts/game-page';
 
 // Components
 @import './scss/components/preloader';
+@import './scss/components/game-title';
 
 // Vendors
 @import './scss/vendors/normalize';

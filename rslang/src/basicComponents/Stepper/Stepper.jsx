@@ -44,11 +44,15 @@ class DiscreteSlider extends React.Component {
       className = '',
       max = 100,
       min = 0,
+      onChangeCommitted = null,
     } = this.props;
     const {
       defaultValue = marks[0].value,
       step = max / marks.length,
     } = this.props;
+
+    const indexOfDefaultValue = marks.findIndex((mark) => defaultValue === mark.value);
+    this.defaultColor = this.arrayOfColorsForTrack[indexOfDefaultValue];
 
     const StyledSlider = withStyles({
       root: {
@@ -83,7 +87,7 @@ class DiscreteSlider extends React.Component {
             document.querySelector('.unmess-game-container .MuiSlider-thumb')
               .style.backgroundColor = this.arrayOfColorsForTrack[indexOfNewValue];
           }}
-          onChangeCommitted={(event, value) => console.log(value)}
+          onChangeCommitted={onChangeCommitted}
         />
       </div>
     );
@@ -99,6 +103,7 @@ DiscreteSlider.propTypes = {
   max: PropTypes.number,
   min: PropTypes.number,
   arrayOfColorsForTrack: PropTypes.arrayOf(PropTypes.string),
+  onChangeCommitted: PropTypes.func,
 };
 
 export default DiscreteSlider;
