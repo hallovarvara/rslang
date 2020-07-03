@@ -25,7 +25,6 @@
 
 .navigation__item {
   padding: 0px 20px;
-  line-height: 0px;
   &:first-child {
     padding-left: 0px;
   }
@@ -37,9 +36,15 @@
   }
 }
 
+.navigation__item.exit-icon {
+  padding-top: 11px;
+}
+
 .navigation__item a {
   color: $color-text-dark;
   font-size: 2.4rem;
+  font-family: 'Inter', sans-serif;
+  text-transform: initial;
   &:hover {
     text-decoration: underline;
   }
