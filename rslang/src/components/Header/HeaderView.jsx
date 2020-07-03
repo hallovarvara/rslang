@@ -17,23 +17,23 @@ const mapLinkTitlesToItems = (linkTitle, index) => {
 };
 
 const HeaderView = ({ linkTitles, isUserLogged }) => (
-      <header className="header">
-        <h1 className="header__title"><Link to="/promo">RS Lang</Link></h1>
-        <nav>
-          <ul className="navigation">
-            {
-              linkTitles.map(mapLinkTitlesToItems)
-            }
-            {
-              isUserLogged && <li className="navigation__item">
-                <Link to="sign-up">
-                  <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }}/>
-                </Link>
-              </li>
-            }
-          </ul>
-        </nav>
-      </header>
+  <header className="header">
+    <h1 className="header__title"><Link to="/promo">RS Lang</Link></h1>
+    <nav>
+      <ul className="navigation">
+        {
+          linkTitles.map(mapLinkTitlesToItems)
+        }
+        {
+          isUserLogged && <li className="navigation__item">
+            <Link to="sign-up">
+              <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }} />
+            </Link>
+          </li>
+        }
+      </ul>
+    </nav>
+  </header>
 );
 
 HeaderView.propTypes = {

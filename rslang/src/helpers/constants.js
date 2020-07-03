@@ -19,3 +19,4 @@ export {
   ALL_PAGE,
   ALL_CARDS_IN_QUERY,
 };
+
