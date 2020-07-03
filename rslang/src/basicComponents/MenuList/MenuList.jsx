@@ -33,7 +33,8 @@ const SimpleMenu = ({
         aria-haspopup="true"
         onMouseEnter={handleClick}
         onMouseLeave={(event) => {
-          if (!event.relatedTarget.closest('.menu-list-popover__paper')) {
+          if (event.relatedTarget.closest === undefined
+            || !event.relatedTarget.closest('.menu-list-popover__paper')) {
             handleClose();
           }
         }}

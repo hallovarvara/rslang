@@ -11,11 +11,38 @@ import { withWordsService } from '../hoc';
 
 import { pagesCount, levelsCount, wordsPerPage } from './helpers/contants';
 
+const getRandomWords = (words) => (
+  words
+    .sort(() => Math.random() - 0.5)
+    .slice(0, wordsPerPage)
+    .map((obj) => ({ ...obj, attempt: null, hideDefinition: true }))
+);
+
+const getShuffledWords = (words) => (
+  words
+    .slice()
+    .sort(() => Math.random() - 0.5)
+    .map((wordObj) => ({ ...wordObj }))
+);
+
+const replaceElInArrayOfObject = (array, object, newProps) => {
+  const indexOfObject = array.findIndex((wordObj) => (
+    wordObj.id === object.id
+  ));
+
+  return [
+    ...array.slice(0, indexOfObject),
+    { ...object, ...newProps },
+    ...array.slice(indexOfObject + 1),
+  ].map((wordObj) => ({ ...wordObj }));
+};
+
 class App extends React.Component {
   state = {
     currentLevel: 0,
     loading: true,
     currentWords: null,
+    shuffledCurrentWords: null,
   }
 
   allWords = null;
@@ -25,23 +52,63 @@ class App extends React.Component {
     wordsService.getAllWords(pagesCount, levelsCount)
       .then((result) => {
         this.allWords = result;
-        const currentWords = this.allWords[this.state.currentLevel]
-          .sort(() => Math.random() - 0.5)
-          .slice(0, wordsPerPage);
+        const currentWords = getRandomWords(this.allWords[this.state.currentLevel]);
+        const shuffledCurrentWords = getShuffledWords(currentWords);
         this.setState({
           loading: false,
           currentWords,
+          shuffledCurrentWords,
         });
       });
   }
 
   levelChanged = (level) => {
+    const currentWords = getRandomWords(this.allWords[level]);
+    const shuffledCurrentWords = getShuffledWords(currentWords);
     this.setState({
       currentLevel: level,
-      currentWords: this.allWords[level]
-        .sort(() => Math.random() - 0.5)
-        .slice(0, wordsPerPage)
-        .map((obj) => ({ ...obj })),
+      currentWords,
+      shuffledCurrentWords,
+    });
+  }
+
+  showDefinition = (definitionObj) => {
+    this.setState((state) => {
+      const currentWords = replaceElInArrayOfObject(
+        state.currentWords, definitionObj, { hideDefinition: false },
+      );
+
+      const shuffledCurrentWords = replaceElInArrayOfObject(
+        state.shuffledCurrentWords, definitionObj, { hideDefinition: false },
+      );
+
+      return {
+        currentWords,
+        shuffledCurrentWords,
+      };
+    });
+  }
+
+  wordDropped = (droppedWordObj, dropTargetWordObj) => {
+    this.setState((state) => {
+      const isRightAttempt = droppedWordObj.id === dropTargetWordObj.id;
+
+      const currentWords = replaceElInArrayOfObject(
+        state.currentWords, droppedWordObj, {
+          attempt: isRightAttempt, hideDefinition: !isRightAttempt,
+        },
+      );
+
+      const shuffledCurrentWords = replaceElInArrayOfObject(
+        state.shuffledCurrentWords, dropTargetWordObj, {
+          attempt: isRightAttempt, hideDefinition: !isRightAttempt,
+        },
+      );
+
+      return {
+        currentWords,
+        shuffledCurrentWords,
+      };
     });
   }
 
@@ -50,6 +117,7 @@ class App extends React.Component {
       loading,
       currentWords,
       currentLevel,
+      shuffledCurrentWords,
     } = this.state;
 
     return (
@@ -64,7 +132,10 @@ class App extends React.Component {
           )} />
           <Route path="/unmess/game" render={() => (
             <GamePage
+              shuffledCurrentWords={shuffledCurrentWords}
               currentWords={currentWords}
+              wordDropped={this.wordDropped}
+              showDefinition={this.showDefinition}
             />
           )} />
         </Switch>

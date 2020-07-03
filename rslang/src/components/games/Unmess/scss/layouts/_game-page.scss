@@ -1,4 +1,136 @@
-.unmess-game-container .game-page {
-  min-height: calc(100vh - 110px);
-  backdrop-filter: opacity(0.8);
+.unmess-game-container {
+
+  .game-page {
+    min-height: calc(100vh - 110px);
+    padding: 35px 0px 20px 0px;
+    backdrop-filter: opacity(0.8);
+    @include flex(column, flex-start, center);
+  }
+
+  .game-title-container {
+    margin-bottom: 35px;
+    @include flex(row, center, center);
+  }
+
+  .game-title-container__title {
+    margin-right: 20px;
+  }
+
+  .game-container {
+    word-break: break-word;
+    margin-bottom: 20px;
+    color: $color-text-light;
+    font-size: 3rem;
+    @include flex(row, center, flex-start)
+  }
+
+  .words-container, .definitions-container {
+    margin: 0px 20px;
+    @include flex(column, center, center);
+  }
+
+  .words-container__word,
+  .definitions-container__definition {
+    overflow: hidden;
+    position: relative;
+    padding: 15px 10px;
+    margin-bottom: 20px;
+    background-color: rgba(white, 0.2);
+    box-shadow: 0px 0px 2px $color-text-light;
+    cursor: pointer;
+    span {
+      pointer-events: none;
+    }
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  .words-container__word {
+    width: 240px;
+  }
+
+  .definitions-container__definition {
+    width: 430px;
+    &.dragover {
+      background-color: rgba(#b7e3ff, 0.2);
+    }
+  }
+
+  .attempts-container {
+    word-break: break-word;
+    width: 710px;
+    color: white;
+    font-size: 3rem;
+    @include flex(column, center, center);
+  }
+
+  .right-attempts-container,
+  .wrong-attempts-container {
+    width: 100%;
+    @include flex(column, center, center);
+  }
+
+  .right-attempts-container {
+    margin-bottom: 20px;
+  }
+
+  .right-attempt,
+  .wrong-attempt {
+    width: 100%;
+    margin-bottom: 20px;
+    @include flex(row, flex-start, flex-start);
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  .right-attempt {
+    background-color: #94C924;
+  }
+
+  .wrong-attempt {
+    background-color: #FE766D;
+  }
+
+  .right-attempt__word,
+  .wrong-attempt__word {
+    width: 280px;
+    padding: 15px 10px;
+  }
+
+  .right-attempt__definition,
+  .wrong-attempt__definition {
+    width: 430px;
+    padding: 15px 10px;
+  }
+
+  .wrong-attempt__definition {
+    animation: smooth-display 1s linear;
+    @keyframes smooth-display {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+
+  .wront-attempt__show-answer {
+    align-self: center;
+    padding: 15px 10px;
+    span {
+      background-color: white;
+      color: black;
+      padding: 20px 40px;
+      cursor: pointer;
+    }
+  }
+}
+
+body .game-title-container__description {
+  padding: 5px 10px;
+  font-size: 2rem;
+  text-align: center;
 }
