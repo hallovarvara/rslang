@@ -12,6 +12,7 @@ const MainView = ({
   numberAnswers,
   isStart,
   numberLevel,
+  handleClickNewGame,
 }) => (
   (!isStart)
     ? <StartGamePage
@@ -22,6 +23,7 @@ const MainView = ({
     />
     : <GamePage
       level={level}
+      handleClickNewGame={handleClickNewGame}
       numberAnswers={numberAnswers}
       isStart={isStart}
       numberLevel={numberLevel}
@@ -33,6 +35,7 @@ MainView.propTypes = {
   setNumberLevel: PropTypes.func,
   setNumberAnswers: PropTypes.func,
   handleSubmitForm: PropTypes.func,
+  handleClickNewGame: PropTypes.func,
   level: PropTypes.number,
   numberAnswers: PropTypes.number,
   isStart: PropTypes.bool,

@@ -7,18 +7,19 @@ import {
   TextField,
   Button,
 } from '@material-ui/core';
-import { buttonTextContent, maxLevel } from '../../constants';
+import { buttonTextContent, maxLevel, formLabel } from '../../constants';
 import style from './StartGamePageView.module.scss';
 
 const StartGamePageView = ({
   handleChooseLevel,
-  level, setNumberLevel,
+  level,
+  setNumberLevel,
   setNumberAnswers,
   handleSubmitForm,
 }) => {
   const options = [];
   for (let numberLevel = 0; numberLevel <= maxLevel; numberLevel += 1) {
-    options.push(<option value={numberLevel} key={numberLevel}>{`Уровень: ${numberLevel}`}</option>);
+    options.push(<option value={numberLevel} key={numberLevel}>{`${formLabel.level} ${numberLevel}`}</option>);
   }
   return (
     <div className={style.container}>
@@ -26,12 +27,12 @@ const StartGamePageView = ({
       <p className={style.text}>Тренировка улучшает восприятие англиской речи на слух</p>
       <form className={style.form} onSubmit={handleSubmitForm}>
         <FormControl variant="outlined">
-          <InputLabel htmlFor="outlined-level-native-simple">Выберите уровень</InputLabel>
+          <InputLabel htmlFor="outlined-level-native-simple">{formLabel.chooseLevel}</InputLabel>
           <Select
             native
-            value={level}
+            value={level || 0}
             onChange={handleChooseLevel}
-            label="Выберите уровень"
+            label={formLabel.chooseLevel}
             inputProps={{
               name: 'level',
               id: 'outlined-level-native-simple',
@@ -44,7 +45,9 @@ const StartGamePageView = ({
           required
           className={style.input}
           id="audiocall-start__questions"
-          label="Количество вопросов от 5 до 12"
+          type="number"
+          label={formLabel.questions}
+          defaultValue="5"
           inputProps={{ pattern: '[0-9]', min: '5', max: '12' }}
           variant="filled"
           onChange={setNumberLevel}
@@ -52,8 +55,10 @@ const StartGamePageView = ({
         <TextField
           required
           id="audiocall-start__questions"
-          label="Количество ответов от 2 до 5"
-          inputProps={{ pattern: '[2-5]' }}
+          type="number"
+          label={formLabel.answers}
+          defaultValue="5"
+          inputProps={{ pattern: '[2-5]', min: '2', max: '5' }}
           variant="filled"
           onChange={setNumberAnswers}
         />

@@ -8,12 +8,14 @@ import { audio } from '../../constants';
 class GamePage extends React.Component {
   constructor(props) {
     super(props);
-    const { numberLevel, numberAnswers } = props;
+    this.props = props;
+    const { handleClickNewGame } = this.props;
+    this.handleClickNewGame = handleClickNewGame;
     this.state = {
       dataWords: data, // TODO API
-      level: 0,
-      numberLevel, // TODO: use settings
-      numberAnswers, // TODO: use settings
+      level: 0, // TODO: use settings
+      // numberLevel, // TODO: use settings
+      // numberAnswers, // TODO: use settings
       questionList: [],
       errorAnswerArray: [],
       rightAnswerArray: [],
@@ -23,14 +25,15 @@ class GamePage extends React.Component {
   }
 
   componentDidMount = () => {
-    const { dataWords, maxLevel, level } = this.state;
+    const { dataWords, maxLevel } = this.state;
+    const { level } = this.state;
     const questionList = generateQuestionsArray(dataWords, maxLevel);
     const answerArray = this.getAnswersArray(dataWords, questionList, level);
     this.setState({ questionList, answerArray });
   }
 
   getAnswersArray = (dataWords, questionList, level) => {
-    const { numberLevel, numberAnswers } = this.state;
+    const { numberLevel, numberAnswers } = this.props;
     if (dataWords && questionList.length !== 0 && numberLevel !== level) {
       const currentQuestion = questionList[level];
       const arrayWrongAnswer = shuffle(dataWords.filter((word) => (
@@ -45,10 +48,11 @@ class GamePage extends React.Component {
   changeLevel = () => {
     const { dataWords, questionList } = this.state;
     let { level } = this.state;
-    const { numberLevel } = this.state;
+    const { numberLevel } = this.props;
     if (level < numberLevel) {
       level += 1;
       const answerArray = this.getAnswersArray(dataWords, questionList, level);
+      clearTimeout(this.nextLevel);
       this.setState({
         level,
         isRightAnswer: false,
@@ -70,8 +74,9 @@ class GamePage extends React.Component {
     e.preventDefault();
     const question = questionList[level];
     if (!isRightAnswer && !isFalseAnswer) {
-      this.setErrorAnswer(errorAnswerArray, question, id);
+      this.setAnswer(errorAnswerArray, question, id);
       playAudio(audio.error);
+      this.nextLevel = setTimeout(this.changeLevel, 2000);
     } else this.changeLevel();
   }
 
@@ -97,10 +102,14 @@ class GamePage extends React.Component {
     if (!isRightAnswer && !isFalseAnswer) {
       if (id === question.id) {
         this.setAnswer(rightAnswerArray, question, id);
+        this.setState({ isRightAnswer: true });
         playAudio(audio.sucsess);
+        this.nextLevel = setTimeout(this.changeLevel, 2000);
       } else {
         this.setAnswer(errorAnswerArray, question, id);
+        this.setState({ isFalseAnswer: true });
         playAudio(audio.error);
+        this.nextLevel = setTimeout(this.changeLevel, 2000);
       }
     }
   }
@@ -118,6 +127,7 @@ class GamePage extends React.Component {
     } = this.state;
     return (
       <GamePageView
+        handleClickNewGame={this.handleClickNewGame}
         answerArray={answerArray}
         handleClickAnswer = {this.handleClickAnswer}
         questionsList={questionList}
@@ -134,6 +144,7 @@ class GamePage extends React.Component {
 }
 
 GamePage.propTypes = {
+  handleClickNewGame: PropTypes.func,
   numberLevel: PropTypes.number,
   numberAnswers: PropTypes.number,
 };

@@ -16,6 +16,7 @@ const GamePageView = ({
   errorAnswerArray,
   rightAnswerArray,
   isFalseAnswer,
+  handleClickNewGame,
   handleClickAnswer,
   currentAnswerId,
 }) => {
@@ -45,6 +46,7 @@ const GamePageView = ({
       </div>
       )
       : <FinishGamePage
+        handleClickNewGame={handleClickNewGame}
         rightAnswerArray={rightAnswerArray}
         errorAnswerArray={errorAnswerArray}
       />
@@ -61,6 +63,7 @@ GamePageView.propTypes = {
   handleClickButton: PropTypes.func,
   isFalseAnswer: PropTypes.bool,
   handleClickAnswer: PropTypes.func,
+  handleClickNewGame: PropTypes.func,
   currentAnswerId: PropTypes.string,
   errorAnswerArray: PropTypes.array,
   rightAnswerArray: PropTypes.array,

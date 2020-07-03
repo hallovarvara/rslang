@@ -13,9 +13,17 @@ export const buttonTextContent = {
   next: 'Далее',
   dontKnow: 'Я не знаю',
   startGame: 'Начать игру',
+  newGame: 'новая игра',
 };
 
 export const textContent = {
   correct: 'Знаю',
   error: 'Не знаю',
+};
+
+export const formLabel = {
+  level: 'Уровень',
+  chooseLevel: 'Выберите уровень',
+  questions: 'Количество вопросов от 5 до 12',
+  answers: 'Количество ответов от 2 до 5',
 };
