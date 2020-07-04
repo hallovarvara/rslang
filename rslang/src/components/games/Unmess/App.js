@@ -6,6 +6,7 @@ import './App.scss';
 
 import StartPage from './components/pages/Start';
 import GamePage from './components/pages/Game';
+import ResultsPage from './components/pages/Results';
 
 import { withWordsService } from '../hoc';
 
@@ -130,12 +131,19 @@ class App extends React.Component {
               levelChanged={this.levelChanged}
             />
           )} />
-          <Route path="/unmess/game" render={() => (
+          <Route path="/unmess/game" render={({ history }) => (
             <GamePage
+              history={history}
               shuffledCurrentWords={shuffledCurrentWords}
               currentWords={currentWords}
               wordDropped={this.wordDropped}
               showDefinition={this.showDefinition}
+            />
+          )} />
+          <Route path="/unmess/results" render={({ history }) => (
+            <ResultsPage
+              history={history}
+              currentWords={currentWords}
             />
           )} />
         </Switch>

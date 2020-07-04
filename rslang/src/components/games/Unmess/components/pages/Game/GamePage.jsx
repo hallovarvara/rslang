@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Popover from '../../../../../../basicComponents/Popover';
+import replaceTagInString from '../../../helpers/remove_tag_from_string';
+
+import GameTitle from '../../GameTitle';
 
 class GamePage extends React.Component {
   currentDraggedWord = null;
@@ -41,6 +43,12 @@ class GamePage extends React.Component {
       }
     });
 
+    if (untouchedWords.length === 0) {
+      setTimeout(() => {
+        this.props.history.push('/unmess/results');
+      }, 1500);
+    }
+
     shuffledCurrentWords.forEach((wordObj) => {
       if (wordObj.hideDefinition === true) {
         untouchedDefinitions.push({ ...wordObj });
@@ -49,16 +57,7 @@ class GamePage extends React.Component {
 
     return (
       <div className="game-page">
-        <div className="game-title-container">
-          <h2 className="game-title-container__title game-title">Unmess</h2>
-          <Popover
-            className="game-title-container__question"
-            descriptionClassName="game-title-container__description"
-            title={<span className="question-icon"></span>}
-            description={(
-              <span>Схватите слово и отпустите над <br></br> его значением</span>
-            )} />
-        </div>
+        <GameTitle />
         <div className="game-container">
           <div className="words-container">
             {
@@ -123,7 +122,7 @@ class GamePage extends React.Component {
                     <span>{wordObj.word}</span>
                   </div>
                   <div className="right-attempt__definition flex-div-with-span">
-                    <span>{wordObj.textMeaning}</span>
+                    <span>{replaceTagInString(wordObj.textMeaning, wordObj.word)}</span>
                   </div>
                 </div>
               ))
@@ -145,7 +144,7 @@ class GamePage extends React.Component {
                     )
                     : (
                       <div className="wrong-attempt__definition flex-div-with-span">
-                        <span>{wordObj.textMeaning}</span>
+                        <span>{replaceTagInString(wordObj.textMeaning, wordObj.word)}</span>
                       </div>
                     )
                   }
@@ -164,6 +163,7 @@ GamePage.propTypes = {
   shuffledCurrentWords: PropTypes.arrayOf(PropTypes.object),
   wordDropped: PropTypes.func,
   showDefinition: PropTypes.func,
+  history: PropTypes.object,
 };
 
 export default GamePage;

@@ -16,11 +16,13 @@
 @import './scss/layouts/flex-div-with-span';
 @import './scss/layouts/start-page';
 @import './scss/layouts/game-page';
+@import './scss/layouts/results-page';
 
 // Components
 @import './scss/components/preloader';
 @import './scss/components/game-title';
 @import './scss/components/question-icon';
+@import './scss/components/audio-icon';
 
 // Vendors
 @import './scss/vendors/normalize';

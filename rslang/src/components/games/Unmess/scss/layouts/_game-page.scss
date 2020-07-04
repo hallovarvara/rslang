@@ -1,5 +1,14 @@
-.unmess-game-container {
 
+  @keyframes smooth-display {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+.unmess-game-container {
   .game-page {
     min-height: calc(100vh - 110px);
     padding: 35px 0px 20px 0px;
@@ -17,24 +26,25 @@
   }
 
   .game-container {
-    word-break: break-word;
     margin-bottom: 20px;
     color: $color-text-light;
     font-size: 3rem;
-    @include flex(row, center, flex-start)
+    word-break: break-word;
+    @include flex(row, center, flex-start);
   }
 
-  .words-container, .definitions-container {
+  .words-container,
+  .definitions-container {
     margin: 0px 20px;
     @include flex(column, center, center);
   }
 
   .words-container__word,
   .definitions-container__definition {
-    overflow: hidden;
     position: relative;
-    padding: 15px 10px;
     margin-bottom: 20px;
+    padding: 15px 10px;
+    overflow: hidden;
     background-color: rgba(white, 0.2);
     box-shadow: 0px 0px 2px $color-text-light;
     cursor: pointer;
@@ -58,10 +68,10 @@
   }
 
   .attempts-container {
-    word-break: break-word;
     width: 710px;
     color: white;
     font-size: 3rem;
+    word-break: break-word;
     @include flex(column, center, center);
   }
 
@@ -86,11 +96,11 @@
   }
 
   .right-attempt {
-    background-color: #94C924;
+    background-color: $color-correct;
   }
 
   .wrong-attempt {
-    background-color: #FE766D;
+    background-color: $color-mistake;
   }
 
   .right-attempt__word,
@@ -107,14 +117,6 @@
 
   .wrong-attempt__definition {
     animation: smooth-display 1s linear;
-    @keyframes smooth-display {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
   }
 
   .wront-attempt__show-answer {
