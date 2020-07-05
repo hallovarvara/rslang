@@ -1,12 +1,11 @@
-
-  @keyframes smooth-display {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+@keyframes smooth-display {
+  0% {
+    opacity: 0;
   }
+  100% {
+    opacity: 1;
+  }
+}
 
 .unmess-game-container {
   .game-page {
@@ -123,9 +122,9 @@
     align-self: center;
     padding: 15px 10px;
     span {
-      background-color: white;
-      color: black;
       padding: 20px 40px;
+      color: black;
+      background-color: white;
       cursor: pointer;
     }
   }

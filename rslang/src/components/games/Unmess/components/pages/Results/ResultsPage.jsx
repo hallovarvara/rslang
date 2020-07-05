@@ -1,13 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import replaceTagInString from '../../../helpers/remove_tag_from_string';
 
 import GameTitle from '../../GameTitle';
 
-const ResultsPage = ({ currentWords, history }) => {
+const ResultsPage = ({
+  currentWords,
+  history,
+  currentLevel,
+  levelChanged,
+}) => {
   const rightWords = [];
   const wrongWords = [];
+
+  if (currentWords === null) {
+    return <Redirect to="/unmess/home" />;
+  }
 
   currentWords.forEach((wordObj) => {
     if (wordObj.attempt) {
@@ -61,7 +71,10 @@ const ResultsPage = ({ currentWords, history }) => {
         </div>
       </div>
       <div
-        onClick={() => history.push('/unmess/home')}
+        onClick={() => {
+          history.push('/unmess/home');
+          levelChanged(currentLevel);
+        }}
         className="game-page__play-again">Играть снова</div>
     </div>
   );
@@ -70,6 +83,8 @@ const ResultsPage = ({ currentWords, history }) => {
 ResultsPage.propTypes = {
   currentWords: PropTypes.arrayOf(PropTypes.object),
   history: PropTypes.object,
+  currentLevel: PropTypes.number,
+  levelChanged: PropTypes.func,
 };
 
 export default ResultsPage;

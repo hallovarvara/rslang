@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import replaceTagInString from '../../../helpers/remove_tag_from_string';
 
@@ -32,6 +33,10 @@ class GamePage extends React.Component {
     const untouchedDefinitions = [];
     const guessedWords = [];
     const wrongWords = [];
+
+    if (currentWords === null) {
+      return <Redirect to="/unmess/home" />;
+    }
 
     currentWords.forEach((wordObj) => {
       if (wordObj.attempt === null) {

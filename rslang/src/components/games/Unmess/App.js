@@ -144,6 +144,8 @@ class App extends React.Component {
             <ResultsPage
               history={history}
               currentWords={currentWords}
+              currentLevel={currentLevel}
+              levelChanged={this.levelChanged}
             />
           )} />
         </Switch>

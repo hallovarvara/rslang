@@ -15,6 +15,7 @@
 
   .right-container,
   .wrong-container {
+    margin: 0px 15px;
     @include flex(column, center, center);
   }
 
@@ -38,7 +39,6 @@
 
   .right-words-container,
   .wrong-words-container {
-    margin: 0px 15px;
     @include flex(column, center, center);
   }
 
