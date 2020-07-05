@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import GamePageView from './GamePage.jsx';
+import { localStorageItems } from '../../../helpers/contants';
 
 class GamePage extends React.Component {
   currentDraggedWord = null;
@@ -81,6 +82,26 @@ class GamePage extends React.Component {
     });
 
     if (untouchedWords.length === 0) {
+      const currentLatestResults = JSON.parse(
+        localStorage.getItem(localStorageItems.latestResults),
+      );
+      currentLatestResults.unshift({
+        results: currentWords,
+        date: (new Date()).toLocaleString('ru', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        }),
+      });
+      localStorage.setItem(
+        localStorageItems.latestResults,
+        JSON.stringify(currentLatestResults.slice(0, 10)),
+      );
+
       setTimeout(() => {
         this.props.history.push('/unmess/results');
       }, 1500);

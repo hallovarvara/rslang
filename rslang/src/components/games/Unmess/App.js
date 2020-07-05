@@ -7,10 +7,16 @@ import './App.scss';
 import StartPage from './components/pages/Start';
 import GamePage from './components/pages/Game';
 import ResultsPage from './components/pages/Results';
+import LatestResultsPage from './components/pages/LatestResults';
 
 import { withWordsService } from '../hoc';
 
-import { pagesCount, levelsCount, wordsPerPage } from './helpers/contants';
+import {
+  pagesCount,
+  levelsCount,
+  wordsPerPage,
+  localStorageItems,
+} from './helpers/contants';
 
 const getRandomWords = (words) => (
   words
@@ -49,6 +55,10 @@ class App extends React.Component {
   allWords = null;
 
   componentDidMount() {
+    if (localStorage.getItem(localStorageItems.latestResults) === null) {
+      localStorage.setItem(localStorageItems.latestResults, JSON.stringify([]));
+    }
+
     const { wordsService } = this.props;
     wordsService.getAllWords(pagesCount, levelsCount)
       .then((result) => {
@@ -147,6 +157,13 @@ class App extends React.Component {
               currentLevel={currentLevel}
               levelChanged={this.levelChanged}
             />
+          )} />
+          <Route path="/unmess/latest-results" render={({ history }) => (
+            <LatestResultsPage
+              history={history}
+              currentLevel={currentLevel}
+              levelChanged={this.levelChanged}
+              currentWords={currentWords} />
           )} />
         </Switch>
       </div>

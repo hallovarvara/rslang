@@ -82,8 +82,9 @@
     text-align: center;
   }
 
-  .game-page__play-again {
-    padding: 25px 125px;
+  .results-page__play-again,
+  .results-page__latest-results,
+  .results-page__current-results {
     color: white;
     background-color: black;
     cursor: pointer;
@@ -92,5 +93,24 @@
     &:hover {
       filter: invert(100%);
     }
+  }
+
+  .results-page__play-again {
+    margin-bottom: 20px;
+    padding: 25px 125px;
+  }
+
+  .results-page__latest-results {
+    padding: 25px 28px;
+  }
+
+  .results-page__current-results {
+    padding: 25px 51px;
+  }
+
+  .results-container__date {
+    margin-bottom: 20px;
+    border-bottom: 2px solid white;
+    @include font(4rem, 400, normal);
   }
 }
