@@ -1,11 +1,29 @@
 .container {
   display: flex;
   justify-content: space-between;
-  width: 1000px;
+  width: 800px;
   margin: 20px auto;
+  height: 40px;
+  padding: 0;
+  overflow: auto;
+  background-color: #dad5d5;
 }
 
 .item {
-  padding: 10px;
-  background-color: #fff;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  vertical-align: middle;
+  text-shadow: #000000 0 0 4px;
+  border: 1px solid #ffffff;
+  text-align: center;
+  line-height: 2;
+  flex-grow: 2;
+  color: #ffffff;
+  background-color: #087b83;
+}
+
+.active {
+  background-color: #b9ec76;
 }

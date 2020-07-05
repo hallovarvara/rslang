@@ -9,7 +9,7 @@ class GamePage extends React.Component {
     super(props);
     this.state = {
       level: 0,
-      maxLevel: 5, // TODO Settings
+      maxLevel: 10, // TODO Settings
       dataWords: data, // TODO use API
       questionList: [],
       phrasesArray: [],
@@ -17,10 +17,11 @@ class GamePage extends React.Component {
   }
 
   componentDidMount = () => {
-    const { dataWords, maxLevel } = this.state;
+    const { dataWords, maxLevel, level } = this.state;
     const questionList = generateQuestionsArray(dataWords, maxLevel);
     const phrasesArray = this.getPhraseArray(questionList);
-    this.setState({ questionList, phrasesArray });
+    const currentPhrase = phrasesArray[level];
+    this.setState({ questionList, phrasesArray, currentPhrase });
   }
 
   getPhraseArray = (questionList) => {
