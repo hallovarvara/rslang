@@ -105,7 +105,9 @@ class GamePage extends React.Component {
                     const { currentTarget } = event;
                     currentTarget.classList.remove('dragover');
                   }}
-                  onDrop={() => {
+                  onDrop={(event) => {
+                    const { currentTarget } = event;
+                    currentTarget.classList.remove('dragover');
                     wordDropped(this.currentDraggedWord, wordObj);
                     document.querySelectorAll('.definitions-container__definition').forEach((el) => {
                       el.classList.remove('dash-border-animated');
