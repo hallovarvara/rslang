@@ -3,8 +3,25 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import replaceTagInString from '../../../helpers/remove_tag_from_string';
+import playAudio from '../../../../../../helpers/play_audio';
+import { apiLinks } from '../../../../../../helpers/constants';
 
 import GameTitle from '../../GameTitle';
+
+const mapWordsObjectsToItems = (wordObj, classesPrefix) => (
+  <div
+    onClick={() => playAudio(`${apiLinks.file}${wordObj.audioMeaning}`)}
+    key={`${wordObj.id}-${classesPrefix}`}
+    className={`${classesPrefix}-word-container`}>
+    <span className={`${classesPrefix}-word-container__word`}>{wordObj.word}</span>
+    <span className={`${classesPrefix}-word-container__definition`}>{
+      replaceTagInString(wordObj.textMeaning, wordObj.word)
+    }</span>
+    <div className={`${classesPrefix}-word-container__audio-icon`}>
+      <span className="audio-icon"></span>
+    </div>
+  </div>
+);
 
 const ResultsPage = ({
   currentWords,
@@ -36,15 +53,7 @@ const ResultsPage = ({
           <div className="right-words-container">
             {
               rightWords.map((wordObj) => (
-                <div key={`${wordObj.id}-right`} className="right-word-container">
-                  <span className="right-word-container__word">{wordObj.word}</span>
-                  <span className="right-word-container__definition">{
-                    replaceTagInString(wordObj.textMeaning, wordObj.word)
-                  }</span>
-                  <div className="right-word-container__audio-icon">
-                    <span className="audio-icon"></span>
-                  </div>
-              </div>
+                mapWordsObjectsToItems(wordObj, 'right')
               ))
             }
           </div>
@@ -54,17 +63,7 @@ const ResultsPage = ({
           <div className="wrong-words-container">
             {
               wrongWords.map((wordObj) => (
-                <div
-                  key={`${wordObj.id}-wrong`}
-                  className="wrong-word-container">
-                  <span className="wrong-word-container__word">{wordObj.word}</span>
-                  <span className="wrong-word-container__definition">{
-                    replaceTagInString(wordObj.textMeaning, wordObj.word)
-                  }</span>
-                  <div className="wrong-word-container__audio-icon">
-                    <span className="audio-icon"></span>
-                  </div>
-              </div>
+                mapWordsObjectsToItems(wordObj, 'wrong')
               ))
             }
           </div>
