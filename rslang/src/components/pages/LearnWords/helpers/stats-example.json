@@ -1,8 +1,11 @@
 {
   "learnedWords": 0,
   "optional": {
-    "learning": {
-      "total": 135
+    "learnWords": {
+      "learned": 0,
+      "inProgress": 0,
+      "complicated": 0,
+      "remoded": 0
     },
     "savanha": {
       "25.06.2020": {

@@ -12,6 +12,8 @@ import {
   playAudios,
 } from './helpers/helpers';
 
+// import { checkIsLocalUser } from '../../../helpers/learnWords';
+
 export default class LearnWords extends Component {
   state = {
     wordCount: 0,
@@ -19,6 +21,9 @@ export default class LearnWords extends Component {
     isAutoPlay: true,
     progress: [],
     isPlaying: false,
+    isLogged: false,
+    token: '',
+    userId: '',
   };
 
   toggleAutoPlay = () => {
@@ -46,6 +51,7 @@ export default class LearnWords extends Component {
         progress,
       });
     }
+    this.checkForLoggedUser();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -53,6 +59,18 @@ export default class LearnWords extends Component {
       const { progress } = this.state;
       setSessionProgress(progress);
       this.checkForEndOfGame();
+    }
+  }
+
+  checkForLoggedUser = () => {
+    if (localStorage?.rslangUserId) {
+      const userId = localStorage.getItem('rslangUserId');
+      const token = localStorage.getItem('rslangToken');
+      this.setState({
+        isLogged: true,
+        token,
+        userId,
+      });
     }
   }
 
@@ -115,6 +133,7 @@ export default class LearnWords extends Component {
       totalWords,
       progress,
       currentInput,
+      isLogged,
     } = this.state;
     const currentWord = data[wordCount];
     const {
@@ -143,6 +162,7 @@ export default class LearnWords extends Component {
       <div>
         <Header categoriesSelect={categoriesSelect} />
         <WordCard
+          isLogged={isLogged}
           currentInput={currentInput}
           progress={progress[wordCount]}
           wordCount={wordCount + 1}

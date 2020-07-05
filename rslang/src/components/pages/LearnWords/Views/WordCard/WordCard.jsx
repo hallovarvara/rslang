@@ -4,9 +4,11 @@ import StatusBar from '../StatusBar';
 import SideBar from '../SideBar';
 import Word from '../Word';
 import WordExtraInfo from '../WordExtraInfo';
+import SpacingRepeating from '../SpacingRepeating';
 import { initialProgressObject } from '../../helpers/settings';
 
 const WordCard = ({
+  isLogged,
   currentInput,
   progress,
   textExample,
@@ -59,6 +61,7 @@ const WordCard = ({
           isShownMeaning={isShownMeaning}
           onPlayAudio={onPlayAudio}
         />
+        {isLogged && <SpacingRepeating />}
       </div>
       <div>
         <SideBar
@@ -76,6 +79,7 @@ const WordCard = ({
 );
 
 WordCard.propTypes = {
+  isLogged: PropTypes.bool,
   currentInput: PropTypes.string,
   progress: PropTypes.object,
   textExampleTranslate: PropTypes.string,
@@ -102,6 +106,7 @@ WordCard.propTypes = {
 };
 
 WordCard.defaultProps = {
+  isLogged: false,
   currentInput: '',
   progress: initialProgressObject,
   textExampleTranslate: '',
