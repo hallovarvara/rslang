@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+  height: 40px;
+  margin: 20px auto;
+}
+
+div .disabled {
+  background-color: #aaa9a9;
+}

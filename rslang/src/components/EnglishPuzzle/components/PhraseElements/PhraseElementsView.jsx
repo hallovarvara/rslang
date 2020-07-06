@@ -1,6 +1,5 @@
-// import React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
 import { shuffle } from '../../helpers';
@@ -14,7 +13,7 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-class PhraseElementsView extends Component {
+class PhraseElementsView extends React.Component {
   constructor(props) {
     super(props);
     this.phrase = props.phrase;

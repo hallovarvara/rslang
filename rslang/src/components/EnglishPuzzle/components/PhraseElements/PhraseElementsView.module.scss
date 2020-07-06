@@ -2,26 +2,26 @@
   display: flex;
   justify-content: space-between;
   width: 800px;
-  margin: 20px auto;
   height: 40px;
+  margin: 20px auto;
   padding: 0;
   overflow: auto;
   background-color: #dad5d5;
 }
 
 .item {
-  user-select: none;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  vertical-align: middle;
-  text-shadow: #000000 0 0 4px;
-  border: 1px solid #ffffff;
-  text-align: center;
-  line-height: 2;
   flex-grow: 2;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   color: #ffffff;
+  line-height: 2;
+  text-align: center;
+  text-shadow: #000000 0 0 4px;
+  vertical-align: middle;
   background-color: #087b83;
+  border: 1px solid #ffffff;
+  user-select: none;
 }
 
 .active {

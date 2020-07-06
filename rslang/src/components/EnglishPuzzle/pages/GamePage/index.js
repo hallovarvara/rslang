@@ -13,6 +13,9 @@ class GamePage extends React.Component {
       dataWords: data, // TODO use API
       questionList: [],
       phrasesArray: [],
+      isTranslation: true,
+      isAudio: true,
+      isAutoPlay: false,
     };
   }
 
@@ -29,13 +32,42 @@ class GamePage extends React.Component {
     return phrase;
   }
 
+  handleClickButtonTranslation = () => {
+    const { isTranslation } = this.state;
+    this.setState({
+      isTranslation: !isTranslation,
+    });
+  }
+
+  handleClickButtonAudio = () => {
+    const { isAudio } = this.state;
+    this.setState({
+      isAudio: !isAudio,
+    });
+  }
+
+  handleClickButtonAutoPlay = () => {
+    const { isAutoPlay } = this.state;
+    this.setState({
+      isAutoPlay: !isAutoPlay,
+    });
+  }
+
   render() {
-    const { questionList, level, phrasesArray } = this.state;
+    const {
+      questionList, level, phrasesArray, isTranslation, isAudio, isAutoPlay,
+    } = this.state;
     return (
       <GamePageView
         questionList={questionList}
         level={level}
         phrasesArray={phrasesArray}
+        handleClickButtonTranslation={this.handleClickButtonTranslation}
+        handleClickButtonAudio={this.handleClickButtonAudio}
+        handleClickButtonAutoPlay={this.handleClickButtonAutoPlay}
+        isTranslation={isTranslation}
+        isAudio={isAudio}
+        isAutoPlay={isAutoPlay}
       />
     );
   }
