@@ -6,7 +6,7 @@ const urlBase = apiLinks.base;
 const axiosuser = axios.create({
   baseURL: urlBase,
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
+    Authorization: `Bearer ${localStorage.getItem('rslangToken')}`,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
@@ -30,7 +30,7 @@ export default class UserService {
     const response = await axiosuser.post('signin', authData);
     const refreshTokenDate = new Date(new Date().getTime() + 4 * 60 * 1000);
     localStorage.setItem('tokenRslang', response.data.token);
-    localStorage.setItem('userId', response.data.userId);
+    localStorage.setItem('rslangUserId', response.data.userId);
     localStorage.setItem('refreshTokenDate', refreshTokenDate);
   }
 
@@ -105,6 +105,17 @@ export default class UserService {
     return content.data;
   };
 
+  allUserWordsArray = async (userId) => {
+    const result = [];
+    const getAllWords = await this.getUserAllWords(userId);
+    if (getAllWords.length) {
+      getAllWords.forEach((wordCard) => {
+        result.push(wordCard.word);
+      });
+    }
+    return result;
+  }
+
   createUserStatistics = async ({ userId, option }) => {
     try {
       await fetch(`${urlBase}users/${userId}/statistics`, {
@@ -168,4 +179,5 @@ export default class UserService {
     const data = await res.json();
     return data[0];
   }
+
 }
