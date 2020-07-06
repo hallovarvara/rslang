@@ -5,7 +5,7 @@ import {
 
 export default class WordsService {
   getCards = async (page, group) => {
-    const url = `${apiLinks.cards}?page=${page}&group=${group}`;
+    const url = `${apiLinks.base}words?page=${page}&group=${group}`;
     const response = await axios.get(url);
     return response.data;
   };
@@ -14,6 +14,17 @@ export default class WordsService {
     const minNumber = Math.ceil(min);
     const maxNumber = Math.floor(max);
     return Math.floor(Math.random() * (maxNumber - minNumber + 1)) + min;
+  };
+
+  shuffleArray = (array) => {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = arr[j];
+      arr[j] = arr[i];
+      arr[i] = temp;
+    }
+    return arr;
   };
 
   getCardInGroup = async (group) => {
@@ -35,7 +46,7 @@ export default class WordsService {
   totalQuizInGroup = (totalQuestions) => Math.round(totalQuestions / TOTAL_GROUP);
 
   audioPlay = (path) => {
-    const audio = new Audio(apiLinks.file + path);
+    const audio = new Audio('https://raw.githubusercontent.com/kejno/rslang-data/master/' + path);
     audio.play();
   };
 
