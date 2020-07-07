@@ -30,12 +30,21 @@
     font-size: 3rem;
     word-break: break-word;
     @include flex(row, center, flex-start);
+    @include media-tablet {
+      font-size: 2.5rem;
+    }
+    @include media-big-mobile {
+      font-size: 2rem;
+    }
   }
 
   .words-container,
   .definitions-container {
     margin: 0px 20px;
     @include flex(column, center, center);
+    @include media-big-mobile {
+      margin: 0px 10px;
+    }
   }
 
   .words-container__word,
@@ -57,10 +66,22 @@
 
   .words-container__word {
     width: 240px;
+    @include media-tablet {
+      width: 200px;
+    }
+    @include media-big-mobile {
+      width: 150px;
+    }
   }
 
   .definitions-container__definition {
     width: 430px;
+    @include media-tablet {
+      width: 300px;
+    }
+    @include media-big-mobile {
+      width: 250px;
+    }
     &.dragover {
       background-color: rgba(#b7e3ff, 0.2);
     }
@@ -72,6 +93,13 @@
     font-size: 3rem;
     word-break: break-word;
     @include flex(column, center, center);
+    @include media-tablet {
+      width: 540px;
+      font-size: 2.5rem;
+    }
+    @include media-big-mobile {
+      font-size: 2rem;
+    }
   }
 
   .right-attempts-container,
@@ -106,12 +134,18 @@
   .wrong-attempt__word {
     width: 280px;
     padding: 15px 10px;
+    @include media-tablet {
+      width: 240px;
+    }
   }
 
   .right-attempt__definition,
   .wrong-attempt__definition {
     width: 430px;
     padding: 15px 10px;
+    @include media-tablet {
+      width: 300px;
+    }
   }
 
   .wrong-attempt__definition {

@@ -13,9 +13,11 @@
 
   .start-page__description {
     margin-bottom: 10px;
+    padding: 0px 20px;
     color: $color-text-light;
     font-size: 4rem;
     font-family: 'RuHandwrite', cursive;
+    text-align: center;
     opacity: 0.8;
   }
 
@@ -29,6 +31,9 @@
     outline: none;
     cursor: pointer;
     transition: all 0.7s ease;
+    @include media-mobile {
+      padding: 20px 70px;
+    }
   }
 
   .unmess-level-stepper {
