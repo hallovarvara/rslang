@@ -1,0 +1,26 @@
+@mixin flex($direction: row, $justify-content: center, $align-items: center) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align-items;
+  justify-content: $justify-content;
+}
+
+@mixin background-image($url, $size: cover, $position: center) {
+  background-image: $url;
+  background-position: $position;
+  background-size: $size;
+}
+
+@mixin font(
+  $size: 2rem,
+  $weight: $font-weight-semibold,
+  $style: normal,
+  $family: $font-primary,
+  $line-height: normal
+) {
+  font-weight: $weight;
+  font-size: $size;
+  font-style: $style;
+  font-family: $family;
+  line-height: $line-height;
+}

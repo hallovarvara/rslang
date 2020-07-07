@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import { hideWordStyles, showWordStyles } from '../../helpers/style-options';
 
 const WordExtraInfo = ({
-  progress,
-  word,
-  wordTranslate,
-  transcription,
-  textMeaning,
-  textMeaningTranslate,
-  isShownTranscription,
-  isShownExampleSentence,
-  isShownMeaning,
-  onPlayAudio,
-}) => {
+                         progress,
+                         word,
+                         wordTranslate,
+                         transcription,
+                         textMeaning,
+                         textMeaningTranslate,
+                         isShownTranscription,
+                         isShownExampleSentence,
+                         isShownMeaning,
+                         onPlayAudio,
+                       }) => {
   const { begin, emphasis, end } = textMeaning;
   const { isGuessed } = progress;
   return (
@@ -21,7 +21,7 @@ const WordExtraInfo = ({
       <div>
         {
           isGuessed && <div>
-          {/* TODO: Please, replace buton text 'play' to an appropriate icon */}
+            {/* TODO: Please, replace buton text 'play' to an appropriate icon */}
             <button onClick={() => onPlayAudio('audio')}>Play</button>
             <p>{word}</p>
           </div>

@@ -6,14 +6,14 @@ import { buttonsNames } from '../../helpers/constants';
 const { SHOW_ANSWER, PREV, NEXT } = buttonsNames;
 
 const SideBar = ({
-  word,
-  image,
-  isShownAnswerButton,
-  isShownImageAssociation,
-  onNextWord,
-  onPrevWord,
-  onChangeProgress,
-}) => (
+                   word,
+                   image,
+                   isShownAnswerButton,
+                   isShownImageAssociation,
+                   onNextWord,
+                   onPrevWord,
+                   onChangeProgress,
+                 }) => (
   <div>
     <div>
       {isShownImageAssociation && <img src={resourceUrl(image)} alt={word} />}
