@@ -170,6 +170,7 @@ export default class LearnWords extends Component {
           onToggleCategory={this.toggleCategory}
         />
         <WordCard
+          currentWord={currentWord}
           isLogged={isLogged}
           currentInput={currentInput}
           progress={progress[wordCount]}

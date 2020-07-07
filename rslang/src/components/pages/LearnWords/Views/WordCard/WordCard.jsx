@@ -8,6 +8,7 @@ import SpacingRepeating from '../SpacingRepeating';
 import { initialProgressObject } from '../../helpers/settings';
 
 const WordCard = ({
+  currentWord,
   isLogged,
   currentInput,
   progress,
@@ -61,7 +62,7 @@ const WordCard = ({
           isShownMeaning={isShownMeaning}
           onPlayAudio={onPlayAudio}
         />
-        {(isLogged && progress.isGuessed) && <SpacingRepeating />}
+        {(isLogged && progress.isGuessed) && <SpacingRepeating currentWord={currentWord} />}
       </div>
       <div>
         <SideBar
@@ -79,6 +80,7 @@ const WordCard = ({
 );
 
 WordCard.propTypes = {
+  currentWord: PropTypes.object,
   isLogged: PropTypes.bool,
   currentInput: PropTypes.string,
   progress: PropTypes.object,
@@ -106,6 +108,7 @@ WordCard.propTypes = {
 };
 
 WordCard.defaultProps = {
+  currentWord: {},
   isLogged: false,
   currentInput: '',
   progress: initialProgressObject,

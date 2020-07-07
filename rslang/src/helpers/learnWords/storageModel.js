@@ -45,6 +45,8 @@ export const saveLocalUserWord = (wordObject) => {
     }
     localStorage.setItem(localThings.RSLANG_USER_WORDS, JSON.stringify([...updatedWords]));
   }
+  console.log(wordObject);
+  return { ...wordObject };
 };
 
 export const checkForSettings = () => (
@@ -61,7 +63,7 @@ export const checkForSpacingRepeating = () => (
 
 export const saveSpacingRepeating = (repeatingArray, wordObject, twice = false) => {
   const newWords = twice ? [wordObject, ...repeatingArray, wordObject] : [wordObject];
-  localStorage.setItem(localThings.RSLANG_USER_REPEATING, newWords);
+  localStorage.setItem(localThings.RSLANG_USER_REPEATING, JSON.stringify(newWords));
 };
 
 export const getStatsToSaveInBack = () => (

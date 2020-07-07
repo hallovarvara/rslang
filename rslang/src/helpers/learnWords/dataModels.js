@@ -142,7 +142,9 @@ export const convertDate = (days) => (
 );
 
 export const changeUserWord = (userOption, optionData, wordObject) => {
-  const newUserWord = { ...wordObject.userWord };
+  const newUserWord = wordObject?.userWord
+    ? { ...wordObject.userWord }
+    : { ...userWordTemplate };
   const { optional } = newUserWord;
   if (userOption === userWordThings.DIFFICULTY) {
     newUserWord[userWordThings.DIFFICULTY] = optionData;
@@ -168,10 +170,10 @@ export const checkUserWordById = (userWords, wordId) => (
   userWords.find((word) => word.id === wordId)
 );
 
-export const checkForCurrentUserWord = (userWords, wordId) => (
+export const checkForCurrentUserWord = (userWords, wordObject) => (
   userWords.length > 0
-    ? checkUserWordById(userWords, wordId) || createUserWord()
-    : createUserWord()
+    ? checkUserWordById(userWords, wordObject.id) || createUserWord(wordObject)
+    : createUserWord(wordObject)
 );
 
 export const generateSpacingRepeatingTemplate = () => (

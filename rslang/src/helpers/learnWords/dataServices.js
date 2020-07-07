@@ -20,19 +20,34 @@ import { calculateLearnRate } from './spacingRepeating';
 
 export const prepareWordObject = (wordObject) => {
   const userWords = checkForUserWords();
-  return checkForCurrentUserWord(userWords, wordObject.id);
+  return checkForCurrentUserWord(userWords, wordObject);
 };
 
-export const updateUserWord = (userOption, optionData, wordObject) => {
+export const updateRepeatingWords = (wordObject, twice) => {
+  const repeating = checkForSpacingRepeating();
+  console.log(repeating, wordObject, twice);
+  saveSpacingRepeating(repeating, wordObject, twice);
+};
+
+export const convertDifficultLevelToRepeats = (level) => (
+  level === levelsOfDifficulty.HARD
+);
+
+export const updateUserWord = (userOption, optionData, wordObject, level) => {
   const newWord = changeUserWord(userOption, optionData, wordObject);
   saveLocalUserWord(newWord);
+  if (level !== levelsOfDifficulty.EASY) {
+    const twice = convertDifficultLevelToRepeats(level);
+    updateRepeatingWords(newWord, twice);
+  }
 };
 
 export const updateUserWordRate = (wordObject, level = levelsOfDifficulty.HARD) => {
   const current = prepareWordObject(wordObject);
   const prevRate = current.userWord.optional.rate;
   const rate = calculateLearnRate(prevRate, level);
-  updateUserWord(userWordThings.RATE, rate, wordObject);
+  console.log(current, prevRate, rate, level);
+  updateUserWord(userWordThings.RATE, rate, current, level);
 };
 
 export const updateUserWordDifficulty = (wordObject) => {
@@ -57,9 +72,4 @@ export const updateSettings = (settingOption) => {
   const settings = checkForSettings();
   const newSettings = changeSettings(settingOption, settings);
   saveLocalSettings(newSettings);
-};
-
-export const updateRepeatingWords = (wordObject, twice) => {
-  const repeating = checkForSpacingRepeating();
-  saveSpacingRepeating(repeating, wordObject, twice);
 };
