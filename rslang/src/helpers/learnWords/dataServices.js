@@ -30,7 +30,7 @@ export const updateUserWord = (userOption, optionData, wordObject) => {
 
 export const updateUserWordRate = (wordObject, level = levelsOfDifficulty.HARD) => {
   const current = prepareWordObject(wordObject);
-  const prevRate = current.userWord.optional;
+  const prevRate = current.userWord.optional.rate;
   const rate = calculateLearnRate(prevRate, level);
   updateUserWord(userWordThings.RATE, rate, wordObject);
 };
