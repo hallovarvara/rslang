@@ -13,14 +13,18 @@ const axiosuser = axios.create({
 });
 
 export default class UserService {
-  registerUser = async ({ email, password }) => {
-    const authData = {
-      email,
-      password,
-    };
-    const response = await axiosuser.post('users', authData);
-    return response.data.id;
-  }
+  registerUser = async (user) => {
+    const rawResponse = await fetch(urlBase, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+    const content = await rawResponse.json();
+    console.log(content);
+  };
 
   loginUser = async ({ email, password }) => {
     const authData = {
