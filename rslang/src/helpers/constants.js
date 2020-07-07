@@ -31,3 +31,11 @@ export const userSettingsTemplate = {
   IS_SHOWN_EXAMPLE_SENTENCE: 'isShownExampleSentence',
   IS_SHOWN_MEANING: 'isShownMeaning',
 };
+
+export const levelsOfDifficulty = {
+  HARD: 'hard',
+  NORMAL: 'normal',
+  EASY: 'easy',
+};
+
+export const dateFormatTemplate = 'DD.MM.YYYY';

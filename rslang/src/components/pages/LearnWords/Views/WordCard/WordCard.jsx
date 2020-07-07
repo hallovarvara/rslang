@@ -61,7 +61,7 @@ const WordCard = ({
           isShownMeaning={isShownMeaning}
           onPlayAudio={onPlayAudio}
         />
-        {isLogged && <SpacingRepeating />}
+        {(isLogged && progress.isGuessed) && <SpacingRepeating />}
       </div>
       <div>
         <SideBar
