@@ -1,7 +1,8 @@
 import React from 'react';
 import data from '../../mockData';
-import { generateQuestionsArray } from '../../helpers';
+import { generateQuestionsArray, shuffle } from '../../helpers';
 import GamePageView from './GamePageView.jsx';
+import { CompareArrowsOutlined } from '@material-ui/icons';
 // import { CompareArrowsOutlined } from '@material-ui/icons';
 
 class GamePage extends React.Component {
@@ -16,6 +17,8 @@ class GamePage extends React.Component {
       isTranslation: true,
       isAudio: true,
       isAutoPlay: false,
+      errorCount: 0,
+      isContinue: false,
     };
   }
 
@@ -24,13 +27,24 @@ class GamePage extends React.Component {
     const questionList = generateQuestionsArray(dataWords, maxLevel);
     const phrasesArray = this.getPhraseArray(questionList);
     const currentPhrase = phrasesArray[level];
-    this.setState({ questionList, phrasesArray, currentPhrase });
+    const puzzleItems = shuffle(this.getItems(currentPhrase));
+    this.setState({
+      questionList,
+      phrasesArray,
+      currentPhrase,
+      puzzleItems,
+    });
   }
 
   getPhraseArray = (questionList) => {
     const phrase = questionList.map((item) => item.textExample.split(' ').map((word) => word.replace(/<\/?[^>]+>/gi, '')));
     return phrase;
   }
+
+  getItems = (array) => array.map((word, index) => ({
+    id: `${index}`,
+    content: `${word}`,
+  }));
 
   handleClickButtonTranslation = () => {
     const { isTranslation } = this.state;
@@ -53,10 +67,40 @@ class GamePage extends React.Component {
     });
   }
 
+  handleClickButtonContinue = () => {
+    let { level } = this.state;
+    const { phrasesArray } = this.state;
+    level += 1;
+    const currentPhrase = phrasesArray[level];
+    const answerItems = this.getItems(currentPhrase);
+    const puzzleItems = shuffle(this.getItems(currentPhrase));
+    console.log(puzzleItems, 2)
+    this.setState({ level, currentPhrase, puzzleItems, answerItems, isContinue: false });
+  }
+
+  handleClickButtonDontKnow = () => {
+    let { errorCount } = this.state;
+    const { phrasesArray, level } = this.state;
+    errorCount += 1;
+    const currentPhrase = phrasesArray[level];
+    const answerItems = this.getItems(currentPhrase);
+    this.setState({ errorCount, answerItems, isContinue: true });
+  }
+
   render() {
     const {
-      questionList, level, phrasesArray, isTranslation, isAudio, isAutoPlay,
+      questionList,
+      level,
+      phrasesArray,
+      isTranslation,
+      isAudio,
+      isAutoPlay,
+      puzzleItems,
+      answerItems,
+      isContinue,
+      errorCount,
     } = this.state;
+    console.log(level)
     return (
       <GamePageView
         questionList={questionList}
@@ -65,9 +109,15 @@ class GamePage extends React.Component {
         handleClickButtonTranslation={this.handleClickButtonTranslation}
         handleClickButtonAudio={this.handleClickButtonAudio}
         handleClickButtonAutoPlay={this.handleClickButtonAutoPlay}
+        handleClickButtonDontKnow={this.handleClickButtonDontKnow}
         isTranslation={isTranslation}
         isAudio={isAudio}
         isAutoPlay={isAutoPlay}
+        puzzleItems={puzzleItems}
+        answerItems={answerItems}
+        handleClickButtonContinue={this.handleClickButtonContinue}
+        isContinue={isContinue}
+        errorCount={errorCount}
       />
     );
   }
