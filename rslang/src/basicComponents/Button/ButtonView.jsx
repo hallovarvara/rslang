@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 
-const ButtonView = ({ value = 'Button' }) => {
+const ButtonView = ({ type = 'primary', value = 'Button', className = '' }) => {
   return <Button
-    classes={{ root: 'btn-primary' }}
+    className={className}
+    classes={{ root: `btn btn-${type}` }}
     variant="contained"
     size="large">{value}</Button>;
 };
 
 ButtonView.propTypes = {
+  type: PropTypes.string,
+  className: PropTypes.string,
   value: PropTypes.string,
 };
 

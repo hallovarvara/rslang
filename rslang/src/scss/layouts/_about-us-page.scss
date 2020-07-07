@@ -1,0 +1,98 @@
+.about-us-page {
+  padding-bottom: 60px;
+  @include flex(column, center, center);
+}
+
+.about-us {
+  width: 100%;
+  padding: 50px 150px 90px 150px;
+  background-color: $color-primary;
+  @include flex(column, center, center);
+}
+
+.about-us__title {
+  margin-bottom: 5px;
+  @include font(
+    $size: 9rem,
+    $weight: $font-weight-black,
+    $style: italic
+  );
+}
+
+.about-us__desctiption {
+  margin-bottom: 50px;
+  color: rgba($color: $color-dark, $alpha: 0.6);
+  @include font(3.2rem, 300, normal);
+}
+
+.about-us__team-photo {
+  width: 100%;
+  height: auto;
+}
+
+.team-members {
+  flex-wrap: wrap;
+  padding: 80px 100px 0px 100px;
+  background-color: $color-secondary;
+  @include flex(row, space-around, center);
+}
+
+.team-member {
+  width: 600px;
+  margin-bottom: 80px;
+  @include flex(column, center, center);
+}
+
+.team-member__image {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+.team-member__full-name {
+  margin-bottom: 5px;
+
+  @include font(
+    $size: 4.6rem,
+    $weight: $font-weight-black,
+    $family: $font-secondary,
+  );
+}
+
+.team-member__role {
+  margin-bottom: 15px;
+  line-height: 4.5rem;
+  text-align: center;
+  @include font(3rem, 300, normal);
+}
+
+.team-member-linked-profile {
+  color: rgba($color: $color-dark, $alpha: 0.4);
+  text-transform: uppercase;
+  @include font(2rem, 400, normal);
+  @include flex(row, center, flex-end);
+}
+
+.team-member-linked-profile__link {
+  margin-right: 10px;
+  color: rgba($color: $color-dark, $alpha: 0.4);
+
+  @include font(
+    $size: 2rem,
+    $weight: $font-weight-black
+  );
+  @include flex(row, center, flex-end);
+}
+
+.linkedin-icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  @include background-image(url('../../assets/images/linkedin-icon.png'));
+}
+
+.about-us-page__start-learn-btn {
+  @include font(4rem, 500, normal);
+}
