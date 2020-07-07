@@ -22,6 +22,9 @@
 
   .game-title-container__title {
     margin-right: 20px;
+    @include media-mobile {
+      font-size: 7.5rem;
+    }
   }
 
   .game-container {
@@ -35,6 +38,9 @@
     }
     @include media-big-mobile {
       font-size: 2rem;
+    }
+    @include media-mobile {
+      font-size: 1.8rem;
     }
   }
 
@@ -72,6 +78,9 @@
     @include media-big-mobile {
       width: 150px;
     }
+    @include media-mobile {
+      width: 100px;
+    }
   }
 
   .definitions-container__definition {
@@ -81,6 +90,9 @@
     }
     @include media-big-mobile {
       width: 250px;
+    }
+    @include media-mobile {
+      width: 170px;
     }
     &.dragover {
       background-color: rgba(#b7e3ff, 0.2);
@@ -98,7 +110,12 @@
       font-size: 2.5rem;
     }
     @include media-big-mobile {
+      width: 420px;
       font-size: 2rem;
+    }
+    @include media-mobile {
+      width: 290px;
+      font-size: 1.8rem;
     }
   }
 
@@ -137,6 +154,12 @@
     @include media-tablet {
       width: 240px;
     }
+    @include media-tablet {
+      width: 170px;
+    }
+    @include media-mobile {
+      width: 120px;
+    }
   }
 
   .right-attempt__definition,
@@ -145,6 +168,12 @@
     padding: 15px 10px;
     @include media-tablet {
       width: 300px;
+    }
+    @include media-tablet {
+      width: 250px;
+    }
+    @include media-mobile {
+      width: 170px;
     }
   }
 
@@ -155,11 +184,18 @@
   .wront-attempt__show-answer {
     align-self: center;
     padding: 15px 10px;
-    span {
-      padding: 20px 40px;
-      color: black;
-      background-color: white;
-      cursor: pointer;
+  }
+
+  .wront-attempt__show-answer span {
+    padding: 20px 40px;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    @include media-tablet {
+      padding: 20px 35px;
+    }
+    @include media-mobile {
+      padding: 15px 5px;
     }
   }
 }

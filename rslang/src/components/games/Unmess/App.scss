@@ -13,17 +13,17 @@
 @import './scss/base/fonts';
 @import './scss/base/helpers';
 
-// Layouts
-@import './scss/layouts/flex-div-with-span';
-@import './scss/layouts/start-page';
-@import './scss/layouts/game-page';
-@import './scss/layouts/results-page';
-
 // Components
 @import './scss/components/preloader';
 @import './scss/components/game-title';
 @import './scss/components/question-icon';
 @import './scss/components/audio-icon';
+
+// Layouts
+@import './scss/layouts/flex-div-with-span';
+@import './scss/layouts/start-page';
+@import './scss/layouts/game-page';
+@import './scss/layouts/results-page';
 
 // Vendors
 @import './scss/vendors/normalize';

@@ -5,4 +5,8 @@
   background-image: url('../../assets/images/icon-play.png');
   background-position: center;
   background-size: cover;
+  @include media-tablet {
+    width: 35px;
+    height: 35px;
+  }
 }
