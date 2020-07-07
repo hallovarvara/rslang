@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import MainPage from '../pages/Main';
+import AboutUsPage from '../pages/AboutUs';
+import LearnWords from '../pages/LearnWords';
 import SettingsPage from '../pages/Settings';
 import StatisticPage from '../pages/Statistics';
-import AboutUsPage from '../pages/AboutUs';
 import PromoPage from '../pages/Promo';
 import PlayGamesPage from '../pages/PlayGames';
 import VocabularyPage from '../pages/Vocabulary';
@@ -16,7 +16,7 @@ import { pagesData } from '../../helpers/constants';
 const Main = () => (
   <main className="main">
     <Switch>
-      <Route exact path="/" component={MainPage} />
+      <Route exact path={`/` || pagesData.settings.path} component={LearnWords} />
       <Route path={`/${pagesData.settings.path}`} component={SettingsPage} />
       <Route path={`/${pagesData.statistics.path}`} component={StatisticPage} />
       <Route path={`/${pagesData.aboutUs.path}`} component={AboutUsPage} />

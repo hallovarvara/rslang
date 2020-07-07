@@ -23,10 +23,11 @@ const addLinksToHeader = (link, index) => {
                 className="menu-list-item__link"
                 activeClassName="navigation__item_active"
                 key={i}
-                to={gameObj.link}>{gameObj.title}</NavLink>
+                to={gameObj.link}>{gameObj.title}
+              </NavLink>
             ))}
           />
-          : <NavLink activeClassName="navigation__item_active" to={`/${path}`}>{title}</NavLink>
+          : <NavLink activeClassName="navigation__item_active" exact to={`/${path}`}>{title}</NavLink>
       }
     </li>
   );
@@ -42,7 +43,7 @@ const HeaderView = ({ links, isUserLogged }) => (
         }
         {
           isUserLogged && <li className="navigation__item exit-icon">
-            <NavLink activeClassName="navigation__item_active" to="sign-up">
+            <NavLink activeClassName="navigation__item_active" to={pagesData.register.path}>
               <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }}/>
             </NavLink>
           </li>

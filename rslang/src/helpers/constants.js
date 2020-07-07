@@ -17,7 +17,7 @@ const pagesData = {
   },
   learnWords: {
     title: 'Учить слова',
-    path: 'learn',
+    path: '',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
   },

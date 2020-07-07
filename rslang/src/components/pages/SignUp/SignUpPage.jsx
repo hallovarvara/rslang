@@ -7,15 +7,15 @@ import {pagesData} from "../../../helpers/constants";
 
 const SignUpPage = () => (
   <section className="sign-up-page">
-    <h2 className="sign-up-page__title">{pagesData.register.title}</h2>
+    <h1>{pagesData.register.title}</h1>
     <form className="sign-up-form">
-      <Input placeholder="Email" className="sign-up-form__email"/>
-      <Input placeholder="Password" className="sign-up-form__password"/>
-      <Input placeholder="Repeat password" className="sign-up-form__repeat-password"/>
-      <Button value="Sign up" className="sign-up-form__button"/>
+      <Input type="email" placeholder="Емейл" className="sign-up-form__email"/>
+      <Input type="password" placeholder="Пароль" className="sign-up-form__password"/>
+      <Input type="password" placeholder="Повторите пароль" className="sign-up-form__repeat-password"/>
+      <Button value={pagesData.register.title} className="sign-up-form__button"/>
     </form>
     <p className="sign-up-page-additional-info">
-      Already registered? <Link className="sign-up-page-additional-info__sign-in-link" to="/sign-in">Sign in</Link>
+      Уже зарегистрированы? <Link className="sign-up-page-additional-info__sign-in-link" to="/sign-in">{pagesData.signIn.title}</Link>
     </p>
   </section>
 );
