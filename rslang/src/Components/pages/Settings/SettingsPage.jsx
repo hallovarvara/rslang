@@ -6,6 +6,8 @@ import Slider from '../../../basicComponents/Slider';
 import LearnWordCardPreview from '../../LearnWordCardPreview';
 import Checkbox from '../../../basicComponents/Checkbox';
 
+import { pagesData } from '../../../helpers/constants'
+
 const SettingsPage = (props) => {
   const {
     translation: translationVisibility,
@@ -18,41 +20,41 @@ const SettingsPage = (props) => {
   } = props.previewSettings;
   return (
     <section className="settings-page">
-      <h2 className="settings_page__title">Settings</h2>
+      <h2 className="settings_page__title">{pagesData.settings.title}</h2>
       <div className="words-settings">
-        <h4 className="words-settings__title"><span>Learning</span>: Words</h4>
+        <h4 className="words-settings__title">Сколько слов учить в день</h4>
         <div className="max-words-per-day-settings">
-          <p className="max-words-per-day-settings__title">Maximum words per day</p>
+          <p className="max-words-per-day-settings__title">Всего</p>
           <Slider />
         </div>
         <div className="new-words-per-day-settings">
-          <p className="new-words-per-day-settings__title">New words per day</p>
+          <p className="new-words-per-day-settings__title">Новых</p>
           <Slider />
         </div>
       </div>
       <div className="learn-card-preview">
-        <h4 className="learn-card-preview__title"><span>Learning</span>: What to show on word’s card</h4>
+        <h4 className="learn-card-preview__title">Что показывать на карточке слова</h4>
         <div className="preview-settings">
           <label className="preview-settings__setting translation">
-            <Checkbox previewSettingName="translation" checked={translationVisibility}/>Translation
+            <Checkbox previewSettingName="translation" checked={translationVisibility}/>Перевод
           </label>
           <label className="preview-settings__setting complicated-button">
-            <Checkbox previewSettingName="complicatedButton" checked={complicatedButtonVisibility}/>„Complicated” button
+            <Checkbox previewSettingName="complicatedButton" checked={complicatedButtonVisibility}/>Кнопка «Сложные»
           </label>
           <label className="preview-settings__setting image-associatation">
-            <Checkbox previewSettingName="imageAssociatation" checked={imageAssociatationVisibility}/>Image association
+            <Checkbox previewSettingName="imageAssociatation" checked={imageAssociatationVisibility}/>Картинка для ассоциации
           </label>
           <label className="preview-settings__setting meaning">
-            <Checkbox previewSettingName="meaning" checked={meaningVisibility}/>Meaning
-          </label>
-          <label className="preview-settings__setting example-sentence">
-            <Checkbox previewSettingName="transcription" checked={transcriptionVisibility}/>Transcription
+            <Checkbox previewSettingName="meaning" checked={meaningVisibility}/>Значение
           </label>
           <label className="preview-settings__setting transcription">
-            <Checkbox previewSettingName="showAnswerButton" checked={showAnswerButtonVisibility}/>„Show answer” button
+            <Checkbox previewSettingName="transcription" checked={transcriptionVisibility}/>Транскрипция
           </label>
           <label className="preview-settings__setting show-answer-button">
-            <Checkbox previewSettingName="exampleSentence" checked={exampleSentenceVisibility}/>Example sentence
+            <Checkbox previewSettingName="showAnswerButton" checked={showAnswerButtonVisibility}/>Кнопка «Показать ответ»
+          </label>
+          <label className="preview-settings__setting example-sentence">
+            <Checkbox previewSettingName="exampleSentence" checked={exampleSentenceVisibility}/>Пример предложения
           </label>
         </div>
         <LearnWordCardPreview />

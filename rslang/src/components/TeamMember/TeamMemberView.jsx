@@ -1,26 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import standartAvatar from '../../assets/images/avatar.jpg';
+import noAvatar from '../../assets/images/avatar.jpg';
+import { linkedinLink } from '../../helpers/constants';
 
 const TeamMemberView = (props) => {
   const {
-    name = 'Name',
-    surname = 'Surname',
-    role = 'Role and quite long VKLAD’s text, that includes short marcs from team’s worklog.',
-    image = standartAvatar,
-    linkedInLink = 'https://www.linkedin.com/in/lebetsky-dmitry-20a80519a/',
+    name = 'Жора',
+    surname = 'Зажорин',
+    role = 'Что-то точно делал',
+    image = noAvatar,
+    linkedinUsername = '',
   } = props;
   return (
     <div className="team-member">
       <img src={image} alt="team-member" className="team-member__image"/>
       <p className="team-member__full-name">{`${name} ${surname}`}</p>
       <p className="team-member__role">{role}</p>
-      <p className="team-member-linked-profile">
-        <a target="_blunk" href={linkedInLink} className="team-member-linked-profile__link">
-          <span className="linkedin-icon"></span>{name}
-        </a>Open for job offer
-      </p>
+      {
+        linkedinUsername.length > 0 &&
+        <p className="team-member-linked-profile">
+          <a target="_blunk" href={linkedinLink + linkedinUsername} className="team-member-linked-profile__link">
+            <span className="linkedin-icon"></span>{linkedinUsername}
+          </a>
+        </p>
+      }
     </div>
   );
 };
@@ -30,7 +34,7 @@ TeamMemberView.propTypes = {
   surname: PropTypes.string,
   role: PropTypes.string,
   image: PropTypes.string,
-  linkedInLink: PropTypes.string,
+  linkedinUsername: PropTypes.string,
 };
 
 export default TeamMemberView;

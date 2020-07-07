@@ -1,5 +1,6 @@
 import React from 'react';
 import WordCard from './WordCard';
+import { pagesData } from "../../../helpers/constants";
 
 const VocabularyView = ( { selectorOptions, changeVocabularyType, selectedOption, words } ) => {
   const options = selectorOptions.map( ([ key, value ]) => <option value={ key } key={ key }> { value } </option> );
@@ -12,7 +13,7 @@ const VocabularyView = ( { selectorOptions, changeVocabularyType, selectedOption
 
   return (
     <div>
-      <h2 className="title"> Vocabulary </h2>
+      <h2 className="title">{pagesData.vocabulary.title}</h2>
       <select className="vocabulary-selector" onChange={ ( e ) => onSelectorChange( e ) }
         value={ selectedOption } >
         { options }

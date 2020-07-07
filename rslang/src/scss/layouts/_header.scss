@@ -13,7 +13,7 @@
 }
 
 .header__title a {
-  color: $color-text-dark;
+  color: $color-dark;
 }
 
 .navigation {
@@ -32,7 +32,7 @@
     padding-right: 0px;
   }
   &_active {
-    font-weight: 900;
+    font-weight: $font-weight-black;
   }
 }
 
@@ -41,9 +41,9 @@
 }
 
 .navigation__item a {
-  color: $color-text-dark;
+  color: $color-dark;
   font-size: 2.4rem;
-  font-family: 'Inter', sans-serif;
+  font-family: $font-primary;
   text-transform: initial;
   &:hover {
     text-decoration: underline;

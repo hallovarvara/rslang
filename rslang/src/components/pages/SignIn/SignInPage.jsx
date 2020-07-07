@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 
 import Input from '../../../basicComponents/Input';
 import Button from '../../../basicComponents/Button';
+import {pagesData} from "../../../helpers/constants";
 
 const SignInPage = () => (
   <section className="sign-in-page">
-    <h2 className="sign-in-page__title">Sign in</h2>
+    <h2 className="sign-in-page__title">{pagesData.signIn.title}</h2>
     <form className="sign-in-form">
       <Input placeholder="Email" className="sign-in-form__email"/>
       <Input placeholder="Password" className="sign-in-form__password"/>
