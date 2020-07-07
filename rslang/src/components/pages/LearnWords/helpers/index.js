@@ -1,4 +1,5 @@
 import { baseUrl } from './settings';
+import { RSLANG_SESSION_PROGRESS } from './constants';
 import {
   successColor,
   fewErrorsColor,
@@ -36,22 +37,12 @@ export const showDifferenceInWords = (currentWord, inputWord) => {
 };
 
 export const getSessionProgress = () => {
-  let result = [];
-  if (!localStorage.rslang) {
-    localStorage.setItem('rslang', JSON.stringify({}));
-  } else {
-    const rslang = JSON.parse(localStorage.getItem('rslang'));
-    result = rslang?.learnSessionProgress;
-  }
-  return result || [];
+  const progress = JSON.parse(localStorage.getItem(RSLANG_SESSION_PROGRESS));
+  return progress || [];
 };
 
 export const setSessionProgress = (progress) => {
-  if (!localStorage.rslang) {
-    localStorage.setItem('rslang', JSON.stringify({}));
-  }
-  const rslang = JSON.parse(localStorage.getItem('rslang'));
-  localStorage.setItem('rslang', JSON.stringify({ ...rslang, learnSessionProgress: progress }));
+  localStorage.setItem(RSLANG_SESSION_PROGRESS, JSON.stringify(progress));
 };
 
 export const checkSessionProgress = (progress) => (
@@ -59,9 +50,7 @@ export const checkSessionProgress = (progress) => (
 );
 
 export const clearSessionProgress = () => {
-  const rslang = JSON.parse(localStorage.getItem('rslang'));
-  rslang.learnSessionProgress = [];
-  localStorage.setItem('rslang', rslang);
+  localStorage.removeItem(RSLANG_SESSION_PROGRESS);
 };
 
 export const prepareRightAnswerStyles = (isGuessed) => {
@@ -104,44 +93,4 @@ export const playAudios = (audios) => {
       }
     };
   }
-};
-
-export const encreaseRate = (wordObject, funcToConvertDate) => {
-  const { rate } = wordObject;
-  const updated = { ...wordObject };
-  switch (rate) {
-    case 0:
-      updated.rate = 1;
-      updated.next = funcToConvertDate(1);
-      break;
-    case 1:
-      updated.rate = 2;
-      updated.next = funcToConvertDate(2);
-      break;
-    case 2:
-      updated.rate = 4;
-      updated.next = funcToConvertDate(4);
-      break;
-    case 4:
-      updated.rate = 7;
-      updated.next = funcToConvertDate(7);
-      break;
-    case 7:
-      updated.rate = 30;
-      updated.next = funcToConvertDate(30);
-      break;
-    case 30:
-      updated.rate = 60;
-      updated.next = funcToConvertDate(60);
-      break;
-    case 60:
-      updated.rate = 100;
-      updated.next = funcToConvertDate(100);
-      break;
-    default:
-      updated.rate = 101;
-      updated.next = '';
-      break;
-  }
-  return updated;
 };

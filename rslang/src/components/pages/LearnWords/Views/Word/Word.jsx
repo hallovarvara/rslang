@@ -8,7 +8,7 @@ import {
   showDifferenceInWords,
   prepareRightAnswerStyles,
   prepareWrongAnswerStyles,
-} from '../../helpers/helpers';
+} from '../../helpers';
 import CheckedSentense from '../CheckedSentence';
 
 class Word extends Component {

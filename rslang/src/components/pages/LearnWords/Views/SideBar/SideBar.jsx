@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { resourceUrl } from '../../helpers/helpers';
+import { resourceUrl } from '../../helpers';
+import { buttonsNames } from '../../helpers/constants';
+
+const { SHOW_ANSWER, PREV, NEXT } = buttonsNames;
 
 const SideBar = ({
   word,
@@ -13,21 +16,22 @@ const SideBar = ({
 }) => (
   <div>
     <div>
-        {isShownImageAssociation && <img src={resourceUrl(image)} alt={word} />}
-        {
-          isShownAnswerButton
-          && <button onClick={
-            () => onChangeProgress({
-              isGuessed: true,
-              isShownWord: true,
-              isUsedTip: true,
-            })
-            }>Показать ответ</button>
-        }
+      {isShownImageAssociation && <img src={resourceUrl(image)} alt={word} />}
+      {isShownAnswerButton && (
+        <button
+          onClick={() => onChangeProgress({
+            isGuessed: true,
+            isShownWord: true,
+            isUsedTip: true,
+          })}
+        >
+          {SHOW_ANSWER}
+        </button>
+      )}
     </div>
     <div>
-        <button onClick={() => onPrevWord()}>Назад</button>
-        <button onClick={() => onNextWord()}>Вперед</button>
+      <button onClick={() => onPrevWord()}>{PREV}</button>
+      <button onClick={() => onNextWord()}>{NEXT}</button>
     </div>
   </div>
 );

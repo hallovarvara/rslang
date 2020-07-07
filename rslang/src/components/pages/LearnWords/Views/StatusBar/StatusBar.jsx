@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { buttonsNames } from '../../helpers/constants';
 
-const StatusBar = ({
-  wordCount,
-  totalWords,
-  isShownComplicatedButton,
-}) => (
+const { COMPLICATED, REMOVE } = buttonsNames;
+
+const StatusBar = ({ wordCount, totalWords, isShownComplicatedButton }) => (
   <div>
     <div>{`${wordCount} / ${totalWords}`}</div>
     <div>
-      {isShownComplicatedButton && <button>Сложное слово</button>}
-      <button>Удалить</button>
+      {isShownComplicatedButton && <button>{COMPLICATED}</button>}
+      <button>{REMOVE}</button>
     </div>
   </div>
 );

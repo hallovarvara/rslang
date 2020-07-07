@@ -10,7 +10,7 @@ import {
   clearSessionProgress,
   checkSessionProgress,
   playAudios,
-} from './helpers/helpers';
+} from './helpers';
 
 export default class LearnWords extends Component {
   state = {
@@ -19,23 +19,17 @@ export default class LearnWords extends Component {
     isAutoPlay: true,
     progress: [],
     isPlaying: false,
+    category: 'all',
   };
-
-  toggleAutoPlay = () => {
-    const { isAutoPlay } = this.state;
-    this.setState({
-      isAutoPlay: !isAutoPlay,
-    });
-  }
 
   componentDidMount() {
     const { data } = this.props;
     const { totalWords } = this.state;
     const { initialProgressObject } = settings;
-    let progress = getSessionProgress();
+    const learnSessionProgress = getSessionProgress();
+    let progress = [];
     if (totalWords === 0) {
-      const { learnSessionProgress } = JSON.parse(localStorage.getItem('rslang'));
-      if (learnSessionProgress.length) {
+      if (learnSessionProgress?.length) {
         progress = learnSessionProgress;
       } else {
         progress = new Array(data.length);
@@ -48,6 +42,19 @@ export default class LearnWords extends Component {
     }
   }
 
+  toggleAutoPlay = () => {
+    const { isAutoPlay } = this.state;
+    this.setState({
+      isAutoPlay: !isAutoPlay,
+    });
+  }
+
+  toggleCategory = ({ target: { value } }) => {
+    this.setState({
+      category: value,
+    });
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.progress !== prevState.progress) {
       const { progress } = this.state;
@@ -58,7 +65,7 @@ export default class LearnWords extends Component {
 
   checkForEndOfGame = () => {
     const { progress, totalWords } = this.state;
-    if (!checkSessionProgress(progress) && totalWords !== 0) {
+    if (!checkSessionProgress(progress) && totalWords) {
       clearSessionProgress();
       // TODO: add modal pop-up with short stats
     }
@@ -89,7 +96,7 @@ export default class LearnWords extends Component {
 
   handlePrevWord = () => {
     const { wordCount } = this.state;
-    if (wordCount !== 0) {
+    if (wordCount) {
       this.setState({
         wordCount: wordCount - 1,
       });
@@ -141,7 +148,11 @@ export default class LearnWords extends Component {
     const textMeaningSentence = extractEmphasizedWord(textMeaning, 'i');
     return (
       <div>
-        <Header categoriesSelect={categoriesSelect} />
+        <Header
+          categoriesSelect={categoriesSelect}
+          onToggleAutoPlay={this.toggleAutoPlay}
+          onToggleCategory={this.toggleCategory}
+        />
         <WordCard
           currentInput={currentInput}
           progress={progress[wordCount]}
