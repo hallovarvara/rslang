@@ -1,39 +1,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import classNames from 'classnames';
 
-const mapLinkTitlesToItems = (linkTitle, index) => {
-  const activeLinkTitle = 'About us'; // TODO: get active link from redux
-  const classes = classNames({
-    navigation__item: true,
-    navigation__item_active: linkTitle === activeLinkTitle,
-  });
-  const linkPath = linkTitle.toLowerCase().split(' ').join('-');
+import MenuList from '../../basicComponents/MenuList';
+
+import {
+  gamesData,
+  pagesData
+} from '../../helpers/constants';
+
+const addLinksToHeader = (link, index) => {
+  const { title, path } = link;
   return (
-    <li key={index} className={classes}><Link to={`/${linkPath}`}>{linkTitle}</Link></li>
+    <li key={index} className="navigation__item">
+      {
+        path === pagesData.play.path
+          ? <MenuList
+            menuTitle={<NavLink activeClassName="navigation__item_active" to={`/${path}`}>{title}</NavLink>}
+            menuItems={gamesData.map((gameObj, i) => (
+              <NavLink
+                className="menu-list-item__link"
+                activeClassName="navigation__item_active"
+                key={i}
+                to={gameObj.link}>{gameObj.title}</NavLink>
+            ))}
+          />
+          : <NavLink activeClassName="navigation__item_active" to={`/${path}`}>{title}</NavLink>
+      }
+    </li>
   );
 };
 
-const HeaderView = ({ linkTitles, isUserLogged }) => (
-      <header className="header">
-        <h1 className="header__title"><Link to="/promo">RS Lang</Link></h1>
-        <nav>
-          <ul className="navigation">
-            {
-              linkTitles.map(mapLinkTitlesToItems)
-            }
-            {
-              isUserLogged && <li className="navigation__item">
-                <Link to="sign-up">
-                  <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }}/>
-                </Link>
-              </li>
-            }
-          </ul>
-        </nav>
-      </header>
+const HeaderView = ({ links, isUserLogged }) => (
+  <header className="header">
+    <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
+    <nav>
+      <ul className="navigation">
+        {
+          links.map(addLinksToHeader)
+        }
+        {
+          isUserLogged && <li className="navigation__item exit-icon">
+            <NavLink activeClassName="navigation__item_active" to="sign-up">
+              <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }}/>
+            </NavLink>
+          </li>
+        }
+      </ul>
+    </nav>
+  </header>
 );
 
 HeaderView.propTypes = {

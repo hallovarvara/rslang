@@ -1,10 +1,24 @@
+/* Colors */
 $color-primary: #e5e5e5;
 $color-secondary: #ffffff;
+$color-dark: #000;
+$color-light: #fff;
 
 $color-text-dark: #000;
 $color-text-light: #ffffff;
 
 $color-englishPuzzle-primary: #6663f5;
 $color-englishPuzzle-secondary: #dace81;
+/* Fonts: families */
+$font-primary: 'Inter', 'Arial', 'Tahoma', sans-serif;
+$font-secondary: 'Alegreya', 'Georgia', 'Times', 'Times New Roman', serif;
 
+/* Fonts: weights */
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-semibold: 400;
+$font-weight-bold: 600;
+$font-weight-black: 900;
+
+/* Blocks' sizes */
 $header-height: 110px;
