@@ -1,11 +1,8 @@
 import { baseUrl } from './settings';
-import {
-  successColor,
-  fewErrorsColor,
-  manyErrorsColor,
-} from './style-options';
+import { RSLANG_SESSION_PROGRESS } from './constants';
+import { successColor, fewErrorsColor, manyErrorsColor } from './style-options';
 
-export const resourceUrl = (path) => (`${baseUrl}${path}`);
+export const resourceUrl = (path) => `${baseUrl}${path}`;
 
 export const extractEmphasizedWord = (str, surroundingTag) => {
   const sentence = {};
@@ -13,7 +10,10 @@ export const extractEmphasizedWord = (str, surroundingTag) => {
   const endTag = `</${surroundingTag}>`;
 
   sentence.begin = str.substring(0, str.indexOf(beginTag));
-  sentence.emphasis = str.substring(str.indexOf(beginTag) + 3, str.indexOf(endTag));
+  sentence.emphasis = str.substring(
+    str.indexOf(beginTag) + 3,
+    str.indexOf(endTag),
+  );
   sentence.end = str.substring(str.indexOf(endTag) + 4);
   return sentence;
 };
@@ -36,22 +36,12 @@ export const showDifferenceInWords = (currentWord, inputWord) => {
 };
 
 export const getSessionProgress = () => {
-  let result = [];
-  if (!localStorage.rslang) {
-    localStorage.setItem('rslang', JSON.stringify({}));
-  } else {
-    const rslang = JSON.parse(localStorage.getItem('rslang'));
-    result = rslang?.learnSessionProgress;
-  }
-  return result || [];
+  const progress = JSON.parse(localStorage.getItem(RSLANG_SESSION_PROGRESS));
+  return progress || [];
 };
 
 export const setSessionProgress = (progress) => {
-  if (!localStorage.rslang) {
-    localStorage.setItem('rslang', JSON.stringify({}));
-  }
-  const rslang = JSON.parse(localStorage.getItem('rslang'));
-  localStorage.setItem('rslang', JSON.stringify({ ...rslang, learnSessionProgress: progress }));
+  localStorage.setItem(RSLANG_SESSION_PROGRESS, JSON.stringify(progress));
 };
 
 export const checkSessionProgress = (progress) => (
@@ -59,9 +49,7 @@ export const checkSessionProgress = (progress) => (
 );
 
 export const clearSessionProgress = () => {
-  const rslang = JSON.parse(localStorage.getItem('rslang'));
-  rslang.learnSessionProgress = [];
-  localStorage.setItem('rslang', rslang);
+  localStorage.removeItem(RSLANG_SESSION_PROGRESS);
 };
 
 export const prepareRightAnswerStyles = (isGuessed) => {
