@@ -6,7 +6,7 @@ import Slider from '../../../basicComponents/Slider';
 import LearnWordCardPreview from '../../LearnWordCardPreview';
 import Checkbox from '../../../basicComponents/Checkbox';
 
-const SettingPage = (props) => {
+const SettingsPage = (props) => {
   const {
     translation: translationVisibility,
     complicatedButton: complicatedButtonVisibility,
@@ -61,7 +61,7 @@ const SettingPage = (props) => {
   );
 };
 
-SettingPage.propTypes = {
+SettingsPage.propTypes = {
   previewSettings: PropTypes.object,
 };
 
@@ -71,4 +71,4 @@ const mapStateToProps = ({ learnCardPreviewSettings }) => (
   }
 );
 
-export default connect(mapStateToProps)(SettingPage);
+export default connect(mapStateToProps)(SettingsPage);

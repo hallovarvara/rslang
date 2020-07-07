@@ -7,6 +7,7 @@ import StatisticPage from '../pages/Statistic';
 import AboutUsPage from '../pages/AboutUs';
 import PromoPage from '../pages/Promo';
 import PlayGamesPage from '../pages/PlayGames';
+import VocabularyPage from '../pages/Vocabulary';
 import SignInPage from '../pages/SignIn';
 import SignUpPage from '../pages/SignUp';
 
@@ -19,6 +20,7 @@ const Main = () => (
       <Route path="/about-us" component={AboutUsPage} />
       <Route path="/promo" component={PromoPage} />
       <Route path="/play-games" component={PlayGamesPage} />
+      <Route path="/vocabulary" component={VocabularyPage} />
       <Route path="/sign-in" component={SignInPage} />
       <Route path="/sign-up" component={SignUpPage} />
     </Switch>

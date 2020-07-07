@@ -1,3 +1,3 @@
-import SettingPage from './SettingPage.jsx';
+import SettingsPage from './SettingsPage.jsx';
 
-export default SettingPage;
+export default SettingsPage;
