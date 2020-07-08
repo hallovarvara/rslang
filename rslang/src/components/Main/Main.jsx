@@ -12,6 +12,7 @@ import SignInPage from '../pages/SignIn';
 import SignUpPage from '../pages/SignUp';
 import AudioCallGame from '../AudioCallGame';
 import SprintGame from '../Sprint';
+import SavannahGame from '../Savannah';
 
 import {gamesData, pagesData} from '../../helpers/constants';
 
@@ -29,6 +30,7 @@ const Main = () => (
       <Route path={`/${pagesData.register.path}`} component={SignUpPage} />
       <Route path={`/${gamesData.audiocall.path}`} component={AudioCallGame} />
       <Route path={`/${gamesData.sprint.path}`} component={SprintGame} />
+      <Route path={`/${gamesData.savannah.path}`} component={SavannahGame} />
     </Switch>
   </main>
 );
