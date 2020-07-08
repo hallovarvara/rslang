@@ -1,0 +1,11 @@
+@import '../../scss/abstracts/constants';
+
+.container {
+  min-height: 100vh;
+  background: $color-audiocall-primary;
+  background: linear-gradient(
+    to bottom,
+    $color-audiocall-primary 0%,
+    $color-audiocall-secondary 100%
+  );
+}
