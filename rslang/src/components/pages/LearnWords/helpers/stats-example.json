@@ -1,0 +1,38 @@
+{
+  "learnedWords": 0,
+  "optional": {
+    "learning": {
+      "total": 135
+    },
+    "savanha": {
+      "25.06.2020": {
+        "games": 3,
+        "wrong": 9,
+        "right": 26
+      },
+      "26.06.2020": {
+        "games": 1,
+        "wrong": 2,
+        "right": 28
+      }
+    },
+    "sprint": {
+      "23.06.2020": {
+        "games": 2,
+        "wrong": 4,
+        "right": 38
+      },
+      "28.06.2020": {
+        "games": 3,
+        "wrong": 9,
+        "right": 47
+      }
+    },
+    "audiocall": {
+
+    },
+    "speakit": {
+
+    }
+  }
+}

@@ -1,10 +1,23 @@
-body .btn-primary {
-  color: white;
+body .btn {
   font-size: 5rem;
   text-transform: none;
+  transition: all 0.7s ease;
+}
+
+body .btn-primary {
+  color: white;
   background-color: black;
   &:hover {
     color: black;
     background-color: white;
+  }
+}
+
+body .btn-secondary {
+  color: black;
+  background-color: white;
+  &:hover {
+    color: white;
+    background-color: black;
   }
 }
