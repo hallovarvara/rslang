@@ -10,13 +10,14 @@ import PlayGamesPage from '../pages/PlayGames';
 import VocabularyPage from '../pages/Vocabulary';
 import SignInPage from '../pages/SignIn';
 import SignUpPage from '../pages/SignUp';
+import AudioCallGame from '../AudioCallGame';
 
-import { pagesData } from '../../helpers/constants';
+import {gamesData, pagesData} from '../../helpers/constants';
 
 const Main = () => (
   <main className="main">
     <Switch>
-      <Route exact path={`/` || pagesData.settings.path} component={LearnWords} />
+      <Route exact path={'/' || pagesData.settings.path} component={LearnWords} />
       <Route path={`/${pagesData.settings.path}`} component={SettingsPage} />
       <Route path={`/${pagesData.statistics.path}`} component={StatisticPage} />
       <Route path={`/${pagesData.aboutUs.path}`} component={AboutUsPage} />
@@ -25,6 +26,7 @@ const Main = () => (
       <Route path={`/${pagesData.vocabulary.path}`} component={VocabularyPage} />
       <Route path={`/${pagesData.signIn.path}`} component={SignInPage} />
       <Route path={`/${pagesData.register.path}`} component={SignUpPage} />
+      <Route path={`/${gamesData.audiocall.path}`} component={AudioCallGame} />
     </Switch>
   </main>
 );
