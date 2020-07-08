@@ -1,6 +1,7 @@
 .container {
   display: flex;
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
   height: 40px;
   margin: 0;
   padding: 0;
@@ -28,7 +29,8 @@
   position: absolute;
   bottom: -50px;
   display: flex;
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
   height: 40px;
   margin: 0;
   padding: 0;

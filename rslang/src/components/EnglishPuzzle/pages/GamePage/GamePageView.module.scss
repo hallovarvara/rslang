@@ -1,9 +1,10 @@
 .table {
-    position: relative;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 800px;
+  width: 80%;
+  max-width: 800px;
   height: 400px;
   margin: 20px auto;
   background: #000;
@@ -11,7 +12,8 @@
 
 .container {
   display: flex;
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
   height: 40px;
   margin: 0;
   padding: 0;

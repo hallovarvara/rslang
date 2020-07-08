@@ -19,6 +19,7 @@ class GamePage extends React.Component {
       isAutoPlay: false,
       errorCount: 0,
       isContinue: false,
+      isShow: false,
     };
   }
 
@@ -27,8 +28,10 @@ class GamePage extends React.Component {
     const questionList = generateQuestionsArray(dataWords, maxLevel);
     const phrasesArray = this.getPhraseArray(questionList);
     const currentPhrase = phrasesArray[level];
-    const puzzleItems = shuffle(this.getItems(currentPhrase));
+    const answerItems = this.getItems(currentPhrase);
+    const puzzleItems = shuffle(answerItems);
     this.setState({
+      answerItems,
       questionList,
       phrasesArray,
       currentPhrase,
@@ -83,18 +86,26 @@ class GamePage extends React.Component {
       answerItems,
       isContinue: false,
       isCheck: false,
+      isShow: false,
       prevPhraseArray,
     });
   }
 
-  handleClickCheck = (array) => {
-    const check = array.every((item, index) => +item.id === index);
+  updateIsCheck = (check) => {
     if (check) {
       this.setState({
         isCheck: true,
         isContinue: true,
       });
-    } else this.setState({ isCheck: true });
+    }
+  }
+
+  updateIsShow = () => {
+    this.setState({ isShow: true });
+  }
+
+  handleClickCheck = () => {
+    this.setState({ isCheck: true });
   }
 
   handleClickButtonDontKnow = () => {
@@ -120,8 +131,8 @@ class GamePage extends React.Component {
       errorCount,
       prevPhraseArray,
       isCheck,
+      isShow,
     } = this.state;
-    console.log(level)
     return (
       <GamePageView
         questionList={questionList}
@@ -142,6 +153,9 @@ class GamePage extends React.Component {
         errorCount={errorCount}
         prevPhraseArray={prevPhraseArray}
         handleClickCheck={this.handleClickCheck}
+        isShow={isShow}
+        updateIsCheck={this.updateIsCheck}
+        updateIsShow={this.updateIsShow}
       />
     );
   }

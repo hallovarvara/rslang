@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
-import { buttonTextContent } from '../../constants';
+// import { Button } from '@material-ui/core';
+// import { buttonTextContent } from '../../constants';
 import style from './GamePageView.module.scss';
 import Question from '../../components/Question';
 import PhraseElements from '../../components/PhraseElements';
 import GameHelpers from '../../components/GameHelpers';
+import ButtonPanel from '../../components/ButtonPanel';
 
 const GamePageView = ({
   questionList,
@@ -19,6 +20,8 @@ const GamePageView = ({
   handleClickButtonAutoPlay,
   handleClickButtonDontKnow,
   handleClickButtonContinue,
+  updateIsShow,
+  updateIsCheck,
   handleClickCheck,
   isCheck,
   isContinue,
@@ -26,12 +29,13 @@ const GamePageView = ({
   answerItems,
   errorCount,
   prevPhraseArray,
+  isShow,
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
   return (
     question && phrase
-      ? (<div className="container">
+      ? (<div>
       <GameHelpers
         handleClickButtonTranslation={handleClickButtonTranslation}
         handleClickButtonAudio={handleClickButtonAudio}
@@ -65,22 +69,19 @@ const GamePageView = ({
           level={level}
           phrasesArray={phrasesArray}
           handleClickCheck={handleClickCheck}
+          updateIsCheck={updateIsCheck}
           isCheck={isCheck}
+          updateIsShow={updateIsShow}
         />
       </div>
-      {
-      isContinue
-        ? <Button
-          errorCount={errorCount}
-          isContinue={isContinue}
-          onClick={handleClickButtonContinue}
-        >{buttonTextContent.next}</Button>
-        : <Button
-          errorCount={errorCount}
-          isContinue={isContinue}
-          onClick={handleClickButtonDontKnow}
-        >{buttonTextContent.dontKnow}</Button>
-      }
+      <ButtonPanel
+        // errorCount={errorCount}
+        isContinue={isContinue}
+        handleClickButtonContinue={handleClickButtonContinue}
+        handleClickButtonDontKnow={handleClickButtonDontKnow}
+        isShow={isShow}
+        handleClickCheck={handleClickCheck}
+      />
     </div>)
       : <p>ybxtuj</p>
   );
@@ -100,9 +101,14 @@ GamePageView.propTypes = {
   handleClickButtonContinue: PropTypes.func,
   isContinue: PropTypes.bool,
   puzzleItems: PropTypes.array,
-  answerItems: PropTypes.bool,
-  errorCount: PropTypes.number,
+  answerItems: PropTypes.array,
+  // errorCount: PropTypes.number,
   prevPhraseArray: PropTypes.array,
+  isShow: PropTypes.bool,
+  updateIsShow: PropTypes.func,
+  updateIsCheck: PropTypes.func,
+  handleClickCheck: PropTypes.func,
+  isCheck: PropTypes.bool,
 };
 
 export default GamePageView;

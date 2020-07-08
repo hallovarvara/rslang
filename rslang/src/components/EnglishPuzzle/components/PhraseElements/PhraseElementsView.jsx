@@ -32,26 +32,18 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 class PhraseElementsView extends React.Component {
   constructor(props) {
     super(props);
-    const { puzzleItems, answerItems } = props;
-    console.log(answerItems, 1);
+    const { puzzleItems } = props;
     this.state = {
       items: puzzleItems,
       selected: [],
-      isCheck: false,
     };
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.errorCount, 3);
     if (this.props.errorCount !== prevProps.errorCount) {
       this.setState({
         items: [],
         selected: this.props.answerItems,
-      });
-    }
-    if (this.props.answerItems !== prevProps.answerItems) {
-      this.setState({
-        answer: this.props.answerItems,
       });
     }
     if (this.props.puzzleItems !== prevProps.puzzleItems) {
@@ -90,6 +82,8 @@ class PhraseElementsView extends React.Component {
       let state = { items };
       if (source.droppableId === 'droppable2') {
         state = { selected: items };
+        const check = state.selected.every((item, index) => +item.id === index);
+        this.props.updateIsCheck(check);
       }
       this.setState(state);
     } else {
@@ -99,6 +93,12 @@ class PhraseElementsView extends React.Component {
         source,
         destination,
       );
+      if (result.droppable2 && (result.droppable2.length === this.props.answerItems.length)) {
+        const check = result.droppable2.every((item, index) => +item.id === index);
+        this.props.updateIsShow();
+        this.props.updateIsCheck(check);
+      }
+
       this.setState({
         items: result.droppable,
         selected: result.droppable2,
@@ -106,32 +106,13 @@ class PhraseElementsView extends React.Component {
     }
   };
 
-  handleClickCheck = () => {
-    this.setState({ isCheck: true });
-  }
-
-  // handleClickItem = (item) => {
-  //   console.log(item, 45)
-  //   const {items, selected } = this.state;
-
-  //   selected.push(item)
-  //   this.setState({selected})
-
-  // }
-
-  itemStyleSelected = (isCheck, isDragging, item, index) => {
-    console.log(item, index, 111)
-    classNames(
-      style.item,
-      { [style.active]: isDragging },
-      { [style.wrong]: isCheck && (item.id !== index) },
-      { [style.right]: isCheck && (item.id === index) },
-    );
-  }
-
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
   render() {
+    if (this.state.selected.length === this.props.answerItems) {
+      const check = this.state.selected.every((item, index) => +item.id === index);
+      this.props.updateIsCheck(check);
+    }
     const itemStyleSelected = (isCheck, isDragging, item, index) => classNames(
       style.item,
       { [style.active]: isDragging },
@@ -141,7 +122,6 @@ class PhraseElementsView extends React.Component {
     const itemStyle = (isDragging) => classNames(style.item, { [style.active]: isDragging });
     return (
       <>
-      <button onClick={() => this.props.handleClickCheck(this.state.selected)}>Ckeck</button>
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div className={style.table}>
         <Droppable droppableId="droppable2" direction="horizontal">
@@ -150,21 +130,26 @@ class PhraseElementsView extends React.Component {
                 ref={provided.innerRef}
                 className={style.container}>
                 {this.state.selected.map((item, index) => (
-                    <Draggable
-                        key={item.id}
-                        draggableId={item.id}
-                        index={index}>
-                        {(provided, snapshot) => (
-                            <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                className={itemStyleSelected(this.props.isCheck, snapshot.isDragging, item, index)}
-                                >
-                                {item.content}
-                            </div>
+                  <Draggable
+                    key={item.id}
+                    draggableId={item.id}
+                    index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        className={itemStyleSelected(
+                          this.props.isCheck,
+                          snapshot.isDragging,
+                          item,
+                          index,
                         )}
-                    </Draggable>
+                        >
+                        {item.content}
+                      </div>
+                    )}
+                  </Draggable>
                 ))}
                 {provided.placeholder}
             </div>
@@ -174,32 +159,30 @@ class PhraseElementsView extends React.Component {
         <Droppable droppableId="droppable" direction="horizontal">
           {(provided, snapshot) => (
             <div
-                ref={provided.innerRef}
-                className={style.containerItems}>
-                {this.state.items.map((item, index) => (
-                    <Draggable
-                        key={item.id}
-                        draggableId={item.id}
-                        index={index}>
-                        {(provided, snapshot) => (
-                            <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                className={itemStyle(snapshot.isDragging)}
-                                // onClick={(item) => this.handleClickItem(item)}
-                              >
-                                {item.content}
-                            </div>
-                        )}
-                    </Draggable>
-                ))}
-                {provided.placeholder}
-            </div>
-          )}
+              ref={provided.innerRef}
+              className={style.containerItems}>
+              {this.state.items.map((item, index) => (
+                <Draggable
+                  key={item.id}
+                  draggableId={item.id}
+                  index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      className={itemStyle(snapshot.isDragging)}
+                    >
+                      {item.content}
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+            {provided.placeholder}
+          </div>
+        )}
         </Droppable>
       </DragDropContext>
-      {/* <button onClick={() => this.handleClickCheck()}>Check</button> */}
       </>
     );
   }
@@ -210,6 +193,9 @@ PhraseElementsView.propTypes = {
   puzzleItems: PropTypes.array,
   errorCount: PropTypes.number,
   answerItems: PropTypes.array,
+  updateIsCheck: PropTypes.func,
+  updateIsShow: PropTypes.func,
+  isCheck: PropTypes.bool,
 };
 
 export default PhraseElementsView;
