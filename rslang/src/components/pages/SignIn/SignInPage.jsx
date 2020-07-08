@@ -5,6 +5,7 @@ import is from 'is_js';
 import Input from '../../../basicComponents/Input';
 import Button from '../../../basicComponents/Button';
 import { pagesData } from "../../../helpers/constants";
+import { connect } from 'react-redux'
 
 import UserService from '../../../helpers/UserService';
 

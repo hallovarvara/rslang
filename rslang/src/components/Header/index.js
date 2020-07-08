@@ -5,7 +5,7 @@ import { pagesData } from '../../helpers/constants';
 
 class Header extends React.Component {
 
-  isUserLogged = true;
+  isUserLogged = false;
 
   getPagesLinks = () => Object.values(pagesData).reduce((links, item) => {
     const role = this.isUserLogged ? 'user' : 'guest';
