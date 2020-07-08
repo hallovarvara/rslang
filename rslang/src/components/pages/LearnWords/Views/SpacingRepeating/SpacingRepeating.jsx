@@ -5,36 +5,39 @@ import { levelsOfDifficulty } from '../../../../../helpers/constants';
 import {
   updateUserWordRate,
   // updateRepeatingWords,
-} from '../../../../../helpers/learnWords/dataServices';
+} from '../../../../../helpers/wordsService';
 
 const { HARD, NORMAL, EASY } = levelsOfDifficulty;
 const { HARD_LABEL, NORMAL_LABEL, EASY_LABEL } = difficultLabels;
 
-const handleHardWord = (word) => {
+const handleHardWord = (word, onChangeProgress) => {
   updateUserWordRate(word, HARD);
+  onChangeProgress({ isDifficultChosen: true });
 };
 
-const handleNormalWord = (word) => {
+const handleNormalWord = (word, onChangeProgress) => {
   updateUserWordRate(word, NORMAL);
+  onChangeProgress({ isDifficultChosen: true });
 };
 
-const handleEasylWord = (word) => {
+const handleEasylWord = (word, onChangeProgress) => {
   updateUserWordRate(word, EASY);
+  onChangeProgress({ isDifficultChosen: true });
 };
 
 const SpacingRepeating = (props) => {
-  const { currentWord } = props;
+  const { currentWord, onChangeProgress } = props;
   return (
     <div>
-      <button onClick={() => handleHardWord(currentWord)}>
+      <button onClick={() => handleHardWord(currentWord, onChangeProgress)}>
         <span>{HARD_LABEL.word}</span>
         <span>{HARD_LABEL.repeats}</span>
       </button>
-      <button onClick={() => handleNormalWord(currentWord)}>
+      <button onClick={() => handleNormalWord(currentWord, onChangeProgress)}>
         <span>{NORMAL_LABEL.word}</span>
         <span>{NORMAL_LABEL.repeats}</span>
       </button>
-      <button onClick={() => handleEasylWord(currentWord)}>
+      <button onClick={() => handleEasylWord(currentWord, onChangeProgress)}>
         <span>{EASY_LABEL.word}</span>
         <span>{EASY_LABEL.repeats}</span>
       </button>
@@ -44,6 +47,7 @@ const SpacingRepeating = (props) => {
 
 SpacingRepeating.propTypes = {
   currentWord: PropTypes.object,
+  onChangeProgress: PropTypes.func,
 };
 
 export default SpacingRepeating;

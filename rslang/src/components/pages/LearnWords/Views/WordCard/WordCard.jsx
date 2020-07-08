@@ -9,7 +9,7 @@ import { initialProgressObject } from '../../helpers/settings';
 
 const WordCard = ({
   currentWord,
-  isLogged,
+  // isLogged,
   currentInput,
   progress,
   textExample,
@@ -38,6 +38,7 @@ const WordCard = ({
       {/* //TODO: Here will be Material UI ProgressBar with 'totalWords' / 'wordCount' */}
       <div>
         <StatusBar
+          currentWord={currentWord}
           wordCount={wordCount}
           totalWords={totalWords}
           isShownComplicatedButton={isShownComplicatedButton}
@@ -62,10 +63,16 @@ const WordCard = ({
           isShownMeaning={isShownMeaning}
           onPlayAudio={onPlayAudio}
         />
-        {(isLogged && progress.isGuessed) && <SpacingRepeating currentWord={currentWord} />}
+        {(progress.isGuessed && !progress.isDifficultChosen)
+          && <SpacingRepeating
+            currentWord={currentWord}
+            onChangeProgress={onChangeProgress}
+            />
+        }
       </div>
       <div>
         <SideBar
+          progress={progress}
           currentInput={currentInput}
           word={word}
           image={image}
