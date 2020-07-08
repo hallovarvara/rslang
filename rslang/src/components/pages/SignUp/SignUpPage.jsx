@@ -1,21 +1,20 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import is from 'is_js';
-
 import Input from '../../../basicComponents/Input';
 import Button from '../../../basicComponents/Button';
-import { pagesData } from "../../../helpers/constants";
-
 import UserService from '../../../helpers/UserService';
 
 const SignUpPage = () => {
   const userService = new UserService();
 
   const [email, setEmail] = React.useState('');
+  const [name, setNick] = React.useState('');
   const [password, setPass] = React.useState('');
   const [repeatPass, setRepeatPass] = React.useState('');
   const [userId, setUserId] = React.useState('');
   const [emailValid, setEmailValid] = React.useState(true);
+  const [nickValid, setNickValid] = React.useState(true);
   const [passValid, setPassValid] = React.useState(true);
   const [passRepeatValid, setPassRepeatValid] = React.useState(true);
 
@@ -23,16 +22,23 @@ const SignUpPage = () => {
     const reg = /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g;
     return setPassValid(reg.test(String(pass)));
   };
+  const isNickValid = (nick) => {
+    const reg = /^[a-zA-Z0-9._-]{3,15}$/g;
+    return setNickValid(reg.test(String(nick)));
+  };
 
   const isFormValid = () => {
-    if ((emailValid && passValid && passRepeatValid)) {
-      return true;
-    }
+    return emailValid && passValid && passRepeatValid && nickValid;
+
   };
 
   const onChangeEmail = (e) => {
     setEmailValid(is.email(e.target.value) && e.target.value);
     setEmail(e.target.value);
+  };
+  const onChangeNick = (e) => {
+    setNick(e.target.value);
+    isNickValid(e.target.value);
   };
   const onChangePass = (e) => {
     setPass(e.target.value);
@@ -46,9 +52,11 @@ const SignUpPage = () => {
   };
 
   const onSubmitForm = async (e) => {
+    console.log(name)
     e.preventDefault();
     if (password === repeatPass) {
-      const data = await userService.registerUser({ email, password });
+      const data = await userService.registerUser({ name, email, password });
+      console.log(data)
       setUserId(data.id);
     }
   };
@@ -60,6 +68,12 @@ const SignUpPage = () => {
     <section className="sign-up-page">
       <h2 className="sign-up-page__title">Sign up</h2>
       <form className="sign-up-form" onSubmit={onSubmitForm}>
+        <Input
+          required
+          error={!nickValid}
+          placeholder="Nickname"
+          className="sign-up-form__email"
+          onChange={onChangeNick} />
         <Input
           required
           error={!emailValid}

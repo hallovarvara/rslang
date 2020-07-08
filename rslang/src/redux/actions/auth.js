@@ -1,38 +1,9 @@
 import axios from 'axios';
 import { AUTH_LOGOUT, AUTH_SUCCESS } from './actionsTypes';
-import UserService from '../../helpers/UserService';
-
-export function auth(email, password) {
-  return async (dispatch) => {
-    const authData = {
-      email,
-      password,
-    };
-
-    let url = 'https://kagafon-learn-words.herokuapp.com/signin';
-
-    const response = await axios.post(url, authData);
-    const { data } = response;
-    console.log('data', data)
-
-    // const expirationDate = new Date(new Date().getTime() + data.refreshTokenDate * 1000);
-    const refreshTokenDate = new Date(new Date().getTime() + 60 * 1000 * 4);
-    console.log(refreshTokenDate)
-
-    localStorage.setItem('rslangToken', data.token);
-    localStorage.setItem('rslangUserId', data.userId);
-    localStorage.setItem('refreshTokenDate', refreshTokenDate);
-    const expData = new Date(localStorage.getItem('refreshTokenDate'));
-    console.log('expData', expData.getTime())
-
-    dispatch(authSuccess(data.token))
-    dispatch(autoLogout((expData.getTime() - new Date().getTime()) / 1000))
-
-  };
-}
 
 export function logout() {
   localStorage.removeItem('rslangToken');
+  localStorage.removeItem('rslangName');
   localStorage.removeItem('rslangUserId');
   localStorage.removeItem('refreshTokenDate');
   return {
@@ -48,9 +19,38 @@ export function autoLogout(time) {
   };
 }
 
-export function authSuccess(token) {
+export function authSuccess(name, userId, token) {
   return {
     type: AUTH_SUCCESS,
+    name,
+    userId,
     token,
+  };
+}
+
+export function auth(email, password) {
+  return async (dispatch) => {
+    const authData = {
+      email,
+      password,
+    };
+    try {
+      const url = 'https://kagafon-learn-words.herokuapp.com/signin';
+
+      const response = await axios.post(url, authData);
+      const { data } = response;
+      const { name, userId, token } = data;
+      const refreshTokenDate = new Date(new Date().getTime() + 60 * 60 * 1000 * 4);
+      localStorage.setItem('rslangToken', token);
+      localStorage.setItem('rslangUserId', userId);
+      localStorage.setItem('refreshTokenDate', refreshTokenDate);
+      localStorage.setItem('rslangName', name);
+      const expData = new Date(localStorage.getItem('refreshTokenDate'));
+      dispatch(authSuccess(name, userId, token));
+      dispatch(autoLogout((expData.getTime() - new Date().getTime()) / 1000));
+    } catch (e) {
+      alert("НЕВЕРНЫЙ ЛОГИН ИЛИ ПАРОЛЬ")
+    }
+
   };
 }

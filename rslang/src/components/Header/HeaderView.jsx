@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import autoLogin from '../../helpers/Auth';
+import IconButton from '@material-ui/core/IconButton';
 import { connect } from 'react-redux';
-import { logout } from '../../redux/actions/auth'
-
+import { logout } from '../../redux/actions/auth';
 import MenuList from '../../basicComponents/MenuList';
 
 import {
@@ -14,7 +13,6 @@ import {
 } from '../../helpers/constants';
 
 const addLinksToHeader = (link, index) => {
-
   const { title, path } = link;
   return (
     <li key={index} className="navigation__item">
@@ -38,11 +36,6 @@ const addLinksToHeader = (link, index) => {
 
 const HeaderView = ({ links, isUserLogged, logout }) => {
 
-  React.useEffect(() => {
-    autoLogin();
-    console.log('sfsfsdff')
-  }, []);
-
   return (
     <header className="header">
       <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
@@ -53,19 +46,22 @@ const HeaderView = ({ links, isUserLogged, logout }) => {
           }
           {
             isUserLogged && <li className="navigation__item exit-icon">
-              <NavLink activeClassName="navigation__item_active" to="sign-up">
-                <ExitToAppIcon
-                  color="disabled"
-                  style={{ fontSize: '3rem' }}
-                  onClick={logout}
-                />
+              <NavLink activeClassName="navigation__item_active" to="/">
+                <IconButton
+                  onClick={logout}>
+                  <ExitToAppIcon
+                    color="disabled"
+                    style={{ fontSize: '3rem' }}
+                  />
+                </IconButton>
+
               </NavLink>
             </li>
           }
         </ul>
       </nav>
     </header>
-  )
+  );
 };
 
 HeaderView.propTypes = {
@@ -75,9 +71,8 @@ HeaderView.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    logout: () => dispatch(logout())
-  }
+    logout: () => dispatch(logout()),
+  };
 }
-
 
 export default connect(null, mapDispatchToProps)(HeaderView);

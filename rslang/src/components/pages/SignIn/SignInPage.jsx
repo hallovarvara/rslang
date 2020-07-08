@@ -1,23 +1,15 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 import is from 'is_js';
+import { connect } from 'react-redux';
 import Input from '../../../basicComponents/Input';
 import Button from '../../../basicComponents/Button';
-import { pagesData } from "../../../helpers/constants";
-import { connect } from 'react-redux'
-import { auth } from '../../../redux/actions/auth'
-
-import UserService from '../../../helpers/UserService';
+import { auth } from '../../../redux/actions/auth';
 
 const SignInPage = (props) => {
-  // console.log(props)
-  const userService = new UserService();
-
   const [email, setEmail] = React.useState('');
   const [password, setPass] = React.useState('');
-  const [userId, setUserId] = React.useState('');
-  const [token, setToken] = React.useState('');
   const [emailValid, setEmailValid] = React.useState(true);
 
   const onChangeEmail = (e) => {
@@ -31,15 +23,10 @@ const SignInPage = (props) => {
   const onSubmitForm = async (e) => {
     try {
       e.preventDefault();
-      props.auth(email, password)
-      /*      console.log(userService.loginUser({ email, password }));
-           const data = await userService.loginUser({ email, password });
-           setUserId(data.userId);
-           setToken(data.token); */
-    } catch (e) {
-      console.log(e)
+      props.auth(email, password);
+    } catch (event) {
+      console.log(event);
     }
-
   };
   if (props.token) {
     return (<Redirect to={'/'} />);
@@ -63,22 +50,26 @@ const SignInPage = (props) => {
         <Button value="Log in" className="sign-in-form__button" />
       </form>
       <p className="sign-in-page-additional-info">
-        First time here or forgot password? <Link className="sign-in-page-additional-info__sign-up-link" to="/sign-up">Sign up</Link>
+        First time here or forgot password?
+        <Link className="sign-in-page-additional-info__sign-up-link" to="/register">Sign up</Link>
       </p>
     </section>
   );
 };
 function mapDispatchToProps(dispatch) {
   return {
-    auth: (email, password) => dispatch(auth(email, password))
-  }
+    auth: (email, password) => dispatch(auth(email, password)),
+  };
 }
 function mapStateToProps(state) {
   return {
     token: state.auth.token,
-
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInPage)
+SignInPage.propTypes = {
+  token: PropTypes.string,
+  auth: PropTypes.func,
+};
 
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);
