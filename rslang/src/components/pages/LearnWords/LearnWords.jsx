@@ -37,8 +37,6 @@ export default class LearnWords extends Component {
       if (learnSessionProgress?.length) {
         progress = learnSessionProgress;
       } else {
-        // progress = new Array(data.length);
-        // progress.fill(initialProgressObject);
         progress = getDiffAndCoplicatedInProgress(data, initialProgressObject);
       }
       this.setState({

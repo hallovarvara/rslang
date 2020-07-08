@@ -23,12 +23,12 @@ export const checkForLocalThing = (thingName, templateGenerator) => (
     : JSON.parse(localStorage.getItem(thingName))
 );
 
-export const checkForStatistics = (storage = sessionThings) => (
-  checkForLocalThing(storage.STATISTICS, generateStatsTemplate)
+export const checkForStatistics = () => (
+  checkForLocalThing(localThings.STATISTICS, generateStatsTemplate)
 );
 
-export const saveLocalStatistics = (statsObject, storage = sessionThings) => {
-  localStorage.setItem(storage.STATISTICS, JSON.stringify({ ...statsObject }));
+export const saveLocalStatistics = (statsObject) => {
+  localStorage.setItem(localThings.STATISTICS, JSON.stringify({ ...statsObject }));
 };
 
 export const checkForUserWords = (storage = sessionThings) => (

@@ -46,17 +46,26 @@ export const statsPuzzleTemplate = {
 export const checkStatsThingTemplate = (thing) => {
   switch (thing) {
     case applicationThings.LEARN_WORDS:
-      return statsLearnTemplate;
+      return { ...statsLearnTemplate };
     default:
       return {};
   }
 };
 
+export const statsMainTemplate = () => (
+  {
+    learnedWords: 0,
+    optional: {},
+  }
+);
+
 export const generateStatsTemplate = () => {
-  const stats = {};
+  const stats = statsMainTemplate();
+  const properties = {};
   Object.values(applicationThings).forEach((thing) => {
-    stats[thing] = checkStatsThingTemplate(thing);
+    properties[thing] = checkStatsThingTemplate(thing);
   });
+  stats.optional = { ...properties };
   return stats;
 };
 
@@ -76,9 +85,12 @@ const changeGameStats = (statsOption, optionData, currentStats) => {
   const current = optional[statsOption][today];
   let updated = {};
 
+  const temlate = statsOption === applicationThings.PUZZLE
+    ? statsPuzzleTemplate
+    : statsGameTemplate;
   updated = current
     ? { ...sumObjectProps(current, optionData) }
-    : { ...sumObjectProps(statsGameTemplate, optionData) };
+    : { ...sumObjectProps(temlate, optionData) };
   optional[statsOption][today] = { ...updated };
   return optional[statsOption];
 };
@@ -90,15 +102,7 @@ export const changeStats = (statsOption, optionData, currentStats) => {
   let current = {};
   switch (statsOption) {
     case applicationThings.LEARN_WORDS:
-      current = optional[statsOption] || {
-        ...statsLearnTemplate,
-      };
-      updated = {
-        ...sumObjectProps(current, optionData),
-      };
-      break;
-    case applicationThings.PUZZLE:
-      current = optional[statsOption] || { ...statsPuzzleTemplate };
+      current = optional[statsOption];
       updated = {
         ...sumObjectProps(current, optionData),
       };
