@@ -2,7 +2,7 @@
   display: flex;
   width: 800px;
   height: 40px;
-  margin: 20px auto;
+  margin: 0;
   padding: 0;
   overflow: auto;
   background-color: #dad5d5;
@@ -10,8 +10,8 @@
 
 .item {
   flex-grow: 2;
-  max-width: 100px;
   box-sizing: border-box;
+  max-width: 100px;
   margin: 0;
   padding: 0;
   color: #ffffff;
@@ -24,13 +24,33 @@
   user-select: none;
 }
 
+.containerItems {
+  position: absolute;
+  bottom: -50px;
+  display: flex;
+  width: 800px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  background-color: #dad5d5;
+}
+
 .active {
   background-color: #b9ec76;
 }
 
-.table {
-  height: 400px;
-  width: 800px;
-  margin: 20px auto;
-  background: #000;
+.right {
+  background-color: rgb(75, 196, 64);
 }
+
+.wrong {
+  background-color: rgb(196, 84, 64);
+}
+
+// .table {
+//   height: 400px;
+//   width: 800px;
+//   margin: 20px auto;
+//   background: #000;
+// }

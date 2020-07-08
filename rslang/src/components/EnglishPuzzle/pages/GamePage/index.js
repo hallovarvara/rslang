@@ -2,7 +2,6 @@ import React from 'react';
 import data from '../../mockData';
 import { generateQuestionsArray, shuffle } from '../../helpers';
 import GamePageView from './GamePageView.jsx';
-import { CompareArrowsOutlined } from '@material-ui/icons';
 // import { CompareArrowsOutlined } from '@material-ui/icons';
 
 class GamePage extends React.Component {
@@ -14,6 +13,7 @@ class GamePage extends React.Component {
       dataWords: data, // TODO use API
       questionList: [],
       phrasesArray: [],
+      prevPhraseArray: [],
       isTranslation: true,
       isAudio: true,
       isAutoPlay: false,
@@ -69,13 +69,32 @@ class GamePage extends React.Component {
 
   handleClickButtonContinue = () => {
     let { level } = this.state;
-    const { phrasesArray } = this.state;
+    const { phrasesArray, prevPhraseArray } = this.state;
+    const prevPhrase = phrasesArray[level];
+    prevPhraseArray.push(prevPhrase);
     level += 1;
     const currentPhrase = phrasesArray[level];
     const answerItems = this.getItems(currentPhrase);
     const puzzleItems = shuffle(this.getItems(currentPhrase));
-    console.log(puzzleItems, 2)
-    this.setState({ level, currentPhrase, puzzleItems, answerItems, isContinue: false });
+    this.setState({
+      level,
+      currentPhrase,
+      puzzleItems,
+      answerItems,
+      isContinue: false,
+      isCheck: false,
+      prevPhraseArray,
+    });
+  }
+
+  handleClickCheck = (array) => {
+    const check = array.every((item, index) => +item.id === index);
+    if (check) {
+      this.setState({
+        isCheck: true,
+        isContinue: true,
+      });
+    } else this.setState({ isCheck: true });
   }
 
   handleClickButtonDontKnow = () => {
@@ -99,6 +118,8 @@ class GamePage extends React.Component {
       answerItems,
       isContinue,
       errorCount,
+      prevPhraseArray,
+      isCheck,
     } = this.state;
     console.log(level)
     return (
@@ -117,7 +138,10 @@ class GamePage extends React.Component {
         answerItems={answerItems}
         handleClickButtonContinue={this.handleClickButtonContinue}
         isContinue={isContinue}
+        isCheck={isCheck}
         errorCount={errorCount}
+        prevPhraseArray={prevPhraseArray}
+        handleClickCheck={this.handleClickCheck}
       />
     );
   }

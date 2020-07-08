@@ -19,14 +19,16 @@ const GamePageView = ({
   handleClickButtonAutoPlay,
   handleClickButtonDontKnow,
   handleClickButtonContinue,
+  handleClickCheck,
+  isCheck,
   isContinue,
   puzzleItems,
   answerItems,
   errorCount,
+  prevPhraseArray,
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
-  console.log(puzzleItems, 5);
   return (
     question && phrase
       ? (<div className="container">
@@ -44,14 +46,28 @@ const GamePageView = ({
         isAutoPlay={isAutoPlay}
         question={question}
       />
-      <PhraseElements
-        errorCount={errorCount}
-        answerItems={answerItems}
-        phrase={phrase}
-        puzzleItems={puzzleItems}
-        level={level}
-        phrasesArray={phrasesArray}
-      />
+      <div className={style.table}>
+        {(prevPhraseArray.length !== 0)
+          ? (prevPhraseArray.map((prevPharase, index) => (
+            <div key={index} className={style.container}>
+            {prevPharase.map((word, number) => (
+              <div className={style.item} key={number}>{word}</div>
+            )) }
+            </div>
+          )))
+          : ''
+        }
+        <PhraseElements
+          errorCount={errorCount}
+          answerItems={answerItems}
+          phrase={phrase}
+          puzzleItems={puzzleItems}
+          level={level}
+          phrasesArray={phrasesArray}
+          handleClickCheck={handleClickCheck}
+          isCheck={isCheck}
+        />
+      </div>
       {
       isContinue
         ? <Button
@@ -81,6 +97,12 @@ GamePageView.propTypes = {
   handleClickButtonAudio: PropTypes.func,
   handleClickButtonAutoPlay: PropTypes.func,
   handleClickButtonDontKnow: PropTypes.func,
+  handleClickButtonContinue: PropTypes.func,
+  isContinue: PropTypes.bool,
+  puzzleItems: PropTypes.array,
+  answerItems: PropTypes.bool,
+  errorCount: PropTypes.number,
+  prevPhraseArray: PropTypes.array,
 };
 
 export default GamePageView;

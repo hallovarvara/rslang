@@ -7,11 +7,7 @@
 
 .sign-in-page__title {
   margin-bottom: 50px;
-  @include font(
-    $size: 9rem,
-    $weight: $font-weight-black,
-    $style: italic,
-  );
+  @include font($size: 9rem, $weight: $font-weight-black, $style: italic);
 }
 
 .sign-in-form {

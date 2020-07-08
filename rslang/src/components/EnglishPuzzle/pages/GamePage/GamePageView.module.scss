@@ -1,0 +1,36 @@
+.table {
+    position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 800px;
+  height: 400px;
+  margin: 20px auto;
+  background: #000;
+}
+
+.container {
+  display: flex;
+  width: 800px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  background-color: #dad5d5;
+}
+
+.item {
+  flex-grow: 2;
+  box-sizing: border-box;
+  max-width: 100px;
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  line-height: 2;
+  text-align: center;
+  text-shadow: #000000 0 0 4px;
+  vertical-align: middle;
+  background-color: #087b83;
+  border: 1px solid #ffffff;
+  user-select: none;
+}
