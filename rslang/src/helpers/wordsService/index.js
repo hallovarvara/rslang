@@ -15,6 +15,7 @@ import {
   changeUserWord,
   userWordThings,
   changeSettings,
+  getWordsDiffAndComplicated,
 } from './dataModels';
 import { calculateLearnRate } from './spacingRepeating';
 
@@ -25,7 +26,6 @@ export const prepareWordObject = (wordObject) => {
 
 export const updateRepeatingWords = (wordObject, twice) => {
   const repeating = checkForSpacingRepeating();
-  console.log(repeating, wordObject, twice);
   saveSpacingRepeating(repeating, wordObject, twice);
 };
 
@@ -36,7 +36,7 @@ export const convertDifficultLevelToRepeats = (level) => (
 export const updateUserWord = (userOption, optionData, wordObject, level) => {
   const newWord = changeUserWord(userOption, optionData, wordObject);
   saveLocalUserWord(newWord);
-  if (level !== levelsOfDifficulty.EASY) {
+  if (level !== levelsOfDifficulty.EASY && userOption === userWordThings.RATE) {
     const twice = convertDifficultLevelToRepeats(level);
     updateRepeatingWords(newWord, twice);
   }
@@ -46,7 +46,6 @@ export const updateUserWordRate = (wordObject, level = levelsOfDifficulty.HARD) 
   const current = prepareWordObject(wordObject);
   const prevRate = current.userWord.optional.rate;
   const rate = calculateLearnRate(prevRate, level);
-  console.log(current, prevRate, rate, level);
   updateUserWord(userWordThings.RATE, rate, current, level);
 };
 
@@ -58,7 +57,7 @@ export const updateUserWordDifficulty = (wordObject) => {
 
 export const updateUserWordRemoved = (wordObject) => {
   const current = prepareWordObject(wordObject);
-  const removed = current.userWord.optional;
+  const { removed } = current.userWord.optional;
   updateUserWord(userWordThings.REMOVED, !removed, current);
 };
 
@@ -73,3 +72,9 @@ export const updateSettings = (settingOption) => {
   const newSettings = changeSettings(settingOption, settings);
   saveLocalSettings(newSettings);
 };
+
+export const getDiffAndCoplicatedInProgress = (arrayOfWordsObjects, template) => (
+  arrayOfWordsObjects.map((wordObject) => (wordObject?.userWord
+    ? { ...template, ...getWordsDiffAndComplicated(wordObject) }
+    : { ...template }))
+);

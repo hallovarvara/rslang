@@ -35,9 +35,10 @@ const WordCard = ({
   onPlayAudio,
 }) => (
   <div>
-      {/* //TODO: Here will be Material UI ProgressBar with 'totalWords' / 'wordCount' */}
       <div>
         <StatusBar
+          progress={progress}
+          onChangeProgress={onChangeProgress}
           currentWord={currentWord}
           wordCount={wordCount}
           totalWords={totalWords}

@@ -50,7 +50,6 @@ export const saveLocalUserWord = (wordObject, storage = sessionThings) => {
     }
     localStorage.setItem(storage.WORDS, JSON.stringify([...updatedWords]));
   }
-  return { ...wordObject };
 };
 
 export const checkForSettings = () => (

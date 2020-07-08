@@ -19,4 +19,6 @@ export const initialProgressObject = {
   isUsedTip: false,
   difference: null,
   isDifficultChosen: false,
+  isRemoved: false,
+  isComplicated: false,
 };

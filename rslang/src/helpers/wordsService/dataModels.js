@@ -3,10 +3,11 @@ import {
   applicationThings,
   userSettingsTemplate,
   dateFormatTemplate,
+  levelsOfDifficulty,
 } from '../constants';
 
 export const userWordTemplate = {
-  difficulty: '',
+  difficulty: false,
   optional: {
     rate: 0,
     next: '',
@@ -178,4 +179,11 @@ export const checkForCurrentUserWord = (userWords, wordObject) => (
 
 export const generateSpacingRepeatingTemplate = () => (
   []
+);
+
+export const getWordsDiffAndComplicated = ({ difficulty, optional }) => (
+  {
+    isRemoved: optional.removed,
+    isComplicated: difficulty === levelsOfDifficulty.HARD,
+  }
 );

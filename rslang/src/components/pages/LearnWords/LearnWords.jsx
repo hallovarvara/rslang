@@ -11,6 +11,7 @@ import {
   checkSessionProgress,
   playAudios,
 } from './helpers';
+import { getDiffAndCoplicatedInProgress } from '../../../helpers/wordsService';
 
 export default class LearnWords extends Component {
   state = {
@@ -22,6 +23,8 @@ export default class LearnWords extends Component {
     isLogged: false,
     token: '',
     userId: '',
+    audio: null,
+    isFetching: false,
   };
 
   componentDidMount() {
@@ -34,8 +37,9 @@ export default class LearnWords extends Component {
       if (learnSessionProgress?.length) {
         progress = learnSessionProgress;
       } else {
-        progress = new Array(data.length);
-        progress.fill(initialProgressObject);
+        // progress = new Array(data.length);
+        // progress.fill(initialProgressObject);
+        progress = getDiffAndCoplicatedInProgress(data, initialProgressObject);
       }
       this.setState({
         totalWords: data.length,
