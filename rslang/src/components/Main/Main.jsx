@@ -11,6 +11,7 @@ import VocabularyPage from '../pages/Vocabulary';
 import SignInPage from '../pages/SignIn';
 import SignUpPage from '../pages/SignUp';
 import AudioCallGame from '../AudioCallGame';
+import SprintGame from '../Sprint';
 
 import {gamesData, pagesData} from '../../helpers/constants';
 
@@ -27,6 +28,7 @@ const Main = () => (
       <Route path={`/${pagesData.signIn.path}`} component={SignInPage} />
       <Route path={`/${pagesData.register.path}`} component={SignUpPage} />
       <Route path={`/${gamesData.audiocall.path}`} component={AudioCallGame} />
+      <Route path={`/${gamesData.sprint.path}`} component={SprintGame} />
     </Switch>
   </main>
 );
