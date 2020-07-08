@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { VolumeUpRounded } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import style from './FinishGameItemView.module.scss';
-import { replaceAudioSrc } from '../../../../helpers/helpers';
+import { getMediaPath } from '../../../../helpers/functions';
 
 const FinishGameItemView = ({ word }) => {
-  const audioElement = new Audio(replaceAudioSrc(word.audio));
+  const audioElement = new Audio(getMediaPath(word.audio));
   return (
     <div className={style.container}>
       <IconButton aria-label="audio" onClick = {() => audioElement.play()}>

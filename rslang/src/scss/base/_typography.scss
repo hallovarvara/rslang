@@ -4,7 +4,7 @@ html {
 
 html body {
   font-weight: normal;
-  font-family: 'Inter', sans-serif;
+  font-family: $font-primary;
 }
 
 h1,
@@ -14,14 +14,18 @@ h4,
 h5,
 h6 {
   margin: 0;
-  color: $color-text-dark;
-  font-weight: 900;
-  font-family: 'Alegreya', serif;
+  color: $color-dark;
+  font-weight: $font-weight-black;
+  font-family: $font-secondary;
   font-style: italic;
 }
 
 h1 {
   font-size: 9rem;
+}
+
+h4 {
+  font-size: 3.2rem;
 }
 
 p {

@@ -7,7 +7,7 @@ import {
   TextField,
   Button,
 } from '@material-ui/core';
-import { buttonTextContent, maxLevel, formLabel } from '../../../../helpers/constants';
+import {buttonTextContent, wordsGroups, formLabel, gamesData} from '../../../../helpers/constants';
 import style from './StartGamePageView.module.scss';
 
 const StartGamePageView = ({
@@ -18,13 +18,13 @@ const StartGamePageView = ({
   handleSubmitForm,
 }) => {
   const options = [];
-  for (let numberLevel = 0; numberLevel <= maxLevel; numberLevel += 1) {
+  for (let numberLevel = 0; numberLevel <= wordsGroups; numberLevel += 1) {
     options.push(<option value={numberLevel} key={numberLevel}>{`${formLabel.level} ${numberLevel}`}</option>);
   }
   return (
     <div className={style.container}>
-      <h2 className={style.title}>Aудиовызов</h2>
-      <p className={style.text}>Тренировка улучшает восприятие англиской речи на слух</p>
+      <h1 className={style.title}>{gamesData.audiocall.title}</h1>
+      <p className={style.text}>Тренировка улучшает восприятие английского на слух</p>
       <form className={style.form} onSubmit={handleSubmitForm}>
         <FormControl variant="outlined">
           <InputLabel htmlFor="outlined-level-native-simple">{formLabel.chooseLevel}</InputLabel>

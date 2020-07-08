@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GamePageView from './GamePageView.jsx';
 import data from '../../mockData';
-import { shuffle, generateQuestionsArray, playAudio } from '../../../../helpers/helpers';
+import { shuffle, generateQuestionsArray, playAudio } from '../../../../helpers/functions';
 import { audio } from '../../../../helpers/constants';
 
 class GamePage extends React.Component {

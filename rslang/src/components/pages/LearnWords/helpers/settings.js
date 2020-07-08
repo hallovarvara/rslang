@@ -11,3 +11,11 @@ export const categoriesSelect = [
 ];
 
 export const baseUrl = 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/';
+
+export const initialProgressObject = {
+  isGuessed: false,
+  isShownWord: false,
+  isWordSemiOpacity: false,
+  isUsedTip: false,
+  difference: null,
+};

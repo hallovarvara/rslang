@@ -8,13 +8,13 @@
 }
 
 .title {
-  font-weight: normal;
-  font-size: 3rem;
-  letter-spacing: 15px;
-  text-transform: uppercase;
+  margin: 50px 0 20px;
+  color: $color-audiocall-text-light;
+
   @media (max-width: 720px) {
     font-size: 2rem;
   }
+
   @media (max-width: 520px) {
     font-size: 1.4rem;
   }

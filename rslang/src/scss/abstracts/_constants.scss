@@ -1,8 +1,10 @@
+/* Colors */
 $color-primary: #e5e5e5;
 $color-secondary: #ffffff;
+$color-dark: #000;
+$color-light: #fff;
 
-$color-text-dark: #000;
-
+/* Audiocall game */
 $color-audiocall-primary: #ce03ed;
 $color-audiocall-secondary: #dbd086;
 $color-audiocall-hover: #00000033;
@@ -11,4 +13,16 @@ $color-audiocall-text-light: #ffffff;
 $color-right-answer: #a1f045b3;
 $color-wrong-answer: #f0576cb3;
 
+/* Fonts: families */
+$font-primary: 'Inter', 'Arial', 'Tahoma', sans-serif;
+$font-secondary: 'Alegreya', 'Georgia', 'Times', 'Times New Roman', serif;
+
+/* Fonts: weights */
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-semibold: 500;
+$font-weight-bold: 600;
+$font-weight-black: 900;
+
+/* Blocks' sizes */
 $header-height: 110px;
