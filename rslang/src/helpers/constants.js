@@ -4,6 +4,7 @@ const defaultPaginationCount = 10;
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
+  base: 'https://kagafon-learn-words.herokuapp.com/',
 };
 
 const linkedinLink = 'https://www.linkedin.com/in/';

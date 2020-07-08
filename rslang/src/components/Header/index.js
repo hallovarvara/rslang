@@ -4,20 +4,19 @@ import HeaderView from './HeaderView.jsx';
 import { pagesData } from '../../helpers/constants';
 
 class Header extends React.Component {
-  isUserLogged = true; // TODO: unmock isUserLogged
 
-  getPagesLinks = () => {
-    return Object.values(pagesData).reduce((links, item) => {
-      const role = this.isUserLogged ? 'user' : 'guest';
-      const updatedLinks = links;
+  isUserLogged = true;
 
-      if (item[role].isVisible) {
-        updatedLinks[item[role].index] = item;
-      }
+  getPagesLinks = () => Object.values(pagesData).reduce((links, item) => {
+    const role = this.isUserLogged ? 'user' : 'guest';
+    const updatedLinks = links;
 
-      return updatedLinks;
-    }, []);
-  }
+    if (item[role].isVisible) {
+      updatedLinks[item[role].index] = item;
+    }
+
+    return updatedLinks;
+  }, [])
 
   render() {
     return (

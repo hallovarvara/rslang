@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import autoLogin from '../../helpers/Auth';
 
 import MenuList from '../../basicComponents/MenuList';
 
 import {
   gamesData,
-  pagesData
+  pagesData,
 } from '../../helpers/constants';
 
 const addLinksToHeader = (link, index) => {
+
   const { title, path } = link;
   return (
     <li key={index} className="navigation__item">
@@ -32,25 +34,33 @@ const addLinksToHeader = (link, index) => {
   );
 };
 
-const HeaderView = ({ links, isUserLogged }) => (
-  <header className="header">
-    <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
-    <nav>
-      <ul className="navigation">
-        {
-          links.map(addLinksToHeader)
-        }
-        {
-          isUserLogged && <li className="navigation__item exit-icon">
-            <NavLink activeClassName="navigation__item_active" to="sign-up">
-              <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }}/>
-            </NavLink>
-          </li>
-        }
-      </ul>
-    </nav>
-  </header>
-);
+const HeaderView = ({ links, isUserLogged }) => {
+
+  React.useEffect(() => {
+    autoLogin();
+    console.log('sfsfsdff')
+  }, []);
+
+  return (
+    <header className="header">
+      <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
+      <nav>
+        <ul className="navigation">
+          {
+            links.map(addLinksToHeader)
+          }
+          {
+            isUserLogged && <li className="navigation__item exit-icon">
+              <NavLink activeClassName="navigation__item_active" to="sign-up">
+                <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }} />
+              </NavLink>
+            </li>
+          }
+        </ul>
+      </nav>
+    </header>
+  )
+};
 
 HeaderView.propTypes = {
   linkTitles: PropTypes.arrayOf(PropTypes.string),
