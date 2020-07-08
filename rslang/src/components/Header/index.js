@@ -1,14 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import HeaderView from './HeaderView.jsx';
 import { pagesData } from '../../helpers/constants';
 
 class Header extends React.Component {
 
-  isUserLogged = false;
-
   getPagesLinks = () => Object.values(pagesData).reduce((links, item) => {
-    const role = this.isUserLogged ? 'user' : 'guest';
+    const role = Boolean(this.props.token) ? 'user' : 'guest';
     const updatedLinks = links;
 
     if (item[role].isVisible) {
@@ -22,9 +21,15 @@ class Header extends React.Component {
     return (
       <HeaderView
         links={this.getPagesLinks()}
-        isUserLogged={this.isUserLogged} />
+        isUserLogged={Boolean(this.props.token)} />
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
 
-export default Header;
+  };
+}
+
+export default connect(mapStateToProps)(Header);

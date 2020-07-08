@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import autoLogin from '../../helpers/Auth';
+import { connect } from 'react-redux';
+import { logout } from '../../redux/actions/auth'
 
 import MenuList from '../../basicComponents/MenuList';
 
@@ -34,7 +36,7 @@ const addLinksToHeader = (link, index) => {
   );
 };
 
-const HeaderView = ({ links, isUserLogged }) => {
+const HeaderView = ({ links, isUserLogged, logout }) => {
 
   React.useEffect(() => {
     autoLogin();
@@ -52,7 +54,11 @@ const HeaderView = ({ links, isUserLogged }) => {
           {
             isUserLogged && <li className="navigation__item exit-icon">
               <NavLink activeClassName="navigation__item_active" to="sign-up">
-                <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }} />
+                <ExitToAppIcon
+                  color="disabled"
+                  style={{ fontSize: '3rem' }}
+                  onClick={logout}
+                />
               </NavLink>
             </li>
           }
@@ -67,4 +73,11 @@ HeaderView.propTypes = {
   isUserLogged: PropTypes.bool,
 };
 
-export default HeaderView;
+function mapDispatchToProps(dispatch) {
+  return {
+    logout: () => dispatch(logout())
+  }
+}
+
+
+export default connect(null, mapDispatchToProps)(HeaderView);

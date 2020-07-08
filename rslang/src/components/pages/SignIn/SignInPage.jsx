@@ -6,10 +6,12 @@ import Input from '../../../basicComponents/Input';
 import Button from '../../../basicComponents/Button';
 import { pagesData } from "../../../helpers/constants";
 import { connect } from 'react-redux'
+import { auth } from '../../../redux/actions/auth'
 
 import UserService from '../../../helpers/UserService';
 
-const SignInPage = () => {
+const SignInPage = (props) => {
+  // console.log(props)
   const userService = new UserService();
 
   const [email, setEmail] = React.useState('');
@@ -29,16 +31,17 @@ const SignInPage = () => {
   const onSubmitForm = async (e) => {
     try {
       e.preventDefault();
-      console.log(userService.loginUser({ email, password }));
-      const data = await userService.loginUser({ email, password });
-      setUserId(data.userId);
-      setToken(data.token);
+      props.auth(email, password)
+      /*      console.log(userService.loginUser({ email, password }));
+           const data = await userService.loginUser({ email, password });
+           setUserId(data.userId);
+           setToken(data.token); */
     } catch (e) {
       console.log(e)
     }
 
   };
-  if (userId && token) {
+  if (props.token) {
     return (<Redirect to={'/'} />);
   }
   return (
@@ -65,5 +68,17 @@ const SignInPage = () => {
     </section>
   );
 };
+function mapDispatchToProps(dispatch) {
+  return {
+    auth: (email, password) => dispatch(auth(email, password))
+  }
+}
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
 
-export default SignInPage;
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage)
+
