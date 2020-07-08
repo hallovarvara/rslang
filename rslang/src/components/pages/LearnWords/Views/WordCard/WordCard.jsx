@@ -66,6 +66,7 @@ const WordCard = ({
         />
         {(progress.isGuessed && !progress.isDifficultChosen)
           && <SpacingRepeating
+            progress={progress}
             currentWord={currentWord}
             onChangeProgress={onChangeProgress}
             />

@@ -1,9 +1,12 @@
 import {
+  statsGameTemplate,
+  statsLearnTemplate,
   generateStatsTemplate,
   generateSettingsTemplate,
   generateUserWordsTemplate,
   generateSpacingRepeatingTemplate,
 } from './dataModels';
+import { applicationThings } from '../constants';
 
 export const localThings = {
   STATISTICS: 'rslangUserStatistics',
@@ -17,11 +20,45 @@ export const sessionThings = {
   REPEATING: 'rslangSessionRepeating',
 };
 
+export const gameSessionThings = {
+  learnWords: 'rslangLearnWordsSession',
+  savannah: 'rslangSavannahSession',
+  sprint: 'rslangSprintSession',
+  audiocall: 'rslangAudiocallSession',
+  speakIt: 'rslangSpeakItSession',
+  puzzle: 'rslangPuzzleSession',
+  unmess: 'rslangUnmessSession',
+};
+
 export const checkForLocalThing = (thingName, templateGenerator) => (
   !localStorage.getItem(thingName)
     ? templateGenerator()
     : JSON.parse(localStorage.getItem(thingName))
 );
+
+export const getSessionThing = (thingName, template) => (
+  !localStorage.getItem(thingName)
+    ? template
+    : JSON.parse(localStorage.getItem(thingName))
+);
+
+export const checkForessionThing = (thingName) => {
+  let template = {};
+  if (thingName === applicationThings.LEARN_WORDS) {
+    template = { ...statsLearnTemplate };
+  } else {
+    template = { ...statsGameTemplate };
+    delete template.games;
+    if (thingName === applicationThings.PUZZLE) {
+      delete template.right;
+    }
+  }
+  return getSessionThing(gameSessionThings[thingName], template);
+};
+
+export const saveSessionThing = (thingName, thingValue) => {
+  localStorage.setItem(gameSessionThings[thingName], JSON.stringify(thingValue));
+};
 
 export const checkForStatistics = () => (
   checkForLocalThing(localThings.STATISTICS, generateStatsTemplate)
@@ -75,4 +112,12 @@ export const getDataFromStorage = (storage, data) => (
 
 export const clearStorageData = (storage, data) => {
   localStorage.removeItem(storage[data]);
+};
+
+export const getSessionData = (thingName) => (
+  JSON.parse(localStorage.getItem(gameSessionThings[thingName]))
+);
+
+export const clearSessionData = (thingName) => {
+  localStorage.removeItem(gameSessionThings[thingName]);
 };

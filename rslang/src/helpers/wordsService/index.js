@@ -8,6 +8,10 @@ import {
   saveLocalSettings,
   checkForSpacingRepeating,
   saveSpacingRepeating,
+  checkForessionThing,
+  saveSessionThing,
+  getSessionData,
+  clearSessionData,
 } from './storageModel';
 import {
   changeStats,
@@ -16,6 +20,8 @@ import {
   userWordThings,
   changeSettings,
   getWordsDiffAndComplicated,
+  statsThingNames,
+  changeSessionStatsObject,
 } from './dataModels';
 import { calculateLearnRate } from './spacingRepeating';
 
@@ -33,8 +39,8 @@ export const convertDifficultLevelToRepeats = (level) => (
   level === levelsOfDifficulty.HARD
 );
 
-export const updateUserWord = (userOption, optionData, wordObject, level) => {
-  const newWord = changeUserWord(userOption, optionData, wordObject);
+export const updateUserWord = (userOption, optionData, oldRepeated, wordObject, level) => {
+  const newWord = changeUserWord(userOption, optionData, oldRepeated, wordObject);
   saveLocalUserWord(newWord);
   if (level !== levelsOfDifficulty.EASY && userOption === userWordThings.RATE) {
     const twice = convertDifficultLevelToRepeats(level);
@@ -42,11 +48,15 @@ export const updateUserWord = (userOption, optionData, wordObject, level) => {
   }
 };
 
-export const updateUserWordRate = (wordObject, level = levelsOfDifficulty.HARD) => {
+export const updateUserWordRate = (
+  wordObject,
+  level = levelsOfDifficulty.HARD,
+  oldRate,
+  oldRepeated,
+) => {
   const current = prepareWordObject(wordObject);
-  const prevRate = current.userWord.optional.rate;
-  const rate = calculateLearnRate(prevRate, level);
-  updateUserWord(userWordThings.RATE, rate, current, level);
+  const rate = calculateLearnRate(oldRate, level);
+  updateUserWord(userWordThings.RATE, rate, oldRepeated, current, level);
 };
 
 export const updateUserWordDifficulty = (wordObject) => {
@@ -78,3 +88,30 @@ export const getDiffAndCoplicatedInProgress = (arrayOfWordsObjects, template) =>
     ? { ...template, ...getWordsDiffAndComplicated(wordObject) }
     : { ...template }))
 );
+
+export const saveDataToSessionStats = (thingName, keyName, keyValue = 1) => {
+  const current = checkForessionThing(thingName);
+  const updated = changeSessionStatsObject(current, statsThingNames[keyName], keyValue);
+  saveSessionThing(thingName, updated);
+};
+
+export const saveRightToGamesStats = (thingName) => {
+  saveDataToSessionStats(thingName, statsThingNames.RIGHT);
+};
+
+export const saveWrongToGamesStats = (thingName) => {
+  saveDataToSessionStats(thingName, statsThingNames.WRONG);
+};
+
+export const getGameSessionResults = (thingName) => (
+  getSessionData(thingName)
+);
+
+export const clearGameSessionResults = (thingName) => {
+  clearSessionData(thingName);
+};
+
+export const saveGameResults = (thingName) => {
+  const results = getGameSessionResults(thingName);
+  updateStats(thingName, results);
+};

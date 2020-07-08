@@ -35,12 +35,22 @@ export const statsLearnTemplate = {
   learned: 0,
   inProgress: 0,
   complicated: 0,
-  remoded: 0,
+  removed: 0,
 };
 
 export const statsPuzzleTemplate = {
   games: 0,
   wrong: 0,
+};
+
+export const statsThingNames = {
+  LEARNED: 'learned',
+  IN_PROGRESS: 'inProgress',
+  COMPLICATED: 'complicated',
+  REMOVED: 'removed',
+  GAMES: 'games',
+  WRONG: 'wrong',
+  RIGHT: 'right',
 };
 
 export const checkStatsThingTemplate = (thing) => {
@@ -113,6 +123,13 @@ export const changeStats = (statsOption, optionData, currentStats) => {
   optional[statsOption] = updated;
   return { ...newStats, optional };
 };
+
+export const changeSessionStatsObject = (statsObject, keyName, keyValue) => (
+  {
+    ...statsObject,
+    [keyName]: statsObject[keyName] + keyValue,
+  }
+);
 // .....................................................................
 
 export const generateSettingsTemplate = () => {
@@ -146,7 +163,7 @@ export const convertDate = (days) => (
     : moment().add(days, 'days').format(dateFormatTemplate)
 );
 
-export const changeUserWord = (userOption, optionData, wordObject) => {
+export const changeUserWord = (userOption, optionData, oldRepeated, wordObject) => {
   const newUserWord = wordObject?.userWord
     ? { ...wordObject.userWord }
     : { ...userWordTemplate };
@@ -158,7 +175,7 @@ export const changeUserWord = (userOption, optionData, wordObject) => {
       case userWordThings.RATE:
         optional.rate = optionData;
         optional.next = convertDate(optionData);
-        optional.repeated += 1;
+        optional.repeated = oldRepeated + 1;
         break;
       case userWordThings.REMOVED:
         optional.removed = optionData;
@@ -176,9 +193,11 @@ export const checkUserWordById = (userWords, wordId) => (
 );
 
 export const checkForCurrentUserWord = (userWords, wordObject) => (
-  userWords.length > 0
-    ? checkUserWordById(userWords, wordObject.id) || createUserWord(wordObject)
-    : createUserWord(wordObject)
+  {
+    ...userWords.length > 0
+      ? checkUserWordById(userWords, wordObject.id) || createUserWord(wordObject)
+      : createUserWord(wordObject),
+  }
 );
 
 export const generateSpacingRepeatingTemplate = () => (
