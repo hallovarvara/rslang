@@ -109,10 +109,6 @@ class PhraseElementsView extends React.Component {
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
   render() {
-    if (this.state.selected.length === this.props.answerItems) {
-      const check = this.state.selected.every((item, index) => +item.id === index);
-      this.props.updateIsCheck(check);
-    }
     const itemStyleSelected = (isCheck, isDragging, item, index) => classNames(
       style.item,
       { [style.active]: isDragging },
@@ -139,6 +135,7 @@ class PhraseElementsView extends React.Component {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
+                        // style={{ minWidth: `${800 / this.props.answerItems.length}px` }}
                         className={itemStyleSelected(
                           this.props.isCheck,
                           snapshot.isDragging,
@@ -171,6 +168,7 @@ class PhraseElementsView extends React.Component {
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
+                      // style={{ maxWidth: `${800 / this.props.answerItems.length}px` }}
                       className={itemStyle(snapshot.isDragging)}
                     >
                       {item.content}
@@ -180,7 +178,7 @@ class PhraseElementsView extends React.Component {
               ))}
             {provided.placeholder}
           </div>
-        )}
+          )}
         </Droppable>
       </DragDropContext>
       </>

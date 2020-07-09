@@ -7,8 +7,10 @@ import Question from '../../components/Question';
 import PhraseElements from '../../components/PhraseElements';
 import GameHelpers from '../../components/GameHelpers';
 import ButtonPanel from '../../components/ButtonPanel';
+import FinishPage from '../FinishPage';
 
 const GamePageView = ({
+  handleClickNewGame,
   questionList,
   level,
   phrasesArray,
@@ -28,13 +30,14 @@ const GamePageView = ({
   puzzleItems,
   answerItems,
   errorCount,
+  isEnd,
   prevPhraseArray,
   isShow,
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
   return (
-    question && phrase
+    question && phrase && !isEnd
       ? (<div>
       <GameHelpers
         handleClickButtonTranslation={handleClickButtonTranslation}
@@ -83,7 +86,10 @@ const GamePageView = ({
         handleClickCheck={handleClickCheck}
       />
     </div>)
-      : <p>ybxtuj</p>
+      : <FinishPage
+          handleClickNewGame={handleClickNewGame}
+          errorCount={errorCount}
+        />
   );
 };
 
@@ -102,7 +108,7 @@ GamePageView.propTypes = {
   isContinue: PropTypes.bool,
   puzzleItems: PropTypes.array,
   answerItems: PropTypes.array,
-  // errorCount: PropTypes.number,
+  errorCount: PropTypes.number,
   prevPhraseArray: PropTypes.array,
   isShow: PropTypes.bool,
   updateIsShow: PropTypes.func,

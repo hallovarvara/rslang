@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import data from '../../mockData';
 import { generateQuestionsArray, shuffle } from '../../helpers';
 import GamePageView from './GamePageView.jsx';
@@ -7,6 +8,9 @@ import GamePageView from './GamePageView.jsx';
 class GamePage extends React.Component {
   constructor(props) {
     super(props);
+    this.props = props;
+    const { handleClickNewGame } = this.props;
+    this.handleClickNewGame = handleClickNewGame;
     this.state = {
       level: 0,
       maxLevel: 10, // TODO Settings
@@ -20,6 +24,7 @@ class GamePage extends React.Component {
       errorCount: 0,
       isContinue: false,
       isShow: false,
+      isEnd: false,
     };
   }
 
@@ -28,7 +33,9 @@ class GamePage extends React.Component {
     const questionList = generateQuestionsArray(dataWords, maxLevel);
     const phrasesArray = this.getPhraseArray(questionList);
     const currentPhrase = phrasesArray[level];
+    console.log(currentPhrase, 12)
     const answerItems = this.getItems(currentPhrase);
+    console.log(answerItems, 13)
     const puzzleItems = shuffle(answerItems);
     this.setState({
       answerItems,
@@ -76,25 +83,30 @@ class GamePage extends React.Component {
     const prevPhrase = phrasesArray[level];
     prevPhraseArray.push(prevPhrase);
     level += 1;
-    const currentPhrase = phrasesArray[level];
-    const answerItems = this.getItems(currentPhrase);
-    const puzzleItems = shuffle(this.getItems(currentPhrase));
-    this.setState({
-      level,
-      currentPhrase,
-      puzzleItems,
-      answerItems,
-      isContinue: false,
-      isCheck: false,
-      isShow: false,
-      prevPhraseArray,
+    if (level < 10) {
+      const currentPhrase = phrasesArray[level];
+      console.log(currentPhrase, 11)
+      const answerItems = this.getItems(currentPhrase);
+      console.log(answerItems, 11)
+      const puzzleItems = shuffle(this.getItems(currentPhrase));
+      this.setState({
+        level,
+        currentPhrase,
+        puzzleItems,
+        answerItems,
+        isContinue: false,
+        isCheck: false,
+        isShow: false,
+        prevPhraseArray,
+      });
+    } else this.setState({
+      isEnd: true, 
     });
   }
 
   updateIsCheck = (check) => {
     if (check) {
       this.setState({
-        isCheck: true,
         isContinue: true,
       });
     }
@@ -132,6 +144,7 @@ class GamePage extends React.Component {
       prevPhraseArray,
       isCheck,
       isShow,
+      isEnd,
     } = this.state;
     return (
       <GamePageView
@@ -156,9 +169,15 @@ class GamePage extends React.Component {
         isShow={isShow}
         updateIsCheck={this.updateIsCheck}
         updateIsShow={this.updateIsShow}
+        handleClickNewGame={this.handleClickNewGame}
+        isEnd={isEnd}
       />
     );
   }
 }
+
+GamePage.propTypes = {
+  handleClickNewGame: PropTypes.func,
+};
 
 export default GamePage;

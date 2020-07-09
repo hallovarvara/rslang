@@ -13,6 +13,11 @@ class Main extends React.Component {
     this.setState({ isStart: true });
   }
 
+  handleClickNewGame = () => {
+    this.setState({ isStart: false });
+  }
+
+
   render() {
     const {
       isStart,
@@ -21,6 +26,7 @@ class Main extends React.Component {
       <MainView
         isStart={isStart}
         handleClickButtonStart={this.handleClickButtonStart}
+        handleClickNewGame={this.handleClickNewGame}
       />
     );
   }
