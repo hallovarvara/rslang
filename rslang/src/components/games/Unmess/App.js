@@ -47,6 +47,7 @@ const replaceElInArrayOfObject = (array, object, newProps) => {
 class App extends React.Component {
   state = {
     currentLevel: 0,
+    currentPage: 0,
     loading: true,
     currentWords: null,
     shuffledCurrentWords: null,
@@ -63,7 +64,8 @@ class App extends React.Component {
     wordsService.getAllWords(pagesCount, levelsCount)
       .then((result) => {
         this.allWords = result;
-        const currentWords = getRandomWords(this.allWords[this.state.currentLevel]);
+        const { currentLevel, currentPage } = this.state;
+        const currentWords = getRandomWords(this.allWords[currentLevel][currentPage]);
         const shuffledCurrentWords = getShuffledWords(currentWords);
         this.setState({
           loading: false,
@@ -74,10 +76,20 @@ class App extends React.Component {
   }
 
   levelChanged = (level) => {
-    const currentWords = getRandomWords(this.allWords[level]);
+    const currentWords = getRandomWords(this.allWords[level][this.state.currentPage]);
     const shuffledCurrentWords = getShuffledWords(currentWords);
     this.setState({
       currentLevel: level,
+      currentWords,
+      shuffledCurrentWords,
+    });
+  }
+
+  pageChanged = (page) => {
+    const currentWords = getRandomWords(this.allWords[this.state.currentLevel][page]);
+    const shuffledCurrentWords = getShuffledWords(currentWords);
+    this.setState({
+      currentPage: page,
       currentWords,
       shuffledCurrentWords,
     });
@@ -128,6 +140,7 @@ class App extends React.Component {
       loading,
       currentWords,
       currentLevel,
+      currentPage,
       shuffledCurrentWords,
     } = this.state;
 
@@ -136,9 +149,11 @@ class App extends React.Component {
         <Switch>
           <Route path="/unmess/home" render={() => (
             <StartPage
+              currentPage={currentPage}
               currentLevel={currentLevel}
               loading={loading}
               levelChanged={this.levelChanged}
+              pageChanged={this.pageChanged}
             />
           )} />
           <Route path="/unmess/game" render={({ history }) => (

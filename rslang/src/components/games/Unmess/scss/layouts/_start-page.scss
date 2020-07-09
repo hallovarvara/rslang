@@ -37,43 +37,24 @@
     }
   }
 
-  .unmess-level-stepper {
+  .unmess-steppers-container {
     margin: 50px 0px;
+  }
 
-    .MuiTypography-root {
+  .unmess-steppers-container > * {
+    margin-bottom: 15px;
+    &:last-child {
       margin-bottom: 0px;
-      color: $color-text-light;
-      font-size: 2.2rem;
-      font-family: 'Inter', sans-serif;
-      text-align: center;
     }
+  }
 
-    .MuiSlider-rail {
-      background-color: white;
-      opacity: 1;
-    }
-
-    .MuiSlider-valueLabel {
-      color: black;
+  .unmess-pages-stepper {
+    .MuiSlider-markLabel {
+      display: none;
     }
 
     .MuiSlider-mark {
-      color: black;
-    }
-
-    .MuiSlider-markLabel {
       color: white;
-      font-size: 1.5rem;
     }
-
-    .PrivateValueLabel-circle-4 {
-      font-size: 1rem;
-    }
-  }
-}
-
-.unmess-level-stepper .MuiSlider-thumb {
-  &:hover {
-    box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.16);
   }
 }

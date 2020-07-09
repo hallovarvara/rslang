@@ -3,6 +3,7 @@ import PropTypes, { number } from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
 const standartMarks = [
   {
@@ -37,6 +38,14 @@ class DiscreteSlider extends React.Component {
     this.defaultColor = this.arrayOfColorsForTrack[indexOfDefaultValue];
   }
 
+  componentDidMount() {
+    if (this.props.stickyLabel) {
+      document
+        .querySelector(`.${this.props.className}`)
+        .style.setProperty('--stickyLabelValue', `"${this.props.currentPage + 1}"`);
+    }
+  }
+
   render() {
     const {
       marks = standartMarks,
@@ -45,6 +54,7 @@ class DiscreteSlider extends React.Component {
       max = 100,
       min = 0,
       onChangeCommitted = null,
+      stickyLabel,
     } = this.props;
     const {
       defaultValue = marks[0].value,
@@ -64,10 +74,19 @@ class DiscreteSlider extends React.Component {
       thumb: {
         backgroundColor: this.defaultColor,
       },
+      markLabel: {
+        display: stickyLabel ? 'none' : 'block',
+      },
     })(Slider);
 
+    const stepperContainerClasses = classNames({
+      'stepper-container': true,
+      [className]: true,
+      'sticky-label': stickyLabel,
+    });
+
     return (
-      <div className={className}>
+      <div className={stepperContainerClasses}>
         <Typography id="discrete-slider-custom" gutterBottom>
           {label}
         </Typography>
@@ -82,10 +101,15 @@ class DiscreteSlider extends React.Component {
           min={min}
           onChange={(event, value) => {
             const indexOfNewValue = marks.findIndex((mark) => value === mark.value);
-            document.querySelector('.unmess-game-container .MuiSlider-track')
+            document.querySelector(`.${className} .MuiSlider-track`)
               .style.backgroundColor = this.arrayOfColorsForTrack[indexOfNewValue];
-            document.querySelector('.unmess-game-container .MuiSlider-thumb')
+            document.querySelector(`.${className} .MuiSlider-thumb`)
               .style.backgroundColor = this.arrayOfColorsForTrack[indexOfNewValue];
+            if (stickyLabel) {
+              document
+                .querySelector(`.${this.props.className}`)
+                .style.setProperty('--stickyLabelValue', `"${value}"`);
+            }
           }}
           onChangeCommitted={onChangeCommitted}
         />
@@ -104,6 +128,8 @@ DiscreteSlider.propTypes = {
   min: PropTypes.number,
   arrayOfColorsForTrack: PropTypes.arrayOf(PropTypes.string),
   onChangeCommitted: PropTypes.func,
+  stickyLabel: PropTypes.bool,
+  currentPage: PropTypes.number,
 };
 
 export default DiscreteSlider;

@@ -6,20 +6,24 @@ import StartButton from '../../StartButton';
 import Preloader from '../../Preloader';
 import Stepper from '../../../../../../basicComponents/Stepper';
 
-import { levelsCount } from '../../../helpers/contants';
+import { levelsCount, pagesCount } from '../../../helpers/contants';
+
+const generateStepperMarks = (stepsCount) => (
+  (new Array(stepsCount).fill({}))
+    .map((obj, index) => ({
+      value: index + 1,
+      label: `${index + 1}`,
+    }))
+);
 
 const StartPage = (props) => {
   const {
     loading,
     levelChanged,
+    pageChanged,
     currentLevel,
+    currentPage,
   } = props;
-
-  const stepperMarks = (new Array(levelsCount).fill({}))
-    .map((obj, index) => ({
-      value: index + 1,
-      label: `${index + 1}`,
-    }));
 
   return (
     <div className="start-page">
@@ -29,16 +33,31 @@ const StartPage = (props) => {
         loading
           ? <Preloader />
           : (<React.Fragment>
+            <div className="unmess-steppers-container">
               <Stepper
-                defaultValue={currentLevel + 1}
-                onChangeCommitted={(event, value) => levelChanged(value - 1)}
-                step={null}
-                max={levelsCount}
-                marks={stepperMarks}
-                className="unmess-level-stepper"
-                label="Выберите уровень:"
-                arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#F9C74F', '#F8961E', '#F3722C', '#F94144']}
+                  defaultValue={currentLevel + 1}
+                  onChangeCommitted={(event, value, ...args) => levelChanged(value - 1, ...args)}
+                  step={null}
+                  max={levelsCount}
+                  marks={generateStepperMarks(levelsCount)}
+                  className="unmess-levels-stepper"
+                  label="Выберите уровень:"
+                  arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#F9C74F', '#F8961E', '#F3722C', '#F94144']}
+                  stickyLabel={false}
                 />
+                <Stepper
+                  defaultValue={currentPage + 1}
+                  onChangeCommitted={(event, value, ...args) => pageChanged(value - 1, ...args)}
+                  step={null}
+                  max={pagesCount}
+                  marks={generateStepperMarks(pagesCount)}
+                  className="unmess-pages-stepper"
+                  label="Выберите страницу:"
+                  arrayOfColorsForTrack={(new Array(pagesCount)).fill('#84D7C3')}
+                  stickyLabel={true}
+                  currentPage={currentPage}
+                />
+            </div>
               <Link to="/unmess/game"><StartButton /></Link>
             </React.Fragment>)
       }
@@ -49,7 +68,9 @@ const StartPage = (props) => {
 StartPage.propTypes = {
   loading: PropTypes.bool,
   levelChanged: PropTypes.func,
+  pageChanged: PropTypes.func,
   currentLevel: PropTypes.number,
+  currentPage: PropTypes.number,
 };
 
 export default StartPage;
