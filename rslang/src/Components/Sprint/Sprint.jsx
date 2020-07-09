@@ -17,7 +17,7 @@ const initialState = {
 
   checkedUserWords: false,
   allUserWords: [],
-  timer: 2,
+  timer: 60,
   score: 0,
   activeQuestion: '',
   activeAnswer: '',
