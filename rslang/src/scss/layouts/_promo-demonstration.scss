@@ -1,0 +1,20 @@
+.demonstration-container {
+  padding: 90px 152px;
+  background-color: $color-primary;
+  @include flex(column, center, center);
+}
+
+.demonstration-container__title {
+  margin-bottom: 50px;
+  @include font(5.2rem, 300, normal);
+}
+
+.demonstration-container__video {
+  width: 100%;
+  margin-bottom: 90px;
+}
+
+.demonstration-container__start-link-button-container button {
+  padding: 15px 85px;
+  font-size: 4rem;
+}

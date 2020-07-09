@@ -25,6 +25,7 @@ export default class LearnWords extends Component {
     userId: '',
     audio: null,
     isFetching: false,
+    category: 'all',
   };
 
   componentDidMount() {
@@ -51,6 +52,19 @@ export default class LearnWords extends Component {
     const { isAutoPlay } = this.state;
     this.setState({
       isAutoPlay: !isAutoPlay,
+    });
+  }
+
+  toggleAutoPlay = () => {
+    const { isAutoPlay } = this.state;
+    this.setState({
+      isAutoPlay: !isAutoPlay,
+    });
+  }
+
+  toggleCategory = ({ target: { value } }) => {
+    this.setState({
+      category: value,
     });
   }
 

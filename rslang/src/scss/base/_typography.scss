@@ -1,0 +1,33 @@
+html {
+  font-size: 10px;
+}
+
+html body {
+  font-weight: normal;
+  font-family: $font-primary;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: $color-dark;
+  font-weight: $font-weight-black;
+  font-family: $font-secondary;
+  font-style: italic;
+}
+
+h1 {
+  font-size: 9rem;
+}
+
+h4 {
+  font-size: 3.2rem;
+}
+
+p {
+  margin: 0;
+}
