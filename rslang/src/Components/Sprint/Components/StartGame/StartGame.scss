@@ -1,0 +1,31 @@
+.sprint-start__container{
+width: 400px;
+height: 400px;
+margin: 0 auto;
+text-align: center;
+
+}
+.sprint-start__timer{
+font-size: 50px;
+padding-top: 50%;
+}
+.sprint-start__explanation{
+  position: absolute;
+  font-size: 1rem;
+  color: #505050;
+  top: 10px;
+  right: 10px;
+}
+
+.sprint-start__form-container{
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: 70%;
+}
+
+.sprint-start__form{
+  display: flex;
+  flex-direction: column;
+}

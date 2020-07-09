@@ -1,19 +1,30 @@
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { apiLinks } from './constants';
 
 const urlBase = apiLinks.base;
 
-const axiosuser = axios.create({
-  baseURL: urlBase,
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('rslangToken')}`,
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-});
+const axiosuser = (props) => {
+  return axios.create({
+    baseURL: urlBase,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('rslangToken') || props.token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+}
 
-export default class UserService {
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    userId: state.auth.userId,
+  };
+}
 
+export default connect(mapStateToProps)(axiosuser)
+
+export class UserService {
   registerUser = async (user) => {
     try {
       const rawResponse = await fetch('https://kagafon-learn-words.herokuapp.com/users', {
@@ -44,10 +55,9 @@ export default class UserService {
       localStorage.setItem('refreshTokenDate', refreshTokenDate);
       return response.data;
     } catch (e) {
-      alert("Такого пользователя не существует");
+      alert('Такого пользователя не существует');
     }
   }
-
 
   getUserById = async (userId) => {
     const response = await axiosuser.get(`users/${userId}`);
@@ -115,7 +125,7 @@ export default class UserService {
   };
 
   getUserAllWords = async (userId) => {
-    const rawResponse = axiosuser.get(`users/${userId}/words`);
+    const rawResponse = axiosuser().get(`users/${userId}/words`);
     const content = await rawResponse;
     return content.data;
   };
@@ -126,6 +136,19 @@ export default class UserService {
     if (getAllWords.length) {
       getAllWords.forEach((wordCard) => {
         result.push(wordCard.word);
+      });
+    }
+    return result;
+  }
+
+  getUserWordsNoRemoved = async (userId) => {
+    const result = [];
+    const getAllWords = await this.getUserAllWords(userId);
+    if (getAllWords.length) {
+      getAllWords.forEach((wordCard) => {
+        if (!wordCard.optional.removed) {
+          result.push(wordCard.word);
+        }
       });
     }
     return result;
@@ -194,5 +217,5 @@ export default class UserService {
     const data = await res.json();
     return data[0];
   }
-
 }
+

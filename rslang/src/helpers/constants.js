@@ -1,5 +1,22 @@
 import noAvatar from '../assets/images/avatar.jpg';
 
+
+const unloggedHeaderLinkTitles = ['About us', 'Learn words', 'Play games', 'Statistics', 'Vocabulary', 'Sign In'];
+const loggedHeaderLinkTitles = ['Learn words', 'Play games', 'About us', 'Statistics', 'Vocabulary', 'Settings'];
+
+const ALL_PAGE = 29;
+const ALL_CARDS_IN_QUERY = 19;
+const TOTAL_GROUP = 6;
+
+export {
+  unloggedHeaderLinkTitles,
+  loggedHeaderLinkTitles,
+  TOTAL_GROUP,
+  ALL_PAGE,
+  ALL_CARDS_IN_QUERY,
+};
+
+
 const defaultPaginationCount = 10;
 
 const apiLinks = {

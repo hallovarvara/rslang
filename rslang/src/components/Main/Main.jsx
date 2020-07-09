@@ -10,6 +10,7 @@ import PlayGamesPage from '../pages/PlayGames';
 import VocabularyPage from '../pages/Vocabulary';
 import SignInPage from '../pages/SignIn';
 import SignUpPage from '../pages/SignUp';
+import Sprint from '../Sprint'
 
 import { pagesData } from '../../helpers/constants';
 
@@ -25,6 +26,7 @@ const Main = () => (
       <Route path={`/${pagesData.vocabulary.path}`} component={VocabularyPage} />
       <Route path={`/${pagesData.signIn.path}`} component={SignInPage} />
       <Route path={`/${pagesData.register.path}`} component={SignUpPage} />
+      <Route path={`/sprint`} component={Sprint} />
     </Switch>
   </main>
 );
