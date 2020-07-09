@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const MainPage = (props) => <h2 className="title" style={{ fontSize: 30, textAlign: 'center' }}>
@@ -10,4 +11,8 @@ function mapStateToProps(state) {
     name: state.auth.name,
   };
 }
+
+MainPage.propTypes = {
+  name: PropTypes.string,
+};
 export default connect(mapStateToProps)(MainPage);

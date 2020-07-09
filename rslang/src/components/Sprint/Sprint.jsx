@@ -7,6 +7,12 @@ import FinishGame from './Components/FinishGame';
 import WordsService from './services/WordsService';
 import { UserService } from './services/UserService';
 
+import { applicationThings } from '../../helpers/constants';
+
+import {
+  saveRightToGamesStats, saveWrongToGamesStats, updateUserWordRate, saveGameResults,
+} from '../../helpers/wordsService/';
+
 import {
   AUDIO_PATH, BASIC, CORRECT_ANSWER_ONCE, MULTIPLIER,
 } from './services/constants';
@@ -14,7 +20,7 @@ import {
 import './Sprint.scss';
 
 const initialState = {
-
+  wordObject: {},
   checkedUserWords: false,
   allUserWords: [],
   timer: 60,
@@ -51,6 +57,8 @@ const initialState = {
     audio: [],
   },
 };
+
+const { SPRINT } = applicationThings;
 
 const wordsService = new WordsService();
 const {
@@ -97,12 +105,14 @@ class Sprint extends Component {
         audio.push(card.audio);
       });
       const activeCard = getRandomIntInclusive(0, allCards.length - 1);
-      const activeQuestion = allCards[activeCard].word;
+      const activeQuestion = words[0];
+      const wordObject = allCards[0];
       const activeAnswer = translateWords[Math.round(Math.random())];
       if (translateWords[0] === activeAnswer) {
         isTrue = true;
       }
       this.setState({
+        wordObject,
         words,
         translateWords,
         answerState,
@@ -183,6 +193,7 @@ class Sprint extends Component {
     if (this.state.timer === 0) {
       clearTimeout(timerId);
       this.setState({ isFinished: true });
+      saveGameResults(SPRINT);
     }
   }
 
@@ -213,11 +224,14 @@ class Sprint extends Component {
         this.updateCounter(MULTIPLIER, 1);
         this.updateScore(this.basic);
         this.resultCurrentQuiz('complete');
+        saveRightToGamesStats(SPRINT);
       } else {
         this.audioPlay(this.audioPath.error);
         this.setState({ isAnswerQuiz: 'times' });
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
+        saveWrongToGamesStats(SPRINT);
+        updateUserWordRate(this.state.wordObject);
       }
       this.updateState();
     }

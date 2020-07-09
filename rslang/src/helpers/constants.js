@@ -1,28 +1,39 @@
 import noAvatar from '../assets/images/avatar.jpg';
 
-
+const defaultPaginationCount = 10;
+const apiLinks = {
+  file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
+};
 const unloggedHeaderLinkTitles = ['About us', 'Learn words', 'Play games', 'Statistics', 'Vocabulary', 'Sign In'];
 const loggedHeaderLinkTitles = ['Learn words', 'Play games', 'About us', 'Statistics', 'Vocabulary', 'Settings'];
 
-const ALL_PAGE = 29;
-const ALL_CARDS_IN_QUERY = 19;
-const TOTAL_GROUP = 6;
-
-export {
-  unloggedHeaderLinkTitles,
-  loggedHeaderLinkTitles,
-  TOTAL_GROUP,
-  ALL_PAGE,
-  ALL_CARDS_IN_QUERY,
+export const applicationThings = {
+  LEARN_WORDS: 'learnWords',
+  SAVANNAH: 'savannah',
+  SPRINT: 'sprint',
+  AUDIOCALL: 'audiocall',
+  SPEAK_IT: 'speakIt',
+  PUZZLE: 'puzzle',
+  UNMESS: 'unmess',
 };
 
-
-const defaultPaginationCount = 10;
-
-const apiLinks = {
-  file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
-  base: 'https://kagafon-learn-words.herokuapp.com/',
+export const userSettingsTemplate = {
+  IS_SHOWN_COMPLICATED_BUTTON: 'isShownComplicatedButton',
+  IS_SHOWN_ANSWER_BUTTON: 'isShownAnswerButton',
+  IS_SHOWN_IMAGE_ASSOCIATION: 'isShownImageAssociation',
+  IS_SHOWN_TRANSLATION: 'isShownTranslation',
+  IS_SHOWN_TRANSCRIPTION: 'isShownTranscription',
+  IS_SHOWN_EXAMPLE_SENTENCE: 'isShownExampleSentence',
+  IS_SHOWN_MEANING: 'isShownMeaning',
 };
+
+export const levelsOfDifficulty = {
+  HARD: 'hard',
+  NORMAL: 'normal',
+  EASY: 'easy',
+};
+
+export const dateFormatTemplate = 'DD.MM.YYYY';
 
 const linkedinLink = 'https://www.linkedin.com/in/';
 
@@ -143,28 +154,28 @@ const teamMembers = [
     surname: 'Яцкевич',
     role: 'Работала как волчица, делала все подряд',
     image: noAvatar,
-    linkedinUsername: 'ksenia-yatskevich-6543881b2'
+    linkedinUsername: 'ksenia-yatskevich-6543881b2',
   },
   {
     name: 'Максим',
     surname: 'Касприв',
     role: 'Работал как волк, делал все подряд',
     image: noAvatar,
-    linkedinUsername: 'maksym-kaspriv'
+    linkedinUsername: 'maksym-kaspriv',
   },
   {
     name: 'Алексей',
     surname: 'Осипов',
     role: 'Работал как волк, делал все подряд',
     image: noAvatar,
-    linkedinUsername: ''
+    linkedinUsername: '',
   },
 ];
 
 const selectorOptions = [
   ['new', 'new & repeating'],
   ['complicated', 'complicated'],
-  ['removed', 'removed']
+  ['removed', 'removed'],
 ];
 
 /* Games */
@@ -210,4 +221,6 @@ export {
   buttonTextContent,
   textContent,
   formLabel,
+  unloggedHeaderLinkTitles,
+  loggedHeaderLinkTitles,
 };

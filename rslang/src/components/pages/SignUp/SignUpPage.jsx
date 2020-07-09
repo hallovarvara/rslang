@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Input from '../../../basicComponents/Input';
 import Button from '../../../basicComponents/Button';
-import UserService from '../../../helpers/UserService';
+import { UserService } from '../../../helpers/UserService';
 
 const SignUpPage = () => {
   const userService = new UserService();
@@ -56,7 +56,6 @@ const SignUpPage = () => {
   };
 
   const onSubmitForm = async (e) => {
-    console.log(name)
     e.preventDefault();
     if (password === repeatPass) {
       const data = await userService.registerUser({ name, email, password });

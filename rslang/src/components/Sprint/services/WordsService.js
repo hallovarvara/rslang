@@ -10,6 +10,12 @@ export default class WordsService {
     return response.data;
   };
 
+  getCardsById = async (wordId) => {
+    const url = `${apiLinks.base}words/${wordId}`;
+    const response = await axios.get(url);
+    return response.data;
+  };
+
   getRandomIntInclusive = (min, max) => {
     const minNumber = Math.ceil(min);
     const maxNumber = Math.floor(max);

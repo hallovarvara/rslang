@@ -33,15 +33,19 @@ const StartGameUserForm = ({
   handleChangeUserWords, handleCurrentGroup, onSubmitForm, token,
 }) => (
     <div className={'sprint-start__container'}>
-      <span className={'sprint-start__explanation'}>
-        *если в словаре слов не достаточно для игры,
-        то слова будут появляться из выбранного уровня
-    </span>
+
       <div className={'sprint-start__form-container'}>
-        {token || localStorage.getItem('rslangToken')
-          ? (<Switcher
-            handleChangeUserWords={handleChangeUserWords}
-          />)
+        {token
+
+          ? (<React.Fragment>
+            <span className={'sprint-start__explanation'}>
+              *если в словаре слов не достаточно для игры,
+              то слова будут появляться из выбранного уровня
+    </span>
+            <Switcher
+              handleChangeUserWords={handleChangeUserWords}
+            />
+          </React.Fragment>)
           : null
         }
 
