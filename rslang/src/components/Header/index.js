@@ -1,14 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { authSuccess } from '../../redux/actions/auth';
 import HeaderView from './HeaderView.jsx';
 import { pagesData } from '../../helpers/constants';
 
 class Header extends React.Component {
-  isToken = Boolean(localStorage.getItem('rslangToken'));
+  componentDidMount() {
+    this.props.authSuccess(
+      localStorage.getItem('rslangName'),
+      localStorage.getItem('rslangUserId'),
+      localStorage.getItem('rslangToken'),
+    );
+  }
 
   getPagesLinks = () => Object.values(pagesData).reduce((links, item) => {
-    const role = (Boolean(this.props.token) || this.isToken) ? 'user' : 'guest';
+    const role = this.props.token ? 'user' : 'guest';
     const updatedLinks = links;
 
     if (item[role].isVisible) {
@@ -22,7 +28,7 @@ class Header extends React.Component {
     return (
       <HeaderView
         links={this.getPagesLinks()}
-        isUserLogged={(Boolean(this.props.token) || this.isToken)} />
+        isUserLogged={(Boolean(this.props.token))} />
     );
   }
 }
@@ -33,4 +39,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+function mapDispatchToProps(dispatch) {
+  return {
+    authSuccess: (name, email, password) => dispatch(authSuccess(name, email, password)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
