@@ -9,26 +9,21 @@ import './StartGame.scss';
 const StartGame = ({
   handleChangeUserWords, handleCurrentGroup, startGame, updateState, token,
 }) => {
-  const [isTimer, setIsTimer] = React.useState(false);
-
   const onSubmitForm = (event) => {
     event.preventDefault();
-    setIsTimer(true);
     updateState();
+    startGame();
   };
 
   return (
     <div className={'sprint-start__container'}>
-      {!isTimer
-        ? <StartGameUserForm
-          handleChangeUserWords={handleChangeUserWords}
-          handleCurrentGroup={handleCurrentGroup}
-          onSubmitForm={onSubmitForm}
-          token={token}
-        />
-        : <StartTimer startGame={startGame} />
-      }
-
+      <StartGameUserForm
+        handleChangeUserWords={handleChangeUserWords}
+        handleCurrentGroup={handleCurrentGroup}
+        onSubmitForm={onSubmitForm}
+        token={token}
+        startGame={startGame}
+      />
     </div>
 
   );
@@ -60,30 +55,6 @@ const StartGameUserForm = ({
     </div>
   );
 
-const StartTimer = ({ startGame }) => {
-  const [timer, setTimer] = React.useState(3);
-
-  React.useEffect(() => {
-    if (timer) {
-      setTimeout(() => {
-        setTimer((time) => time - 1);
-      }, 1000);
-    }
-  }, [timer]);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      startGame();
-    }, 3000);
-  }, []);
-
-  return (
-
-    <div className={'sprint-start__timer'}>{timer}</div>
-
-  );
-};
-
 StartGame.propTypes = {
   startGame: PropTypes.func,
   handleChangeUserWords: PropTypes.func,
@@ -101,10 +72,6 @@ StartGameUserForm.propTypes = {
   handleCurrentGroup: PropTypes.func,
   onSubmitForm: PropTypes.func,
   token: PropTypes.string,
-};
-
-StartTimer.propTypes = {
-  startGame: PropTypes.func,
 };
 
 function mapStateToProps(state) {

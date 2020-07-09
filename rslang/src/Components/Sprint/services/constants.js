@@ -26,3 +26,8 @@ export const AUDIO_PATH = {
 export const MULTIPLIER = 2;
 
 export const MENU_ITEM_LIST = ['Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'];
+
+export const apiLinks = {
+  file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
+  base: 'https://kagafon-learn-words.herokuapp.com/',
+};

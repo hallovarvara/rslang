@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { Link } from 'react-router-dom';
 import Slide from '@material-ui/core/Slide';
 // eslint-disable-next-line import/no-unresolved
 import CustomizedTables from '../../UI/Table.jsx';
@@ -35,9 +36,16 @@ export default function FinishGame({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button style={{ fontSize: '1.4rem' }} onClick={() => onReloadGame()} color="primary">
-            ВЫХОД
+          <Link to="/">
+            <Button
+              color="primary"
+              style={{ fontSize: '1.4rem' }}
+            >
+              ВЫХОД
           </Button>
+
+          </Link>
+
           <Button style={{ fontSize: '1.4rem' }} onClick={() => onReloadGame()} color="primary">
             ЕЩЕ РАЗ
           </Button>

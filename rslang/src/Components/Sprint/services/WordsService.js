@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  apiLinks, ALL_PAGE, ALL_CARDS_IN_QUERY, TOTAL_GROUP,
+  apiLinks, ALL_PAGE, ALL_PAGE_IN_QUERY, TOTAL_GROUP,
 } from './constants';
 
 export default class WordsService {
@@ -30,7 +30,7 @@ export default class WordsService {
   getCardInGroup = async (group) => {
     const randomPage = this.getRandomIntInclusive(0, ALL_PAGE);
     const data = await this.getCards(randomPage, group);
-    const randomKey = this.getRandomIntInclusive(0, ALL_CARDS_IN_QUERY);
+    const randomKey = this.getRandomIntInclusive(0, ALL_PAGE_IN_QUERY);
     return data[randomKey];
   };
 

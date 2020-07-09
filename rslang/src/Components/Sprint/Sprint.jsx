@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import StartGame from './Components/StartGame';
 import PlayGame from './Components/PlayGame';
 import FinishGame from './Components/FinishGame';
-import WordsService from '../../helpers/WordsService';
-import { UserService } from '../../helpers/UserService';
+import WordsService from './services/WordsService';
+import { UserService } from './services/UserService';
 
 import {
   AUDIO_PATH, BASIC, CORRECT_ANSWER_ONCE, MULTIPLIER,
@@ -13,11 +14,10 @@ import {
 import './Sprint.scss';
 
 const initialState = {
-  token: null,
-  userId: null,
+
   checkedUserWords: false,
   allUserWords: [],
-  timer: 60,
+  timer: 2,
   score: 0,
   activeQuestion: '',
   activeAnswer: '',
@@ -58,9 +58,7 @@ const {
 } = wordsService;
 
 const userService = new UserService();
-const {
-  allUserWordsArray, loginUser, getUserAllWords, getUserWordsNoRemoved,
-} = userService;
+const { getUserWordsNoRemoved } = userService;
 
 class Sprint extends Component {
   audioPath = AUDIO_PATH;
@@ -75,8 +73,8 @@ class Sprint extends Component {
     const answerState = null;
     const audio = [];
     let isTrue = false;
-    const token = this.props.token || localStorage.getItem('rslangToken')
-    const userId = this.props.userId || localStorage.getItem('rslangUserId')
+    const token = this.props.token || localStorage.getItem('rslangToken');
+    const userId = this.props.userId || localStorage.getItem('rslangUserId');
 
     try {
       const allUserWordsRandom = shuffleArray(token && this.state.checkedUserWords
@@ -86,8 +84,6 @@ class Sprint extends Component {
       if (!this.state.allUserWords.length) {
         this.setState({ allUserWords: allUserWordsRandom });
       }
-      console.log(this.state.allUserWords);
-      console.log(getUserWordsNoRemoved(userId));
       const { counter, allUserWords } = this.state;
       const { total } = counter;
       const userWords = allUserWords.slice(total, total + 2);
@@ -95,7 +91,6 @@ class Sprint extends Component {
       const allCards = (allUserWords.length - 1 > total)
         ? userWords
         : await getCountCardsInGroup(this.state.currentGroup, 2);
-      console.log('allCards', allCards);
       allCards.forEach((card) => {
         words.push(card.word);
         translateWords.push(card.wordTranslate);
@@ -301,5 +296,10 @@ function mapStateToProps(state) {
     userId: state.auth.userId,
   };
 }
+
+Sprint.propTypes = {
+  token: PropTypes.string,
+  userId: PropTypes.string,
+};
 
 export default connect(mapStateToProps)(Sprint);
