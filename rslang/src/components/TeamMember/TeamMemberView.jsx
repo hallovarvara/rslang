@@ -6,9 +6,9 @@ import { linkedinLink } from '../../helpers/constants';
 
 const TeamMemberView = (props) => {
   const {
-    name = 'Жора',
-    surname = 'Зажорин',
-    role = 'Что-то точно делал',
+    name = 'Безымянный герой',
+    surname = '',
+    role = 'Сделал всё несделанное',
     image = noAvatar,
     linkedinUsername = '',
   } = props;

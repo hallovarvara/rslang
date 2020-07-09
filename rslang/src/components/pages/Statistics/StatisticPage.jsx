@@ -3,7 +3,7 @@ import {pagesData} from "../../../helpers/constants";
 
 const StatisticsPage = () => (
   <div>
-    <h2 className="title">{pagesData.statistics.title}</h2>
+    <h1>{pagesData.statistics.title}</h1>
     <ul>
       <li className="text">1</li>
       <li className="text">2</li>

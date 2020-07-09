@@ -20,15 +20,16 @@ const addLinksToHeader = (link, index) => {
         path === pagesData.play.path
           ? <MenuList
             menuTitle={<NavLink activeClassName="navigation__item_active" to={`/${path}`}>{title}</NavLink>}
-            menuItems={gamesData.map((gameObj, i) => (
+            menuItems={Object.values(gamesData).map((gameObj, i) => (
               <NavLink
                 className="menu-list-item__link"
                 activeClassName="navigation__item_active"
                 key={i}
-                to={gameObj.link}>{gameObj.title}</NavLink>
+                to={gameObj.path}>{gameObj.title}
+              </NavLink>
             ))}
           />
-          : <NavLink activeClassName="navigation__item_active" to={`/${path}`}>{title}</NavLink>
+          : <NavLink activeClassName="navigation__item_active" exact to={`/${path}`}>{title}</NavLink>
       }
     </li>
   );

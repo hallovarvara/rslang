@@ -10,15 +10,6 @@
   @include flex(column, center, center);
 }
 
-.about-us__title {
-  margin-bottom: 5px;
-  @include font(
-    $size: 9rem,
-    $weight: $font-weight-black,
-    $style: italic
-  );
-}
-
 .about-us__desctiption {
   margin-bottom: 50px;
   color: rgba($color: $color-dark, $alpha: 0.6);
