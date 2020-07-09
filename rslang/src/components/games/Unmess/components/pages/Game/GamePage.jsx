@@ -9,6 +9,7 @@ const GamePage = (props) => {
   const {
     untouchedWords,
     dragStart,
+    touchStart,
     dragEnd,
     dragEnter,
     dragLeave,
@@ -33,6 +34,9 @@ const GamePage = (props) => {
                   onDragStart={(event) => {
                     dragStart(event, wordObj);
                   }}
+                  onTouchStart={(event) => {
+                    touchStart(event, wordObj);
+                  }}
                   onDragEnd={(event) => {
                     dragEnd(event);
                   }}>
@@ -45,6 +49,7 @@ const GamePage = (props) => {
           {
             untouchedDefinitions.map((wordObj) => (
               <div
+                data-id={wordObj.id}
                 key={`${wordObj.id}-definition`}
                 className="definitions-container__definition flex-div-with-span"
                 onDragEnter={(event) => {

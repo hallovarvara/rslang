@@ -29,6 +29,153 @@ class GamePage extends React.Component {
     });
   }
 
+  touchStart = (event, wordObj) => {
+    let currentDragoveredElement = null;
+    let isPageScrollingUp = false;
+    let isPageScrollingDown = false;
+    let scrollUpInterval;
+    let scrollDownInterval;
+    const currentCursorPosition = {
+      pageX: event.targetTouches[0].pageX,
+      pageY: event.targetTouches[0].pageY,
+      clientX: event.targetTouches[0].clientX,
+      clientY: event.targetTouches[0].clientY,
+    };
+
+    this.currentDraggedWord = { ...wordObj };
+    const { currentTarget } = event;
+    const cloneNode = currentTarget.cloneNode(true);
+
+    function moveAt() {
+      if ((currentCursorPosition.pageX + cloneNode.offsetWidth / 2 <= window.innerWidth)
+      && (currentCursorPosition.pageX - cloneNode.offsetWidth / 2 >= 0)) {
+        cloneNode.style.left = `${currentCursorPosition.pageX - cloneNode.offsetWidth / 2}px`;
+      }
+      cloneNode.style.top = `${currentCursorPosition.pageY - cloneNode.offsetHeight / 2}px`;
+    }
+
+    function setCurrentDragoveredElement() {
+      document.querySelectorAll('.definitions-container__definition').forEach((el) => {
+        el.classList.remove('dragover');
+      });
+      const currentDisplay = cloneNode.style.display;
+      cloneNode.style.display = 'none';
+      currentDragoveredElement = document.elementFromPoint(
+        currentCursorPosition.clientX,
+        currentCursorPosition.clientY,
+      );
+      cloneNode.style.display = currentDisplay;
+      if (currentDragoveredElement
+        && currentDragoveredElement.closest
+        && currentDragoveredElement.closest('.definitions-container__definition')) {
+        currentDragoveredElement.classList.add('dragover');
+      }
+    }
+
+    function onTouchMove(touchEvent) {
+      currentCursorPosition.pageX = touchEvent.targetTouches[0].pageX;
+      currentCursorPosition.pageY = touchEvent.targetTouches[0].pageY;
+      currentCursorPosition.clientX = touchEvent.targetTouches[0].clientX;
+      currentCursorPosition.clientY = touchEvent.targetTouches[0].clientY;
+      if (touchEvent.cancelable) {
+        touchEvent.preventDefault();
+      }
+
+      setCurrentDragoveredElement();
+
+      if (Math.round(
+        100 * (touchEvent.targetTouches[0].clientY / (window.innerHeight - 110)),
+      ) < 40) {
+        if (!isPageScrollingUp) {
+          isPageScrollingUp = true;
+          scrollUpInterval = setInterval(
+            () => {
+              if (window.scrollY - 1 >= 0) {
+                window.scroll(0, window.scrollY - 1);
+                currentCursorPosition.pageY -= 1;
+              } else {
+                window.scroll(0, 0);
+              }
+              moveAt();
+              setCurrentDragoveredElement();
+            },
+            10,
+          );
+        }
+      } else if (Math.round(
+        100 * (touchEvent.targetTouches[0].clientY / (window.innerHeight)),
+      ) > 80) {
+        if (!isPageScrollingDown) {
+          isPageScrollingDown = true;
+          scrollDownInterval = setInterval(
+            () => {
+              const maxScrollDown = document.body.offsetHeight - window.innerHeight;
+              if (window.scrollY + 1 <= maxScrollDown) {
+                window.scroll(0, window.scrollY + 1);
+                currentCursorPosition.pageY += 1;
+              } else {
+                window.scroll(0, maxScrollDown);
+              }
+              moveAt();
+              setCurrentDragoveredElement();
+            },
+            10,
+          );
+        }
+      } else {
+        clearInterval(scrollUpInterval);
+        clearInterval(scrollDownInterval);
+        isPageScrollingUp = false;
+        isPageScrollingDown = false;
+      }
+
+      moveAt();
+    }
+
+    const copiedStyles = Object.entries(window.getComputedStyle(currentTarget))
+      .reduce((acc, currentValue) => {
+        const [key, value] = currentValue;
+        if (!/\d/.test(key)) {
+          return `${acc}
+            ${key}: ${value};
+          `;
+        }
+        return acc;
+      }, '');
+    cloneNode.style.cssText = copiedStyles;
+    currentTarget.style.opacity = '0.5';
+    cloneNode.style.position = 'absolute';
+    cloneNode.style.zIndex = '1000';
+    document.body.appendChild(cloneNode);
+
+    document.querySelectorAll('.definitions-container__definition').forEach((el) => {
+      el.classList.add('dash-border-animated');
+    });
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+    currentTarget.ontouchend = () => {
+      clearInterval(scrollUpInterval);
+      clearInterval(scrollDownInterval);
+      isPageScrollingUp = false;
+      isPageScrollingDown = false;
+
+      if (currentDragoveredElement
+        && currentDragoveredElement.closest
+        && currentDragoveredElement.closest('.definitions-container__definition')) {
+        this.drop(
+          { currentTarget: currentDragoveredElement },
+          this.props.shuffledCurrentWords.find((word) => (
+            word.id === currentDragoveredElement.dataset.id
+          )),
+        );
+      } else {
+        this.dragEnd({ target: currentTarget });
+      }
+      cloneNode.parentNode.removeChild(cloneNode);
+      document.removeEventListener('touchmove', onTouchMove);
+      currentTarget.ontouchend = null;
+    };
+  }
+
   dragEnd = (event) => {
     const { target } = event;
     target.style.opacity = '';
@@ -117,6 +264,7 @@ class GamePage extends React.Component {
       {...this.props}
       untouchedWords={untouchedWords}
       dragStart={this.dragStart}
+      touchStart={this.touchStart}
       dragEnd={this.dragEnd}
       dragEnter={this.dragEnter}
       dragLeave={this.dragLeave}
