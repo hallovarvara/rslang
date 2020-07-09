@@ -129,7 +129,6 @@ export const changeSessionStatsObject = (statsObject, keyName, keyValue) => {
   result[keyName] += keyValue;
   return result;
 };
-// .....................................................................
 
 export const generateSettingsTemplate = () => {
   const settings = {};
@@ -145,7 +144,6 @@ export const changeSettings = (userOption, wordObject) => {
   settings[userOption] = !optionData;
   return { ...settings };
 };
-// .....................................................................
 
 export const generateUserWordsTemplate = () => (
   []

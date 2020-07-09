@@ -4,8 +4,6 @@ const defaultPaginationCount = 10;
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
 };
-const unloggedHeaderLinkTitles = ['About us', 'Learn words', 'Play games', 'Statistics', 'Vocabulary', 'Sign In'];
-const loggedHeaderLinkTitles = ['Learn words', 'Play games', 'About us', 'Statistics', 'Vocabulary', 'Settings'];
 
 export const applicationThings = {
   LEARN_WORDS: 'learnWords',
@@ -97,17 +95,17 @@ const pagesData = {
 const gamesData = {
   speakit: {
     title: 'SpeakIt',
-    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
+    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
     path: 'speakit',
   },
   englishPuzzle: {
     title: 'English Puzzle',
-    description: 'Учитесь правильно строить предложения, а заодно знакомьтесь с величайшими мировыми произведениями искусства',
+    description: 'Учитесь строить предложения и знакомьтесь с величайшими произведениями искусства',
     path: 'english-puzzle',
   },
   savannah: {
     title: 'Саванна',
-    description: 'Угадывайте, как переводятся слова, и расширяйте лексикон',
+    description: 'Угадывайте, как переводятся слова, и вместе с этим пополняйте лексикон',
     path: 'savannah',
   },
   audiocall: {
@@ -121,8 +119,8 @@ const gamesData = {
     path: 'sprint',
   },
   unmess: {
-    title: 'Своя игра „Unmess”',
-    description: 'Соединяйте слова и их значения, расширяя как словарный запас, так и знание синонимов и умение понимать смысл предложений',
+    title: 'Unmess',
+    description: 'Соединяйте слова и их значения, расширяя запас слов и улучшая понимание смысла фраз',
     path: 'unmess',
   },
 };
@@ -133,7 +131,7 @@ const teamMembers = [
     surname: 'Лебецкий',
     role: 'Работал как волк, делал все подряд',
     image: noAvatar,
-    linkedinUsername: 'lebetsky-dmitry-20a80519a',
+    linkedinUsername: 'dmitry-lebetsky',
   },
   {
     name: 'Варвара',
@@ -154,7 +152,7 @@ const teamMembers = [
     surname: 'Яцкевич',
     role: 'Работала как волчица, делала все подряд',
     image: noAvatar,
-    linkedinUsername: 'ksenia-yatskevich-6543881b2',
+    linkedinUsername: 'ksenia-yatskevich',
   },
   {
     name: 'Максим',
@@ -221,6 +219,4 @@ export {
   buttonTextContent,
   textContent,
   formLabel,
-  unloggedHeaderLinkTitles,
-  loggedHeaderLinkTitles,
 };
