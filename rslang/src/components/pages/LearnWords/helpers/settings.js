@@ -18,4 +18,7 @@ export const initialProgressObject = {
   isWordSemiOpacity: false,
   isUsedTip: false,
   difference: null,
+  isDifficultChosen: false,
+  isRemoved: false,
+  isComplicated: false,
 };
