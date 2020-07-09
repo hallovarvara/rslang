@@ -48,12 +48,18 @@ export const updateUserWord = (userOption, optionData, oldRepeated, wordObject, 
   }
 };
 
+const getOldData = ({ userWord }) => (
+  {
+    oldRate: userWord?.optional?.rate || 0,
+    oldRepeated: userWord?.optional?.repeated || 0,
+  }
+);
+
 export const updateUserWordRate = (
   wordObject,
   level = levelsOfDifficulty.HARD,
-  oldRate,
-  oldRepeated,
 ) => {
+  const { oldRate, oldRepeated } = getOldData(wordObject);
   const current = prepareWordObject(wordObject);
   const rate = calculateLearnRate(oldRate, level);
   updateUserWord(userWordThings.RATE, rate, oldRepeated, current, level);
@@ -91,7 +97,7 @@ export const getDiffAndCoplicatedInProgress = (arrayOfWordsObjects, template) =>
 
 export const saveDataToSessionStats = (thingName, keyName, keyValue = 1) => {
   const current = checkForessionThing(thingName);
-  const updated = changeSessionStatsObject(current, statsThingNames[keyName], keyValue);
+  const updated = changeSessionStatsObject(current, keyName, keyValue);
   saveSessionThing(thingName, updated);
 };
 

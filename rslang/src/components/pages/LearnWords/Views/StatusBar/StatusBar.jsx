@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { buttonsNames } from '../../helpers/constants';
-import { updateUserWordDifficulty, updateUserWordRemoved } from '../../../../../helpers/wordsService';
+import {
+  updateUserWordDifficulty,
+  updateUserWordRemoved,
+} from '../../../../../helpers/wordsService';
 
 const { COMPLICATED, REMOVE } = buttonsNames;
 

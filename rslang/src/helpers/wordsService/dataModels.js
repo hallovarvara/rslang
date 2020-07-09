@@ -124,12 +124,11 @@ export const changeStats = (statsOption, optionData, currentStats) => {
   return { ...newStats, optional };
 };
 
-export const changeSessionStatsObject = (statsObject, keyName, keyValue) => (
-  {
-    ...statsObject,
-    [keyName]: statsObject[keyName] + keyValue,
-  }
-);
+export const changeSessionStatsObject = (statsObject, keyName, keyValue) => {
+  const result = { ...statsObject };
+  result[keyName] += keyValue;
+  return result;
+};
 // .....................................................................
 
 export const generateSettingsTemplate = () => {

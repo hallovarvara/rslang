@@ -10,16 +10,8 @@ import {
 const { HARD, NORMAL, EASY } = levelsOfDifficulty;
 const { HARD_LABEL, NORMAL_LABEL, EASY_LABEL } = difficultLabels;
 
-const oldData = ({ userWord }) => (
-  {
-    oldRate: userWord?.optional?.rate || 0,
-    oldRepeated: userWord?.optional?.repeated || 0,
-  }
-);
-
 const handleChoseDifficulty = (word, onChangeProgress, level) => {
-  const { oldRate, oldRepeated } = oldData(word);
-  updateUserWordRate(word, level, oldRate, oldRepeated);
+  updateUserWordRate(word, level);
   onChangeProgress({ isDifficultChosen: true });
 };
 
