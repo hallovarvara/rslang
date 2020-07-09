@@ -1,10 +1,37 @@
 import noAvatar from '../assets/images/avatar.jpg';
 
 const defaultPaginationCount = 10;
-
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
 };
+
+export const applicationThings = {
+  LEARN_WORDS: 'learnWords',
+  SAVANNAH: 'savannah',
+  SPRINT: 'sprint',
+  AUDIOCALL: 'audiocall',
+  SPEAK_IT: 'speakIt',
+  PUZZLE: 'puzzle',
+  UNMESS: 'unmess',
+};
+
+export const userSettingsTemplate = {
+  IS_SHOWN_COMPLICATED_BUTTON: 'isShownComplicatedButton',
+  IS_SHOWN_ANSWER_BUTTON: 'isShownAnswerButton',
+  IS_SHOWN_IMAGE_ASSOCIATION: 'isShownImageAssociation',
+  IS_SHOWN_TRANSLATION: 'isShownTranslation',
+  IS_SHOWN_TRANSCRIPTION: 'isShownTranscription',
+  IS_SHOWN_EXAMPLE_SENTENCE: 'isShownExampleSentence',
+  IS_SHOWN_MEANING: 'isShownMeaning',
+};
+
+export const levelsOfDifficulty = {
+  HARD: 'hard',
+  NORMAL: 'normal',
+  EASY: 'easy',
+};
+
+export const dateFormatTemplate = 'DD.MM.YYYY';
 
 const linkedinLink = 'https://www.linkedin.com/in/';
 
@@ -68,17 +95,17 @@ const pagesData = {
 const gamesData = {
   speakit: {
     title: 'SpeakIt',
-    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
+    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
     path: 'speakit',
   },
   englishPuzzle: {
     title: 'English Puzzle',
-    description: 'Учитесь правильно строить предложения, а заодно знакомьтесь с величайшими мировыми произведениями искусства',
+    description: 'Учитесь строить предложения и знакомьтесь с величайшими произведениями искусства',
     path: 'english-puzzle',
   },
   savannah: {
     title: 'Саванна',
-    description: 'Угадывайте, как переводятся слова, и расширяйте лексикон',
+    description: 'Угадывайте, как переводятся слова, и вместе с этим пополняйте лексикон',
     path: 'savannah',
   },
   audiocall: {
@@ -92,8 +119,8 @@ const gamesData = {
     path: 'sprint',
   },
   unmess: {
-    title: 'Своя игра „Unmess”',
-    description: 'Соединяйте слова и их значения, расширяя как словарный запас, так и знание синонимов и умение понимать смысл предложений',
+    title: 'Unmess',
+    description: 'Соединяйте слова и их значения, расширяя запас слов и улучшая понимание смысла фраз',
     path: 'unmess',
   },
 };
@@ -104,7 +131,7 @@ const teamMembers = [
     surname: 'Лебецкий',
     role: 'Работал как волк, делал все подряд',
     image: noAvatar,
-    linkedinUsername: 'lebetsky-dmitry-20a80519a',
+    linkedinUsername: 'dmitry-lebetsky',
   },
   {
     name: 'Варвара',
@@ -125,28 +152,28 @@ const teamMembers = [
     surname: 'Яцкевич',
     role: 'Работала как волчица, делала все подряд',
     image: noAvatar,
-    linkedinUsername: 'ksenia-yatskevich-6543881b2'
+    linkedinUsername: 'ksenia-yatskevich',
   },
   {
     name: 'Максим',
     surname: 'Касприв',
     role: 'Работал как волк, делал все подряд',
     image: noAvatar,
-    linkedinUsername: 'maksym-kaspriv'
+    linkedinUsername: 'maksym-kaspriv',
   },
   {
     name: 'Алексей',
     surname: 'Осипов',
     role: 'Работал как волк, делал все подряд',
     image: noAvatar,
-    linkedinUsername: ''
+    linkedinUsername: '',
   },
 ];
 
 const selectorOptions = [
   ['new', 'new & repeating'],
   ['complicated', 'complicated'],
-  ['removed', 'removed']
+  ['removed', 'removed'],
 ];
 
 /* Games */

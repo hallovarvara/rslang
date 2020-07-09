@@ -6,28 +6,30 @@ import { buttonsNames } from '../../helpers/constants';
 const { SHOW_ANSWER, PREV, NEXT } = buttonsNames;
 
 const SideBar = ({
-                   word,
-                   image,
-                   isShownAnswerButton,
-                   isShownImageAssociation,
-                   onNextWord,
-                   onPrevWord,
-                   onChangeProgress,
-                 }) => (
+  progress,
+  word,
+  image,
+  isShownAnswerButton,
+  isShownImageAssociation,
+  onNextWord,
+  onPrevWord,
+  onChangeProgress,
+}) => (
   <div>
     <div>
       {isShownImageAssociation && <img src={resourceUrl(image)} alt={word} />}
-      {isShownAnswerButton && (
-        <button
-          onClick={() => onChangeProgress({
-            isGuessed: true,
-            isShownWord: true,
-            isUsedTip: true,
-          })}
-        >
-          {SHOW_ANSWER}
-        </button>
-      )}
+        {isShownAnswerButton && (
+          <button
+            onClick={() => onChangeProgress({
+              isGuessed: true,
+              isShownWord: true,
+              isUsedTip: true,
+            })}
+            disabled={progress.isGuessed}
+          >
+            {SHOW_ANSWER}
+          </button>
+        )}
     </div>
     <div>
       <button onClick={() => onPrevWord()}>{PREV}</button>
@@ -37,6 +39,7 @@ const SideBar = ({
 );
 
 SideBar.propTypes = {
+  progress: PropTypes.object,
   word: PropTypes.string,
   image: PropTypes.string,
   isShownAnswerButton: PropTypes.bool,

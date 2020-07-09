@@ -14,7 +14,7 @@ import AudioCallGame from '../AudioCallGame';
 import SprintGame from '../Sprint';
 import SavannahGame from '../Savannah';
 
-import {gamesData, pagesData} from '../../helpers/constants';
+import { gamesData, pagesData } from '../../helpers/constants';
 
 const Main = () => (
   <main className="main">

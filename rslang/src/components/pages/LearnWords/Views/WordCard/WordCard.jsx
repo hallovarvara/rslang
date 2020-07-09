@@ -4,9 +4,12 @@ import StatusBar from '../StatusBar';
 import SideBar from '../SideBar';
 import Word from '../Word';
 import WordExtraInfo from '../WordExtraInfo';
+import SpacingRepeating from '../SpacingRepeating';
 import { initialProgressObject } from '../../helpers/settings';
 
 const WordCard = ({
+  currentWord,
+  // isLogged,
   currentInput,
   progress,
   textExample,
@@ -32,9 +35,11 @@ const WordCard = ({
   onPlayAudio,
 }) => (
   <div>
-      {/* //TODO: Here will be Material UI ProgressBar with 'totalWords' / 'wordCount' */}
       <div>
         <StatusBar
+          progress={progress}
+          onChangeProgress={onChangeProgress}
+          currentWord={currentWord}
           wordCount={wordCount}
           totalWords={totalWords}
           isShownComplicatedButton={isShownComplicatedButton}
@@ -59,9 +64,17 @@ const WordCard = ({
           isShownMeaning={isShownMeaning}
           onPlayAudio={onPlayAudio}
         />
+        {(progress.isGuessed && !progress.isDifficultChosen)
+          && <SpacingRepeating
+            progress={progress}
+            currentWord={currentWord}
+            onChangeProgress={onChangeProgress}
+            />
+        }
       </div>
       <div>
         <SideBar
+          progress={progress}
           currentInput={currentInput}
           word={word}
           image={image}
@@ -76,6 +89,8 @@ const WordCard = ({
 );
 
 WordCard.propTypes = {
+  currentWord: PropTypes.object,
+  isLogged: PropTypes.bool,
   currentInput: PropTypes.string,
   progress: PropTypes.object,
   textExampleTranslate: PropTypes.string,
@@ -102,6 +117,8 @@ WordCard.propTypes = {
 };
 
 WordCard.defaultProps = {
+  currentWord: {},
+  isLogged: false,
   currentInput: '',
   progress: initialProgressObject,
   textExampleTranslate: '',
