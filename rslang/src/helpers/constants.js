@@ -17,7 +17,7 @@ const pagesData = {
   },
   learnWords: {
     title: 'Учить слова',
-    path: 'learn',
+    path: '',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
   },
@@ -65,47 +65,38 @@ const pagesData = {
   },
 };
 
-const gamesNames = {
-  audiocall: 'Аудиовызов',
-  englishPuzzle: 'English Puzzle',
-  savannah: 'Саванна',
-  speakit: 'SpeakIt',
-  sprint: 'Спринт',
-  unmess: 'Своя игра „Unmess”',
-};
-
-const gamesData = [
-  {
-    title: gamesNames.speakit,
+const gamesData = {
+  speakit: {
+    title: 'SpeakIt',
     description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
-    link: 'speakit',
+    path: 'speakit',
   },
-  {
-    title: gamesNames.englishPuzzle,
+  englishPuzzle: {
+    title: 'English Puzzle',
     description: 'Учитесь правильно строить предложения, а заодно знакомьтесь с величайшими мировыми произведениями искусства',
-    link: 'english-puzzle',
+    path: 'english-puzzle',
   },
-  {
-    title: gamesNames.savannah,
+  savannah: {
+    title: 'Саванна',
     description: 'Угадывайте, как переводятся слова, и расширяйте лексикон',
-    link: 'savannah',
+    path: 'savannah',
   },
-  {
-    title: gamesNames.audiocall,
+  audiocall: {
+    title: 'Аудиовызов',
     description: 'Прокачивайте восприятие языка на слух, а также увеличивайте свой словарный запас',
-    link: 'audiocall',
+    path: 'audiocall',
   },
-  {
-    title: gamesNames.sprint,
+  sprint: {
+    title: 'Спринт',
     description: 'Играйте на время, чтобы точно знать, как много слов вы можете перевести за минуту',
-    link: 'sprint',
+    path: 'sprint',
   },
-  {
-    title: gamesNames.unmess,
+  unmess: {
+    title: 'Своя игра „Unmess”',
     description: 'Соединяйте слова и их значения, расширяя как словарный запас, так и знание синонимов и умение понимать смысл предложений',
-    link: 'unmess',
+    path: 'unmess',
   },
-];
+};
 
 const teamMembers = [
   {
@@ -156,15 +147,49 @@ const selectorOptions = [
   ['new', 'new & repeating'],
   ['complicated', 'complicated'],
   ['removed', 'removed']
-]
+];
+
+/* Games */
+
+const audio = {
+  error: './audio/error.mp3',
+  success: './audio/success.mp3',
+};
+
+const wordsGroups = 6;
+const audiocallMaxLevels = 12;
+
+const buttonTextContent = {
+  next: 'Далее',
+  dontKnow: 'Не знаю',
+  startGame: 'Играть',
+  newGame: 'Начать новую игру',
+};
+
+const textContent = {
+  correct: 'Правильно',
+  error: 'Неправильно',
+};
+
+const formLabel = {
+  level: 'Уровень',
+  chooseLevel: 'Выберите уровень',
+  questions: 'Сколько слов хотите отгадать? (5—12)',
+  answers: 'Сколько показывать вариантов ответов? (2—5)',
+};
 
 export {
   pagesData,
-  gamesNames,
   selectorOptions,
   defaultPaginationCount,
   apiLinks,
   linkedinLink,
   gamesData,
   teamMembers,
+  audio,
+  wordsGroups,
+  audiocallMaxLevels,
+  buttonTextContent,
+  textContent,
+  formLabel,
 };

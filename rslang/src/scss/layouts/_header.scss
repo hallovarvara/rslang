@@ -31,9 +31,6 @@
   &:last-child {
     padding-right: 0px;
   }
-  &_active {
-    font-weight: $font-weight-black;
-  }
 }
 
 .navigation__item.exit-icon {
@@ -41,11 +38,18 @@
 }
 
 .navigation__item a {
-  color: $color-dark;
   font-size: 2.4rem;
   font-family: $font-primary;
+  font-weight: $font-weight-regular;
   text-transform: initial;
+
+  color: $color-dark;
+
   &:hover {
     text-decoration: underline;
+  }
+
+  &.navigation__item_active {
+    font-weight: $font-weight-black;
   }
 }

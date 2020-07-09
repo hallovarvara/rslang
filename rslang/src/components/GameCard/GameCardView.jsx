@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 import Button from '../../basicComponents/Button';
 
-const GameCardView = ({ data: { title, description, link } }) => (
+const GameCardView = ({ data: { title, description, path } }) => (
     <div className="game-card">
       <h5 className="game-card__title">{title}</h5>
       <p className="game-card__description">{description}</p>
-      <Link className="link-btn game-card__link-button-container" to={`/play-games/${link}`}>
+      <Link className="link-btn game-card__link-button-container" to={`/${path}`}>
         <Button type="secondary" value={`${title} →`}/>
       </Link>
     </div>

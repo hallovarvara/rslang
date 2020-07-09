@@ -9,6 +9,14 @@ $color-text-light: #ffffff;
 
 $color-englishPuzzle-primary: #6663f5;
 $color-englishPuzzle-secondary: #dace81;
+/* Audiocall game */
+$color-audiocall-primary: #ce03ed;
+$color-audiocall-secondary: #dbd086;
+$color-audiocall-hover: #00000033;
+$color-audiocall-text-dark: #1a1919;
+$color-audiocall-text-light: #ffffff;
+$color-right-answer: #a1f045b3;
+$color-wrong-answer: #f0576cb3;
 
 /* Fonts: families */
 $font-primary: 'Inter', 'Arial', 'Tahoma', sans-serif;
@@ -17,7 +25,7 @@ $font-secondary: 'Alegreya', 'Georgia', 'Times', 'Times New Roman', serif;
 /* Fonts: weights */
 $font-weight-light: 300;
 $font-weight-regular: 400;
-$font-weight-semibold: 400;
+$font-weight-semibold: 500;
 $font-weight-bold: 600;
 $font-weight-black: 900;
 
