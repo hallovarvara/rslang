@@ -12,9 +12,6 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-/**
- * Moves an item from one list to another list.
- */
 const move = (source, destination, droppableSource, droppableDestination) => {
   const sourceClone = Array.from(source);
   const destClone = Array.from(destination);
@@ -54,11 +51,6 @@ class PhraseElementsView extends React.Component {
     }
   }
 
-  /**
-     * A semi-generic way to handle multiple lists. Matches
-     * the IDs of the droppable container to the names of the
-     * source arrays stored in the state.
-     */
   id2List = {
     droppable: 'items',
     droppable2: 'selected',
@@ -71,43 +63,52 @@ class PhraseElementsView extends React.Component {
 
   getList = (id) => this.state[this.id2List[id]];
 
-  onDragEnd = (result) => {
-    const { source, destination } = result;
-    if (source.droppableId === destination.droppableId) {
-      const items = reorder(
-        this.getList(source.droppableId),
-        source.index,
-        destination.index,
-      );
-      let state = { items };
-      if (source.droppableId === 'droppable2') {
-        state = { selected: items };
-        const check = state.selected.every((item, index) => +item.id === index);
-        this.props.updateIsCheck(check);
+  onDragEnd = ({ source, destination }) => {
+    if (source && destination) {
+      const { updateIsShow, updateIsCheck } = this.props;
+      if (source.droppableId === destination.droppableId) {
+        const items = reorder(
+          this.getList(source.droppableId),
+          source.index,
+          destination.index,
+        );
+        let state = { items };
+        if (source.droppableId === 'droppable2') {
+          state = { selected: items };
+          const check = state.selected.every((item, index) => +item.id === index);
+          updateIsCheck(check);
+        }
+        this.setState(state);
+      } else {
+        const result = move(
+          this.getList(source.droppableId),
+          this.getList(destination.droppableId),
+          source,
+          destination,
+        );
+        if (result.droppable2 && (result.droppable2.length === this.props.answerItems.length)) {
+          const check = result.droppable2.every((item, index) => +item.id === index);
+          updateIsShow();
+          updateIsCheck(check);
+        }
+        this.setState({
+          items: result.droppable,
+          selected: result.droppable2,
+        });
       }
-      this.setState(state);
-    } else {
-      const result = move(
-        this.getList(source.droppableId),
-        this.getList(destination.droppableId),
-        source,
-        destination,
-      );
-      if (result.droppable2 && (result.droppable2.length === this.props.answerItems.length)) {
-        const check = result.droppable2.every((item, index) => +item.id === index);
-        this.props.updateIsShow();
-        this.props.updateIsCheck(check);
-      }
-
-      this.setState({
-        items: result.droppable,
-        selected: result.droppable2,
-      });
-    }
+    } return '';
   };
 
-  // Normally you would want to split things out into separate components.
-  // But in this example everything is just done in one place for simplicity
+  getWidthPharase = () => {
+    const { answerItems } = this.props;
+    return answerItems.reduce((acc, item) => (acc + item.content.length), 0);
+  }
+
+  getItemStyle = (item, draggableStyle) => ({
+    width: `${(100 * item) / this.getWidthPharase()}%`,
+    ...draggableStyle,
+  })
+
   render() {
     const itemStyleSelected = (isCheck, isDragging, item, index) => classNames(
       style.item,
@@ -121,29 +122,32 @@ class PhraseElementsView extends React.Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div className={style.table}>
         <Droppable droppableId="droppable2" direction="horizontal">
-            {(provided, snapshot) => (
+            {(provided) => (
               <div
                 ref={provided.innerRef}
                 className={style.container}>
-                {this.state.selected.map((item, index) => (
+                {this.state.selected.map((selectedItem, index) => (
                   <Draggable
-                    key={item.id}
-                    draggableId={item.id}
+                    key={selectedItem.id}
+                    draggableId={selectedItem.id}
                     index={index}>
                     {(provided, snapshot) => (
                       <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        // style={{ minWidth: `${800 / this.props.answerItems.length}px` }}
-                        className={itemStyleSelected(
-                          this.props.isCheck,
-                          snapshot.isDragging,
-                          item,
-                          index,
-                        )}
-                        >
-                        {item.content}
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      className={itemStyleSelected(
+                        this.props.isCheck,
+                        snapshot.isDragging,
+                        selectedItem,
+                        index,
+                      )}
+                      style={this.getItemStyle(
+                        selectedItem.content.length,
+                        provided.draggableProps.style,
+                      )}
+                      >
+                        {selectedItem.content}
                       </div>
                     )}
                   </Draggable>
@@ -154,24 +158,27 @@ class PhraseElementsView extends React.Component {
           </Droppable>
         </div>
         <Droppable droppableId="droppable" direction="horizontal">
-          {(provided, snapshot) => (
+          {(provided) => (
             <div
               ref={provided.innerRef}
               className={style.containerItems}>
-              {this.state.items.map((item, index) => (
+              {this.state.items.map((droppableItem, index) => (
                 <Draggable
-                  key={item.id}
-                  draggableId={item.id}
+                  key={droppableItem.id}
+                  draggableId={droppableItem.id}
                   index={index}>
                   {(provided, snapshot) => (
                     <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      // style={{ maxWidth: `${800 / this.props.answerItems.length}px` }}
-                      className={itemStyle(snapshot.isDragging)}
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className={itemStyle(snapshot.isDragging)}
+                    style={this.getItemStyle(
+                      droppableItem.content.length,
+                      provided.draggableProps.style,
+                    )}
                     >
-                      {item.content}
+                      {droppableItem.content}
                     </div>
                   )}
                 </Draggable>

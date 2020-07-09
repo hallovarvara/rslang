@@ -33,9 +33,7 @@ class GamePage extends React.Component {
     const questionList = generateQuestionsArray(dataWords, maxLevel);
     const phrasesArray = this.getPhraseArray(questionList);
     const currentPhrase = phrasesArray[level];
-    console.log(currentPhrase, 12)
     const answerItems = this.getItems(currentPhrase);
-    console.log(answerItems, 13)
     const puzzleItems = shuffle(answerItems);
     this.setState({
       answerItems,
@@ -85,9 +83,7 @@ class GamePage extends React.Component {
     level += 1;
     if (level < 10) {
       const currentPhrase = phrasesArray[level];
-      console.log(currentPhrase, 11)
       const answerItems = this.getItems(currentPhrase);
-      console.log(answerItems, 11)
       const puzzleItems = shuffle(this.getItems(currentPhrase));
       this.setState({
         level,
@@ -99,9 +95,11 @@ class GamePage extends React.Component {
         isShow: false,
         prevPhraseArray,
       });
-    } else this.setState({
-      isEnd: true, 
-    });
+    } else {
+      this.setState({
+        isEnd: true,
+      });
+    }
   }
 
   updateIsCheck = (check) => {
@@ -126,7 +124,9 @@ class GamePage extends React.Component {
     errorCount += 1;
     const currentPhrase = phrasesArray[level];
     const answerItems = this.getItems(currentPhrase);
-    this.setState({ errorCount, answerItems, isContinue: true });
+    this.setState({
+      errorCount, answerItems, isContinue: true,
+    });
   }
 
   render() {

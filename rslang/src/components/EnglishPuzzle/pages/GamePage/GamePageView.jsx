@@ -36,6 +36,10 @@ const GamePageView = ({
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
+  const getItemStyle = (item, wordArray) => (
+    { width: `${(800 * item) / wordArray.join('').length}px` }
+  );
+
   return (
     question && phrase && !isEnd
       ? (<div>
@@ -58,7 +62,13 @@ const GamePageView = ({
           ? (prevPhraseArray.map((prevPharase, index) => (
             <div key={index} className={style.container}>
             {prevPharase.map((word, number) => (
-              <div className={style.item} key={number}>{word}</div>
+              <div
+                style={getItemStyle(word.length, prevPharase)}
+                className={style.item}
+                key={number}
+              >
+                {word}
+              </div>
             )) }
             </div>
           )))
@@ -78,7 +88,6 @@ const GamePageView = ({
         />
       </div>
       <ButtonPanel
-        // errorCount={errorCount}
         isContinue={isContinue}
         handleClickButtonContinue={handleClickButtonContinue}
         handleClickButtonDontKnow={handleClickButtonDontKnow}
@@ -114,7 +123,9 @@ GamePageView.propTypes = {
   updateIsShow: PropTypes.func,
   updateIsCheck: PropTypes.func,
   handleClickCheck: PropTypes.func,
+  handleClickNewGame: PropTypes.func,
   isCheck: PropTypes.bool,
+  isEnd: PropTypes.bool,
 };
 
 export default GamePageView;

@@ -6,7 +6,6 @@ import style from './ButtonPanelView.module.scss';
 
 const ButtonPanelView = ({
   isContinue,
-  // errorCount,
   handleClickButtonContinue,
   handleClickButtonDontKnow,
   handleClickCheck,
@@ -18,7 +17,6 @@ const ButtonPanelView = ({
         ? <Button
             className={style.button}
             variant="contained"
-            // isContinue={isContinue}
             onClick={() => handleClickButtonContinue()}
           >
             {buttonTextContent.next}
@@ -26,7 +24,6 @@ const ButtonPanelView = ({
         : <Button
             className={style.button}
             variant="contained"
-            // errorCount={errorCount}
             isContinue={isContinue}
             onClick={() => handleClickButtonDontKnow()}
           >
