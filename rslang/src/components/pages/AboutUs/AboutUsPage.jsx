@@ -10,7 +10,7 @@ const mapTeamMembersToItems = (member, index) => <TeamMember key={index} {...mem
 const AboutUsPage = () => (
   <div className="about-us-page">
     <section className="about-us">
-      <h2 className="about-us__title">{pagesData.aboutUs.title}</h2>
+      <h1>{pagesData.aboutUs.title}</h1>
       <p className="about-us__desctiption">Привет! Мы рады представить продукт нашей совместной работы — приложение по изучению английского языка</p>
       <img src={teamPhoto} alt="team" className="about-us__team-photo"></img>
     </section>

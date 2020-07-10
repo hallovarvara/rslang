@@ -1,22 +1,25 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import MainPage from '../pages/Main';
+import AboutUsPage from '../pages/AboutUs';
+import LearnWords from '../pages/LearnWords';
 import SettingsPage from '../pages/Settings';
 import StatisticPage from '../pages/Statistics';
-import AboutUsPage from '../pages/AboutUs';
 import PromoPage from '../pages/Promo';
 import PlayGamesPage from '../pages/PlayGames';
 import VocabularyPage from '../pages/Vocabulary';
 import SignInPage from '../pages/SignIn';
 import SignUpPage from '../pages/SignUp';
+import AudioCallGame from '../AudioCallGame';
+import SprintGame from '../Sprint';
+import SavannahGame from '../Savannah';
 
-import { pagesData } from '../../helpers/constants';
+import { gamesData, pagesData } from '../../helpers/constants';
 
 const Main = () => (
   <main className="main">
     <Switch>
-      <Route exact path="/" component={MainPage} />
+      <Route exact path={'/' || pagesData.settings.path} component={LearnWords} />
       <Route path={`/${pagesData.settings.path}`} component={SettingsPage} />
       <Route path={`/${pagesData.statistics.path}`} component={StatisticPage} />
       <Route path={`/${pagesData.aboutUs.path}`} component={AboutUsPage} />
@@ -25,6 +28,9 @@ const Main = () => (
       <Route path={`/${pagesData.vocabulary.path}`} component={VocabularyPage} />
       <Route path={`/${pagesData.signIn.path}`} component={SignInPage} />
       <Route path={`/${pagesData.register.path}`} component={SignUpPage} />
+      <Route path={`/${gamesData.audiocall.path}`} component={AudioCallGame} />
+      <Route path={`/${gamesData.sprint.path}`} component={SprintGame} />
+      <Route path={`/${gamesData.savannah.path}`} component={SavannahGame} />
     </Switch>
   </main>
 );
