@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
+
 import StartGame from './Components/StartGame';
 import PlayGame from './Components/PlayGame';
 import FinishGame from './Components/FinishGame';
+
+import { getCardsWithTotalAnswers } from '../../helpers/wordsService/wordsApi';
+
 import {
-  getCards, getRandomIntInclusive, audioPlay,
-} from './services/services';
+  getRandomNumber,
+  playAudio,
+} from '../../helpers/functions';
+
 import {
-  AUDIO_PATH, BASIC, CORRECT_ANSWER_ONCE, MULTIPLIER,
-} from './services/constants';
+  soundSuccess,
+  soundError,
+  count,
+} from '../../helpers/constants';
 
 import './Sprint.scss';
 
@@ -48,10 +56,6 @@ const initialState = {
 };
 
 class Sprint extends Component {
-  audioPath = AUDIO_PATH;
-
-  basic = BASIC
-
   state = initialState
 
   componentDidMount() {
@@ -67,14 +71,14 @@ class Sprint extends Component {
     let isTrue = false;
 
     try {
-      const allCards = await getCards(group, totalAnswers);
+      const allCards = await getCardsWithTotalAnswers(group, totalAnswers);
 
       allCards.forEach((card) => {
         words.push(card.word);
         translateWords.push(card.wordTranslate);
         audio.push(card.audio);
       });
-      const activeCard = getRandomIntInclusive(0, allCards.length - 1);
+      const activeCard = getRandomNumber(0, allCards.length - 1);
       const activeQuestion = allCards[activeCard].word;
       const activeAnswer = translateWords[Math.round(Math.random())];
       if (translateWords[0] === activeAnswer) {
@@ -93,14 +97,11 @@ class Sprint extends Component {
       });
     } catch (e) {
       console.log(e);
+      // TODO handle error for showing user
     }
   }
 
-  audioPlay = (path) => {
-    if (this.state.volume) {
-      audioPlay(path);
-    }
-  }
+  playAudio = (path) => this.state.volume && playAudio(path);
 
   handleVolume = () => {
     this.setState(({ volume }) => ({
@@ -135,8 +136,12 @@ class Sprint extends Component {
   }
 
   updateCounter = (mult = 1, win = 0) => {
-    const multiplier = win && this.state.counter.win
-      && this.state.counter.win % CORRECT_ANSWER_ONCE === 0 ? mult : 1;
+    const once = count.sprint.correctAnswerOnce;
+
+    const multiplier = win
+      && this.state.counter.win
+      && this.state.counter.win % once === 0 ? mult : 1;
+
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -148,7 +153,7 @@ class Sprint extends Component {
 
   updateScore = (basic) => {
     this.setState(({ score }) => ({
-      score: score + this.state.counter.multiplier * basic,
+      score: score + this.state.counter.multiplier * count.sprint.pointsMultiplier,
     }));
   }
 
@@ -187,12 +192,12 @@ class Sprint extends Component {
 
       if (isTrue === this.state.isTrue) {
         this.setState({ isAnswerQuiz: 'check' });
-        this.audioPlay(this.audioPath.success);
-        this.updateCounter(MULTIPLIER, 1);
+        this.playAudio(soundSuccess);
+        this.updateCounter(count.sprint.counterMultiplier, 1);
         this.updateScore(this.basic);
         this.resultCurrentQuiz('complete');
       } else {
-        this.audioPlay(this.audioPath.error);
+        this.playAudio(soundError);
         this.setState({ isAnswerQuiz: 'times' });
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
@@ -224,7 +229,7 @@ class Sprint extends Component {
         isFinished={isFinished}
         mistake={mistake}
         complete={complete}
-        audioPlay={this.audioPlay}
+        audioPlay={this.playAudio}
         onReloadGame={this.onReloadGame}
       />;
     } else if (isStarted && !isFinished) {

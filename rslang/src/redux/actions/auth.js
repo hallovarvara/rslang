@@ -1,11 +1,20 @@
 import axios from 'axios';
+
 import { AUTH_LOGOUT, AUTH_SUCCESS } from './actionsTypes';
 
+import {
+  apiLinks,
+  localStorageItems,
+  text,
+} from '../../helpers/constants';
+
+import { getTokenLifetimeInMs } from '../../helpers/functions';
+
 export function logout() {
-  localStorage.removeItem('rslangToken');
-  localStorage.removeItem('rslangName');
-  localStorage.removeItem('rslangUserId');
-  localStorage.removeItem('refreshTokenDate');
+  localStorage.removeItem(localStorageItems.token);
+  localStorage.removeItem(localStorageItems.nickname);
+  localStorage.removeItem(localStorageItems.userId);
+  localStorage.removeItem(localStorageItems.refreshTokenDate);
   return {
     type: AUTH_LOGOUT,
   };
@@ -35,22 +44,24 @@ export function auth(email, password) {
       password,
     };
     try {
-      const url = 'https://kagafon-learn-words.herokuapp.com/signin';
+      const url = `${apiLinks.base}/signin`;
 
       const response = await axios.post(url, authData);
       const { data } = response;
       const { name, userId, token } = data;
-      const refreshTokenDate = new Date(new Date().getTime() + 60 * 60 * 1000 * 4);
-      localStorage.setItem('rslangToken', token);
-      localStorage.setItem('rslangUserId', userId);
-      localStorage.setItem('refreshTokenDate', refreshTokenDate);
-      localStorage.setItem('rslangName', name);
-      const expData = new Date(localStorage.getItem('refreshTokenDate'));
+      const refreshTokenDate = new Date(new Date().getTime() + getTokenLifetimeInMs());
+
+      localStorage.setItem(localStorageItems.token, token);
+      localStorage.setItem(localStorageItems.userId, userId);
+      localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
+      localStorage.setItem(localStorageItems.nickname, name);
+
+      const expData = new Date(localStorage.getItem(localStorageItems.refreshTokenDate));
       dispatch(authSuccess(name, userId, token));
       dispatch(autoLogout((expData.getTime() - new Date().getTime()) / 1000));
     } catch (e) {
-      alert("НЕВЕРНЫЙ ЛОГИН ИЛИ ПАРОЛЬ")
+      // TODO Delete alert, add error message below the H1 title
+      alert(text.ru.incorrectLoginData);
     }
-
   };
 }
