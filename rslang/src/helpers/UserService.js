@@ -1,41 +1,40 @@
-import axios from 'axios';
+import { axiosuser } from './axiosuser';
 import { apiLinks, localStorageItems } from './constants';
 
 const urlBase = apiLinks.base;
 
-const axiosuser = axios.create({
-  baseURL: urlBase,
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('rslangToken')}`,
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-});
-
 export default class UserService {
   registerUser = async (user) => {
-    const rawResponse = await fetch(urlBase, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-    const content = await rawResponse.json();
-    console.log(content);
+    try {
+      const rawResponse = await fetch(`${urlBase}users`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+      return rawResponse.json();
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   };
 
   loginUser = async ({ email, password }) => {
-    const authData = { email, password };
-    const { hours, minutes, ms } = { hours: 4, minutes: 60, ms: 1000 };
-    const response = await axiosuser.post('signin', authData);
-
-    const refreshTokenDate = new Date(new Date().getTime() + hours * minutes * ms);
-
-    localStorage.setItem(localStorageItems.token, response.data.token);
-    localStorage.setItem(localStorageItems.userId, response.data.userId);
-    localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
+    try {
+      const authData = { email, password };
+      const { hours, minutes, ms } = { hours: 4, minutes: 60, ms: 1000 };
+      const response = await axiosuser.post('signin', authData);
+      const refreshTokenDate = new Date(new Date().getTime() + hours * minutes * ms);
+      localStorage.setItem(localStorageItems.token, response.data.token);
+      localStorage.setItem(localStorageItems.userId, response.data.userId);
+      localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
+      return response.data;
+    } catch (e) {
+      alert('Такого пользователя не существует');
+      return false;
+    }
   }
 
   getUserById = async (userId) => {
@@ -123,6 +122,19 @@ export default class UserService {
     return result;
   }
 
+  getUserWordsNoRemoved = async (userId) => {
+    const result = [];
+    const getAllWords = await this.getUserAllWords(userId);
+    if (getAllWords.length) {
+      getAllWords.forEach((wordCard) => {
+        if (!wordCard.optional.removed) {
+          result.push(wordCard.word);
+        }
+      });
+    }
+    return result;
+  }
+
   createUserStatistics = async ({ userId, option }) => {
     try {
       await fetch(`${urlBase}users/${userId}/statistics`, {
@@ -188,5 +200,4 @@ export default class UserService {
     const data = await res.json();
     return data[0];
   }
-
 }

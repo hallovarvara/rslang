@@ -8,7 +8,7 @@ const apiLinks = {
 };
 
 const localStorageItems = {
-  token: 'tokenRslang',
+  token: 'rslangToken',
   userId: 'rslangUserId',
   refreshTokenDate: 'refreshTokenDate',
 };
