@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 
-import { text } from '../../../../helpers/constants';
+import { soundFinish, text } from '../../../../helpers/constants';
 
 import style from './FinishGamePageView.module.scss';
 import FinishGameItem from '../FinishGameItem';
+import { playAudio } from '../../../../helpers/functions';
 
 const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNewGame }) => {
   const generateItemsWords = (array) => (
@@ -18,6 +19,7 @@ const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNew
   );
   return (
     <>
+      { playAudio(soundFinish) }
       <div className={style.container}>
         <div>
           <h2 className={style.title}>
@@ -40,7 +42,7 @@ const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNew
         onClick={() => handleClickNewGame()}
         className={style.button}
       >
-        { text.ru.button }
+        { text.ru.button.newGame }
       </Button>
     </>
   );

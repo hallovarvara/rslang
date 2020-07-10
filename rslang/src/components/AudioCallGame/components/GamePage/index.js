@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import GamePageView from './GamePageView.jsx';
 import data from '../../mockData';
 import { shuffleArray, generateQuestionsArray, playAudio } from '../../../../helpers/functions';
-import { audio } from '../../../../helpers/constants';
+import {
+  soundSuccess,
+  soundError,
+} from '../../../../helpers/constants';
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -73,7 +76,7 @@ class GamePage extends React.Component {
     const question = questionList[level];
     if (!isRightAnswer && !isFalseAnswer) {
       this.setAnswer(errorAnswerArray, question, id);
-      playAudio(audio.error);
+      playAudio(soundError);
       this.nextLevel = setTimeout(this.changeLevel, 2000);
     } else this.changeLevel();
   }
@@ -101,12 +104,12 @@ class GamePage extends React.Component {
       if (id === question.id) {
         this.setAnswer(rightAnswerArray, question, id);
         this.setState({ isRightAnswer: true });
-        playAudio(audio.success);
+        playAudio(soundSuccess);
         this.nextLevel = setTimeout(this.changeLevel, 2000);
       } else {
         this.setAnswer(errorAnswerArray, question, id);
         this.setState({ isFalseAnswer: true });
-        playAudio(audio.error);
+        playAudio(soundError);
         this.nextLevel = setTimeout(this.changeLevel, 2000);
       }
     }

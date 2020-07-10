@@ -75,7 +75,6 @@ const StartPage = ({
           variant="filled"
           onChange={handleTotalAnswer}
           style={{ marginBottom: 20 }}
-          labelColor='#fff'
           value={ getAverageNumber(count.savannah.minAnswers, count.savannah.maxAnswers) }
         />
         <Button
