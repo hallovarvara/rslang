@@ -32,7 +32,7 @@ const StartPage = (props) => {
       {
         loading
           ? <Preloader />
-          : (<React.Fragment>
+          : (<>
             <div className="unmess-steppers-container">
               <Stepper
                   defaultValue={currentLevel + 1}
@@ -59,7 +59,7 @@ const StartPage = (props) => {
                 />
             </div>
               <Link to="/unmess/game"><StartButton /></Link>
-            </React.Fragment>)
+            </>)
       }
     </div>
   );

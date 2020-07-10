@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes, { number } from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
+import { Typography, Slider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
@@ -49,7 +48,7 @@ class DiscreteSlider extends React.Component {
   render() {
     const {
       marks = standartMarks,
-      label = 'Какой-то label',
+      label = 'Your label',
       className = '',
       max = 100,
       min = 0,

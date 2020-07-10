@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
+import getDate from '../../../helpers/get_date';
 import mapResultsToItems from '../../../helpers/map_latest_results_to_items';
 
 import GameTitle from '../../GameTitle';
@@ -23,15 +24,7 @@ const ResultsPage = ({
         mapResultsToItems([
           {
             results: currentWords,
-            date: (new Date()).toLocaleString('ru', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-              second: '2-digit',
-              hour12: false,
-            }),
+            date: getDate(),
           },
         ], false)
       }
