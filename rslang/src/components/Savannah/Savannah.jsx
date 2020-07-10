@@ -87,6 +87,7 @@ class Savannah extends Component {
       });
     } catch (e) {
       console.log(e);
+      // TODO handle error for showing user
     }
   }
 

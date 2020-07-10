@@ -1,21 +1,28 @@
 import axios from 'axios';
-import { apiLinks } from '../constants';
+import {
+  apiLinks,
+  count,
+  text,
+  localStorageItems,
+} from '../constants';
 
-const urlBase = apiLinks.base;
-
-const axiosuser = axios.create({
-  baseURL: urlBase,
+const getAuthHeader = () => ({
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('rslangToken')}`,
+    Authorization: `Bearer ${localStorage.getItem(localStorageItems.token)}`,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });
 
+const axiosuser = axios.create({
+  baseURL: apiLinks.base,
+  ...getAuthHeader(),
+});
+
 export default class UserServiceApi {
   registerUser = async (user) => {
     try {
-      const rawResponse = await fetch('https://kagafon-learn-words.herokuapp.com/users', {
+      const rawResponse = await fetch(`${apiLinks.base}/users`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -26,6 +33,7 @@ export default class UserServiceApi {
       return rawResponse.json();
     } catch (e) {
       console.log(e);
+      // TODO handle error for showing user
       return false;
     }
   };
@@ -37,16 +45,16 @@ export default class UserServiceApi {
         password,
       };
       const response = await axiosuser.post('signin', authData);
-      const refreshTokenDate = new Date(new Date().getTime() + 60 * 1000);
-      localStorage.setItem('rslangToken', response.data.token);
-      localStorage.setItem('rslangUserId', response.data.userId);
-      localStorage.setItem('refreshTokenDate', refreshTokenDate);
+      const refreshTokenDate = new Date(new Date().getTime() + count.minInHour * count.msInSec);
+      localStorage.setItem(localStorageItems.token, response.data.token);
+      localStorage.setItem(localStorageItems.userId, response.data.userId);
+      localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
       return response.data;
     } catch (e) {
-      alert("Такого пользователя не существует");
+      // TODO Delete alert, add error message below the H1 title
+      alert(text.ru.userUndefined);
     }
   }
-
 
   getUserById = async (userId) => {
     const response = await axiosuser.get(`users/${userId}`);
@@ -55,14 +63,10 @@ export default class UserServiceApi {
 
   updateUserById = async (userId) => {
     try {
-      await fetch(`${urlBase}users/${userId}`, {
+      await fetch(`${apiLinks.base}users/${userId}`, {
         method: 'PUT',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
       });
     } catch (e) {
       console.error(e);
@@ -71,14 +75,10 @@ export default class UserServiceApi {
 
   createUserWord = async ({ userId, wordId, word }) => {
     try {
-      await fetch(`${urlBase}users/${userId}/words/${wordId}`, {
+      await fetch(`${apiLinks.base}users/${userId}/words/${wordId}`, {
         method: 'POST',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
         body: JSON.stringify(word),
       });
     } catch (e) {
@@ -94,14 +94,10 @@ export default class UserServiceApi {
 
   updateUserWordById = async ({ userId, wordId, word }) => {
     try {
-      await fetch(`${urlBase}users/${userId}/words/${wordId}`, {
+      await fetch(`${apiLinks.base}users/${userId}/words/${wordId}`, {
         method: 'PUT',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
         body: JSON.stringify(word),
       });
     } catch (e) {
@@ -132,14 +128,10 @@ export default class UserServiceApi {
 
   createUserStatistics = async ({ userId, option }) => {
     try {
-      await fetch(`${urlBase}users/${userId}/statistics`, {
+      await fetch(`${apiLinks.base}users/${userId}/statistics`, {
         method: 'PUT',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
         body: JSON.stringify(option),
       });
     } catch (e) {
@@ -158,14 +150,10 @@ export default class UserServiceApi {
 
   createUserSettings = async ({ userId, option }) => {
     try {
-      await fetch(`${urlBase}users/${userId}/settings`, {
+      await fetch(`${apiLinks.base}users/${userId}/settings`, {
         method: 'PUT',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
         body: JSON.stringify(option),
       });
     } catch (e) {
@@ -183,7 +171,7 @@ export default class UserServiceApi {
   };
 
   getUserWordsFilter = async ({ userId, token, filter }) => {
-    const url = new URL('https://kagafon-learn-words.herokuapp.com');
+    const url = new URL(apiLinks.base);
     url.pathname = `users/${userId}/aggregatedWords`;
     url.searchParams.append('filter', JSON.stringify(filter));
     const headers = new Headers();
@@ -193,5 +181,4 @@ export default class UserServiceApi {
     const data = await res.json();
     return data[0];
   }
-
 }

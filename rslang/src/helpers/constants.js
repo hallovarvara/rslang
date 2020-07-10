@@ -9,6 +9,7 @@ const apiLinks = {
 };
 
 const localStorageItems = {
+  nickname: 'rslangName',
   token: 'rslangToken',
   userId: 'rslangUserId',
   refreshTokenDate: 'refreshTokenDate',
@@ -202,6 +203,8 @@ const text = {
     repeatPassword: 'Повторите пароль',
     alreadyRegistered: 'Уже зарегистрированы?',
     firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
+    incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
+    userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
 
     /* Games */
     levelsTitles: ['Все', 'Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'],
@@ -238,6 +241,12 @@ const count = {
   groups: 6,
   pages: 29,
   words: 19,
+
+  /* Time */
+  minInHour: 60,
+  secInMin: 60,
+  msInSec: 1000,
+  tokenLifetimeInHours: 4,
 
   /* Defaults */
   elementsPerPage: 10,

@@ -31,10 +31,11 @@ const SignInPage = (props) => {
       props.auth(email, password);
     } catch (event) {
       console.log(event);
+      // TODO handle error for showing user
     }
   };
   if (props.token) {
-    return (<Redirect to={'/'} />);
+    return (<Redirect to='/' />);
   }
   return (
     <section className="sign-in-page">

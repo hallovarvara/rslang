@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import HeaderView from './HeaderView.jsx';
-import { pagesData } from '../../helpers/constants';
+import {localStorageItems, pagesData} from '../../helpers/constants';
 
 class Header extends React.Component {
-  isToken = Boolean(localStorage.getItem('rslangToken'));
+  isToken = Boolean(localStorage.getItem(localStorageItems.token));
 
   getPagesLinks = () => Object.values(pagesData).reduce((links, item) => {
     const role = (Boolean(this.props.token) || this.isToken) ? 'user' : 'guest';

@@ -63,7 +63,7 @@ const SignUpPage = () => {
     }
   };
   if (userId) {
-    return (<Redirect to={'/sign-in'} />);
+    return (<Redirect to='/sign-in' />);
   }
 
   return (
