@@ -1,8 +1,12 @@
 body .input {
   padding: 20px 90px;
-  font-weight: normal;
-  font-size: 4rem;
-  font-family: 'Inter', sans-serif;
-  font-style: italic;
+
   text-align: center;
+
+  @include font(
+    $size: 4rem,
+    $weight: $font-weight-regular,
+    $style: italic,
+    $family: $font-primary,
+  );
 }

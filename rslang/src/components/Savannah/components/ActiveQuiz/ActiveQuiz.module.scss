@@ -1,0 +1,19 @@
+.ActiveQuiz{
+display: block;
+}
+
+@keyframes rotate {
+    100% {
+        transform: translateY(250px);
+    }
+   70%{
+        color: rgb(255, 255, 255);
+    }
+  }
+    
+  .Question {
+      color: rgba(255, 255, 255,.1);
+    text-align: center;
+    animation: rotate 6s linear infinite;
+    height: 32px;
+  }

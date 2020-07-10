@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  list-style-position: inside;
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
+}
