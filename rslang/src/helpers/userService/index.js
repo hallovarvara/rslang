@@ -16,7 +16,7 @@ const getAuthHeader = () => ({
   },
 });
 
-export default class UserServiceApi {
+export default class UserService {
   registerUser = async (user) => {
     try {
       const rawResponse = await fetch(`${apiLinks.base}/users`, {

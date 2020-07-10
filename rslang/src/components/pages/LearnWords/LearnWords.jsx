@@ -14,7 +14,7 @@ import {
 import {
   getDiffAndCoplicatedInProgress,
 } from '../../../helpers/wordsService';
-import {localStorageItems} from "../../../helpers/constants";
+import { localStorageItems } from '../../../helpers/constants';
 
 export default class LearnWords extends Component {
   state = {

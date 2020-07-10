@@ -5,6 +5,7 @@ import { AUTH_LOGOUT, AUTH_SUCCESS } from './actionsTypes';
 import {
   apiLinks,
   localStorageItems,
+  pagesData,
   text,
 } from '../../helpers/constants';
 
@@ -44,7 +45,7 @@ export function auth(email, password) {
       password,
     };
     try {
-      const url = `${apiLinks.base}/signin`;
+      const url = apiLinks.base + pagesData.signIn.path;
 
       const response = await axios.post(url, authData);
       const { data } = response;

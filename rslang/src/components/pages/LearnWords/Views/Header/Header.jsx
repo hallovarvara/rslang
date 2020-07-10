@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { buttonsNames } from '../../helpers/constants';
+import { pagesData } from '../../../../../helpers/constants';
 
 const { AUTO_VOICE } = buttonsNames;
 
 const Header = ({ categoriesSelect, onToggleAutoPlay, onToggleCategory }) => (
   <div>
     <div>
-      <h1>Learn words</h1>
+      <h1>{pagesData.learnWords.title}</h1>
       {/* //TODO: Here will be helper: Add right English word to sentence */}
     </div>
     {/* //TODO: Here will be two UI components */}
