@@ -22,6 +22,13 @@ const shuffleArray = (array) => {
   return newArray;
 };
 
+const getTokenLifetimeInMs = () => {
+  const {
+    minInHour, secInMin, msInSec, tokenLifetimeInHours,
+  } = count;
+  return tokenLifetimeInHours * minInHour * secInMin * msInSec;
+};
+
 /* Words */
 const countQuestionsSets = (questionsNumber) => (
   Math.round(questionsNumber / count.groups)
@@ -56,4 +63,5 @@ export {
   shuffleArray,
   getRandomNumber,
   getAverageNumber,
+  getTokenLifetimeInMs,
 };

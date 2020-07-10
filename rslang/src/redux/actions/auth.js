@@ -1,11 +1,14 @@
 import axios from 'axios';
+
 import { AUTH_LOGOUT, AUTH_SUCCESS } from './actionsTypes';
+
 import {
   apiLinks,
   localStorageItems,
   text,
-  count,
 } from '../../helpers/constants';
+
+import { getTokenLifetimeInMs } from '../../helpers/functions';
 
 export function logout() {
   localStorage.removeItem(localStorageItems.token);
@@ -46,11 +49,7 @@ export function auth(email, password) {
       const response = await axios.post(url, authData);
       const { data } = response;
       const { name, userId, token } = data;
-      const {
-        minInHour, secInMin, msInSec, tokenLifetimeInHours,
-      } = count;
-      const tokenLifetime = tokenLifetimeInHours * minInHour * secInMin * msInSec;
-      const refreshTokenDate = new Date(new Date().getTime() + tokenLifetime );
+      const refreshTokenDate = new Date(new Date().getTime() + getTokenLifetimeInMs());
 
       localStorage.setItem(localStorageItems.token, token);
       localStorage.setItem(localStorageItems.userId, userId);

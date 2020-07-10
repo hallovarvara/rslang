@@ -1,10 +1,12 @@
-import axios from 'axios';
+import { axiosuser } from './axiosUser';
+
 import {
   apiLinks,
-  count,
   text,
   localStorageItems,
 } from '../constants';
+
+import { getTokenLifetimeInMs } from '../functions';
 
 const getAuthHeader = () => ({
   headers: {
@@ -12,11 +14,6 @@ const getAuthHeader = () => ({
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
-});
-
-const axiosuser = axios.create({
-  baseURL: apiLinks.base,
-  ...getAuthHeader(),
 });
 
 export default class UserServiceApi {
@@ -32,28 +29,27 @@ export default class UserServiceApi {
       });
       return rawResponse.json();
     } catch (e) {
-      console.log(e);
+      console.error(e);
       // TODO handle error for showing user
       return false;
     }
   };
 
   loginUser = async ({ email, password }) => {
+    let result;
     try {
-      const authData = {
-        email,
-        password,
-      };
+      const authData = { email, password };
       const response = await axiosuser.post('signin', authData);
-      const refreshTokenDate = new Date(new Date().getTime() + count.minInHour * count.msInSec);
+      const refreshTokenDate = new Date(new Date().getTime() + getTokenLifetimeInMs());
       localStorage.setItem(localStorageItems.token, response.data.token);
       localStorage.setItem(localStorageItems.userId, response.data.userId);
       localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
-      return response.data;
+      result = response.data;
     } catch (e) {
       // TODO Delete alert, add error message below the H1 title
       alert(text.ru.userUndefined);
     }
+    return result;
   }
 
   getUserById = async (userId) => {
@@ -70,6 +66,7 @@ export default class UserServiceApi {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   }
 
@@ -83,6 +80,7 @@ export default class UserServiceApi {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   };
 
@@ -102,11 +100,12 @@ export default class UserServiceApi {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   };
 
   deleteUserWordById = async ({ userId, wordId }) => {
-    axiosuser.delete(`users/${userId}/words/${wordId}`);
+    await axiosuser.delete(`users/${userId}/words/${wordId}`);
   };
 
   getUserAllWords = async (userId) => {
@@ -115,16 +114,31 @@ export default class UserServiceApi {
     return content.data;
   };
 
-  allUserWordsArray = async (userId) => {
+  getAllUserWordsArray = async (userId) => {
     const result = [];
-    const getAllWords = await this.getUserAllWords(userId);
-    if (getAllWords.length) {
-      getAllWords.forEach((wordCard) => {
+    const allWords = await this.getUserAllWords(userId);
+    if (allWords.length) {
+      allWords.forEach((wordCard) => {
         result.push(wordCard.word);
       });
     }
     return result;
   }
+
+  getUserWordsNoRemoved = async (userId) => {
+    const result = [];
+    const getAllWords = await this.getUserAllWords(userId);
+    if (getAllWords.length) {
+      getAllWords.forEach((wordCard) => {
+        if (!wordCard.optional.removed) {
+          result.push(wordCard.word);
+        }
+      });
+    }
+    return result;
+  }
+
+  // TODO need method: get words without duplicates
 
   createUserStatistics = async ({ userId, option }) => {
     try {
@@ -136,6 +150,7 @@ export default class UserServiceApi {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   };
 
@@ -158,6 +173,7 @@ export default class UserServiceApi {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   };
 
@@ -177,8 +193,8 @@ export default class UserServiceApi {
     const headers = new Headers();
     headers.append('Accept', 'application/json');
     headers.append('Authorization', `Bearer ${token}`);
-    const res = await fetch(url, { headers });
-    const data = await res.json();
+    const result = await fetch(url, { headers });
+    const data = await result.json();
     return data[0];
   }
 }
