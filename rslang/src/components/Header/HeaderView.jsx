@@ -5,10 +5,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import MenuList from '../../basicComponents/MenuList';
 
-import {
-  gamesData,
-  pagesData
-} from '../../helpers/constants';
+import { gamesData, pagesData } from '../../helpers/constants';
 
 const addLinksToHeader = (link, index) => {
   const { title, path } = link;
@@ -56,6 +53,7 @@ const HeaderView = ({ links, isUserLogged }) => (
 HeaderView.propTypes = {
   linkTitles: PropTypes.arrayOf(PropTypes.string),
   isUserLogged: PropTypes.bool,
+  links: PropTypes.array,
 };
 
 export default HeaderView;

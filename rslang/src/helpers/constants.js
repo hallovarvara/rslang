@@ -1,16 +1,23 @@
 import noAvatar from '../assets/images/avatar.jpg';
 
 const defaultPaginationCount = 10;
+
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
   base: 'https://kagafon-learn-words.herokuapp.com/',
+};
+
+const localStorageItems = {
+  token: 'tokenRslang',
+  userId: 'rslangUserId',
+  refreshTokenDate: 'refreshTokenDate',
 };
 
 const count = {
   groups: 6,
   pages: 29,
   words: 19,
-}
+};
 
 export const applicationThings = {
   LEARN_WORDS: 'learnWords',
@@ -227,4 +234,5 @@ export {
   textContent,
   formLabel,
   count,
+  localStorageItems,
 };
