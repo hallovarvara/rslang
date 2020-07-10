@@ -176,8 +176,14 @@ export const changeUserWord = (userOption, optionData, oldRepeated, wordObject) 
         optional.next = convertDate(optionData);
         optional.repeated = oldRepeated + 1;
         break;
+      case userWordThings.NEXT:
+        optional.next = optionData;
+        break;
       case userWordThings.REMOVED:
         optional.removed = optionData;
+        break;
+      case userWordThings.REPEATED:
+        optional.repeated = optionData;
         break;
       default:
         break;

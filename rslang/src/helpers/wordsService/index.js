@@ -1,4 +1,4 @@
-import { levelsOfDifficulty } from '../constants';
+import { levelsOfDifficulty, applicationThings } from '../constants';
 import {
   checkForStatistics,
   saveLocalStatistics,
@@ -23,7 +23,7 @@ import {
   statsThingNames,
   changeSessionStatsObject,
 } from './dataModels';
-import { calculateLearnRate } from './spacingRepeating';
+import { calculateLearnRate, calculateGameNext } from './spacingRepeating';
 
 export const prepareWordObject = (wordObject) => {
   const userWords = checkForUserWords();
@@ -39,12 +39,21 @@ export const convertDifficultLevelToRepeats = (level) => (
   level === levelsOfDifficulty.HARD
 );
 
-export const updateUserWord = (userOption, optionData, oldRepeated, wordObject, level) => {
+export const updateUserWord = (
+  userOption,
+  optionData,
+  oldRepeated,
+  wordObject,
+  level,
+  thingName,
+) => {
   const newWord = changeUserWord(userOption, optionData, oldRepeated, wordObject);
   saveLocalUserWord(newWord);
-  if (level !== levelsOfDifficulty.EASY && userOption === userWordThings.RATE) {
-    const twice = convertDifficultLevelToRepeats(level);
-    updateRepeatingWords(newWord, twice);
+  if (thingName === applicationThings.LEARN_WORDS) {
+    if (level !== levelsOfDifficulty.EASY && userOption === userWordThings.RATE) {
+      const twice = convertDifficultLevelToRepeats(level);
+      updateRepeatingWords(newWord, twice);
+    }
   }
 };
 
@@ -52,17 +61,24 @@ const getOldData = ({ userWord }) => (
   {
     oldRate: userWord?.optional?.rate || 0,
     oldRepeated: userWord?.optional?.repeated || 0,
+    oldNext: userWord?.optional?.next || '',
   }
 );
 
 export const updateUserWordRate = (
   wordObject,
+  thingName,
   level = levelsOfDifficulty.HARD,
 ) => {
-  const { oldRate, oldRepeated } = getOldData(wordObject);
+  const { oldRate, oldRepeated, oldNext } = getOldData(wordObject);
   const current = prepareWordObject(wordObject);
-  const rate = calculateLearnRate(oldRate, level);
-  updateUserWord(userWordThings.RATE, rate, oldRepeated, current, level);
+  if (thingName === applicationThings.LEARN_WORDS) {
+    const rate = calculateLearnRate(oldRate, level);
+    updateUserWord(userWordThings.RATE, rate, oldRepeated, current, level, thingName);
+  } else {
+    const newNext = calculateGameNext(oldNext);
+    updateUserWord(userWordThings.NEXT, newNext, oldRepeated, current, level, thingName);
+  }
 };
 
 export const updateUserWordDifficulty = (wordObject) => {
@@ -91,7 +107,7 @@ export const updateSettings = (settingOption) => {
 
 export const getDiffAndCoplicatedInProgress = (arrayOfWordsObjects, template) => (
   arrayOfWordsObjects.map((wordObject) => (wordObject?.userWord
-    ? { ...template, ...getWordsDiffAndComplicated(wordObject) }
+    ? { ...template, ...getWordsDiffAndComplicated(wordObject?.userWord) }
     : { ...template }))
 );
 

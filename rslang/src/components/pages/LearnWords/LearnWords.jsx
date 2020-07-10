@@ -11,7 +11,8 @@ import {
   checkSessionProgress,
   playAudios,
 } from './helpers';
-import { getDiffAndCoplicatedInProgress } from '../../../helpers/wordsService';
+import { applicationThings } from '../../../helpers/constants';
+import { getDiffAndCoplicatedInProgress, updateUserWordRate } from '../../../helpers/wordsService';
 
 export default class LearnWords extends Component {
   state = {
@@ -34,15 +35,20 @@ export default class LearnWords extends Component {
     const { initialProgressObject } = settings;
     const learnSessionProgress = getSessionProgress();
     let progress = [];
+    let wordCount;
     if (totalWords === 0) {
       if (learnSessionProgress?.length) {
         progress = learnSessionProgress;
+        wordCount = progress.findIndex((el) => !el.isDifficultChosen);
       } else {
         progress = getDiffAndCoplicatedInProgress(data, initialProgressObject);
+        wordCount = 0;
       }
       this.setState({
         totalWords: data.length,
+        guessCount: data.length,
         progress,
+        wordCount,
       });
     }
     this.checkForLoggedUser();
@@ -114,24 +120,19 @@ export default class LearnWords extends Component {
   }
 
   handleNextWord = () => {
-    const { data } = this.props;
-    const { wordCount } = this.state;
-    if (wordCount + 1 === data.length) {
-      this.handleEndOfCards();
-    } else {
-      this.setState({
-        wordCount: wordCount + 1,
-      });
-    }
+    this.setState((state) => (
+      {
+        wordCount: state.wordCount === state.progress.length - 1 ? 0 : state.wordCount + 1,
+      }
+    ));
   }
 
   handlePrevWord = () => {
-    const { wordCount } = this.state;
-    if (wordCount) {
-      this.setState({
-        wordCount: wordCount - 1,
-      });
-    }
+    this.setState((state) => (
+      {
+        wordCount: !state.wordCount ? state.progress.length - 1 : state.wordCount - 1,
+      }
+    ));
   }
 
   handleChangeProgress = (updated) => {
@@ -212,6 +213,10 @@ export default class LearnWords extends Component {
           onChangeProgress={this.handleChangeProgress}
           onPlayAudio={this.playAudio}
         />
+        <button onClick={
+          () => updateUserWordRate(currentWord, applicationThings.SAVANNAH)}
+          >Test
+        </button>
       </div>
     );
   }

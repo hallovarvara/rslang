@@ -1,4 +1,5 @@
-import { levelsOfDifficulty } from '../constants';
+import moment from 'moment';
+import { levelsOfDifficulty, dateFormatTemplate } from '../constants';
 
 export const defineNewRate = (rate) => {
   let newRate = 0;
@@ -48,4 +49,17 @@ export const correctedRate = (rate, level) => {
 export const calculateLearnRate = (rate, level) => {
   const newRate = defineNewRate(rate);
   return correctedRate(newRate, level);
+};
+
+export const calculateGameNext = (oldNext) => {
+  let newNext = '';
+  if (!oldNext) {
+    newNext = moment().add(1, 'days').format(dateFormatTemplate);
+  } else {
+    const prepared = oldNext.split('.').reverse().join('-');
+    newNext = oldNext === moment().format(dateFormatTemplate)
+      ? moment().add(1, 'days').format(dateFormatTemplate)
+      : moment(prepared).add(-1, 'days').format(dateFormatTemplate);
+  }
+  return newNext;
 };

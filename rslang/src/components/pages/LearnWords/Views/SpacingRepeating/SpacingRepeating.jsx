@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { difficultLabels } from '../../helpers/constants';
-import { levelsOfDifficulty } from '../../../../../helpers/constants';
+import { levelsOfDifficulty, applicationThings } from '../../../../../helpers/constants';
 import {
   updateUserWordRate,
   // updateRepeatingWords,
@@ -9,9 +9,10 @@ import {
 
 const { HARD, NORMAL, EASY } = levelsOfDifficulty;
 const { HARD_LABEL, NORMAL_LABEL, EASY_LABEL } = difficultLabels;
+const { LEARN_WORDS } = applicationThings;
 
 const handleChoseDifficulty = (word, onChangeProgress, level) => {
-  updateUserWordRate(word, level);
+  updateUserWordRate(word, LEARN_WORDS, level);
   onChangeProgress({ isDifficultChosen: true });
 };
 

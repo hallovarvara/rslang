@@ -31,7 +31,7 @@ const initialState = {
   translateWords: [],
   words: [],
   isFinished: false,
-  isStarted: false,
+  isStarted: true,
   volume: true,
   mistake: {
     total: 0,
