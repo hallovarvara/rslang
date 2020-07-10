@@ -5,8 +5,6 @@ import { createStore } from 'redux';
 
 import Header from './components/Header';
 import Main from './components/Main';
-// import LearnWords from './components/pages/LearnWords';
-// import response from './components/pages/LearnWords/helpers/response.json';
 
 const reducer = (state = 0, action) => state;
 

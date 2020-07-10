@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiLinks } from './constants';
+import { apiLinks, localStorageItems } from './constants';
 
 const urlBase = apiLinks.base;
 
@@ -27,15 +27,15 @@ export default class UserService {
   };
 
   loginUser = async ({ email, password }) => {
-    const authData = {
-      email,
-      password,
-    };
+    const authData = { email, password };
+    const { hours, minutes, ms } = { hours: 4, minutes: 60, ms: 1000 };
     const response = await axiosuser.post('signin', authData);
-    const refreshTokenDate = new Date(new Date().getTime() + 4 * 60 * 1000);
-    localStorage.setItem('tokenRslang', response.data.token);
-    localStorage.setItem('rslangUserId', response.data.userId);
-    localStorage.setItem('refreshTokenDate', refreshTokenDate);
+
+    const refreshTokenDate = new Date(new Date().getTime() + hours * minutes * ms);
+
+    localStorage.setItem(localStorageItems.token, response.data.token);
+    localStorage.setItem(localStorageItems.userId, response.data.userId);
+    localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
   }
 
   getUserById = async (userId) => {
@@ -56,6 +56,7 @@ export default class UserService {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   }
 
@@ -73,6 +74,7 @@ export default class UserService {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   };
 
@@ -96,6 +98,7 @@ export default class UserService {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   };
 
@@ -134,6 +137,7 @@ export default class UserService {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   };
 
@@ -160,6 +164,7 @@ export default class UserService {
       });
     } catch (e) {
       console.error(e);
+      // TODO: implement errors' handler
     }
   };
 
@@ -173,7 +178,7 @@ export default class UserService {
   };
 
   getUserWordsFilter = async ({ userId, token, filter }) => {
-    const url = new URL('https://kagafon-learn-words.herokuapp.com');
+    const url = new URL(apiLinks.base);
     url.pathname = `users/${userId}/aggregatedWords`;
     url.searchParams.append('filter', JSON.stringify(filter));
     const headers = new Headers();
