@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-  apiLinks, ALL_PAGE, ALL_CARDS_IN_QUERY, TOTAL_GROUP,
-} from './constants';
+import { apiLinks, count } from '../../constants';
 
 export default class WordsService {
   getCards = async (page, group) => {
@@ -28,25 +26,25 @@ export default class WordsService {
   };
 
   getCardInGroup = async (group) => {
-    const randomPage = this.getRandomIntInclusive(0, ALL_PAGE);
+    const randomPage = this.getRandomIntInclusive(0, count.pages);
     const data = await this.getCards(randomPage, group);
-    const randomKey = this.getRandomIntInclusive(0, ALL_CARDS_IN_QUERY);
+    const randomKey = this.getRandomIntInclusive(0, count.words);
     return data[randomKey];
   };
 
-  getCountCardsInGroup = async (group, count) => {
+  getCountCardsInGroup = async (group, quantity) => {
     const arr = [];
-    for (let i = 0; i < count; i += 1) {
+    for (let i = 0; i < quantity; i += 1) {
       arr.push(this.getCardInGroup(group));
     }
     const result = await Promise.all(arr);
     return result;
   };
 
-  totalQuizInGroup = (totalQuestions) => Math.round(totalQuestions / TOTAL_GROUP);
+  totalQuizInGroup = (totalQuestions) => Math.round(totalQuestions / count.groups);
 
   audioPlay = (path) => {
-    const audio = new Audio('https://raw.githubusercontent.com/kejno/rslang-data/master/' + path);
+    const audio = new Audio(apiLinks.file + path);
     audio.play();
   };
 
