@@ -147,6 +147,7 @@ class GamePage extends React.Component {
     cloneNode.style.position = 'absolute';
     cloneNode.style.zIndex = '1000';
     document.body.appendChild(cloneNode);
+    moveAt();
 
     document.querySelectorAll('.definitions-container__definition').forEach((el) => {
       el.classList.add('dash-border-animated');
