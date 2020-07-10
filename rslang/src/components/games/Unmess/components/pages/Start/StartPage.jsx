@@ -55,7 +55,6 @@ const StartPage = (props) => {
                   label="Выберите страницу:"
                   arrayOfColorsForTrack={(new Array(pagesCount)).fill('#84D7C3')}
                   stickyLabel={true}
-                  currentPage={currentPage}
                 />
             </div>
               <Link to="/unmess/game"><StartButton /></Link>

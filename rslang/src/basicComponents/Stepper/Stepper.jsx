@@ -41,7 +41,7 @@ class DiscreteSlider extends React.Component {
     if (this.props.stickyLabel) {
       document
         .querySelector(`.${this.props.className}`)
-        .style.setProperty('--stickyLabelValue', `"${this.props.currentPage + 1}"`);
+        .style.setProperty('--stickyLabelValue', `"${this.props.defaultValue}"`);
     }
   }
 
@@ -128,7 +128,6 @@ DiscreteSlider.propTypes = {
   arrayOfColorsForTrack: PropTypes.arrayOf(PropTypes.string),
   onChangeCommitted: PropTypes.func,
   stickyLabel: PropTypes.bool,
-  currentPage: PropTypes.number,
 };
 
 export default DiscreteSlider;
