@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Input from '../../../basicComponents/Input';
 import Button from '../../../basicComponents/Button';
 import { auth } from '../../../redux/actions/auth';
+import { pagesData, text} from '../../../helpers/constants';
 
 const SignInPage = (props) => {
   const [email, setEmail] = React.useState('');
@@ -37,25 +38,29 @@ const SignInPage = (props) => {
   }
   return (
     <section className="sign-in-page">
-      <h2 className="sign-in-page__title">Sign in</h2>
+      <h1>{ pagesData.signIn.title }</h1>
       <form className="sign-in-form" onSubmit={onSubmitForm}>
         <Input
           error={!emailValid}
-          placeholder="Email"
+          placeholder={ text.ru.email }
           className="sign-in-form__email"
           onChange={onChangeEmail}
         />
         <Input
           type="password"
-          placeholder="Password"
+          placeholder={ text.ru.password }
           className="sign-in-form__password"
           onChange={onChangePass}
         />
-        <Button value="Log in" className="sign-in-form__button" />
+        <Button value={ pagesData.signIn.title } className="sign-in-form__button" />
       </form>
       <p className="sign-in-page-additional-info">
-        First time here or forgot password?
-        <Link className="sign-in-page-additional-info__sign-up-link" to="/register">Sign up</Link>
+        { text.ru.firstTimeOrForgotPassword } <Link
+          className="sign-in-page-additional-info__sign-up-link"
+          to="/register"
+        >
+          { pagesData.register.title }
+        </Link>
       </p>
     </section>
   );

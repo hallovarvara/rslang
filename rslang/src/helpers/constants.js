@@ -212,6 +212,17 @@ const textContent = {
   error: 'Неправильно',
 };
 
+const text = {
+  ru: {
+    nickname: 'Логин',
+    email: 'Емейл',
+    password: 'Пароль',
+    repeatPassword: 'Повторите пароль',
+    alreadyRegistered: 'Уже зарегистрированы?',
+    firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
+  },
+};
+
 const formLabel = {
   level: 'Уровень',
   chooseLevel: 'Выберите уровень',
@@ -235,4 +246,5 @@ export {
   formLabel,
   count,
   localStorageItems,
+  text,
 };

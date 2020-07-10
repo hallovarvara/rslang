@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Input from '../../../basicComponents/Input';
 import Button from '../../../basicComponents/Button';
-<<<<<<< HEAD
 import UserService from '../../../helpers/UserService';
+import { pagesData, text } from '../../../helpers/constants';
 
 const SignUpPage = () => {
   const userService = new UserService();
@@ -57,11 +57,11 @@ const SignUpPage = () => {
   };
 
   const onSubmitForm = async (e) => {
-    console.log(name)
+    console.log(name);
     e.preventDefault();
     if (password === repeatPass) {
       const data = await userService.registerUser({ name, email, password });
-      console.log(data)
+      console.log(data);
       setUserId(data.id);
     }
   };
@@ -71,64 +71,50 @@ const SignUpPage = () => {
 
   return (
     <section className="sign-up-page">
-      <h2 className="sign-up-page__title">Sign up</h2>
+      <h1>{ pagesData.register.title }</h1>
       <form className="sign-up-form" onSubmit={onSubmitForm}>
         <Input
           required
           error={!nickValid}
-          placeholder="Nickname"
+          placeholder={ text.ru.nickname }
           className="sign-up-form__email"
           onChange={onChangeNick} />
         <Input
           required
           error={!emailValid}
-          placeholder="Email"
+          placeholder={ text.ru.email }
           className="sign-up-form__email"
           onChange={onChangeEmail} />
         <Input
           required
           error={!passValid}
-          placeholder="Password"
+          placeholder={ text.ru.password }
           className="sign-up-form__password"
           onChange={onChangePass}
           type="password" />
         <Input
           required
           error={!passRepeatValid}
-          placeholder="Repeat password"
+          placeholder={ text.ru.repeatPassword }
           className="sign-up-form__repeat-password"
           onChange={onChangeRepeatPass}
           type="password" />
 
         <Button
-          value="Sign up"
+          value={ pagesData.register.title }
           className="sign-up-form__button"
           disabled={!isFormValid()} />
 
       </form>
       <p className="sign-up-page-additional-info">
-        Already registered? <Link className="sign-up-page-additional-info__sign-in-link" to="/sign-in">Sign in</Link>
+        { text.ru.alreadyRegistered } <Link
+          className="sign-up-page-additional-info__sign-in-link"
+          to="/sign-in">
+          {pagesData.signIn.title}
+        </Link>
       </p>
     </section>
   );
 };
-=======
-import {pagesData} from "../../../helpers/constants";
-
-const SignUpPage = () => (
-  <section className="sign-up-page">
-    <h1>{pagesData.register.title}</h1>
-    <form className="sign-up-form">
-      <Input type="email" placeholder="Емейл" className="sign-up-form__email"/>
-      <Input type="password" placeholder="Пароль" className="sign-up-form__password"/>
-      <Input type="password" placeholder="Повторите пароль" className="sign-up-form__repeat-password"/>
-      <Button value={pagesData.register.title} className="sign-up-form__button"/>
-    </form>
-    <p className="sign-up-page-additional-info">
-      Уже зарегистрированы? <Link className="sign-up-page-additional-info__sign-in-link" to="/sign-in">{pagesData.signIn.title}</Link>
-    </p>
-  </section>
-);
->>>>>>> develop
 
 export default SignUpPage;
