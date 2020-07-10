@@ -1,5 +1,9 @@
 import noAvatar from '../assets/images/avatar.jpg';
 
+export const preloaderdefaultSettings = {
+  size: 150,
+  color: '#843FDD',
+};
 const defaultPaginationCount = 10;
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
