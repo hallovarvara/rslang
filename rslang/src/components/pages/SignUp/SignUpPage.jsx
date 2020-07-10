@@ -2,11 +2,11 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Input from '../../../basicComponents/Input';
 import Button from '../../../basicComponents/Button';
-import UserService from '../../../helpers/UserService';
+import UserServiceApi from '../../../helpers/userService';
 import { pagesData, text } from '../../../helpers/constants';
 
 const SignUpPage = () => {
-  const userService = new UserService();
+  const userService = new UserServiceApi();
 
   const [email, setEmail] = React.useState('');
   const [name, setNick] = React.useState('');
@@ -32,10 +32,7 @@ const SignUpPage = () => {
     return setEmailValid(reg.test(String(mail)));
   };
 
-  const isFormValid = () => {
-    return emailValid && passValid && passRepeatValid && nickValid;
-
-  };
+  const isFormValid = () => emailValid && passValid && passRepeatValid && nickValid;
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiLinks } from './constants';
+import { apiLinks } from '../constants';
 
 const urlBase = apiLinks.base;
 
@@ -12,8 +12,7 @@ const axiosuser = axios.create({
   },
 });
 
-export default class UserService {
-
+export default class UserServiceApi {
   registerUser = async (user) => {
     try {
       const rawResponse = await fetch('https://kagafon-learn-words.herokuapp.com/users', {

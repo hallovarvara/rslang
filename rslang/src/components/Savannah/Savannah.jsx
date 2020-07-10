@@ -3,10 +3,21 @@ import Header from './components/Header';
 import StartPage from './components/StartPage';
 import FinishPage from './components/FinishPage';
 import ActiveQuiz from './components/ActiveQuiz';
+
 import {
-  getCards, getRandomIntInclusive, totalQuizInGroup, audioPlay,
-} from './components/services/services';
-import { STATUS_QUIZ, RESULT_TITLE, AUDIO_PATH } from './components/services/constants';
+  questionStatus,
+  text,
+  soundFinish, soundSuccess, soundError,
+} from '../../helpers/constants';
+
+import {
+  countQuestionsSets,
+  getRandomNumber,
+  playAudio,
+} from '../../helpers/functions';
+
+import { getCardsWithTotalAnswers } from '../../helpers/wordsService/wordsApi';
+
 import classes from './Savannah.module.scss';
 
 const initialState = {
@@ -43,11 +54,12 @@ const initialState = {
 };
 
 class Savannah extends Component {
-  status = STATUS_QUIZ;
+  status = questionStatus;
 
-  resultTitle = RESULT_TITLE;
-
-  audioPath = AUDIO_PATH;
+  resultTitle = {
+    success: text.ru.answersCorrect,
+    error: text.ru.answersMistaken,
+  };
 
   state = initialState
 
@@ -58,7 +70,7 @@ class Savannah extends Component {
     const answerState = null;
     const audio = [];
     try {
-      const allCards = await getCards(group, totalAnswers);
+      const allCards = await getCardsWithTotalAnswers(group, totalAnswers);
 
       allCards.forEach((card) => {
         words.push(card.word);
@@ -66,7 +78,7 @@ class Savannah extends Component {
         idWords.push(card.id);
         audio.push(card.audio);
       });
-      const activeCard = getRandomIntInclusive(0, allCards.length - 1);
+      const activeCard = getRandomNumber(0, allCards.length - 1);
       const activeQuestion = allCards[activeCard].word;
 
       this.setState({
@@ -111,14 +123,10 @@ class Savannah extends Component {
 
   handleClose = () => {
     this.setState({ isFinished: true });
-    this.audioPlay(this.audioPath.finish);
+    this.playAudio(soundFinish);
   }
 
-  audioPlay = (path) => {
-    if (this.state.volume) {
-      audioPlay(path);
-    }
-  }
+  playAudio = (path) => this.state.volume && playAudio(path);
 
   resultCurrentQuiz = (value) => {
     const {
@@ -179,7 +187,7 @@ class Savannah extends Component {
 
   onChangeGroupwords = () => {
     if (this.state.counter !== 0 && this.state.counter
-      % totalQuizInGroup(this.state.totalQuestions) === 0 && this.state.changeGroup) {
+      % countQuestionsSets(this.state.totalQuestions) === 0 && this.state.changeGroup) {
       this.setState(({ currentGroup }) => ({ currentGroup: currentGroup + 1 }));
     }
   }
@@ -188,11 +196,11 @@ class Savannah extends Component {
     if (idWordPressed === this.state.idWords[this.state.activeCard]) {
       this.resultCurrentQuiz('complete');
       this.guessedWords(idWordPressed, null, 'success');
-      this.audioPlay(this.audioPath.success);
+      this.playAudio(soundSuccess);
     } else {
       this.resultCurrentQuiz('mistake');
       this.handleHeart();
-      this.audioPlay(this.audioPath.error);
+      this.playAudio(soundError);
       this.guessedWords(idWordPressed, (!idWordPressed ? null : 'error'), 'success');
     }
   }

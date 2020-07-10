@@ -9,22 +9,22 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import Button from '@material-ui/core/Button';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import {
-  ANSWERS_TOTAL_MIN, ANSWERS_TOTAL_MAX, QUESTIONS_TOTAL_MIN, QUESTIONS_TOTAL_MAX, MENU_ITEM_LIST,
-} from '../services/constants';
+
+import {count, gamesData, text} from '../../../../helpers/constants';
 
 import classes from './StartPage.module.scss';
+import { getAverageNumber } from '../../../../helpers/functions';
 
 const StartPage = ({
   onTotalQuizUpdate, onSubmitForm, handleCurrentGroup,
   handleTotalAnswer, totalAnswers, totalQuestions,
 }) => {
-  const errorAnswer = totalAnswers > ANSWERS_TOTAL_MAX
-    || totalAnswers < ANSWERS_TOTAL_MIN
+  const errorAnswer = totalAnswers > count.savannah.maxAnswers
+    || totalAnswers < count.savannah.minAnswers
     || !totalAnswers;
 
-  const errorQuiz = totalQuestions > QUESTIONS_TOTAL_MAX
-    || totalQuestions < QUESTIONS_TOTAL_MIN
+  const errorQuiz = totalQuestions > count.savannah.maxQuestions
+    || totalQuestions < count.savannah.minQuestions
     || !totalQuestions;
 
   const [age, setAge] = React.useState('');
@@ -34,14 +34,16 @@ const StartPage = ({
     handleCurrentGroup(event);
   };
 
-  const menuItemList = MENU_ITEM_LIST;
+  const menuItemList = text.ru.levelsTitles;
 
   return (
     <div className={classes.StartPage}>
-      <div className={classes.titleName}>SAVANAH GAME</div>
+      <h1>{ gamesData.savannah.title }</h1>
       <form className={classes.form} onSubmit={(!errorQuiz && !errorAnswer) ? onSubmitForm : null}>
         <FormControl className={classes.formControl} required>
-          <InputLabel id="select-label">Уровень</InputLabel>
+          <InputLabel id="select-label">
+            { text.ru.chooseLevel }
+          </InputLabel>
           <Select
             labelId="select-label"
             id="simple-select"
@@ -58,22 +60,23 @@ const StartPage = ({
           required
           error={errorQuiz}
           id="savannah-start__questions"
-          label="Количество вопросов от 5 до 50"
+          label={ `${text.ru.howManyWords} (${count.savannah.minQuestions}—${count.savannah.maxQuestions})` }
           variant="filled"
           onChange={onTotalQuizUpdate}
           style={{ margin: '20px 0' }}
-
+          value={ getAverageNumber(count.savannah.minQuestions, count.savannah.maxQuestions) }
         />
         <TextField
           required
           error={errorAnswer}
           id="savannah-start__answers"
-          label="Количество ответов от 2 до 5"
+          label={ `${text.ru.howManyAnswers} (${count.savannah.minAnswers}—${count.savannah.maxAnswers})` }
           inputProps={{ pattern: '[2-5]' }}
           variant="filled"
           onChange={handleTotalAnswer}
           style={{ marginBottom: 20 }}
           labelColor='#fff'
+          value={ getAverageNumber(count.savannah.minAnswers, count.savannah.maxAnswers) }
         />
         <Button
           type="submit"
@@ -83,7 +86,7 @@ const StartPage = ({
           startIcon={<PlayCircleOutlineIcon />}
           style={{ background: 'rgba(130, 115, 228, 1)' }}
         >
-          PLAY
+          { text.ru.button.startGame }
       </Button>
       </form >
     </div >);

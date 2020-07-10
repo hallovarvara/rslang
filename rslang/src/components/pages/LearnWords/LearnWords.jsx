@@ -11,7 +11,9 @@ import {
   checkSessionProgress,
   playAudios,
 } from './helpers';
-import { getDiffAndCoplicatedInProgress } from '../../../helpers/wordsService';
+import {
+  getDiffAndCoplicatedInProgress,
+} from '../../../helpers/wordsService';
 
 export default class LearnWords extends Component {
   state = {
@@ -48,25 +50,11 @@ export default class LearnWords extends Component {
     this.checkForLoggedUser();
   }
 
-  // toggleAutoPlay = () => {
-  //   const { isAutoPlay } = this.state;
-  //   this.setState({
-  //     isAutoPlay: !isAutoPlay,
-  //   });
-  // }
-
   toggleAutoPlay = () => {
     this.setState((state) => ({
       isAutoPlay: !state.isAutoPlay,
     }));
   }
-
-  // toggleAutoPlay = () => {
-  //   const { isAutoPlay } = this.state;
-  //   this.setState({
-  //     isAutoPlay: !isAutoPlay,
-  //   });
-  // }
 
   toggleCategory = ({ target: { value } }) => {
     this.setState({

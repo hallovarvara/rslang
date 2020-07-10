@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GamePageView from './GamePageView.jsx';
 import data from '../../mockData';
-import { shuffle, generateQuestionsArray, playAudio } from '../../../../helpers/functions';
+import { shuffleArray, generateQuestionsArray, playAudio } from '../../../../helpers/functions';
 import { audio } from '../../../../helpers/constants';
 
 class GamePage extends React.Component {
@@ -34,9 +34,9 @@ class GamePage extends React.Component {
     const { numberLevel, numberAnswers } = this.props;
     if (dataWords && questionList.length !== 0 && numberLevel !== level) {
       const currentQuestion = questionList[level];
-      const arrayWrongAnswer = shuffle(dataWords.filter((word) => (
+      const arrayWrongAnswer = shuffleArray(dataWords.filter((word) => (
         word.id !== currentQuestion.id)));
-      const answerArray = shuffle(
+      const answerArray = shuffleArray(
         arrayWrongAnswer.slice(0, numberAnswers - 1).concat(currentQuestion),
       );
       return answerArray;
