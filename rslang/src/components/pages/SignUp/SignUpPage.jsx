@@ -71,43 +71,43 @@ const SignUpPage = () => {
 
   return (
     <section className="sign-up-page">
-      <h1>{ pagesData.register.title }</h1>
+      <h1>{pagesData.register.title}</h1>
       <form className="sign-up-form" onSubmit={onSubmitForm}>
         <Input
           required
           error={!nickValid}
-          placeholder={ text.ru.nickname }
+          placeholder={text.ru.nickname}
           className="sign-up-form__email"
           onChange={onChangeNick} />
         <Input
           required
           error={!emailValid}
-          placeholder={ text.ru.email }
+          placeholder={text.ru.email}
           className="sign-up-form__email"
           onChange={onChangeEmail} />
         <Input
           required
           error={!passValid}
-          placeholder={ text.ru.password }
+          placeholder={text.ru.password}
           className="sign-up-form__password"
           onChange={onChangePass}
           type="password" />
         <Input
           required
           error={!passRepeatValid}
-          placeholder={ text.ru.repeatPassword }
+          placeholder={text.ru.repeatPassword}
           className="sign-up-form__repeat-password"
           onChange={onChangeRepeatPass}
           type="password" />
 
         <Button
-          value={ pagesData.register.title }
+          value={pagesData.register.title}
           className="sign-up-form__button"
           disabled={!isFormValid()} />
 
       </form>
       <p className="sign-up-page-additional-info">
-        { text.ru.alreadyRegistered } <Link
+        {text.ru.alreadyRegistered} <Link
           className="sign-up-page-additional-info__sign-in-link"
           to="/sign-in">
           {pagesData.signIn.title}
