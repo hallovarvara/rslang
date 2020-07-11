@@ -1,10 +1,35 @@
+<<<<<<< HEAD
 .sprint-start__container {
+=======
+.sprint-start__container{
+>>>>>>> develop
   width: 400px;
   height: 400px;
   margin: 0 auto;
   text-align: center;
+
 }
-.sprint-start__timer {
-  padding-top: 50%;
+.sprint-start__timer{
   font-size: 50px;
+  padding-top: 50%;
+}
+.sprint-start__explanation{
+  display: block;
+  font-size: 1.5rem;
+  color: #505050;
+  right: 10px;
+  padding-bottom: 100px;
+}
+
+.sprint-start__form-container{
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: 20%;
+}
+
+.sprint-start__form{
+  display: flex;
+  flex-direction: column;
 }

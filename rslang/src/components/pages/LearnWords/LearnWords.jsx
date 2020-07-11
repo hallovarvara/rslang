@@ -11,6 +11,10 @@ import {
   checkSessionProgress,
   playAudios,
 } from './helpers';
+import {
+  getDiffAndCoplicatedInProgress,
+} from '../../../helpers/wordsService';
+import { localStorageItems } from '../../../helpers/constants';
 
 export default class LearnWords extends Component {
   state = {
@@ -19,6 +23,11 @@ export default class LearnWords extends Component {
     isAutoPlay: true,
     progress: [],
     isPlaying: false,
+    isLogged: false,
+    token: '',
+    userId: '',
+    audio: null,
+    isFetching: false,
     category: 'all',
   };
 
@@ -32,21 +41,20 @@ export default class LearnWords extends Component {
       if (learnSessionProgress?.length) {
         progress = learnSessionProgress;
       } else {
-        progress = new Array(data.length);
-        progress.fill(initialProgressObject);
+        progress = getDiffAndCoplicatedInProgress(data, initialProgressObject);
       }
       this.setState({
         totalWords: data.length,
         progress,
       });
     }
+    this.checkForLoggedUser();
   }
 
   toggleAutoPlay = () => {
-    const { isAutoPlay } = this.state;
-    this.setState({
-      isAutoPlay: !isAutoPlay,
-    });
+    this.setState((state) => ({
+      isAutoPlay: !state.isAutoPlay,
+    }));
   }
 
   toggleCategory = ({ target: { value } }) => {
@@ -60,6 +68,24 @@ export default class LearnWords extends Component {
       const { progress } = this.state;
       setSessionProgress(progress);
       this.checkForEndOfGame();
+    }
+  }
+
+  toggleCategory = ({ target: { value } }) => {
+    this.setState({
+      category: value,
+    });
+  }
+
+  checkForLoggedUser = () => {
+    if (localStorage?.rslangUserId) {
+      const userId = localStorage.getItem(localStorageItems.userId);
+      const token = localStorage.getItem(localStorageItems.token);
+      this.setState({
+        isLogged: true,
+        token,
+        userId,
+      });
     }
   }
 
@@ -122,6 +148,7 @@ export default class LearnWords extends Component {
       totalWords,
       progress,
       currentInput,
+      isLogged,
     } = this.state;
     const currentWord = data[wordCount];
     const {
@@ -154,6 +181,8 @@ export default class LearnWords extends Component {
           onToggleCategory={this.toggleCategory}
         />
         <WordCard
+          currentWord={currentWord}
+          isLogged={isLogged}
           currentInput={currentInput}
           progress={progress[wordCount]}
           wordCount={wordCount + 1}

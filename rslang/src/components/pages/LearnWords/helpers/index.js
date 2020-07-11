@@ -1,12 +1,8 @@
 import { baseUrl } from './settings';
 import { RSLANG_SESSION_PROGRESS } from './constants';
-import {
-  successColor,
-  fewErrorsColor,
-  manyErrorsColor,
-} from './style-options';
+import { successColor, fewErrorsColor, manyErrorsColor } from './style-options';
 
-export const resourceUrl = (path) => (`${baseUrl}${path}`);
+export const resourceUrl = (path) => `${baseUrl}${path}`;
 
 export const extractEmphasizedWord = (str, surroundingTag) => {
   const sentence = {};
@@ -14,7 +10,10 @@ export const extractEmphasizedWord = (str, surroundingTag) => {
   const endTag = `</${surroundingTag}>`;
 
   sentence.begin = str.substring(0, str.indexOf(beginTag));
-  sentence.emphasis = str.substring(str.indexOf(beginTag) + 3, str.indexOf(endTag));
+  sentence.emphasis = str.substring(
+    str.indexOf(beginTag) + 3,
+    str.indexOf(endTag),
+  );
   sentence.end = str.substring(str.indexOf(endTag) + 4);
   return sentence;
 };

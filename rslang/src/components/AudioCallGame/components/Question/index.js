@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getMediaPath } from '../../../../helpers/functions';
+import { getFilePath } from '../../../../helpers/functions';
 import QuestionView from './QuestionView.jsx';
 
 const Question = (props) => {
@@ -14,7 +14,7 @@ const Question = (props) => {
     audio,
   } = question;
 
-  const audioElement = new Audio(getMediaPath(audio));
+  const audioElement = new Audio(getFilePath(audio));
 
   audioElement.oncanplay = () => {
     if (!isFalseAnswer && !isRightAnswer) {
@@ -27,7 +27,7 @@ const Question = (props) => {
       id={id}
       word={word}
       audioElement={audioElement}
-      srcImage={getMediaPath(image)}
+      srcImage={getFilePath(image)}
       isFalseAnswer={isFalseAnswer}
       isRightAnswer={isRightAnswer}
     />
