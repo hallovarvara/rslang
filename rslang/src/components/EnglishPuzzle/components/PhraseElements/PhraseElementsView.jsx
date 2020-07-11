@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import axios from 'axios';
 import classNames from 'classnames';
 import style from './PhraseElementsView.module.scss';
 
@@ -36,7 +37,7 @@ class PhraseElementsView extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps) {
+  async componentDidUpdate(prevProps) {
     if (this.props.errorCount !== prevProps.errorCount) {
       this.setState({
         items: [],
@@ -44,12 +45,24 @@ class PhraseElementsView extends React.Component {
       });
     }
     if (this.props.puzzleItems !== prevProps.puzzleItems) {
+      // const picture = await this.getPicture();
+      // console.log(picture, 125)
       this.setState({
         items: this.props.puzzleItems,
         selected: [],
       });
     }
   }
+
+  // getPicture = () => axios
+  // .get('https://nexgenua.github.io/images/level1/deerlake.jpg')
+  // .then((response) => {
+  //  console.log(response,12)
+  // })
+  // .catch((error) => {
+  //   console.log(error)
+  // })
+
 
   id2List = {
     droppable: 'items',
@@ -104,12 +117,22 @@ class PhraseElementsView extends React.Component {
     return answerItems.reduce((acc, item) => (acc + item.content.length), 0);
   }
 
-  getItemStyle = (item, draggableStyle) => ({
+  getBackgroundPosition = (index) => {
+    const { answerItems } = this.props;
+    return answerItems.slice(0, index).reduce((acc, item) => (acc + item.content.length), 0);
+  }
+
+  getItemStyle = (item, index, draggableStyle, numberRow) => ({
+    // backgroundRepeat: 'no-repeat',
+    backgroundImage: 'url(https://github.com/KseniyaYatskevich/rslang_data_paintings/blob/master/level1/cut/9th_wave.jpg?raw=true)',
     width: `${(100 * item) / this.getWidthPharase()}%`,
+    backgroundSize: '800px 400px',
+    backgroundPosition: `-${(100 * this.getBackgroundPosition(index)) / this.getWidthPharase()}% -${numberRow * 40}px`,
     ...draggableStyle,
   })
 
   render() {
+    const { level } = this.props;
     const itemStyleSelected = (isCheck, isDragging, item, index) => classNames(
       style.item,
       { [style.active]: isDragging },
@@ -117,6 +140,7 @@ class PhraseElementsView extends React.Component {
       { [style.right]: isCheck && (+item.id === index) },
     );
     const itemStyle = (isDragging) => classNames(style.item, { [style.active]: isDragging });
+    this.getBackgroundPosition();
     return (
       <>
       <DragDropContext onDragEnd={this.onDragEnd}>
@@ -144,7 +168,9 @@ class PhraseElementsView extends React.Component {
                       )}
                       style={this.getItemStyle(
                         selectedItem.content.length,
+                        selectedItem.id,
                         provided.draggableProps.style,
+                        level,
                       )}
                       >
                         {selectedItem.content}
@@ -175,7 +201,9 @@ class PhraseElementsView extends React.Component {
                     className={itemStyle(snapshot.isDragging)}
                     style={this.getItemStyle(
                       droppableItem.content.length,
+                      droppableItem.id,
                       provided.draggableProps.style,
+                      level,
                     )}
                     >
                       {droppableItem.content}
@@ -201,6 +229,7 @@ PhraseElementsView.propTypes = {
   updateIsCheck: PropTypes.func,
   updateIsShow: PropTypes.func,
   isCheck: PropTypes.bool,
+  level: PropTypes.number,
 };
 
 export default PhraseElementsView;

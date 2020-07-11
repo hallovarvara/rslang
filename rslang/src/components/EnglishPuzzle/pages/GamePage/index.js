@@ -34,7 +34,7 @@ class GamePage extends React.Component {
     const phrasesArray = this.getPhraseArray(questionList);
     const currentPhrase = phrasesArray[level];
     const answerItems = this.getItems(currentPhrase);
-    const puzzleItems = shuffle(answerItems);
+    const puzzleItems = shuffle(this.getItems(currentPhrase));
     this.setState({
       answerItems,
       questionList,

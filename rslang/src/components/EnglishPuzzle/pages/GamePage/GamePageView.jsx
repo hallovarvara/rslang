@@ -36,8 +36,18 @@ const GamePageView = ({
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
-  const getItemStyle = (item, wordArray) => (
-    { width: `${(800 * item) / wordArray.join('').length}px` }
+  // getBackgroundPosition = (index) => {
+  //   const { answerItems } = this.props;
+  //   return answerItems.slice(0, index).reduce((acc, item) => (acc + item.content.length), 0);
+  // }
+  const getItemStyle = (item, index, wordArray, rowNumber) => (
+    {
+      width: `${(800 * item) / wordArray.join('').length}px`,
+      backgroundRepeat: 'no-repeat',
+      backgroundImage: 'url(https://github.com/KseniyaYatskevich/rslang_data_paintings/blob/master/level1/cut/9th_wave.jpg?raw=true)',
+      backgroundSize: 'auto 400px',
+      backgroundPosition: `-${(800 * wordArray.slice(0, index).join('').length) / wordArray.join('').length}px -${rowNumber * 40}px`,
+    }
   );
 
   return (
@@ -63,7 +73,7 @@ const GamePageView = ({
             <div key={index} className={style.container}>
             {prevPharase.map((word, number) => (
               <div
-                style={getItemStyle(word.length, prevPharase)}
+                style={getItemStyle(word.length, number, prevPharase, index)}
                 className={style.item}
                 key={number}
               >
