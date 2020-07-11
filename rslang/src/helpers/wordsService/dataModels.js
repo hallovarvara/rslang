@@ -11,6 +11,7 @@ export const userWordTemplate = {
   optional: {
     rate: 0,
     next: '',
+    stamp: 0,
     removed: false,
     repeated: 0,
   },
@@ -21,6 +22,7 @@ export const userWordThings = {
   OPTIONAL: 'optional',
   RATE: 'rate',
   NEXT: 'next',
+  STAMP: 'stamp',
   REMOVED: 'removed',
   REPEATED: 'repeated',
 };
@@ -157,12 +159,18 @@ export const createUserWord = (wordObject) => {
 };
 
 export const convertDate = (days) => (
-  days === 0
+  !days
     ? moment().format(dateFormatTemplate)
     : moment().add(days, 'days').format(dateFormatTemplate)
 );
 
-export const changeUserWord = (userOption, optionData, oldRepeated, wordObject) => {
+export const convertStamp = (days, oldDate) => (
+  !days
+    ? moment(oldDate.split('.').reverse().join('-')).valueOf()
+    : moment().add(days, 'days').valueOf()
+);
+
+export const changeUserWord = (userOption, optionData, oldRepeated, stamp, wordObject) => {
   const newUserWord = wordObject?.userWord
     ? { ...wordObject.userWord }
     : { ...userWordTemplate };
@@ -174,16 +182,18 @@ export const changeUserWord = (userOption, optionData, oldRepeated, wordObject) 
       case userWordThings.RATE:
         optional.rate = optionData;
         optional.next = convertDate(optionData);
+        optional.stamp = stamp;
         optional.repeated = oldRepeated + 1;
         break;
       case userWordThings.NEXT:
         optional.next = optionData;
+        optional.stamp = stamp;
         break;
       case userWordThings.REMOVED:
         optional.removed = optionData;
         break;
       case userWordThings.REPEATED:
-        optional.repeated = optionData;
+        optional.repeated = oldRepeated + 1;
         break;
       default:
         break;

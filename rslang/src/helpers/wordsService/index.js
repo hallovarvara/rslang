@@ -12,6 +12,7 @@ import {
   saveSessionThing,
   getSessionData,
   clearSessionData,
+  localThings,
 } from './storageModel';
 import {
   changeStats,
@@ -22,6 +23,7 @@ import {
   getWordsDiffAndComplicated,
   statsThingNames,
   changeSessionStatsObject,
+  convertStamp,
 } from './dataModels';
 import { calculateLearnRate, calculateGameNext } from './spacingRepeating';
 
@@ -43,11 +45,12 @@ export const updateUserWord = (
   userOption,
   optionData,
   oldRepeated,
+  stamp,
   wordObject,
   level,
   thingName,
 ) => {
-  const newWord = changeUserWord(userOption, optionData, oldRepeated, wordObject);
+  const newWord = changeUserWord(userOption, optionData, oldRepeated, stamp, wordObject);
   saveLocalUserWord(newWord);
   if (thingName === applicationThings.LEARN_WORDS) {
     if (level !== levelsOfDifficulty.EASY && userOption === userWordThings.RATE) {
@@ -74,10 +77,12 @@ export const updateUserWordRate = (
   const current = prepareWordObject(wordObject);
   if (thingName === applicationThings.LEARN_WORDS) {
     const rate = calculateLearnRate(oldRate, level);
-    updateUserWord(userWordThings.RATE, rate, oldRepeated, current, level, thingName);
+    const stamp = convertStamp(rate);
+    updateUserWord(userWordThings.RATE, rate, oldRepeated, stamp, current, level, thingName);
   } else {
     const newNext = calculateGameNext(oldNext);
-    updateUserWord(userWordThings.NEXT, newNext, oldRepeated, current, level, thingName);
+    const stamp = convertStamp(0, newNext);
+    updateUserWord(userWordThings.NEXT, newNext, oldRepeated, stamp, current, level, thingName);
   }
 };
 
@@ -104,6 +109,18 @@ export const updateSettings = (settingOption) => {
   const newSettings = changeSettings(settingOption, settings);
   saveLocalSettings(newSettings);
 };
+
+export const getSettings = () => checkForSettings();
+
+export const getStatistics = () => checkForStatistics();
+
+export const getWords = () => checkForUserWords(localThings);
+
+export const saveLocalUserInfoToServer = () => ({
+  settings: getSettings() || {},
+  statistics: getStatistics() || {},
+  words: getWords() || [],
+});
 
 export const getDiffAndCoplicatedInProgress = (arrayOfWordsObjects, template) => (
   arrayOfWordsObjects.map((wordObject) => (wordObject?.userWord
@@ -136,4 +153,17 @@ export const clearGameSessionResults = (thingName) => {
 export const saveGameResults = (thingName) => {
   const results = getGameSessionResults(thingName);
   updateStats(thingName, results);
+};
+
+export const separateSessionWords = (arrayOfWords) => {
+  const newWords = arrayOfWords.filter(
+    (el) => el?.userWord?.optional?.repeated <= 1,
+  );
+  const userWords = arrayOfWords.filter(
+    (el) => el?.userWord?.optional?.repeated > 1,
+  );
+  return {
+    newWords,
+    userWords,
+  };
 };

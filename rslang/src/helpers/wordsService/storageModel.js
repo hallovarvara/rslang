@@ -15,7 +15,6 @@ export const localThings = {
 };
 
 export const sessionThings = {
-  SETTINGS: 'rslangSessionStatistics',
   WORDS: 'rslangSessionWords',
   REPEATING: 'rslangSessionRepeating',
 };
@@ -110,9 +109,13 @@ export const getDataFromStorage = (storage, data) => (
   JSON.parse(localStorage.getItem(storage[data]))
 );
 
-export const clearStorageData = (storage, data) => {
-  localStorage.removeItem(storage[data]);
+export const clearStorageData = (storage) => {
+  Object.values(storage).forEach((el) => {
+    localStorage.removeItem(el);
+  });
 };
+
+export const clearLocalUserData = () => clearStorageData(localThings);
 
 export const getSessionData = (thingName) => (
   JSON.parse(localStorage.getItem(gameSessionThings[thingName]))
@@ -120,4 +123,7 @@ export const getSessionData = (thingName) => (
 
 export const clearSessionData = (thingName) => {
   localStorage.removeItem(gameSessionThings[thingName]);
+  clearStorageData(sessionThings);
 };
+
+export const getSessionWords = () => JSON.parse(localStorage.getItem(sessionThings.WORDS));
