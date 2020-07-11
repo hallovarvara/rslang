@@ -46,9 +46,9 @@ export function auth(email, password) {
       password,
     };
     try {
-      const url = apiLinks.base + pagesData.signIn.path;
+      const url = apiLinks.base
 
-      const response = await axios.post(url, authData);
+      const response = await axios.post(`${url}signin`, authData);
       const { data } = response;
       const { name, userId, token } = data;
       const refreshTokenDate = new Date(new Date().getTime() + getTokenLifetimeInMs());
