@@ -1,29 +1,9 @@
 import moment from 'moment';
-import { levelsOfDifficulty, dateFormatTemplate } from '../constants';
+import { levelsOfDifficulty, dateFormatTemplate, ratesScale } from '../constants';
 
 export const defineNewRate = (rate) => {
-  let newRate = 0;
-  switch (true) {
-    case rate <= 2:
-      newRate = 4;
-      break;
-    case rate <= 4:
-      newRate = 7;
-      break;
-    case rate <= 7:
-      newRate = 10;
-      break;
-    case rate <= 10:
-      newRate = 15;
-      break;
-    case rate <= 15:
-      newRate = 30;
-      break;
-    default:
-      newRate = 31;
-      break;
-  }
-  return newRate;
+  const newRate = ratesScale.find((el) => el.level <= rate);
+  return newRate.rate;
 };
 
 export const correctedRate = (rate, level) => {

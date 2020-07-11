@@ -14,6 +14,7 @@ import {
 import {
   getDiffAndCoplicatedInProgress,
 } from '../../../helpers/wordsService';
+import { rslangUser } from '../../../helpers/constants';
 
 export default class LearnWords extends Component {
   state = {
@@ -90,9 +91,10 @@ export default class LearnWords extends Component {
   }
 
   checkForLoggedUser = () => {
+    const { USER_ID, TOKEN } = rslangUser;
     if (localStorage?.rslangUserId) {
-      const userId = localStorage.getItem('rslangUserId');
-      const token = localStorage.getItem('rslangToken');
+      const userId = localStorage.getItem(USER_ID);
+      const token = localStorage.getItem(TOKEN);
       this.setState({
         isLogged: true,
         token,

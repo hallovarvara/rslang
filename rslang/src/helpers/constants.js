@@ -11,6 +11,39 @@ const apiLinks = {
 const unloggedHeaderLinkTitles = ['About us', 'Learn words', 'Play games', 'Statistics', 'Vocabulary', 'Sign In'];
 const loggedHeaderLinkTitles = ['Learn words', 'Play games', 'About us', 'Statistics', 'Vocabulary', 'Settings'];
 
+export const rslangUser = {
+  USER_ID: 'rslangUserId',
+  TOKEN: 'rslangToken',
+  REFRESH_TOKEN: 'rslangRefreshToken',
+};
+
+export const ratesScale = [
+  {
+    level: 30, rate: 31,
+  },
+  {
+    level: 21, rate: 30,
+  },
+  {
+    level: 15, rate: 21,
+  },
+  {
+    level: 10, rate: 15,
+  },
+  {
+    level: 7, rate: 10,
+  },
+  {
+    level: 4, rate: 7,
+  },
+  {
+    level: 2, rate: 4,
+  },
+  {
+    level: 0, rate: 2,
+  },
+];
+
 export const applicationThings = {
   LEARN_WORDS: 'learnWords',
   SAVANNAH: 'savannah',
