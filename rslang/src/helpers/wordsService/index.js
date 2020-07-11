@@ -12,6 +12,7 @@ import {
   saveSessionThing,
   getSessionData,
   clearSessionData,
+  clearLocalUserData,
   localThings,
 } from './storageModel';
 import {
@@ -25,7 +26,12 @@ import {
   changeSessionStatsObject,
   convertStamp,
 } from './dataModels';
+import { filterByThing, shufleWordsArray } from './wordsFilters';
 import { calculateLearnRate, calculateGameNext } from './spacingRepeating';
+
+export const randomizeArray = (arrayOfWords) => {
+  shufleWordsArray(arrayOfWords);
+};
 
 export const prepareWordObject = (wordObject) => {
   const userWords = checkForUserWords();
@@ -104,11 +110,19 @@ export const updateStats = (statsOption, optionData) => {
   saveLocalStatistics(newStats);
 };
 
+export const updateStatsObject = (statsOption, optionData, currentStats) => (
+  changeStats(statsOption, optionData, currentStats)
+);
+
 export const updateSettings = (settingOption) => {
   const settings = checkForSettings();
   const newSettings = changeSettings(settingOption, settings);
   saveLocalSettings(newSettings);
 };
+
+export const prepareUserWordsToServer = (arrayOfWords) => (
+  arrayOfWords.map((el) => ({ wordId: el.id, word: { ...el.userWord } }))
+);
 
 export const getSettings = () => checkForSettings();
 
@@ -119,8 +133,19 @@ export const getWords = () => checkForUserWords(localThings);
 export const saveLocalUserInfoToServer = () => ({
   settings: getSettings() || {},
   statistics: getStatistics() || {},
-  words: getWords() || [],
+  words: prepareUserWordsToServer(getWords()) || [],
 });
+
+export const getDayLocalUserWords = (dayLimit) => {
+  const userWords = getWords();
+  return filterByThing(userWords, userWordThings.NEXT, dayLimit)
+    || filterByThing(userWords, userWordThings.STAMP, dayLimit);
+};
+
+export const getComplicatedWords = (dayLimit) => {
+  const userWords = getWords();
+  return filterByThing(userWords, userWordThings.DIFFICULTY, dayLimit);
+};
 
 export const getDiffAndCoplicatedInProgress = (arrayOfWordsObjects, template) => (
   arrayOfWordsObjects.map((wordObject) => (wordObject?.userWord
@@ -150,8 +175,26 @@ export const clearGameSessionResults = (thingName) => {
   clearSessionData(thingName);
 };
 
+export const clearLocalUserInfo = () => {
+  clearLocalUserData();
+};
+
+export const calculateLearnWordsResults = (arrayOfWords) => {
+  const stats = {};
+  stats.inProgress = arrayOfWords.filter((el) => el?.userWord?.optional?.repeated <= 2).length;
+  stats.complicated = arrayOfWords.filter((el) => el?.userWord?.difficulty).length;
+  stats.removed = arrayOfWords.filter((el) => el?.userWord?.optional?.removed).length;
+  return stats;
+};
+
 export const saveGameResults = (thingName) => {
-  const results = getGameSessionResults(thingName);
+  let results;
+  if (thingName === applicationThings.LEARN_WORDS) {
+    const sessionWords = checkForUserWords();
+    results = calculateLearnWordsResults(sessionWords);
+  } else {
+    results = getGameSessionResults(thingName);
+  }
   updateStats(thingName, results);
 };
 
@@ -163,6 +206,47 @@ export const separateSessionWords = (arrayOfWords) => {
     (el) => el?.userWord?.optional?.repeated > 1,
   );
   return {
+    newWords,
+    userWords,
+  };
+};
+
+export const checkForDone = (arrayOfWords) => {
+  const notDone = arrayOfWords.filter((el) => el?.userWord?.optional?.rate < 31);
+  return {
+    learned: arrayOfWords.length - notDone.length,
+    words: notDone,
+  };
+};
+
+export const saveSessionWordsToLocal = () => {
+  const sessionWords = checkForUserWords();
+  if (sessionWords) {
+    sessionWords.forEach((el) => {
+      saveLocalUserWord(el, localThings);
+    });
+  }
+};
+
+export const saveSessionInfoToLocal = (thingName) => {
+  saveSessionWordsToLocal();
+  saveGameResults(thingName);
+  clearGameSessionResults(thingName);
+};
+
+export const prepareSessionInfoToServer = (thingName) => {
+  const sessionWords = checkForUserWords();
+  const stats = thingName === applicationThings.LEARN_WORDS
+    ? calculateLearnWordsResults(sessionWords)
+    : getGameSessionResults(thingName);
+  const checked = checkForDone(sessionWords);
+  const { newWords, userWords } = separateSessionWords(checked.words);
+  if (thingName === applicationThings.LEARN_WORDS) {
+    stats.completed += checked.learned;
+    stats.inProgress -= checked.learned;
+  }
+  return {
+    stats,
     newWords,
     userWords,
   };

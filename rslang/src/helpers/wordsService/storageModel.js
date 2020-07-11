@@ -126,4 +126,4 @@ export const clearSessionData = (thingName) => {
   clearStorageData(sessionThings);
 };
 
-export const getSessionWords = () => JSON.parse(localStorage.getItem(sessionThings.WORDS));
+// TODO: check for rate >- 30!!!!

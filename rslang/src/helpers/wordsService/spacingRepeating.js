@@ -20,7 +20,7 @@ export const defineNewRate = (rate) => {
       newRate = 30;
       break;
     default:
-      newRate = rate;
+      newRate = 31;
       break;
   }
   return newRate;

@@ -11,8 +11,9 @@ import {
   checkSessionProgress,
   playAudios,
 } from './helpers';
-import { applicationThings } from '../../../helpers/constants';
-import { getDiffAndCoplicatedInProgress, updateUserWordRate } from '../../../helpers/wordsService';
+import {
+  getDiffAndCoplicatedInProgress,
+} from '../../../helpers/wordsService';
 
 export default class LearnWords extends Component {
   state = {
@@ -213,10 +214,6 @@ export default class LearnWords extends Component {
           onChangeProgress={this.handleChangeProgress}
           onPlayAudio={this.playAudio}
         />
-        <button onClick={
-          () => updateUserWordRate(currentWord, applicationThings.SAVANNAH)}
-          >Test
-        </button>
       </div>
     );
   }
