@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { authSuccess } from '../../redux/actions/auth';
 import HeaderView from './HeaderView.jsx';
-import { pagesData, localStorageItems } from '../../helpers/constants';
+import {
+  pagesData,
+  localStorageItems,
+} from '../../helpers/constants';
 
 class Header extends React.Component {
   componentDidMount() {
@@ -33,12 +36,6 @@ class Header extends React.Component {
     );
   }
 }
-
-Header.propTypes = {
-  authSuccess: PropTypes.func,
-  token: PropTypes.string,
-};
-
 function mapStateToProps(state) {
   return {
     token: state.auth.token,
@@ -48,10 +45,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    authSuccess: (name, email, password) => dispatch(
-      authSuccess(name, email, password),
-    ),
+    authSuccess: (name, email, password) => dispatch(authSuccess(name, email, password)),
   };
 }
+Header.propTypes = {
+  token: PropTypes.string,
+  authSuccess: PropTypes.func,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

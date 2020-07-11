@@ -19,7 +19,7 @@ const getAuthHeader = () => ({
 export default class UserService {
   registerUser = async (user) => {
     try {
-      const rawResponse = await fetch(`${apiLinks.base}/users`, {
+      const rawResponse = await fetch(`${apiLinks.base}users`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
