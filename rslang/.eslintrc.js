@@ -23,7 +23,5 @@ module.exports = {
   plugins: [
     'react',
   ],
-  rules: {
-    'no-control-regex': 0,
-  },
+  rules: {},
 };

@@ -16,7 +16,7 @@ import {
   playAudio,
 } from '../../helpers/functions';
 
-import { getCardsWithTotalAnswers } from '../../helpers/wordsService/wordsApi';
+import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
 
 import classes from './Savannah.module.scss';
 
@@ -70,7 +70,7 @@ class Savannah extends Component {
     const answerState = null;
     const audio = [];
     try {
-      const allCards = await getCardsWithTotalAnswers(group, totalAnswers);
+      const allCards = await getWordsByAmount(group, totalAnswers);
 
       allCards.forEach((card) => {
         words.push(card.word);

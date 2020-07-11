@@ -49,9 +49,7 @@ const SignUpPage = () => {
   };
   const onChangeRepeatPass = (e) => {
     setRepeatPass(e.target.value);
-    if (password !== e.target.value) {
-      setPassRepeatValid(false);
-    } else { setPassRepeatValid(true); }
+    setPassRepeatValid(password === e.target.value);
   };
 
   const onSubmitForm = async (e) => {
@@ -64,7 +62,7 @@ const SignUpPage = () => {
     }
   };
   if (userId) {
-    return (<Redirect to='/sign-in' />);
+    return (<Redirect to={`/${pagesData.signIn.path}`} />);
   }
 
   return (

@@ -36,7 +36,7 @@ const SignInPage = (props) => {
     }
   };
   if (props.token) {
-    return (<Redirect to='/' />);
+    return (<Redirect to={`/${pagesData.learnWords.path}`} />);
   }
   return (
     <section className="sign-in-page">
@@ -59,7 +59,7 @@ const SignInPage = (props) => {
       <p className="sign-in-page-additional-info">
         { text.ru.firstTimeOrForgotPassword } <Link
           className="sign-in-page-additional-info__sign-up-link"
-          to="/register"
+          to={ `/${pagesData.register.path}` }
         >
           { pagesData.register.title }
         </Link>

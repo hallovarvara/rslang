@@ -4,6 +4,7 @@ import { AUTH_LOGOUT, AUTH_SUCCESS } from './actionsTypes';
 
 import {
   apiLinks,
+  count,
   localStorageItems,
   pagesData,
   text,
@@ -59,7 +60,7 @@ export function auth(email, password) {
 
       const expData = new Date(localStorage.getItem(localStorageItems.refreshTokenDate));
       dispatch(authSuccess(name, userId, token));
-      dispatch(autoLogout((expData.getTime() - new Date().getTime()) / 1000));
+      dispatch(autoLogout((expData.getTime() - new Date().getTime()) / count.msInSec));
     } catch (e) {
       // TODO Delete alert, add error message below the H1 title
       alert(text.ru.incorrectLoginData);
