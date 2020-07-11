@@ -1,5 +1,5 @@
 import React from 'react';
-import {pagesData} from "../../../helpers/constants";
+import { pagesData } from '../../../helpers/constants';
 
 const StatisticsPage = () => (
   <div>

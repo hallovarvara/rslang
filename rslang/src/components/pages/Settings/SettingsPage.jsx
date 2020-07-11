@@ -6,7 +6,7 @@ import Slider from '../../../basicComponents/Slider';
 import LearnWordCardPreview from '../../LearnWordCardPreview';
 import Checkbox from '../../../basicComponents/Checkbox';
 
-import { pagesData } from '../../../helpers/constants'
+import { pagesData } from '../../../helpers/constants';
 
 const SettingsPage = (props) => {
   const {

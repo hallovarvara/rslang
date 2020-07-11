@@ -16,11 +16,9 @@ export const replaceAudioSrc = (audio) => (
 
 export const replaseUrlBackground = (level = 1, isBackground) => {
   const maxNumber = painting[level].length;
-  console.log(maxNumber, 1)
   const numberPicture = getRandomNumber(0, maxNumber);
   if (level && isBackground) {
     const url = `url(${apiLinks.paintings}${painting[level][numberPicture].cutSrc})`;
-    console.log(url, 4)
     return url;
   } return 'none';
 };
@@ -31,7 +29,3 @@ export const playAudio = (audio, isShow) => {
     audioElement.play();
   }
 };
-
-// export const getBackground = () => (
-//   replaseUrlBackground()
-// );

@@ -31,9 +31,7 @@ const addLinksToHeader = (link, index) => {
   );
 };
 
-const HeaderView = ({ links, isUserLogged, logout }) => {
-
-  return (
+const HeaderView = ({ links, isUserLogged, logout }) => (
     <header className="header">
       <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
       <nav>
@@ -58,8 +56,7 @@ const HeaderView = ({ links, isUserLogged, logout }) => {
         </ul>
       </nav>
     </header>
-  );
-};
+);
 
 HeaderView.propTypes = {
   linkTitles: PropTypes.arrayOf(PropTypes.string),

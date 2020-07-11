@@ -121,13 +121,11 @@ class GamePage extends React.Component {
 
   handleClickButtonDontKnow = () => {
     let { errorCount } = this.state;
-    const { phrasesArray, level } = this.state;
     errorCount += 1;
-    const currentPhrase = phrasesArray[level];
-    const answerItems = this.getItems(currentPhrase);
     this.setState({
-      errorCount, answerItems, isContinue: true,
+      errorCount,
     });
+    this.handleClickButtonContinue();
   }
 
   render() {

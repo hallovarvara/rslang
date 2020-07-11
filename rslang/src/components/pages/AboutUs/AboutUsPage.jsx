@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import teamPhoto from '../../../assets/images/team-photo.png';
 import { teamMembers, pagesData } from '../../../helpers/constants';
 import TeamMember from '../../TeamMember';

@@ -12,7 +12,7 @@ const MainView = ({
     ? <StartPage
         handleClickButtonStart={handleClickButtonStart}
       />
-    : <GamePage 
+    : <GamePage
     handleClickNewGame={handleClickNewGame}
     />
 );

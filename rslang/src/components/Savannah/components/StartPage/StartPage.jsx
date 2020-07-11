@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
-import {count, gamesData, text} from '../../../../helpers/constants';
+import { count, gamesData, text } from '../../../../helpers/constants';
 
 import classes from './StartPage.module.scss';
 import { getAverageNumber } from '../../../../helpers/functions';

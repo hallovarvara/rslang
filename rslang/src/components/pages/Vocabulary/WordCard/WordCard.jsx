@@ -1,17 +1,15 @@
 import React from 'react';
 
-const WordCardView = ( { wordData, playSound, restoreWord } ) => {
+const WordCardView = ({ wordData, playSound, restoreWord }) => {
   const onPlaySound = () => {
     playSound();
-  }
+  };
 
   const onRestoreWord = () => {
     restoreWord(wordData.id);
-  }
+  };
 
-  const createMarkup = ( markup ) => {
-    return {__html: markup};
-  }
+  const createMarkup = (markup) => ({ __html: markup });
 
   return (
     <div className="word-card-container">
@@ -34,7 +32,7 @@ const WordCardView = ( { wordData, playSound, restoreWord } ) => {
         <p className="word-card-additional-info__example-sentence" dangerouslySetInnerHTML = { createMarkup(wordData.textExample) }></p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default WordCardView;

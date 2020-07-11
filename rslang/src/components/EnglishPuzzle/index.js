@@ -14,7 +14,6 @@ class EnglishPuzzle extends React.Component {
 
   handleClickButtonBackground = () => {
     const { isBackground } = this.state;
-    console.log(isBackground, 18)
     this.setState({ isBackground: !isBackground });
   }
 

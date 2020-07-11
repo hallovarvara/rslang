@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import axios from 'axios';
 import classNames from 'classnames';
 import { replaseUrlBackground } from '../../helpers';
 import style from './PhraseElementsView.module.scss';
@@ -55,16 +54,6 @@ class PhraseElementsView extends React.Component {
       });
     }
   }
-
-  // getPicture = () => axios
-  // .get('https://nexgenua.github.io/images/level1/deerlake.jpg')
-  // .then((response) => {
-  //  console.log(response,12)
-  // })
-  // .catch((error) => {
-  //   console.log(error)
-  // })
-
 
   id2List = {
     droppable: 'items',

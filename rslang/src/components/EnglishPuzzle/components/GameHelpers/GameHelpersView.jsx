@@ -18,7 +18,7 @@ const GameHelpersView = ({
   isAutoPlay,
 }) => {
   const buttonClasses = (isClick) => classNames({ [style.disabled]: !isClick });
-  console.log(isBackground, 15)
+  console.log(isBackground, 15);
   return (
     <div className={style.container}>
       <Button

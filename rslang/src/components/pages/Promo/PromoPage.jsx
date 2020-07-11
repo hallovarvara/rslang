@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '../../../basicComponents/Button';
-import {pagesData} from "../../../helpers/constants";
+import { pagesData } from '../../../helpers/constants';
 
 const PromoPageView = () => (
     <div className="promo-page">
