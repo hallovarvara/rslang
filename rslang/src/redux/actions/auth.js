@@ -44,7 +44,7 @@ export function auth(email, password) {
       password,
     };
     try {
-      const url = `${apiLinks.base}/signin`;
+      const url = `${apiLinks.base}signin`;
 
       const response = await axios.post(url, authData);
       const { data } = response;
