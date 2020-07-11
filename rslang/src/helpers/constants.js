@@ -6,6 +6,7 @@ import soundFinish from '../assets/audio/finish.mp3';
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
   base: 'https://kagafon-learn-words.herokuapp.com/',
+  paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
 const localStorageItems = {

@@ -3,24 +3,17 @@ import PropTypes from 'prop-types';
 
 import Input from '@material-ui/core/Input';
 
-const InputView = ({ placeholder = 'Type', className = '', onChange, type, error, required }) => (
+const InputView = ({ placeholder = 'Type', className = '' }) => (
   <Input
-    error={error}
-    required={required}
     className={className}
     classes={{ input: 'input' }}
     placeholder={placeholder}
-    onChange={onChange}
-    type={type}
-  ></Input>
-
+  />
 );
 
 InputView.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
-  type: PropTypes.string,
-  onChange: PropTypes.func,
 };
 
 export default InputView;
