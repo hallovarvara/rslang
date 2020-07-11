@@ -4,10 +4,13 @@
 
 .learn-card-preview__title {
   margin-bottom: 30px;
-  font-family: 'Inter', sans-serif;
   letter-spacing: 0.7rem;
   text-transform: uppercase;
-  @include font(3.2rem, 900, normal);
+  @include font(
+    $size: 3.2rem,
+    $weight: $font-weight-black,
+    $family: $font-primary,
+  );
 }
 
 .learn-card-preview__title span {

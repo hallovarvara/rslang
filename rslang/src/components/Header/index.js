@@ -1,19 +1,56 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { authSuccess } from '../../redux/actions/auth';
 import HeaderView from './HeaderView.jsx';
-import { loggedHeaderLinkTitles, unloggedHeaderLinkTitles } from '../../helpers/constants';
+import {
+  pagesData,
+  localStorageItems,
+} from '../../helpers/constants';
 
 class Header extends React.Component {
-  isUserLogged = true; // TODO: unmock isUserLogged
+  componentDidMount() {
+    this.props.authSuccess(
+      localStorage.getItem(localStorageItems.nickname),
+      localStorage.getItem(localStorageItems.userId),
+      localStorage.getItem(localStorageItems.token),
+    );
+  }
+
+  getPagesLinks = () => Object.values(pagesData).reduce((links, item) => {
+    const role = this.props.token ? 'user' : 'guest';
+    const updatedLinks = links;
+
+    if (item[role].isVisible) {
+      updatedLinks[item[role].index] = item;
+    }
+
+    return updatedLinks;
+  }, [])
 
   render() {
-    const linkTitles = this.isUserLogged ? loggedHeaderLinkTitles : unloggedHeaderLinkTitles;
     return (
       <HeaderView
-        linkTitles={linkTitles}
-        isUserLogged={this.isUserLogged} />
+        links={this.getPagesLinks()}
+        isUserLogged={(Boolean(this.props.token))} />
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
 
-export default Header;
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    authSuccess: (name, email, password) => dispatch(authSuccess(name, email, password)),
+  };
+}
+Header.propTypes = {
+  token: PropTypes.string,
+  authSuccess: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -7,7 +7,8 @@ const InputView = ({ placeholder = 'Type', className = '' }) => (
   <Input
     className={className}
     classes={{ input: 'input' }}
-    placeholder={placeholder}></Input>
+    placeholder={placeholder}
+  />
 );
 
 InputView.propTypes = {

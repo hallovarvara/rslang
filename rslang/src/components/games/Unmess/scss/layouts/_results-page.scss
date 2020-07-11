@@ -2,7 +2,7 @@
   .results-page {
     min-height: calc(100vh - 110px);
     padding: 50px 0px;
-    color: $color-text-light;
+    color: $color-light;
     backdrop-filter: opacity(0.8);
     @include flex(column, center, center);
   }

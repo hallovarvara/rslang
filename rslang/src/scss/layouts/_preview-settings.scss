@@ -8,10 +8,15 @@
 .preview-settings__setting {
   min-width: 300px;
   margin-bottom: 15px;
-  font-family: 'Inter', sans-serif;
+
   cursor: pointer;
+
   @include flex(row, flex-start, center);
-  @include font(2.4rem, 300, normal);
+  @include font(
+    $size: 2.4rem,
+    $weight: $font-weight-light,
+    $family: $font-primary,
+  );
 }
 
 .preview-settings input[type='checkbox'] {

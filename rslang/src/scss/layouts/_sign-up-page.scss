@@ -5,11 +5,6 @@
   @include flex(column, center, center);
 }
 
-.sign-up-page__title {
-  margin-bottom: 50px;
-  @include font(9rem, 900, italic);
-}
-
 .sign-up-form {
   margin-bottom: 30px;
   @include flex(column, center, center);

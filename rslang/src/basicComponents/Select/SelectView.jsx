@@ -6,16 +6,13 @@ const mapSelectTitlesToItems = (title, index) => (
     <MenuItem key={index} value={title} classes={{ root: 'menu-item' }}>{title}</MenuItem>
 );
 
-const SelectView = ({ selectTitles = ['first', 'second', 'third'], className = '' }) => {
-  // TODO: get defaultValue from redux
-  return (
-    <Select className={className} classes={{ root: 'select-input', icon: 'select-arrow' }} defaultValue={selectTitles[0]}>
-      {
-        selectTitles.map(mapSelectTitlesToItems)
-      }
-    </Select>
-  );
-};
+const SelectView = ({ selectTitles = ['first', 'second', 'third'], className = '' }) => (
+  <Select className={className} classes={{ root: 'select-input', icon: 'select-arrow' }} defaultValue={selectTitles[0]}>
+    {
+      selectTitles.map(mapSelectTitlesToItems)
+    }
+  </Select>
+);
 
 SelectView.propTypes = {
   className: PropTypes.string,

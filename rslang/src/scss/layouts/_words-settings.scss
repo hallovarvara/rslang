@@ -5,10 +5,13 @@
 
 .words-settings__title {
   margin-bottom: 30px;
-  font-family: 'Inter', sans-serif;
   letter-spacing: 0.7rem;
   text-transform: uppercase;
-  @include font(3.2rem, 900, normal);
+  @include font(
+    $size: 3.2rem,
+    $weight: $font-weight-black,
+    $family: $font-primary,
+  );
 }
 
 .words-settings__title span {
@@ -24,6 +27,10 @@
 .max-words-per-day-settings__title,
 .new-words-per-day-settings__title {
   margin-right: 40px;
-  font-family: 'Inter', sans-serif;
-  @include font(3.1rem, 300, normal);
+
+  @include font(
+    $size: 3.1rem,
+    $weight: $font-weight-light,
+    $family: $font-primary,
+  );
 }

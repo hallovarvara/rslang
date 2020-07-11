@@ -15,7 +15,7 @@
   .start-page__description {
     margin-bottom: 10px;
     padding: 0px 20px;
-    color: $color-text-light;
+    color: $color-light;
     font-size: 4rem;
     font-family: 'RuHandwrite', cursive;
     text-align: center;
@@ -27,8 +27,8 @@
     color: $color-active-light;
     font-size: 2.4rem;
     font-family: 'Inter', sans-serif;
-    background-color: $color-text-light;
-    border: 1px solid $color-text-light;
+    background-color: $color-light;
+    border: 1px solid $color-light;
     outline: none;
     cursor: pointer;
     transition: all 0.7s ease;

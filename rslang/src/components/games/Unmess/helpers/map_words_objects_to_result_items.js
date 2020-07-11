@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { apiLinks } from '../../../../helpers/constants';
-import playAudio from '../../../../helpers/play_audio';
+import { playAudio } from '../../../../helpers/functions';
 import replaceTagInString from './remove_tag_from_string';
 
 const mapWordsObjectsToItems = (wordObj, classesPrefix) => (
