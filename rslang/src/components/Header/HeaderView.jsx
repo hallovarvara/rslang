@@ -31,40 +31,37 @@ const addLinksToHeader = (link, index) => {
   );
 };
 
-const HeaderView = ({ links, isUserLogged, logout }) => {
-
-  return (
-    <header className="header">
-      <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
-      <nav>
-        <ul className="navigation">
-          {
-            links.map(addLinksToHeader)
-          }
-          {
-            isUserLogged && <li className="navigation__item exit-icon">
-              <NavLink activeClassName="navigation__item_active" to="/">
-                <IconButton
-                  onClick={logout}>
-                  <ExitToAppIcon
-                    color="disabled"
-                    style={{ fontSize: '3rem' }}
-                  />
-                </IconButton>
-
-              </NavLink>
-            </li>
-          }
-        </ul>
-      </nav>
-    </header>
-  );
-};
+const HeaderView = ({ links, isUserLogged, logout: logoutUser }) => (
+  <header className="header">
+    <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
+    <nav>
+      <ul className="navigation">
+        {
+          links.map(addLinksToHeader)
+        }
+        {
+          isUserLogged && <li className="navigation__item exit-icon">
+            <NavLink activeClassName="navigation__item_active" to="/">
+              <IconButton
+                onClick={logoutUser}>
+                <ExitToAppIcon
+                  color="disabled"
+                  style={{ fontSize: '3rem' }}
+                />
+              </IconButton>
+             </NavLink>
+          </li>
+        }
+      </ul>
+    </nav>
+  </header>
+);
 
 HeaderView.propTypes = {
   linkTitles: PropTypes.arrayOf(PropTypes.string),
   isUserLogged: PropTypes.bool,
   links: PropTypes.array,
+  logout: PropTypes.func,
 };
 
 function mapDispatchToProps(dispatch) {
