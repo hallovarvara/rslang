@@ -17,3 +17,7 @@ export const playAudio = (audio, isShow) => {
     audioElement.play();
   }
 };
+
+export const getBackground = () => {
+  
+}

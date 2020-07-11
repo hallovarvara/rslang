@@ -123,11 +123,10 @@ class PhraseElementsView extends React.Component {
   }
 
   getItemStyle = (item, index, draggableStyle, numberRow) => ({
-    // backgroundRepeat: 'no-repeat',
-    backgroundImage: 'url(https://github.com/KseniyaYatskevich/rslang_data_paintings/blob/master/level1/cut/9th_wave.jpg?raw=true)',
+    backgroundRepeat: 'no-repeat',
+    backgroundImage: 'url(https://github.com/KseniyaYatskevich/rslang_data_paintings/blob/master/level1/9th_wave.jpg?raw=true)',
     width: `${(100 * item) / this.getWidthPharase()}%`,
-    backgroundSize: '800px 400px',
-    backgroundPosition: `-${(100 * this.getBackgroundPosition(index)) / this.getWidthPharase()}% -${numberRow * 40}px`,
+    backgroundPosition: `-${(800 * this.getBackgroundPosition(index)) / this.getWidthPharase()}px -${numberRow * 40}px`,
     ...draggableStyle,
   })
 

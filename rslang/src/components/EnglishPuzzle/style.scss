@@ -1,7 +1,9 @@
 @import '../../scss/abstracts/constants';
 
 .container {
-  min-height: 100vh;
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 20px 0 0;
   background: $color-englishPuzzle-primary;
   background: linear-gradient(
     to bottom,

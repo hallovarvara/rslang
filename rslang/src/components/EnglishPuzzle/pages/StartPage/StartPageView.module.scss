@@ -4,13 +4,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: $color-text-light;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 40px;
+  color: $color-light;
 }
 
 .title {
   font-weight: normal;
   font-size: 3rem;
   letter-spacing: 15px;
+  text-align: center;
   text-transform: uppercase;
   @media (max-width: 720px) {
     font-size: 2rem;
@@ -22,20 +26,10 @@
 
 .text {
   width: 80%;
+  margin: 20px 0;
   font-size: 1.8rem;
   text-align: center;
   @media (max-width: 720px) {
     font-size: 1rem;
-  }
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  margin-top: 40px;
-  padding: 10px;
-  @media (max-width: 720px) {
-    width: 70%;
   }
 }

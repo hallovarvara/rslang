@@ -38,12 +38,12 @@
 }
 
 .navigation__item a {
-  font-size: 2.4rem;
-  font-family: $font-primary;
-  font-weight: $font-weight-regular;
-  text-transform: initial;
 
   color: $color-dark;
+  font-weight: $font-weight-regular;
+  font-size: 2.4rem;
+  font-family: $font-primary;
+  text-transform: initial;
 
   &:hover {
     text-decoration: underline;

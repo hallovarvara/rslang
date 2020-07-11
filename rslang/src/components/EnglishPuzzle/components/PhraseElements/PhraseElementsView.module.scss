@@ -1,5 +1,6 @@
 .container {
   display: flex;
+  box-sizing: border-box;
   width: 100%;
   max-width: 800px;
   height: 40px;
@@ -19,6 +20,8 @@
   text-shadow: #000000 0 0 4px;
   vertical-align: middle;
   background-color: #087b83;
+  background-repeat: no-repeat;
+  background-size: 800px 400px;
   border: 1px solid #ffffff;
   user-select: none;
 }
@@ -27,6 +30,7 @@
   position: absolute;
   bottom: -50px;
   display: flex;
+  box-sizing: border-box;
   width: 100%;
   max-width: 800px;
   height: 40px;
@@ -37,13 +41,13 @@
 }
 
 .active {
-  background-color: #b9ec76;
+  background: #b9ec76;
 }
 
 .right {
-  background-color: rgb(75, 196, 64);
+  background: rgb(75, 196, 64) !important;
 }
 
 .wrong {
-  background-color: rgb(196, 84, 64);
+  background: rgb(196, 84, 64) !important;
 }

@@ -125,28 +125,28 @@ const teamMembers = [
     surname: 'Яцкевич',
     role: 'Работала как волчица, делала все подряд',
     image: noAvatar,
-    linkedinUsername: 'ksenia-yatskevich-6543881b2'
+    linkedinUsername: 'ksenia-yatskevich-6543881b2',
   },
   {
     name: 'Максим',
     surname: 'Касприв',
     role: 'Работал как волк, делал все подряд',
     image: noAvatar,
-    linkedinUsername: 'maksym-kaspriv'
+    linkedinUsername: 'maksym-kaspriv',
   },
   {
     name: 'Алексей',
     surname: 'Осипов',
     role: 'Работал как волк, делал все подряд',
     image: noAvatar,
-    linkedinUsername: ''
+    linkedinUsername: '',
   },
 ];
 
 const selectorOptions = [
   ['new', 'new & repeating'],
   ['complicated', 'complicated'],
-  ['removed', 'removed']
+  ['removed', 'removed'],
 ];
 
 /* Games */

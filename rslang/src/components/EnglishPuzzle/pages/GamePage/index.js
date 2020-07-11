@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import data from '../../mockData';
 import { generateQuestionsArray, shuffle } from '../../helpers';
 import GamePageView from './GamePageView.jsx';
-// import { CompareArrowsOutlined } from '@material-ui/icons';
 
 class GamePage extends React.Component {
   constructor(props) {

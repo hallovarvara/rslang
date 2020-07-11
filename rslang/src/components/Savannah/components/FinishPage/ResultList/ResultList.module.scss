@@ -1,28 +1,28 @@
-.ResultList{
-display: block;
+.ResultList {
+  display: block;
 }
-.mistakeTitle{
+.mistakeTitle {
   color: gray;
 }
-.Total{
-  color: #ffffff;
-  padding: 0 10px;
-  border-radius: 10px;
+.Total {
   margin-left: 10px;
+  padding: 0 10px;
+  color: #ffffff;
+  border-radius: 10px;
 }
 
-.error{
-  background: rgba(240, 87, 108, .7);
+.error {
+  background: rgba(240, 87, 108, 0.7);
 }
 
 .success {
-  background: rgba(161, 240, 69, .7);
+  background: rgba(161, 240, 69, 0.7);
 }
 
-.Title{
+.Title {
   color: rgb(82, 82, 82);
 }
-.Content{
+.Content {
   display: flex;
   padding: 15px 0;
 }

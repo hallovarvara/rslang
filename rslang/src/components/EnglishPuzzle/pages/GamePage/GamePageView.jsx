@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Button } from '@material-ui/core';
-// import { buttonTextContent } from '../../constants';
 import style from './GamePageView.module.scss';
 import Question from '../../components/Question';
 import PhraseElements from '../../components/PhraseElements';
@@ -36,16 +34,10 @@ const GamePageView = ({
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
-  // getBackgroundPosition = (index) => {
-  //   const { answerItems } = this.props;
-  //   return answerItems.slice(0, index).reduce((acc, item) => (acc + item.content.length), 0);
-  // }
   const getItemStyle = (item, index, wordArray, rowNumber) => (
     {
-      width: `${(800 * item) / wordArray.join('').length}px`,
-      backgroundRepeat: 'no-repeat',
+      width: `${(100 * item) / wordArray.join('').length}%`,
       backgroundImage: 'url(https://github.com/KseniyaYatskevich/rslang_data_paintings/blob/master/level1/cut/9th_wave.jpg?raw=true)',
-      backgroundSize: 'auto 400px',
       backgroundPosition: `-${(800 * wordArray.slice(0, index).join('').length) / wordArray.join('').length}px -${rowNumber * 40}px`,
     }
   );
@@ -99,9 +91,9 @@ const GamePageView = ({
       </div>
       <ButtonPanel
         isContinue={isContinue}
+        isShow={isShow}
         handleClickButtonContinue={handleClickButtonContinue}
         handleClickButtonDontKnow={handleClickButtonDontKnow}
-        isShow={isShow}
         handleClickCheck={handleClickCheck}
       />
     </div>)
@@ -114,28 +106,28 @@ const GamePageView = ({
 
 GamePageView.propTypes = {
   questionList: PropTypes.array,
-  level: PropTypes.number,
   phrasesArray: PropTypes.array,
+  puzzleItems: PropTypes.array,
+  answerItems: PropTypes.array,
+  prevPhraseArray: PropTypes.array,
+  level: PropTypes.number,
+  errorCount: PropTypes.number,
   isTranslation: PropTypes.bool,
   isAudio: PropTypes.bool,
   isAutoPlay: PropTypes.bool,
+  isContinue: PropTypes.bool,
+  isShow: PropTypes.bool,
+  isCheck: PropTypes.bool,
+  isEnd: PropTypes.bool,
   handleClickButtonTranslation: PropTypes.func,
   handleClickButtonAudio: PropTypes.func,
   handleClickButtonAutoPlay: PropTypes.func,
   handleClickButtonDontKnow: PropTypes.func,
   handleClickButtonContinue: PropTypes.func,
-  isContinue: PropTypes.bool,
-  puzzleItems: PropTypes.array,
-  answerItems: PropTypes.array,
-  errorCount: PropTypes.number,
-  prevPhraseArray: PropTypes.array,
-  isShow: PropTypes.bool,
   updateIsShow: PropTypes.func,
   updateIsCheck: PropTypes.func,
   handleClickCheck: PropTypes.func,
   handleClickNewGame: PropTypes.func,
-  isCheck: PropTypes.bool,
-  isEnd: PropTypes.bool,
 };
 
 export default GamePageView;

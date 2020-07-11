@@ -1,68 +1,68 @@
-.sprint-play__container{
+.sprint-play__container {
   max-width: 600px;
   max-height: 400px;
   margin: 0 auto;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
-.sprint-play__header{
+.sprint-play__header {
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
 }
-.sprint-play__point-wrapper{
+.sprint-play__point-wrapper {
   display: flex;
 }
-.sprint-play__point-score{
+.sprint-play__point-score {
   margin-left: 10px;
-  font-size: 2.4rem;
   font-weight: 600;
+  font-size: 2.4rem;
 }
-.sprint-play__timer-wrapper{
+.sprint-play__timer-wrapper {
   display: flex;
 }
-.sprint-play__timer{
-margin-left: 10px;
+.sprint-play__timer {
+  margin-left: 10px;
 }
-.sprint-play__volume{
+.sprint-play__volume {
+  position: relative;
+  bottom: 12px;
   color: #000000;
- position: relative;
- bottom: 12px;
 }
-.sprint-play__board{
-  background-color: rgb(233, 233, 233);
+.sprint-play__board {
   margin: 0 auto;
   margin-bottom: 15vh;
   text-align: center;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+  background-color: rgb(233, 233, 233);
   border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
-.sprint-play__rangs{
+.sprint-play__rangs {
   display: flex;
   justify-content: center;
   padding: 20px 0 80px;
 }
-.sprint-play__rang-item{
-  margin-left: 10px;
+.sprint-play__rang-item {
+  box-sizing: border-box;
   width: 30px;
   height: 30px;
+  margin-left: 10px;
   border-radius: 50%;
-  box-sizing: border-box;
 }
-.sprint-play__word{
+.sprint-play__word {
   margin-bottom: 20px;
   font-size: 5.6rem;
   line-height: 1.334;
   letter-spacing: 0em;
 }
-.sprint-play__translate{
+.sprint-play__translate {
+  padding-bottom: 80px;
+  color: #7c7c7c;
   font-size: 3rem;
   line-height: 1.43;
   letter-spacing: 0.01071em;
-  padding-bottom: 80px;
-  color: #7c7c7c;
 }
-.sprint-play__control{
+.sprint-play__control {
   display: flex;
   justify-content: space-around;
 }
@@ -73,12 +73,12 @@ margin-left: 10px;
 .sprint-play__times {
   background: #c986d6;
 }
-.sprint-play__default{
-  background: #ffffff;;
+.sprint-play__default {
+  background: #ffffff;
 }
 
 @media (max-width: 400px) {
-  .sprint-play__word{
+  .sprint-play__word {
     font-size: 4rem;
   }
 }
