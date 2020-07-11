@@ -42,7 +42,7 @@ export const getSessionThing = (thingName, template) => (
 );
 
 export const checkForessionThing = (thingName) => {
-  let template = {};
+  let template;
   if (thingName === applicationThings.LEARN_WORDS) {
     template = { ...statsLearnTemplate };
   } else {

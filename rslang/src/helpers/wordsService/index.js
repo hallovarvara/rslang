@@ -79,14 +79,14 @@ export const updateUserWordRate = (
   thingName,
   level = levelsOfDifficulty.HARD,
 ) => {
-  const { oldRate, oldRepeated, oldNext } = getOldData(wordObject);
+  const { oldRate, oldRepeated } = getOldData(wordObject);
   const current = prepareWordObject(wordObject);
   if (thingName === applicationThings.LEARN_WORDS) {
     const rate = calculateLearnRate(oldRate, level);
     const stamp = convertStamp(rate);
     updateUserWord(userWordThings.RATE, rate, oldRepeated, stamp, current, level, thingName);
   } else {
-    const newNext = calculateGameNext(oldNext);
+    const newNext = calculateGameNext();
     const stamp = convertStamp(0, newNext);
     updateUserWord(userWordThings.NEXT, newNext, oldRepeated, stamp, current, level, thingName);
   }
