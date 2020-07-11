@@ -132,7 +132,8 @@ const gamesData = {
   unmess: {
     title: 'Unmess',
     description: 'Соединяйте слова и их значения, расширяя запас слов и улучшая понимание смысла фраз',
-    path: 'unmess/home',
+    path: 'unmess',
+    startPath: 'unmess/home',
   },
 };
 
