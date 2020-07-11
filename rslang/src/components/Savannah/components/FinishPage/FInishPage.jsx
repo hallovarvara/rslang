@@ -16,7 +16,7 @@ const FinishPage = ({
         <hr />
         <ResultList
           result={complete}
-          resultTitle={resultTitle.error}
+          resultTitle={resultTitle.success}
           status={status.success}
         />
         <div className={classes.completeWrapper}></div>

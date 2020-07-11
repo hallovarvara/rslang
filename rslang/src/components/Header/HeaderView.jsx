@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
+import IconButton from '@material-ui/core/IconButton';
+import { connect } from 'react-redux';
+import { logout } from '../../redux/actions/auth';
 import MenuList from '../../basicComponents/MenuList';
-
 import { gamesData, pagesData } from '../../helpers/constants';
 
 const addLinksToHeader = (link, index) => {
@@ -30,25 +31,35 @@ const addLinksToHeader = (link, index) => {
   );
 };
 
-const HeaderView = ({ links, isUserLogged }) => (
-  <header className="header">
-    <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
-    <nav>
-      <ul className="navigation">
-        {
-          links.map(addLinksToHeader)
-        }
-        {
-          isUserLogged && <li className="navigation__item exit-icon">
-            <NavLink activeClassName="navigation__item_active" to={pagesData.register.path}>
-              <ExitToAppIcon color="disabled" style={{ fontSize: '3rem' }}/>
-            </NavLink>
-          </li>
-        }
-      </ul>
-    </nav>
-  </header>
-);
+const HeaderView = ({ links, isUserLogged, logout }) => {
+
+  return (
+    <header className="header">
+      <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
+      <nav>
+        <ul className="navigation">
+          {
+            links.map(addLinksToHeader)
+          }
+          {
+            isUserLogged && <li className="navigation__item exit-icon">
+              <NavLink activeClassName="navigation__item_active" to="/">
+                <IconButton
+                  onClick={logout}>
+                  <ExitToAppIcon
+                    color="disabled"
+                    style={{ fontSize: '3rem' }}
+                  />
+                </IconButton>
+
+              </NavLink>
+            </li>
+          }
+        </ul>
+      </nav>
+    </header>
+  );
+};
 
 HeaderView.propTypes = {
   linkTitles: PropTypes.arrayOf(PropTypes.string),
@@ -56,4 +67,10 @@ HeaderView.propTypes = {
   links: PropTypes.array,
 };
 
-export default HeaderView;
+function mapDispatchToProps(dispatch) {
+  return {
+    logout: () => dispatch(logout()),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(HeaderView);

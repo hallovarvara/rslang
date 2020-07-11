@@ -1,22 +1,19 @@
 import noAvatar from '../assets/images/avatar.jpg';
-
-const defaultPaginationCount = 10;
+import soundError from '../assets/audio/error.mp3';
+import soundSuccess from '../assets/audio/success.mp3';
+import soundFinish from '../assets/audio/finish.mp3';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
   base: 'https://kagafon-learn-words.herokuapp.com/',
+  paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
 const localStorageItems = {
-  token: 'tokenRslang',
+  nickname: 'rslangName',
+  token: 'rslangToken',
   userId: 'rslangUserId',
   refreshTokenDate: 'refreshTokenDate',
-};
-
-const count = {
-  groups: 6,
-  pages: 29,
-  words: 19,
 };
 
 export const applicationThings = {
@@ -193,23 +190,41 @@ const selectorOptions = [
 /* Games */
 
 const audio = {
-  error: './audio/error.mp3',
-  success: './audio/success.mp3',
+  error: 'error.mp3',
+  success: 'success.mp3',
+  win: 'finish.mp3',
 };
 
-const wordsGroups = 6;
-const audiocallMaxLevels = 12;
+const text = {
+  ru: {
+    /* Sign In, Register */
+    nickname: 'Логин',
+    email: 'Емейл',
+    password: 'Пароль',
+    repeatPassword: 'Повторите пароль',
+    alreadyRegistered: 'Уже зарегистрированы?',
+    firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
+    incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
+    userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
 
-const buttonTextContent = {
-  next: 'Далее',
-  dontKnow: 'Не знаю',
-  startGame: 'Играть',
-  newGame: 'Начать новую игру',
-};
+    /* Games */
+    levelsTitles: ['Все', 'Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'],
+    answersCorrect: 'Угадано',
+    answersMistaken: 'Не угадано',
+    howManyAnswers: 'Сколько показывать вариантов ответа',
+    howManyWords: 'Сколько слов хотите угадать',
+    chooseLevel: 'Выберите уровень сложности',
+    notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
 
-const textContent = {
-  correct: 'Правильно',
-  error: 'Неправильно',
+    /* Buttons */
+    button: {
+      next: 'Далее',
+      dontKnow: 'Не знаю',
+      startGame: 'Играть',
+      newGame: 'Начать новую игру',
+      learnWords: 'Изучать словау',
+    },
+  },
 };
 
 const formLabel = {
@@ -219,20 +234,62 @@ const formLabel = {
   answers: 'Сколько показывать вариантов ответов? (2—5)',
 };
 
+const questionStatus = {
+  success: 'success',
+  error: 'error',
+};
+
+const count = {
+  /* API settings */
+  groups: 6,
+  pages: 29,
+  words: 19,
+
+  /* Time */
+  minInHour: 60,
+  secInMin: 60,
+  msInSec: 1000,
+  tokenLifetimeInHours: 4,
+
+  /* Defaults */
+  elementsPerPage: 10,
+
+  /* Game Audiocall */
+  audiocall: {
+    maxLevels: 12,
+  },
+
+  /* Game Savannah */
+  savannah: {
+    defaultLevel: 0,
+    minAnswers: 2,
+    maxAnswers: 5,
+    minQuestions: 5,
+    maxQuestions: 50,
+  },
+
+  /* Game Sprint */
+  sprint: {
+    counterMultiplier: 2,
+    pointsMultiplier: 10,
+    correctAnswerOnce: 4,
+  },
+};
+
 export {
   pagesData,
   selectorOptions,
-  defaultPaginationCount,
   apiLinks,
   linkedinLink,
   gamesData,
   teamMembers,
   audio,
-  wordsGroups,
-  audiocallMaxLevels,
-  buttonTextContent,
-  textContent,
   formLabel,
   count,
   localStorageItems,
+  text,
+  soundError,
+  soundSuccess,
+  soundFinish,
+  questionStatus,
 };

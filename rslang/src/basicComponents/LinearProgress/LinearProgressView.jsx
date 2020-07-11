@@ -11,7 +11,7 @@ const LinearProgressView = ({ done = 25, all = 100, className = '' }) => {
 
   return (
     <div className={classes}>
-      <div style={ { width: `${filledWidth}%` } } className="linear-progress__filled"></div>
+      <div style={ { width: `${filledWidth}%` } } className="linear-progress__filled" />
     </div>
   );
 };

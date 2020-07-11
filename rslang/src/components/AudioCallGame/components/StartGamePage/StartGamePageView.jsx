@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import {
   FormControl,
   InputLabel,
@@ -7,7 +8,14 @@ import {
   TextField,
   Button,
 } from '@material-ui/core';
-import {buttonTextContent, wordsGroups, formLabel, gamesData} from '../../../../helpers/constants';
+
+import {
+  text,
+  count,
+  formLabel,
+  gamesData,
+} from '../../../../helpers/constants';
+
 import style from './StartGamePageView.module.scss';
 
 const StartGamePageView = ({
@@ -18,7 +26,7 @@ const StartGamePageView = ({
   handleSubmitForm,
 }) => {
   const options = [];
-  for (let numberLevel = 0; numberLevel <= wordsGroups; numberLevel += 1) {
+  for (let numberLevel = 0; numberLevel <= count.groups; numberLevel += 1) {
     options.push(<option value={numberLevel} key={numberLevel}>{`${formLabel.level} ${numberLevel}`}</option>);
   }
   return (
@@ -66,7 +74,7 @@ const StartGamePageView = ({
           type="submit"
           variant="contained"
         >
-         {buttonTextContent.startGame}
+         { text.ru.button.startGame }
         </Button>
       </form>
     </div>
