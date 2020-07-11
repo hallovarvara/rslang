@@ -13,11 +13,13 @@ const GamePageView = ({
   level,
   phrasesArray,
   isTranslation,
+  isBackground,
   isAudio,
   isAutoPlay,
   handleClickButtonTranslation,
   handleClickButtonAudio,
   handleClickButtonAutoPlay,
+  handleClickButtonBackground,
   handleClickButtonDontKnow,
   handleClickButtonContinue,
   updateIsShow,
@@ -31,13 +33,14 @@ const GamePageView = ({
   isEnd,
   prevPhraseArray,
   isShow,
+  backgroundUrl,
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
   const getItemStyle = (item, index, wordArray, rowNumber) => (
     {
       width: `${(100 * item) / wordArray.join('').length}%`,
-      backgroundImage: 'url(https://github.com/KseniyaYatskevich/rslang_data_paintings/blob/master/level1/cut/9th_wave.jpg?raw=true)',
+      backgroundImage: `${isBackground ? backgroundUrl : ''}`,
       backgroundPosition: `-${(800 * wordArray.slice(0, index).join('').length) / wordArray.join('').length}px -${rowNumber * 40}px`,
     }
   );
@@ -49,6 +52,8 @@ const GamePageView = ({
         handleClickButtonTranslation={handleClickButtonTranslation}
         handleClickButtonAudio={handleClickButtonAudio}
         handleClickButtonAutoPlay={handleClickButtonAutoPlay}
+        handleClickButtonBackground={handleClickButtonBackground}
+        isBackground={isBackground}
         isAudio={isAudio}
         isTranslation={isTranslation}
         isAutoPlay={isAutoPlay}
@@ -77,6 +82,7 @@ const GamePageView = ({
           : ''
         }
         <PhraseElements
+          isBackground={isBackground}
           errorCount={errorCount}
           answerItems={answerItems}
           phrase={phrase}
@@ -87,6 +93,7 @@ const GamePageView = ({
           updateIsCheck={updateIsCheck}
           isCheck={isCheck}
           updateIsShow={updateIsShow}
+          backgroundUrl={backgroundUrl}
         />
       </div>
       <ButtonPanel
@@ -119,15 +126,18 @@ GamePageView.propTypes = {
   isShow: PropTypes.bool,
   isCheck: PropTypes.bool,
   isEnd: PropTypes.bool,
+  isBackground: PropTypes.bool,
   handleClickButtonTranslation: PropTypes.func,
   handleClickButtonAudio: PropTypes.func,
   handleClickButtonAutoPlay: PropTypes.func,
   handleClickButtonDontKnow: PropTypes.func,
   handleClickButtonContinue: PropTypes.func,
+  handleClickButtonBackground: PropTypes.func,
   updateIsShow: PropTypes.func,
   updateIsCheck: PropTypes.func,
   handleClickCheck: PropTypes.func,
   handleClickNewGame: PropTypes.func,
+  backgroundUrl: PropTypes.string,
 };
 
 export default GamePageView;

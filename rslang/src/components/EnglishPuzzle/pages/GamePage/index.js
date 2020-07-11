@@ -8,8 +8,10 @@ class GamePage extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    const { handleClickNewGame } = this.props;
+    const { handleClickNewGame, backgroundUrl, handleClickButtonBackground } = this.props;
     this.handleClickNewGame = handleClickNewGame;
+    this.backgroundUrl = backgroundUrl;
+    this.handleClickButtonBackground = handleClickButtonBackground;
     this.state = {
       level: 0,
       maxLevel: 10, // TODO Settings
@@ -153,8 +155,10 @@ class GamePage extends React.Component {
         handleClickButtonTranslation={this.handleClickButtonTranslation}
         handleClickButtonAudio={this.handleClickButtonAudio}
         handleClickButtonAutoPlay={this.handleClickButtonAutoPlay}
+        handleClickButtonBackground={this.handleClickButtonBackground}
         handleClickButtonDontKnow={this.handleClickButtonDontKnow}
         isTranslation={isTranslation}
+        isBackground={this.props.isBackground}
         isAudio={isAudio}
         isAutoPlay={isAutoPlay}
         puzzleItems={puzzleItems}
@@ -170,6 +174,7 @@ class GamePage extends React.Component {
         updateIsShow={this.updateIsShow}
         handleClickNewGame={this.handleClickNewGame}
         isEnd={isEnd}
+        backgroundUrl={this.backgroundUrl}
       />
     );
   }
@@ -177,6 +182,8 @@ class GamePage extends React.Component {
 
 GamePage.propTypes = {
   handleClickNewGame: PropTypes.func,
+  backgroundUrl: PropTypes.string,
+  handleClickButtonBackground: PropTypes.func,
 };
 
 export default GamePage;

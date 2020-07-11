@@ -8,6 +8,9 @@ const EnglishPuzzleView = ({
   isStart,
   handleClickButtonStart,
   handleClickNewGame,
+  backgroundUrl,
+  isBackground,
+  handleClickButtonBackground,
 }) => (
   <div className="container">
     {(!isStart)
@@ -16,6 +19,9 @@ const EnglishPuzzleView = ({
         />
       : <GamePage
           handleClickNewGame={handleClickNewGame}
+          backgroundUrl={backgroundUrl}
+          handleClickButtonBackground={handleClickButtonBackground}
+          isBackground={isBackground}
         />}
   </div>
 );
@@ -24,6 +30,9 @@ EnglishPuzzleView.propTypes = {
   isStart: PropTypes.bool,
   handleClickButtonStart: PropTypes.func,
   handleClickNewGame: PropTypes.func,
+  backgroundUrl: PropTypes.string,
+  isBackground: PropTypes.bool,
+  handleClickButtonBackground: PropTypes.func,
 };
 
 export default EnglishPuzzleView;

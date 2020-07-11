@@ -1,4 +1,7 @@
 import * as constants from './constants';
+import { apiLinks } from '../../helpers/constants';
+import { getRandomNumber } from '../../helpers/functions';
+import painting from './galleryData';
 
 export const shuffle = (array) => (array.sort(() => Math.random() - 0.5));
 
@@ -11,6 +14,17 @@ export const replaceAudioSrc = (audio) => (
     .replace('{audioExample}', audio)
 );
 
+export const replaseUrlBackground = (level = 1, isBackground) => {
+  const maxNumber = painting[level].length;
+  console.log(maxNumber, 1)
+  const numberPicture = getRandomNumber(0, maxNumber);
+  if (level && isBackground) {
+    const url = `url(${apiLinks.paintings}${painting[level][numberPicture].cutSrc})`;
+    console.log(url, 4)
+    return url;
+  } return 'none';
+};
+
 export const playAudio = (audio, isShow) => {
   if (isShow) {
     const audioElement = new Audio(replaceAudioSrc(audio));
@@ -18,6 +32,6 @@ export const playAudio = (audio, isShow) => {
   }
 };
 
-export const getBackground = () => {
-  
-}
+// export const getBackground = () => (
+//   replaseUrlBackground()
+// );

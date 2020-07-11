@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import classNames from 'classnames';
+import { replaseUrlBackground } from '../../helpers';
 import style from './PhraseElementsView.module.scss';
 
 // TODO helper
@@ -30,6 +31,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 class PhraseElementsView extends React.Component {
   constructor(props) {
     super(props);
+    this.url = replaseUrlBackground();
     const { puzzleItems } = props;
     this.state = {
       items: puzzleItems,
@@ -124,7 +126,7 @@ class PhraseElementsView extends React.Component {
 
   getItemStyle = (item, index, draggableStyle, numberRow) => ({
     backgroundRepeat: 'no-repeat',
-    backgroundImage: 'url(https://github.com/KseniyaYatskevich/rslang_data_paintings/blob/master/level1/9th_wave.jpg?raw=true)',
+    backgroundImage: `${this.props.isBackground ? this.props.backgroundUrl : ''}`, // TODO add level from start form
     width: `${(100 * item) / this.getWidthPharase()}%`,
     backgroundPosition: `-${(800 * this.getBackgroundPosition(index)) / this.getWidthPharase()}px -${numberRow * 40}px`,
     ...draggableStyle,
@@ -228,7 +230,9 @@ PhraseElementsView.propTypes = {
   updateIsCheck: PropTypes.func,
   updateIsShow: PropTypes.func,
   isCheck: PropTypes.bool,
+  isBackground: PropTypes.bool,
   level: PropTypes.number,
+  backgroundUrl: PropTypes.string,
 };
 
 export default PhraseElementsView;

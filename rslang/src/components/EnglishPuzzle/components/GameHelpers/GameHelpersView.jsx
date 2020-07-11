@@ -11,11 +11,14 @@ const GameHelpersView = ({
   handleClickButtonTranslation,
   handleClickButtonAudio,
   handleClickButtonAutoPlay,
+  handleClickButtonBackground,
+  isBackground,
   isAudio,
   isTranslation,
   isAutoPlay,
 }) => {
   const buttonClasses = (isClick) => classNames({ [style.disabled]: !isClick });
+  console.log(isBackground, 15)
   return (
     <div className={style.container}>
       <Button
@@ -52,6 +55,8 @@ const GameHelpersView = ({
         variant="contained"
         color="primary"
         title="Фоновое изображение"
+        onClick={() => handleClickButtonBackground()}
+        className={buttonClasses(isBackground)}
       >
         <Image />
       </Button>
@@ -63,9 +68,11 @@ GameHelpersView.propTypes = {
   handleClickButtonTranslation: PropTypes.func,
   handleClickButtonAudio: PropTypes.func,
   handleClickButtonAutoPlay: PropTypes.func,
+  handleClickButtonBackground: PropTypes.func,
   isAudio: PropTypes.bool,
   isTranslation: PropTypes.bool,
   isAutoPlay: PropTypes.bool,
+  isBackground: PropTypes.bool,
 };
 
 export default GameHelpersView;

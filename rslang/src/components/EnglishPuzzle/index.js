@@ -1,4 +1,5 @@
 import React from 'react';
+import { replaseUrlBackground } from './helpers';
 import EnglishPuzzleView from './EnglishPuzzleView.jsx';
 
 class EnglishPuzzle extends React.Component {
@@ -6,11 +7,20 @@ class EnglishPuzzle extends React.Component {
     super(props);
     this.state = {
       isStart: false,
+      backgroundUrl: '',
+      isBackground: true,
     };
   }
 
+  handleClickButtonBackground = () => {
+    const { isBackground } = this.state;
+    console.log(isBackground, 18)
+    this.setState({ isBackground: !isBackground });
+  }
+
   handleClickButtonStart = () => {
-    this.setState({ isStart: true });
+    const { isBackground } = this.state;
+    this.setState({ isStart: true, backgroundUrl: replaseUrlBackground(1, isBackground) }); //TODO level from form
   }
 
   handleClickNewGame = () => {
@@ -20,11 +30,16 @@ class EnglishPuzzle extends React.Component {
   render() {
     const {
       isStart,
+      backgroundUrl,
+      isBackground,
     } = this.state;
     return (
       <EnglishPuzzleView
+        backgroundUrl={backgroundUrl}
         isStart={isStart}
+        isBackground={isBackground}
         handleClickButtonStart={this.handleClickButtonStart}
+        handleClickButtonBackground={this.handleClickButtonBackground}
         handleClickNewGame={this.handleClickNewGame}
       />
     );

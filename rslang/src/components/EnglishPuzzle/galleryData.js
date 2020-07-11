@@ -1,4 +1,4 @@
-export default paint = [
+const painting = [
   [
     {
       id: '1_01',
@@ -1542,3 +1542,5 @@ export default paint = [
     },
   ],
 ];
+
+export default painting;
