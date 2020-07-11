@@ -44,11 +44,6 @@ class SignUpPage extends Component {
     return emailValid && passValid && passRepeatValid && nickValid;
   };
 
-  onChangeInput = (e, inputType) => {
-    this.setState({ [inputType]: e.target.value });
-    this.isInputTypeValid(inputType, e.target.value);
-  }
-
   onChangeEmail = (e) => {
     this.setState({ email: e.target.value });
     this.isEmailValid(e.target.value);
