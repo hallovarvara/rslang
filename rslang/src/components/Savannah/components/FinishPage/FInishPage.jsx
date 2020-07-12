@@ -13,26 +13,24 @@ const FinishPage = ({
           resultTitle={resultTitle.error}
           status={status.error}
         />
-        <hr />
         <ResultList
           result={complete}
           resultTitle={resultTitle.success}
           status={status.success}
         />
-        <div className={classes.completeWrapper}></div>
       </div>
     </div>);
 
 FinishPage.propTypes = {
-  status: PropTypes.array,
-  resultTitle: PropTypes.array,
+  status: PropTypes.object,
+  resultTitle: PropTypes.object,
   complete: PropTypes.object,
   mistake: PropTypes.object,
 };
 
 FinishPage.defaultProps = {
   status: {},
-  resultTitle: [],
+  resultTitle: {},
   complete: {
     total: 0,
     words: [],

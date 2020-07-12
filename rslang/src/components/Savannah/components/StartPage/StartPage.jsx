@@ -10,10 +10,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
-import {count, gamesData, text} from '../../../../helpers/constants';
+import { count, gamesData, text } from '../../../../helpers/constants';
 
 import classes from './StartPage.module.scss';
-import { getAverageNumber } from '../../../../helpers/functions';
 
 const StartPage = ({
   onTotalQuizUpdate, onSubmitForm, handleCurrentGroup,
@@ -38,11 +37,11 @@ const StartPage = ({
 
   return (
     <div className={classes.StartPage}>
-      <h1>{ gamesData.savannah.title }</h1>
+      <h1>{gamesData.savannah.title}</h1>
       <form className={classes.form} onSubmit={(!errorQuiz && !errorAnswer) ? onSubmitForm : null}>
         <FormControl className={classes.formControl} required>
           <InputLabel id="select-label">
-            { text.ru.chooseLevel }
+            {text.ru.chooseLevel}
           </InputLabel>
           <Select
             labelId="select-label"
@@ -60,22 +59,20 @@ const StartPage = ({
           required
           error={errorQuiz}
           id="savannah-start__questions"
-          label={ `${text.ru.howManyWords} (${count.savannah.minQuestions}—${count.savannah.maxQuestions})` }
+          label={`${text.ru.howManyWords} (${count.savannah.minQuestions}—${count.savannah.maxQuestions})`}
           variant="filled"
           onChange={onTotalQuizUpdate}
           style={{ margin: '20px 0' }}
-          value={ getAverageNumber(count.savannah.minQuestions, count.savannah.maxQuestions) }
         />
         <TextField
           required
           error={errorAnswer}
           id="savannah-start__answers"
-          label={ `${text.ru.howManyAnswers} (${count.savannah.minAnswers}—${count.savannah.maxAnswers})` }
+          label={`${text.ru.howManyAnswers} (${count.savannah.minAnswers}—${count.savannah.maxAnswers})`}
           inputProps={{ pattern: '[2-5]' }}
           variant="filled"
           onChange={handleTotalAnswer}
           style={{ marginBottom: 20 }}
-          value={ getAverageNumber(count.savannah.minAnswers, count.savannah.maxAnswers) }
         />
         <Button
           type="submit"
@@ -85,8 +82,8 @@ const StartPage = ({
           startIcon={<PlayCircleOutlineIcon />}
           style={{ background: 'rgba(130, 115, 228, 1)' }}
         >
-          { text.ru.button.startGame }
-      </Button>
+          {text.ru.button.startGame}
+        </Button>
       </form >
     </div >);
 };

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from './components/Header';
 import StartPage from './components/StartPage';
 import FinishPage from './components/FinishPage';
 import ActiveQuiz from './components/ActiveQuiz';
+import UserService from '../../helpers/userService';
 
 import {
   questionStatus,
-  text,
+  text, localStorageItems, applicationThings,
   soundFinish, soundSuccess, soundError,
 } from '../../helpers/constants';
 
@@ -14,13 +17,25 @@ import {
   countQuestionsSets,
   getRandomNumber,
   playAudio,
+  shuffleArray,
 } from '../../helpers/functions';
+
+import {
+  saveRightToGamesStats,
+  saveWrongToGamesStats,
+  updateUserWordRate,
+  saveGameResults,
+} from '../../helpers/wordsService';
 
 import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
 
 import classes from './Savannah.module.scss';
 
 const initialState = {
+  currentUserWordId: '',
+  wordObject: {},
+  checkedUserWords: true,
+  allUserWords: [],
   timer: 0,
   activeQuestion: '',
   activeCard: 0,
@@ -52,6 +67,9 @@ const initialState = {
     audio: [],
   },
 };
+const userService = new UserService();
+
+const { getUserWordsNoRemoved } = userService;
 
 class Savannah extends Component {
   status = questionStatus;
@@ -63,27 +81,73 @@ class Savannah extends Component {
 
   state = initialState
 
-  updateState = async (group, totalAnswers) => {
+  updateState = async () => {
     const words = [];
     const translateWords = [];
     const idWords = [];
     const answerState = null;
     const audio = [];
     try {
-      const allCards = await getWordsByAmount(group, totalAnswers);
+      const { counter, totalAnswers, allUserWords } = this.state;
 
-      allCards.forEach((card) => {
+      const { userId, token } = this.props;
+
+      const isRegUser = (token || localStorage.getItem(localStorageItems.token))
+        && this.state.checkedUserWords;
+      console.log(isRegUser)
+
+      let allUserWordsRandom = [];
+      let currentUserWordId = null;
+      let activeCard = null;
+
+      if (isRegUser) {
+        allUserWordsRandom = await getUserWordsNoRemoved(userId);
+        currentUserWordId = allUserWordsRandom[counter - 1]?._id;
+      }
+
+      const resultArray = [allUserWordsRandom[counter - 1], ...await getWordsByAmount(2, totalAnswers - 1)];
+
+      if (!this.state.allUserWords.length) {
+        this.setState({ allUserWords: allUserWordsRandom });
+      }
+
+      const allCards = (allUserWords.length + 1 > counter)
+        ? shuffleArray(resultArray)
+        : await getWordsByAmount(this.state.currentGroup, this.state.totalAnswers);
+
+      allCards.forEach((card, key) => {
         words.push(card.word);
         translateWords.push(card.wordTranslate);
-        idWords.push(card.id);
+        idWords.push(card.id || card._id);
         audio.push(card.audio);
+        if (isRegUser
+          && card.word === allUserWords[counter - 1]?.word
+          && allUserWords.length + 1 > counter
+        ) {
+          activeCard = key;
+        }
       });
-      const activeCard = getRandomNumber(0, allCards.length - 1);
-      const activeQuestion = allCards[activeCard].word;
+      if (allUserWords.length < counter) {
+        activeCard = getRandomNumber(0, allCards.length - 1);
+      }
+      const wordObject = allCards[activeCard];
+
+      const activeQuestion = isRegUser && allUserWords.length - 1 > counter
+        ? resultArray[0].word
+
+        : allCards[activeCard].word;
 
       this.setState({
-        words, translateWords, idWords, answerState, activeCard, activeQuestion, audio
-        ,
+        words,
+        translateWords,
+        idWords,
+        answerState,
+        activeCard,
+        activeQuestion,
+        audio,
+        currentUserWordId,
+        wordObject,
+
       });
     } catch (e) {
       console.log(e);
@@ -125,6 +189,7 @@ class Savannah extends Component {
   handleClose = () => {
     this.setState({ isFinished: true });
     this.playAudio(soundFinish);
+    saveGameResults(applicationThings.SAVANNAH);
   }
 
   playAudio = (path) => this.state.volume && playAudio(path);
@@ -141,7 +206,7 @@ class Savannah extends Component {
         total: total + 1,
         words: [...words],
         translate: [...translate],
-        audio: [...translate],
+        audio: [...audio],
       },
     });
   }
@@ -162,7 +227,7 @@ class Savannah extends Component {
     if (this.state.currentGroup !== null) {
       this.setState({ isStarted: true });
     }
-    this.updateState(this.state.currentGroup, this.state.totalAnswers);
+    this.updateState();
   }
 
   onTimeOut = () => {
@@ -194,15 +259,21 @@ class Savannah extends Component {
   }
 
   onCorrectAnswer = (idWordPressed) => {
-    if (idWordPressed === this.state.idWords[this.state.activeCard]) {
+
+    const { idWords, activeCard, wordObject } = this.state;
+
+    if (idWordPressed === idWords[activeCard]) {
       this.resultCurrentQuiz('complete');
       this.guessedWords(idWordPressed, null, 'success');
       this.playAudio(soundSuccess);
+      saveRightToGamesStats(applicationThings.SAVANNAH);
     } else {
       this.resultCurrentQuiz('mistake');
       this.handleHeart();
       this.playAudio(soundError);
       this.guessedWords(idWordPressed, (!idWordPressed ? null : 'error'), 'success');
+      saveWrongToGamesStats(applicationThings.SAVANNAH);
+      updateUserWordRate(wordObject);
     }
   }
 
@@ -302,4 +373,15 @@ class Savannah extends Component {
     );
   }
 }
-export default Savannah;
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    userId: state.auth.userId,
+  };
+}
+
+Savannah.propTypes = {
+  token: PropTypes.string,
+  userId: PropTypes.string,
+};
+export default connect(mapStateToProps)(Savannah);
