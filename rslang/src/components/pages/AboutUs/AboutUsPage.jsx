@@ -4,6 +4,7 @@ import teamPhoto from '../../../assets/images/team-photo.png';
 import { teamMembers, pagesData } from '../../../helpers/constants';
 import TeamMember from '../../TeamMember';
 import Button from '../../../basicComponents/Button';
+import { getPath } from '../../../helpers/functions';
 
 const mapTeamMembersToItems = (member, index) => <TeamMember key={index} {...member} />;
 
@@ -19,7 +20,7 @@ const AboutUsPage = () => (
         teamMembers.map(mapTeamMembersToItems)
       }
     </section>
-    <Link to={ pagesData.learnWords.path }>
+    <Link to={ getPath(pagesData.learnWords.path) }>
       <Button className="demonstration-container__start-button" value="Учите английский с нами" />
     </Link>
   </div>
