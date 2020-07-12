@@ -17,7 +17,7 @@ export default function StartGameForm({ classNameForm, handleCurrentGroup, onSub
         required
       >
         <InputLabel id="select-label" style={{ fontSize: '1.2rem' }} >
-          { text.ru.chooseLevel }
+          {text.ru.chooseLevel}
         </InputLabel>
         <Select
           labelId="select-label"
@@ -37,7 +37,7 @@ export default function StartGameForm({ classNameForm, handleCurrentGroup, onSub
         startIcon={<PlayCircleOutlineIcon />}
         style={{ background: 'rgba(130, 115, 228, 1)' }}
       >
-        { text.ru.button.startGame }
+        {text.ru.button.startGame}
       </Button>
     </form >
   );

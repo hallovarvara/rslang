@@ -107,11 +107,11 @@ class Savannah extends Component {
 
       const resultArray = [allUserWordsRandom[counter - 1], ...await getWordsByAmount(2, totalAnswers - 1)];
 
-      if (!this.state.allUserWords.length) {
+      if (!allUserWords.length) {
         this.setState({ allUserWords: allUserWordsRandom });
       }
 
-      const allCards = (allUserWords.length + 1 > counter)
+      const allCards = (allUserWordsRandom.length + 1 > counter)
         ? shuffleArray(resultArray)
         : await getWordsByAmount(this.state.currentGroup, this.state.totalAnswers);
 
@@ -122,7 +122,7 @@ class Savannah extends Component {
         audio.push(card.audio);
         if (isRegUser
           && card.word === allUserWords[counter - 1]?.word
-          && allUserWords.length + 1 > counter
+          && allUserWordsRandom.length + 1 > counter
         ) {
           activeCard = key;
         }
