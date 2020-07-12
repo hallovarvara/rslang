@@ -34,7 +34,7 @@ import classes from './Savannah.module.scss';
 const initialState = {
   currentUserWordId: '',
   wordObject: {},
-  checkedUserWords: true,
+  checkedUserWords: false,
   allUserWords: [],
   timer: 0,
   activeQuestion: '',
@@ -96,7 +96,6 @@ class Savannah extends Component {
 
       const isRegUser = (token || localStorage.getItem(localStorageItems.token))
         && this.state.checkedUserWords;
-      console.log(isRegUser)
 
       let allUserWordsRandom = [];
       let currentUserWordId = null;
@@ -275,6 +274,8 @@ class Savannah extends Component {
       this.playAudio(soundError);
       this.guessedWords(idWordPressed, (!idWordPressed ? null : 'error'), 'success');
       saveWrongToGamesStats(SAVANNAH);
+
+      // TODO :wait Max
       // updateUserWordRate(wordObject);
     }
   }
@@ -316,6 +317,12 @@ class Savannah extends Component {
     this.setState({ timer: 0 });
   }
 
+  isChangeUserWords = () => {
+    this.setState(({ checkedUserWords }) => ({
+      checkedUserWords: !checkedUserWords,
+    }));
+  }
+
   render() {
     const {
       heartCount, volume, complete, mistake, translateWords, idWords, timer,
@@ -330,6 +337,7 @@ class Savannah extends Component {
         onSubmitForm={this.onClickHandler}
         handleCurrentGroup={this.handleCurrentGroup}
         handleTotalAnswer={this.handleTotalAnswer}
+        handleChangeUserWords={this.isChangeUserWords}
         totalAnswers={totalAnswers}
         totalQuestions={totalQuestions}
       />;

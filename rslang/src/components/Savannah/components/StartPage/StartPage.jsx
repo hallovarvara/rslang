@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-
+import { connect } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import Button from '@material-ui/core/Button';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import Switcher from '../UI/switch';
 
 import { count, gamesData, text } from '../../../../helpers/constants';
 
 import classes from './StartPage.module.scss';
 
 const StartPage = ({
-  onTotalQuizUpdate, onSubmitForm, handleCurrentGroup,
-  handleTotalAnswer, totalAnswers, totalQuestions,
+  onTotalQuizUpdate, onSubmitForm, handleCurrentGroup, handleChangeUserWords,
+  handleTotalAnswer, totalAnswers, totalQuestions, token,
 }) => {
   const errorAnswer = totalAnswers > count.savannah.maxAnswers
     || totalAnswers < count.savannah.minAnswers
@@ -84,6 +84,18 @@ const StartPage = ({
         >
           {text.ru.button.startGame}
         </Button>
+
+        {token
+          ? (<React.Fragment>
+            <Switcher
+              handleChangeUserWords={handleChangeUserWords}
+            />
+            <span className={classes.startExplanation}>
+              {text.ru.notEnoughWords}
+            </span>
+          </React.Fragment>)
+          : null
+        }
       </form >
     </div >);
 };
@@ -95,6 +107,8 @@ StartPage.propTypes = {
   handleTotalAnswer: PropTypes.func,
   totalAnswers: PropTypes.number,
   totalQuestions: PropTypes.number,
+  token: PropTypes.string,
+  handleChangeUserWords: PropTypes.func,
 };
 
 StartPage.defaultProps = {
@@ -106,4 +120,9 @@ StartPage.defaultProps = {
   totalQuestions: 0,
 };
 
-export default StartPage;
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+  };
+}
+export default connect(mapStateToProps)(StartPage);
