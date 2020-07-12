@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 
 const InputView = ({
-  placeholder = 'Type',
+  placeholder = '',
   className = '',
   onChange,
   type,
