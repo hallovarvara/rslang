@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
+import classNames from 'classnames';
 import { text } from '../../../../helpers/constants';
-import style from './ButtonPanelView.module.scss';
 
 const ButtonPanelView = ({
   isContinue,
@@ -12,19 +12,20 @@ const ButtonPanelView = ({
   isShow,
 }) => {
   const { ru: { button: { next, dontKnow, check } } } = text;
+  const buttonstyle = classNames('button', 'button_small');
   return (
-    <div className={style.container}>
+    <div className="button__container">
       {
       isContinue
         ? <Button
-            className={style.button}
+            className={buttonstyle}
             variant="contained"
             onClick={() => handleClickButtonContinue()}
           >
             {next}
           </Button>
         : <Button
-            className={style.button}
+            className={buttonstyle}
             variant="contained"
             isContinue={isContinue}
             onClick={() => handleClickButtonDontKnow()}
@@ -35,7 +36,7 @@ const ButtonPanelView = ({
       {
       isShow
         ? <Button
-            className={style.button}
+            className={buttonstyle}
             variant="contained"
             color="primary"
             onClick={() => handleClickCheck()}

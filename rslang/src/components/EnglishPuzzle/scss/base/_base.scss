@@ -1,0 +1,11 @@
+.container {
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 20px 0 0;
+  background: $color-englishPuzzle-primary;
+  background: linear-gradient(
+    to bottom,
+    $color-englishPuzzle-primary 0%,
+    $color-englishPuzzle-secondary 100%
+  );
+}

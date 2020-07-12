@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './GamePageView.module.scss';
 import Question from '../../components/Question';
 import PhraseElements from '../../components/PhraseElements';
 import GameHelpers from '../../components/GameHelpers';
@@ -65,14 +64,14 @@ const GamePageView = ({
         isAutoPlay={isAutoPlay}
         question={question}
       />
-      <div className={style.table}>
+      <div className="puzzle__container">
         {(prevPhraseArray.length !== 0)
           ? (prevPhraseArray.map((prevPharase, index) => (
-            <div key={index} className={style.container}>
+            <div key={index} className="puzzle__row">
             {prevPharase.map((word, number) => (
               <div
                 style={getItemStyle(word.length, number, prevPharase, index)}
-                className={style.item}
+                className="puzzle__item"
                 key={number}
               >
                 {word}

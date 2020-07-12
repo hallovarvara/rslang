@@ -1,43 +1,35 @@
+// Abstacts from main
 @import '../../scss/abstracts/constants';
+@import '../../scss/abstracts/mixins';
+
+// Abstarcs
+
+@import './scss/abstracts/placeholders';
+
+// Base
 @import '../../scss/base/base';
 @import '../../scss/base/typography';
+@import './scss/base/base';
+@import './scss/base/fonts';
+@import './scss/base/helpers';
 
-.container {
-  box-sizing: border-box;
-  height: 100vh;
-  padding: 20px 0 0;
-  background: $color-englishPuzzle-primary;
-  background: linear-gradient(
-    to bottom,
-    $color-englishPuzzle-primary 0%,
-    $color-englishPuzzle-secondary 100%
-  );
-}
+// Layouts
+@import './scss/layouts/flex-div-with-span';
+@import './scss/layouts/start-page';
+@import './scss/layouts/game-page';
+@import './scss/layouts/finish-page';
 
-.puzzle-levls-stepper {
-  margin: 50px 0px;
-  .MuiTypography-root {
-    margin-bottom: 0px;
-    color: white;
-    font-size: 2.2rem !important;
-    font-family: 'Inter', sans-serif;
-    text-align: center;
-  }
-  .MuiSlider-rail {
-    background-color: white;
-    opacity: 1;
-  }
-  .MuiSlider-valueLabel {
-    color: black;
-  }
-  .MuiSlider-mark {
-    color: black;
-  }
-  .MuiSlider-markLabel {
-    color: white;
-    font-size: 1.5rem;
-  }
-  .PrivateValueLabel-circle-4 {
-    font-size: 1rem;
-  }
-}
+// Components
+@import './scss/components/preloader';
+@import './scss/components/game-title';
+@import './scss/components/question';
+@import './scss/components/audio-icon';
+@import './scss/components/button';
+@import './scss/components/levels-stepper';
+@import './scss/components/puzzle';
+@import './scss/components/helpers-button';
+
+// Vendors
+@import './scss/vendors/normalize';
+
+// @include flex(column, center, center);

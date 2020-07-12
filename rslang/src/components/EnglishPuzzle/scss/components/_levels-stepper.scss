@@ -1,0 +1,33 @@
+.puzzle-levels-stepper {
+  margin: 50px 0px;
+  .MuiTypography-root {
+    margin-bottom: 0px;
+    color: $color-light;
+    font-size: 2.2rem;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    @media (max-width: 720px) {
+      font-size: 1.6rem;
+    }
+  }
+  .MuiSlider-rail {
+    background-color: $color-light;
+    opacity: 1;
+  }
+  .MuiSlider-valueLabel {
+    color: $color-dark;
+  }
+  .MuiSlider-mark {
+    color: $color-dark;
+  }
+  .MuiSlider-markLabel {
+    color: $color-light;
+    font-size: 1.5rem;
+    @media (max-width: 720px) {
+      font-size: 1.2rem;
+    }
+  }
+  .PrivateValueLabel-circle-4 {
+    font-size: 1rem;
+  }
+}

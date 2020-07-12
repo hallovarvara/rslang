@@ -1,36 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
+import classNames from 'classnames';
 import { gamesData, text } from '../../../../helpers/constants';
 import { levelsCount } from '../../constants';
 import Stepper from '../../../../basicComponents/Stepper';
-import style from './StartPageView.module.scss';
-import '../../style.scss';
 
 const StartPageView = ({ handleClickButtonStart }) => {
   const { englishPuzzle: { title, description } } = gamesData;
-  const { ru: { button: { startGame } } } = text;
+  const { ru: { button: { startGame }, chooseLevel } } = text;
+  const buttonStyle = classNames('button', 'button_big');
   const stepperMarks = (new Array(levelsCount).fill({}))
     .map((obj, index) => ({
       value: index + 1,
       label: `${index + 1}`,
     }));
   return (
-    <div className={style.container}>
-      <h2 className={style.title}>{title}</h2>
-      <p className={style.text}>{description}</p>
+    <div className="start-page">
+      <h2 className="start-page__title">{title}</h2>
+      <p className="start-page__description">{description}</p>
       <Stepper
         defaultValue='1'
         // onChangeCommitted={(event, value) => levelChanged(value - 1)}
         step={null}
         max={levelsCount}
         marks={stepperMarks}
-        className="puzzle-levls-stepper"
-        label="Выберите уровень:"
+        className="puzzle-levels-stepper"
+        label={chooseLevel}
         arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#F9C74F', '#F8961E', '#F3722C', '#F94144']}
       />
       <Button
-        className={style.button}
+        className={buttonStyle}
         variant="contained"
         onClick={handleClickButtonStart}
       >

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
 import { replaseUrlBackground } from '../../helpers';
-import style from './PhraseElementsView.module.scss';
 
 // TODO helper
 const reorder = (list, startIndex, endIndex) => {
@@ -122,22 +121,23 @@ class PhraseElementsView extends React.Component {
   render() {
     const { level } = this.props;
     const itemStyleSelected = (isCheck, isDragging, item, index) => classNames(
-      style.item,
-      { [style.active]: isDragging },
-      { [style.wrong]: isCheck && (+item.id !== index) },
-      { [style.right]: isCheck && (+item.id === index) },
+      'puzzle__item',
+      { puzzle__item_active: isDragging },
+      { puzzle__item_wrong: isCheck && (+item.id !== index) },
+      { puzzle__item_right: isCheck && (+item.id === index) },
     );
-    const itemStyle = (isDragging) => classNames(style.item, { [style.active]: isDragging });
+    const rowItem = classNames('puzzle__row', 'puzzle__row_items');
+    const itemStyle = (isDragging) => classNames('puzzle__item', { puzzle__item_active: isDragging });
     this.getBackgroundPosition();
     return (
       <>
       <DragDropContext onDragEnd={this.onDragEnd}>
-        <div className={style.table}>
+        <div className="puzzle__row">
         <Droppable droppableId="droppable2" direction="horizontal">
             {(provided) => (
               <div
                 ref={provided.innerRef}
-                className={style.container}>
+                className="puzzle__row">
                 {this.state.selected.map((selectedItem, index) => (
                   <Draggable
                     key={selectedItem.id}
@@ -175,7 +175,7 @@ class PhraseElementsView extends React.Component {
           {(provided) => (
             <div
               ref={provided.innerRef}
-              className={style.containerItems}>
+              className={rowItem}>
               {this.state.items.map((droppableItem, index) => (
                 <Draggable
                   key={droppableItem.id}

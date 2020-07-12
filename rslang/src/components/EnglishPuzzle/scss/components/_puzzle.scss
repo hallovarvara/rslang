@@ -1,21 +1,15 @@
-@import '../../../../scss/abstracts/constants';
-@import '../../../../scss/base/fonts';
-@import '../../../../scss/base/typography';
-
-.table {
+.puzzle__container {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   box-sizing: border-box;
   width: 80%;
   max-width: 800px;
   height: 400px;
   margin: 20px auto;
   background: $color-light;
+  @include flex(column, flex-start, center);
 }
 
-.container {
+.puzzle__row {
   display: flex;
   box-sizing: border-box;
   width: 100%;
@@ -24,10 +18,14 @@
   margin: 0;
   padding: 0;
   overflow: auto;
-  background-color: #dad5d5;
+  background-color: $color-active-row;
+  &_items {
+    position: absolute;
+    bottom: -50px;
+  }
 }
 
-.item {
+.puzzle__item {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -41,8 +39,17 @@
   background-size: 800px 400px;
   border: 1px solid $color-light;
   user-select: none;
+  &_active {
+    background: $color-active-puzzle !important;
+  }  
+  &_right {
+    background: $color-right-answer !important;
+  }  
+  &_wrong {
+    background: $color-wrong-answer !important;
+  }
   @media (max-width: 520px) {
     font-size: 1rem;
     line-height: 3.4;
-  }
+  }  
 }

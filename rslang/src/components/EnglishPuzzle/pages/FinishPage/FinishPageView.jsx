@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
+import classNames from 'classnames';
 import { text } from '../../../../helpers/constants';
-import style from './FinishPageView.module.scss';
 
 const FinishPageView = ({
   handleClickNewGame,
@@ -12,23 +12,25 @@ const FinishPageView = ({
   backgroundUrl,
 }) => {
   const { ru: { button: { newGame }, answersMistaken } } = text;
+  const buttonStyle = classNames('button', 'button_big');
   return (
-    <div className={style.container}>
+    <div className="finish-page">
       {isBackground
         ? (<>
-            <p className={style.text}>
-              <span>{paintingInfo.name}</span>,
+            <p className="text">
+              <span>{paintingInfo.name}, </span>
                {paintingInfo.author}, {paintingInfo.year}
             </p>
-            <img src={backgroundUrl} alt="" className={style.picture}/>
+            <img src={backgroundUrl} alt="" className="picture"/>
           </>)
         : ''
       }
-      <div className={style.title}>{answersMistaken}:
-        <span className={style.wrong}>{errorCount }</span>
-      фраз</div>
+      <p className="title">{answersMistaken}:
+        <span className="wrong">{errorCount}</span>
+        фраз
+      </p>
       <Button
-        className={style.button}
+        className={buttonStyle}
         variant="contained"
         size="large"
         onClick={() => handleClickNewGame()}

@@ -5,7 +5,6 @@ import { IconButton } from '@material-ui/core';
 import classNames from 'classnames';
 import { playAudio, pauseAudio } from '../../../../helpers/functions';
 import { replaceAudioSrc } from '../../helpers';
-import style from './QuestionView.module.scss';
 
 const QuestionView = ({
   question, isTranslation, isAudio, isAutoPlay,
@@ -15,8 +14,8 @@ const QuestionView = ({
     audioExample,
   } = question;
   const audioSrc = replaceAudioSrc(audioExample);
-  const questionStyle = classNames(style.question, { [style.disabled]: !isTranslation });
-  const audioButtonStyle = classNames({ [style.disabled]: !isAudio });
+  const questionStyle = classNames('question__text', { disabled: !isTranslation });
+  const audioButtonStyle = classNames({ disabled: !isAudio });
   if (isAutoPlay) {
     pauseAudio(audioSrc);
     playAudio(audioSrc);
@@ -28,9 +27,9 @@ const QuestionView = ({
     pauseAudio(audioSrc);
   };
   return (
-    <div className={style.container}>
+    <div className="question__container">
       <IconButton aria-label="audio" onClick={() => handleAudioClick() } className={audioButtonStyle}>
-        <VolumeUpRounded className={style.icon} fontSize="large"/>
+        <VolumeUpRounded className={audioButtonStyle} fontSize="large"/>
       </IconButton>
       <div className={questionStyle}>{textExampleTranslate}</div>
     </div>

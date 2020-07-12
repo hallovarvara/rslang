@@ -8,7 +8,6 @@ import {
   VolumeUp,
   Image,
 } from '@material-ui/icons';
-import style from './GameHelpersView.module.scss';
 
 const GameHelpersView = ({
   handleClickButtonTranslation,
@@ -20,9 +19,9 @@ const GameHelpersView = ({
   isTranslation,
   isAutoPlay,
 }) => {
-  const buttonClasses = (isClick) => classNames(style.button, { [style.disabled]: !isClick });
+  const buttonClasses = (isClick) => classNames('helper__button', { helper__button_disabled: !isClick });
   return (
-    <div className={style.container}>
+    <div className='helper'>
       <Button
         variant="contained"
         color="primary"
