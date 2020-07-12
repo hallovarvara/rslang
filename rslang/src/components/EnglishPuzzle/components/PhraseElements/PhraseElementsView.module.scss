@@ -1,3 +1,7 @@
+@import '../../../../scss/abstracts/constants';
+@import '../../../../scss/base/fonts';
+@import '../../../../scss/base/typography';
+
 .container {
   display: flex;
   box-sizing: border-box;
@@ -7,23 +11,26 @@
   margin: 0;
   padding: 0;
   overflow: auto;
-  background-color: #dad5d5;
+  background-color: $color-active-row;
 }
 
 .item {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: #ffffff;
-  line-height: 2;
+  color: $color-light;
+  font-size: 1.4rem;
+  line-height: 2.6;
   text-align: center;
-  text-shadow: #000000 0 0 4px;
-  vertical-align: middle;
-  background-color: #087b83;
-  background-repeat: no-repeat;
+  text-shadow: $color-dark 0 0 4px;
+  background-color: $color-puzzle;
   background-size: 800px 400px;
-  border: 1px solid #ffffff;
+  border: 1px solid $color-light;
   user-select: none;
+  @media (max-width: 520px) {
+    font-size: 1rem;
+    line-height: 3.4;
+  }
 }
 
 .containerItems {
@@ -37,17 +44,17 @@
   margin: 0;
   padding: 0;
   overflow: auto;
-  background-color: #dad5d5;
+  background-color: $color-active-row;
 }
 
 .active {
-  background: #b9ec76 !important;
+  background: $color-active-puzzle !important;
 }
 
 .right {
-  background: rgb(75, 196, 64) !important;
+  background: $color-right-answer !important;
 }
 
 .wrong {
-  background: rgb(196, 84, 64) !important;
+  background: $color-wrong-answer !important;
 }

@@ -1,3 +1,7 @@
+@import '../../../../scss/abstracts/constants';
+@import '../../../../scss/base/fonts';
+@import '../../../../scss/base/typography';
+
 .table {
   position: relative;
   display: flex;
@@ -8,7 +12,7 @@
   max-width: 800px;
   height: 400px;
   margin: 20px auto;
-  background: #000;
+  background: $color-light;
 }
 
 .container {
@@ -27,18 +31,18 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: #ffffff;
-  line-height: 2;
+  color: $color-light;
+  font-size: 1.4rem;
+  line-height: 2.6;
   text-align: center;
-  text-shadow: #000000 0 0 4px;
-  vertical-align: middle;
-  background-color: #087b83;
-
+  text-shadow: $color-dark 0 0 4px;
+  background-color: $color-puzzle;
   background-repeat: no-repeat;
   background-size: 800px 400px;
-  border: 1px solid #ffffff;
+  border: 1px solid $color-light;
   user-select: none;
-  @media (max-width: 640px) {
+  @media (max-width: 520px) {
     font-size: 1rem;
+    line-height: 3.4;
   }
 }

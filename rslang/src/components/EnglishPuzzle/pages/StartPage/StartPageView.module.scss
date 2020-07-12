@@ -1,4 +1,6 @@
 @import '../../../../scss/abstracts/constants';
+@import '../../../../scss/base/fonts';
+@import '../../../../scss/base/typography';
 
 .container {
   display: flex;
@@ -6,30 +8,82 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  width: 100%;
+  min-height: calc(100vh - 110px);
   padding: 40px;
+  padding: 30px 0px;
   color: $color-light;
 }
 
 .title {
+  color: $color-text-light;
   font-weight: normal;
-  font-size: 3rem;
+  font-size: 8rem;
   letter-spacing: 15px;
   text-align: center;
   text-transform: uppercase;
   @media (max-width: 720px) {
-    font-size: 2rem;
+    font-size: 4rem;
   }
   @media (max-width: 520px) {
-    font-size: 1.4rem;
+    font-size: 2rem;
   }
 }
 
 .text {
   width: 80%;
-  margin: 20px 0;
-  font-size: 1.8rem;
+  margin: 40px 0;
+  color: $color-text-light;
+  font-size: 3rem;
   text-align: center;
   @media (max-width: 720px) {
     font-size: 1rem;
+  }
+}
+
+.container .button {
+  margin: 30px;
+  padding: 10px 50px;
+  color: $color-active-light;
+  font-size: 2.4rem;
+  font-family: 'Inter', sans-serif;
+  background-color: $color-text-light;
+  border: 1px solid $color-text-light;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.7s ease;
+}
+
+.puzzle-levls-stepper {
+  margin: 50px 0px;
+  .MuiTypography-root {
+    margin-bottom: 0px;
+    color: white;
+    font-size: 2.2rem !important;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+  }
+  .MuiSlider-rail {
+    background-color: white;
+    opacity: 1;
+  }
+  .MuiSlider-valueLabel {
+    color: black;
+  }
+  .MuiSlider-mark {
+    color: black;
+  }
+  .MuiSlider-markLabel {
+    color: white;
+    font-size: 1.5rem;
+  }
+  .PrivateValueLabel-circle-4 {
+    font-size: 1rem;
+  }
+}
+
+.stepper .MuiSlider-thumb {
+  &:hover {
+    box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.16);
   }
 }

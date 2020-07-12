@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Button } from '@material-ui/core';
 import {
-  Spellcheck, Translate, VolumeUp, Image,
+  Spellcheck,
+  Translate,
+  VolumeUp,
+  Image,
 } from '@material-ui/icons';
 import style from './GameHelpersView.module.scss';
 
@@ -17,8 +20,7 @@ const GameHelpersView = ({
   isTranslation,
   isAutoPlay,
 }) => {
-  const buttonClasses = (isClick) => classNames({ [style.disabled]: !isClick });
-  console.log(isBackground, 15);
+  const buttonClasses = (isClick) => classNames(style.button, { [style.disabled]: !isClick });
   return (
     <div className={style.container}>
       <Button
@@ -28,9 +30,8 @@ const GameHelpersView = ({
         onClick={() => handleClickButtonAutoPlay()}
         className={buttonClasses(isAutoPlay)}
       >
-        <Spellcheck />
+        <Spellcheck fontSize="large"/>
       </Button>
-
       <Button
         variant="contained"
         color="primary"
@@ -38,19 +39,17 @@ const GameHelpersView = ({
         onClick={() => handleClickButtonTranslation()}
         className={buttonClasses(isTranslation)}
       >
-        <Translate />
+        <Translate fontSize="large"/>
       </Button>
-
       <Button
         variant="contained"
         color="primary"
-        title="воспроизведение"
+        title="Dоспроизведение"
         onClick={() => handleClickButtonAudio()}
         className={buttonClasses(isAudio)}
       >
-        <VolumeUp />
+        <VolumeUp fontSize="large"/>
       </Button>
-
       <Button
         variant="contained"
         color="primary"
@@ -58,7 +57,7 @@ const GameHelpersView = ({
         onClick={() => handleClickButtonBackground()}
         className={buttonClasses(isBackground)}
       >
-        <Image />
+        <Image fontSize="large"/>
       </Button>
     </div>
   );

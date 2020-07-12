@@ -24,7 +24,7 @@ const QuestionView = ({
   return (
     <div className={style.container}>
       <IconButton aria-label="audio" onClick={() => playAudio(audioExample, isAudio)} className={audioButtonStyle}>
-        <VolumeUpRounded fontSize="large" />
+        <VolumeUpRounded className={style.icon} fontSize="large"/>
       </IconButton>
       <div className={questionStyle}>{textExampleTranslate}</div>
     </div>

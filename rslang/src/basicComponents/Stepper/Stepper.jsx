@@ -82,6 +82,7 @@ class DiscreteSlider extends React.Component {
       'stepper-container': true,
       [className]: true,
       'sticky-label': stickyLabel,
+
     });
 
     return (

@@ -46,8 +46,6 @@ class PhraseElementsView extends React.Component {
       });
     }
     if (this.props.puzzleItems !== prevProps.puzzleItems) {
-      // const picture = await this.getPicture();
-      // console.log(picture, 125)
       this.setState({
         items: this.props.puzzleItems,
         selected: [],

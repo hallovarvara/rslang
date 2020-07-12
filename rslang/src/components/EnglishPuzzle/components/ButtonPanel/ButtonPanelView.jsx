@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
-import { buttonTextContent } from '../../constants';
+import { text } from '../../../../helpers/constants';
 import style from './ButtonPanelView.module.scss';
 
 const ButtonPanelView = ({
@@ -10,8 +10,10 @@ const ButtonPanelView = ({
   handleClickButtonDontKnow,
   handleClickCheck,
   isShow,
-}) => (
-  <div className={style.container}>
+}) => {
+  const { ru: { button: { next, dontKnow, check } } } = text;
+  return (
+    <div className={style.container}>
       {
       isContinue
         ? <Button
@@ -19,7 +21,7 @@ const ButtonPanelView = ({
             variant="contained"
             onClick={() => handleClickButtonContinue()}
           >
-            {buttonTextContent.next}
+            {next}
           </Button>
         : <Button
             className={style.button}
@@ -27,7 +29,7 @@ const ButtonPanelView = ({
             isContinue={isContinue}
             onClick={() => handleClickButtonDontKnow()}
           >
-            {buttonTextContent.dontKnow}
+            {dontKnow}
           </Button>
       }
       {
@@ -38,16 +40,16 @@ const ButtonPanelView = ({
             color="primary"
             onClick={() => handleClickCheck()}
           >
-            {buttonTextContent.check}
+            {check}
           </Button>
         : ''
       }
     </div>
-);
+  );
+};
 
 ButtonPanelView.propTypes = {
   isContinue: PropTypes.bool,
-  // errorCount: PropTypes.number,
   handleClickButtonContinue: PropTypes.func,
   handleClickButtonDontKnow: PropTypes.func,
   handleClickCheck: PropTypes.func,

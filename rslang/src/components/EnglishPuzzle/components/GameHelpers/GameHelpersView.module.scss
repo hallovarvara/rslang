@@ -1,11 +1,20 @@
+@import '../../../../scss/abstracts/constants';
+@import '../../../../scss/base/fonts';
+@import '../../../../scss/base/typography';
+
 .container {
   display: flex;
-  justify-content: space-between;
-  width: 30%;
+  flex-wrap: wrap;
+  justify-content: center;
   height: 40px;
-  margin: 20px auto;
+  margin: 0 auto;
+  & .button {
+    min-width: 40px;
+    margin: 10px 20px;
+    padding: 10px;
+  }
 }
 
 div .disabled {
-  background-color: #aaa9a9;
+  background-color: $color-button-disabled;
 }

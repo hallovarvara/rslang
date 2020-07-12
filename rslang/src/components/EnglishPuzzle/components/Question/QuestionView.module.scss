@@ -1,16 +1,23 @@
+@import '../../../../scss/abstracts/constants';
+@import '../../../../scss/base/fonts';
+@import '../../../../scss/base/typography';
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 600px;
-  height: 100px;
-  margin: 40px auto 10px;
+  width: 80%;
+  margin: 10px auto 5px;
+  padding: 10px;
+  & .icon {
+    font-size: 3rem;
+  }
 }
 
 .question {
-  color: #ffffff;
-  font-size: 1.4rem;
+  color: $color-light;
+  font-size: 1.8rem;
   text-align: center;
   user-select: none;
 }
