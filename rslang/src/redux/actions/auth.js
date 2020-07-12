@@ -6,7 +6,6 @@ import {
   apiLinks,
   count,
   localStorageItems,
-  pagesData,
   text,
 } from '../../helpers/constants';
 
