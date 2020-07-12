@@ -223,6 +223,7 @@ const text = {
       startGame: 'Играть',
       newGame: 'Начать новую игру',
       learnWords: 'Изучать словау',
+      learnEnglishWithUs: 'Учите английский с нами',
     },
   },
 };
