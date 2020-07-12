@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 
-const ButtonView = ({ type = 'primary', value = 'Button', className = '', disabled }) => (
+const ButtonView = ({
+  type = 'primary',
+  value = 'Button',
+  className = '',
+  disabled,
+}) => (
   <Button
     type="submit"
     className={className}
@@ -20,6 +25,7 @@ ButtonView.propTypes = {
   type: PropTypes.string,
   className: PropTypes.string,
   value: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default ButtonView;

@@ -28,6 +28,8 @@ InputView.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
   onChange: PropTypes.func,
+  error: PropTypes.bool,
+  required: PropTypes.bool,
 };
 
 export default InputView;
