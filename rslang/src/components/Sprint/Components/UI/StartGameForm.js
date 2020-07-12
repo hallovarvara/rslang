@@ -9,7 +9,8 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { text } from '../../../../helpers/constants';
 
 export default function StartGameForm({ classNameForm, handleCurrentGroup, onSubmitForm }) {
-  const menuItemList = text.ru.levelsTitles;
+  const menuItemList = [...text.ru.levelsTitles];
+  menuItemList.shift();
 
   return (
     <form className={classNameForm} onSubmit={onSubmitForm}>
@@ -23,6 +24,7 @@ export default function StartGameForm({ classNameForm, handleCurrentGroup, onSub
           labelId="select-label"
           id="simple-select"
           onChange={handleCurrentGroup}
+          defaultValue=""
         >
           {menuItemList.map((value, key) => (
             <MenuItem value={key} key={key}>{value}</MenuItem>
