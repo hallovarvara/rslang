@@ -5,9 +5,11 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { Link } from 'react-router-dom';
 import Slide from '@material-ui/core/Slide';
 // eslint-disable-next-line import/no-unresolved
 import CustomizedTables from '../../UI/Table.jsx';
+import { pagesData, text } from '../../../../helpers/constants';
 
 // eslint-disable-next-line react/display-name
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
@@ -35,11 +37,18 @@ export default function FinishGame({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
+          <Link to={`/${pagesData.learnWords.path}`}>
+            <Button
+              color="primary"
+              style={{ fontSize: '1.4rem' }}
+            >
+              { text.ru.button.learnWords }
+            </Button>
+
+          </Link>
+
           <Button style={{ fontSize: '1.4rem' }} onClick={() => onReloadGame()} color="primary">
-            ВЫХОД
-          </Button>
-          <Button style={{ fontSize: '1.4rem' }} onClick={() => onReloadGame()} color="primary">
-            ЕЩЕ РАЗ
+            { text.ru.button.newGame }
           </Button>
         </DialogActions>
       </Dialog>

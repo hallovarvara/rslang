@@ -12,8 +12,17 @@
 
 .about-us__desctiption {
   margin-bottom: 50px;
+
+  text-align: center;
+
   color: rgba($color: $color-dark, $alpha: 0.6);
-  @include font(3.2rem, 300, normal);
+
+  @include font(
+    $size: 3.2rem,
+    $weight: 300,
+    $style: normal,
+    $line-height: 130%
+  );
 }
 
 .about-us__team-photo {
