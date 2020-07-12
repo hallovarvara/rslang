@@ -11,7 +11,10 @@ import {
   checkSessionProgress,
   playAudios,
 } from './helpers';
-import { getDiffAndCoplicatedInProgress } from '../../../helpers/wordsService';
+import {
+  getDiffAndCoplicatedInProgress,
+} from '../../../helpers/wordsService';
+import { localStorageItems } from '../../../helpers/constants';
 
 export default class LearnWords extends Component {
   state = {
@@ -48,25 +51,11 @@ export default class LearnWords extends Component {
     this.checkForLoggedUser();
   }
 
-  // toggleAutoPlay = () => {
-  //   const { isAutoPlay } = this.state;
-  //   this.setState({
-  //     isAutoPlay: !isAutoPlay,
-  //   });
-  // }
-
   toggleAutoPlay = () => {
     this.setState((state) => ({
       isAutoPlay: !state.isAutoPlay,
     }));
   }
-
-  // toggleAutoPlay = () => {
-  //   const { isAutoPlay } = this.state;
-  //   this.setState({
-  //     isAutoPlay: !isAutoPlay,
-  //   });
-  // }
 
   toggleCategory = ({ target: { value } }) => {
     this.setState({
@@ -90,8 +79,8 @@ export default class LearnWords extends Component {
 
   checkForLoggedUser = () => {
     if (localStorage?.rslangUserId) {
-      const userId = localStorage.getItem('rslangUserId');
-      const token = localStorage.getItem('rslangToken');
+      const userId = localStorage.getItem(localStorageItems.userId);
+      const token = localStorage.getItem(localStorageItems.token);
       this.setState({
         isLogged: true,
         token,

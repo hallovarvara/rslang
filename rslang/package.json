@@ -1,5 +1,6 @@
 {
   "name": "rslang",
+  "homepage": "https://hallovarvara.github.io/rslang",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,6 +13,8 @@
     "@types/react-transition-group": "^4.4.0",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "gh-pages": "^3.1.0",
+    "is_js": "^0.9.0",
     "moment": "^2.27.0",
     "node-sass": "^4.14.1",
     "notistack": "^0.9.17",
@@ -28,6 +31,8 @@
     "styled-components": "^5.1.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

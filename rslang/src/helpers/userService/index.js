@@ -1,12 +1,16 @@
-import axios from 'axios';
-import { apiLinks, localStorageItems } from './constants';
+import { axiosuser } from './axiosUser';
 
-const urlBase = apiLinks.base;
+import {
+  apiLinks,
+  text,
+  localStorageItems,
+} from '../constants';
 
-const axiosuser = axios.create({
-  baseURL: urlBase,
+import { getTokenLifetimeInMs } from '../functions';
+
+const getAuthHeader = () => ({
   headers: {
-    Authorization: `Bearer ${localStorage.getItem('rslangToken')}`,
+    Authorization: `Bearer ${localStorage.getItem(localStorageItems.token)}`,
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
@@ -14,28 +18,38 @@ const axiosuser = axios.create({
 
 export default class UserService {
   registerUser = async (user) => {
-    const rawResponse = await fetch(urlBase, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    });
-    const content = await rawResponse.json();
-    console.log(content);
+    try {
+      const rawResponse = await fetch(`${apiLinks.base}users`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      });
+      return rawResponse.json();
+    } catch (e) {
+      console.error(e);
+      // TODO handle error for showing user
+      return false;
+    }
   };
 
   loginUser = async ({ email, password }) => {
-    const authData = { email, password };
-    const { hours, minutes, ms } = { hours: 4, minutes: 60, ms: 1000 };
-    const response = await axiosuser.post('signin', authData);
-
-    const refreshTokenDate = new Date(new Date().getTime() + hours * minutes * ms);
-
-    localStorage.setItem(localStorageItems.token, response.data.token);
-    localStorage.setItem(localStorageItems.userId, response.data.userId);
-    localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
+    let result;
+    try {
+      const authData = { email, password };
+      const response = await axiosuser.post('signin', authData);
+      const refreshTokenDate = new Date(new Date().getTime() + getTokenLifetimeInMs());
+      localStorage.setItem(localStorageItems.token, response.data.token);
+      localStorage.setItem(localStorageItems.userId, response.data.userId);
+      localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
+      result = response.data;
+    } catch (e) {
+      // TODO Delete alert, add error message below the H1 title
+      alert(text.ru.userUndefined);
+    }
+    return result;
   }
 
   getUserById = async (userId) => {
@@ -45,14 +59,10 @@ export default class UserService {
 
   updateUserById = async (userId) => {
     try {
-      await fetch(`${urlBase}users/${userId}`, {
+      await fetch(`${apiLinks.base}users/${userId}`, {
         method: 'PUT',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
       });
     } catch (e) {
       console.error(e);
@@ -62,14 +72,10 @@ export default class UserService {
 
   createUserWord = async ({ userId, wordId, word }) => {
     try {
-      await fetch(`${urlBase}users/${userId}/words/${wordId}`, {
+      await fetch(`${apiLinks.base}users/${userId}/words/${wordId}`, {
         method: 'POST',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
         body: JSON.stringify(word),
       });
     } catch (e) {
@@ -86,14 +92,10 @@ export default class UserService {
 
   updateUserWordById = async ({ userId, wordId, word }) => {
     try {
-      await fetch(`${urlBase}users/${userId}/words/${wordId}`, {
+      await fetch(`${apiLinks.base}users/${userId}/words/${wordId}`, {
         method: 'PUT',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
         body: JSON.stringify(word),
       });
     } catch (e) {
@@ -103,7 +105,7 @@ export default class UserService {
   };
 
   deleteUserWordById = async ({ userId, wordId }) => {
-    axiosuser.delete(`users/${userId}/words/${wordId}`);
+    await axiosuser.delete(`users/${userId}/words/${wordId}`);
   };
 
   getUserAllWords = async (userId) => {
@@ -112,27 +114,38 @@ export default class UserService {
     return content.data;
   };
 
-  allUserWordsArray = async (userId) => {
+  getAllUserWordsArray = async (userId) => {
     const result = [];
-    const getAllWords = await this.getUserAllWords(userId);
-    if (getAllWords.length) {
-      getAllWords.forEach((wordCard) => {
+    const allWords = await this.getUserAllWords(userId);
+    if (allWords.length) {
+      allWords.forEach((wordCard) => {
         result.push(wordCard.word);
       });
     }
     return result;
   }
 
+  getUserWordsNoRemoved = async (userId) => {
+    const result = [];
+    const getAllWords = await this.getUserAllWords(userId);
+    if (getAllWords.length) {
+      getAllWords.forEach((wordCard) => {
+        if (!wordCard.optional.removed) {
+          result.push(wordCard.word);
+        }
+      });
+    }
+    return result;
+  }
+
+  // TODO need method: get words without duplicates
+
   createUserStatistics = async ({ userId, option }) => {
     try {
-      await fetch(`${urlBase}users/${userId}/statistics`, {
+      await fetch(`${apiLinks.base}users/${userId}/statistics`, {
         method: 'PUT',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
         body: JSON.stringify(option),
       });
     } catch (e) {
@@ -152,14 +165,10 @@ export default class UserService {
 
   createUserSettings = async ({ userId, option }) => {
     try {
-      await fetch(`${urlBase}users/${userId}/settings`, {
+      await fetch(`${apiLinks.base}users/${userId}/settings`, {
         method: 'PUT',
         withCredentials: true,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('tokenRslang')}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+        ...getAuthHeader(),
         body: JSON.stringify(option),
       });
     } catch (e) {
@@ -184,9 +193,8 @@ export default class UserService {
     const headers = new Headers();
     headers.append('Accept', 'application/json');
     headers.append('Authorization', `Bearer ${token}`);
-    const res = await fetch(url, { headers });
-    const data = await res.json();
+    const result = await fetch(url, { headers });
+    const data = await result.json();
     return data[0];
   }
-
 }
