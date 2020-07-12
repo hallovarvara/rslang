@@ -1,9 +1,0 @@
-.hidden {
-  opacity: 0 !important;
-}
-
-.without-bg {
-  &::before {
-    opacity: 1 !important;
-  }
-}
