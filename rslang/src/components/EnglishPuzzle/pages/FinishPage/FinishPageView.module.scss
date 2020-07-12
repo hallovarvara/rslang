@@ -1,8 +1,39 @@
+@import '../../../../scss/abstracts/constants';
+@import '../../../../scss/base/fonts';
+@import '../../../../scss/base/typography';
+
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 40px;
+  .picture {
+    width: 400px;
+    height: 200px;
+    margin: 20px auto;
+  }
+  .text {
+    color: $color-light;
+    font-size: 1.6rem;
+    text-align: center;
+    span {
+      font-style: italic;
+    }
+  }
+  .button {
+    max-width: 300px;
+    margin: 30px;
+    padding: 10px 20px;
+    color: $color-active-light;
+    font-size: 2rem;
+    font-family: 'Inter', sans-serif;
+    background-color: $color-text-light;
+    border: 1px solid $color-text-light;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.7s ease;
+  }
 }
 
 .title {

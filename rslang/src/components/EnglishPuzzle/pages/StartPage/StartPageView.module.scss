@@ -54,33 +54,33 @@
   transition: all 0.7s ease;
 }
 
-.puzzle-levls-stepper {
-  margin: 50px 0px;
-  .MuiTypography-root {
-    margin-bottom: 0px;
-    color: white;
-    font-size: 2.2rem !important;
-    font-family: 'Inter', sans-serif;
-    text-align: center;
-  }
-  .MuiSlider-rail {
-    background-color: white;
-    opacity: 1;
-  }
-  .MuiSlider-valueLabel {
-    color: black;
-  }
-  .MuiSlider-mark {
-    color: black;
-  }
-  .MuiSlider-markLabel {
-    color: white;
-    font-size: 1.5rem;
-  }
-  .PrivateValueLabel-circle-4 {
-    font-size: 1rem;
-  }
-}
+// .puzzle-levls-stepper {
+//   margin: 10050px 0px;
+//   .MuiTypography-root {
+//     margin-bottom: 0px;
+//     color: white;
+//     font-size: 2.2rem !important;
+//     font-family: 'Inter', sans-serif;
+//     text-align: center;
+//   }
+//   .MuiSlider-rail {
+//     background-color: white;
+//     opacity: 1;
+//   }
+//   .MuiSlider-valueLabel {
+//     color: black;
+//   }
+//   .MuiSlider-mark {
+//     color: black;
+//   }
+//   .MuiSlider-markLabel {
+//     color: white;
+//     font-size: 1.5rem;
+//   }
+//   .PrivateValueLabel-circle-4 {
+//     font-size: 1rem;
+//   }
+// }
 
 .stepper .MuiSlider-thumb {
   &:hover {

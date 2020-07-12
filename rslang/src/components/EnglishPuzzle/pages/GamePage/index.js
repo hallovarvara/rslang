@@ -8,7 +8,10 @@ class GamePage extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    const { handleClickNewGame, backgroundUrl, handleClickButtonBackground } = this.props;
+    const {
+      handleClickNewGame, backgroundUrl, handleClickButtonBackground, paintingInfo,
+    } = this.props;
+    this.paintingInfo = paintingInfo;
     this.handleClickNewGame = handleClickNewGame;
     this.backgroundUrl = backgroundUrl;
     this.handleClickButtonBackground = handleClickButtonBackground;
@@ -147,6 +150,7 @@ class GamePage extends React.Component {
     } = this.state;
     return (
       <GamePageView
+        paintingInfo={this.paintingInfo}
         questionList={questionList}
         level={level}
         phrasesArray={phrasesArray}
@@ -182,6 +186,8 @@ GamePage.propTypes = {
   handleClickNewGame: PropTypes.func,
   backgroundUrl: PropTypes.string,
   handleClickButtonBackground: PropTypes.func,
+  paintingInfo: PropTypes.object,
+  isBackground: PropTypes.bool,
 };
 
 export default GamePage;

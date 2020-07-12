@@ -14,11 +14,15 @@ export const replaceAudioSrc = (audio) => (
     .replace('{audioExample}', audio)
 );
 
-export const replaseUrlBackground = (level = 1, isBackground) => {
+export const paintingObj = (level = 1) => {
   const maxNumber = painting[level].length;
   const numberPicture = getRandomNumber(0, maxNumber);
-  if (level && isBackground) {
-    const url = `url(${apiLinks.paintings}${painting[level][numberPicture].cutSrc})`;
+  return painting[level][numberPicture];
+};
+
+export const replaseUrlBackground = (object, isBackground) => {
+  if (object && isBackground) {
+    const url = `${apiLinks.paintings}${object.cutSrc}`;
     return url;
   } return 'none';
 };

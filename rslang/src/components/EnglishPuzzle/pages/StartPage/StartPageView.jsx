@@ -5,6 +5,7 @@ import { gamesData, text } from '../../../../helpers/constants';
 import { levelsCount } from '../../constants';
 import Stepper from '../../../../basicComponents/Stepper';
 import style from './StartPageView.module.scss';
+import '../../style.scss';
 
 const StartPageView = ({ handleClickButtonStart }) => {
   const { englishPuzzle: { title, description } } = gamesData;
@@ -24,7 +25,7 @@ const StartPageView = ({ handleClickButtonStart }) => {
         step={null}
         max={levelsCount}
         marks={stepperMarks}
-        // className={style['puzzle-levls-stepper'] }
+        className="puzzle-levls-stepper"
         label="Выберите уровень:"
         arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#F9C74F', '#F8961E', '#F3722C', '#F94144']}
       />

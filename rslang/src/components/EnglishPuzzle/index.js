@@ -1,11 +1,12 @@
 import React from 'react';
-import { replaseUrlBackground } from './helpers';
+import { replaseUrlBackground, paintingObj } from './helpers';
 import EnglishPuzzleView from './EnglishPuzzleView.jsx';
 
 class EnglishPuzzle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      paintingInfo: paintingObj(), // TODO level from form
       isStart: false,
       backgroundUrl: '',
       isBackground: true,
@@ -18,8 +19,12 @@ class EnglishPuzzle extends React.Component {
   }
 
   handleClickButtonStart = () => {
-    const { isBackground } = this.state;
-    this.setState({ isStart: true, backgroundUrl: replaseUrlBackground(1, isBackground) }); //TODO level from form
+    const { isBackground, paintingInfo } = this.state;
+    this.setState({
+      isStart: true,
+      paintingInfo: paintingObj(),
+      backgroundUrl: replaseUrlBackground(paintingInfo, isBackground),
+    });
   }
 
   handleClickNewGame = () => {
@@ -31,9 +36,11 @@ class EnglishPuzzle extends React.Component {
       isStart,
       backgroundUrl,
       isBackground,
+      paintingInfo,
     } = this.state;
     return (
       <EnglishPuzzleView
+        paintingInfo={paintingInfo}
         backgroundUrl={backgroundUrl}
         isStart={isStart}
         isBackground={isBackground}

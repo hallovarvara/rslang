@@ -1,17 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
-import { buttonTextContent } from '../../constants';
+import { text } from '../../../../helpers/constants';
 import style from './FinishPageView.module.scss';
 
-const FinishPageView = ({ handleClickNewGame, errorCount }) => {
-  const { newGame } = buttonTextContent;
+const FinishPageView = ({
+  handleClickNewGame,
+  errorCount,
+  paintingInfo,
+  isBackground,
+  backgroundUrl,
+}) => {
+  const { ru: { button: { newGame }, answersMistaken } } = text;
   return (
     <div className={style.container}>
-      <div className={style.title}>Я не знаю:
+      {isBackground
+        ? (<>
+            <p className={style.text}>
+              <span>{paintingInfo.name}</span>,
+               {paintingInfo.author}, {paintingInfo.year}
+            </p>
+            <img src={backgroundUrl} alt="" className={style.picture}/>
+          </>)
+        : ''
+      }
+      <div className={style.title}>{answersMistaken}:
         <span className={style.wrong}>{errorCount }</span>
       фраз</div>
-      <Button variant="contained" size="large" onClick={() => handleClickNewGame()}>{newGame}</Button>
+      <Button
+        className={style.button}
+        variant="contained"
+        size="large"
+        onClick={() => handleClickNewGame()}
+      >
+        {newGame}
+      </Button>
     </div>
   );
 };
@@ -19,6 +42,9 @@ const FinishPageView = ({ handleClickNewGame, errorCount }) => {
 FinishPageView.propTypes = {
   handleClickNewGame: PropTypes.func,
   errorCount: PropTypes.number,
+  paintingInfo: PropTypes.object,
+  isBackground: PropTypes.bool,
+  backgroundUrl: PropTypes.string,
 };
 
 export default FinishPageView;

@@ -30,7 +30,7 @@ const GameHelpersView = ({
         onClick={() => handleClickButtonAutoPlay()}
         className={buttonClasses(isAutoPlay)}
       >
-        <Spellcheck fontSize="large"/>
+        <Spellcheck fontSize="default"/>
       </Button>
       <Button
         variant="contained"
@@ -39,7 +39,7 @@ const GameHelpersView = ({
         onClick={() => handleClickButtonTranslation()}
         className={buttonClasses(isTranslation)}
       >
-        <Translate fontSize="large"/>
+        <Translate fontSize="default"/>
       </Button>
       <Button
         variant="contained"
@@ -48,7 +48,7 @@ const GameHelpersView = ({
         onClick={() => handleClickButtonAudio()}
         className={buttonClasses(isAudio)}
       >
-        <VolumeUp fontSize="large"/>
+        <VolumeUp fontSize="default"/>
       </Button>
       <Button
         variant="contained"
@@ -57,7 +57,7 @@ const GameHelpersView = ({
         onClick={() => handleClickButtonBackground()}
         className={buttonClasses(isBackground)}
       >
-        <Image fontSize="large"/>
+        <Image fontSize="default"/>
       </Button>
     </div>
   );

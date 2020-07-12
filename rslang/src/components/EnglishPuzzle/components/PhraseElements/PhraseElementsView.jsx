@@ -30,7 +30,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 class PhraseElementsView extends React.Component {
   constructor(props) {
     super(props);
-    this.url = replaseUrlBackground();
+    this.url = `url(${replaseUrlBackground()})`;
     const { puzzleItems } = props;
     this.state = {
       items: puzzleItems,
@@ -113,7 +113,7 @@ class PhraseElementsView extends React.Component {
 
   getItemStyle = (item, index, draggableStyle, numberRow) => ({
     backgroundRepeat: 'no-repeat',
-    backgroundImage: `${this.props.isBackground ? this.props.backgroundUrl : ''}`, // TODO add level from start form
+    backgroundImage: `url(${this.props.isBackground ? this.props.backgroundUrl : ''})`, // TODO add level from start form
     width: `${(100 * item) / this.getWidthPharase()}%`,
     backgroundPosition: `-${(800 * this.getBackgroundPosition(index)) / this.getWidthPharase()}px -${numberRow * 40}px`,
     ...draggableStyle,

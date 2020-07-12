@@ -1,4 +1,6 @@
 @import '../../scss/abstracts/constants';
+@import '../../scss/base/base';
+@import '../../scss/base/typography';
 
 .container {
   box-sizing: border-box;
@@ -10,4 +12,32 @@
     $color-englishPuzzle-primary 0%,
     $color-englishPuzzle-secondary 100%
   );
+}
+
+.puzzle-levls-stepper {
+  margin: 50px 0px;
+  .MuiTypography-root {
+    margin-bottom: 0px;
+    color: white;
+    font-size: 2.2rem !important;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+  }
+  .MuiSlider-rail {
+    background-color: white;
+    opacity: 1;
+  }
+  .MuiSlider-valueLabel {
+    color: black;
+  }
+  .MuiSlider-mark {
+    color: black;
+  }
+  .MuiSlider-markLabel {
+    color: white;
+    font-size: 1.5rem;
+  }
+  .PrivateValueLabel-circle-4 {
+    font-size: 1rem;
+  }
 }

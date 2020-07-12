@@ -34,13 +34,14 @@ const GamePageView = ({
   prevPhraseArray,
   isShow,
   backgroundUrl,
+  paintingInfo,
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
   const getItemStyle = (item, index, wordArray, rowNumber) => (
     {
       width: `${(100 * item) / wordArray.join('').length}%`,
-      backgroundImage: `${isBackground ? backgroundUrl : ''}`,
+      backgroundImage: `url(${isBackground ? backgroundUrl : ''})`,
       backgroundPosition: `-${(800 * wordArray.slice(0, index).join('').length) / wordArray.join('').length}px -${rowNumber * 40}px`,
     }
   );
@@ -105,8 +106,11 @@ const GamePageView = ({
       />
     </div>)
       : <FinishPage
+          paintingInfo={paintingInfo}
           handleClickNewGame={handleClickNewGame}
           errorCount={errorCount}
+          isBackground={isBackground}
+          backgroundUrl={backgroundUrl}
         />
   );
 };
@@ -138,6 +142,7 @@ GamePageView.propTypes = {
   handleClickCheck: PropTypes.func,
   handleClickNewGame: PropTypes.func,
   backgroundUrl: PropTypes.string,
+  paintingInfo: PropTypes.object,
 };
 
 export default GamePageView;
