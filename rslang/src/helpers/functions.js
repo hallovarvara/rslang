@@ -1,10 +1,9 @@
 import {
   apiLinks,
   count,
-  projectPath,
 } from './constants';
 
-const getPath = (modulePath = '') => `/${projectPath}/${modulePath}`;
+const getPath = (modulePath = '') => `/${modulePath}`;
 
 const getRandomNumber = (min, max) => (
   Math.floor(

@@ -44,7 +44,6 @@ export const levelsOfDifficulty = {
 
 export const dateFormatTemplate = 'DD.MM.YYYY';
 
-const projectPath = 'rslang';
 const linkedinLink = 'https://www.linkedin.com/in/';
 
 const pagesData = {
@@ -278,7 +277,6 @@ const count = {
 };
 
 export {
-  projectPath,
   pagesData,
   selectorOptions,
   apiLinks,
