@@ -29,6 +29,7 @@ export default class LearnWords extends Component {
     audio: null,
     isFetching: false,
     category: 'all',
+    isFirstPassDone: false,
   };
 
   componentDidMount() {
@@ -158,6 +159,7 @@ export default class LearnWords extends Component {
       progress,
       currentInput,
       isLogged,
+      isFirstPassDone,
     } = this.state;
     const currentWord = data[wordCount];
     const {
@@ -190,6 +192,7 @@ export default class LearnWords extends Component {
           onToggleCategory={this.toggleCategory}
         />
         <WordCard
+          isFirstPassDone={isFirstPassDone}
           currentWord={currentWord}
           isLogged={isLogged}
           currentInput={currentInput}

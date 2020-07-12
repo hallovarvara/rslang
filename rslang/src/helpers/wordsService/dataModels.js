@@ -193,7 +193,7 @@ export const changeUserWord = (userOption, optionData, oldRepeated, stamp, wordO
         optional.removed = optionData;
         break;
       case userWordThings.REPEATED:
-        optional.repeated = oldRepeated + 1;
+        optional.repeated = optionData;
         break;
       default:
         break;
@@ -203,17 +203,10 @@ export const changeUserWord = (userOption, optionData, oldRepeated, stamp, wordO
   return { ...wordObject, userWord };
 };
 
-export const checkUserWordById = (userWords, wordId) => (
-  userWords.find((word) => word.id === wordId)
-);
-
-export const checkForCurrentUserWord = (userWords, wordObject) => (
-  {
-    ...userWords.length > 0
-      ? checkUserWordById(userWords, wordObject.id) || createUserWord(wordObject)
-      : createUserWord(wordObject),
-  }
-);
+export const checkUserWordById = (userWords, wordId) => {
+  const existendWord = userWords.find((word) => word.id === wordId);
+  return existendWord;
+};
 
 export const generateSpacingRepeatingTemplate = () => (
   []

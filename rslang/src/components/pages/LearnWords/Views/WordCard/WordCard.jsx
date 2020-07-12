@@ -9,7 +9,7 @@ import { initialProgressObject } from '../../helpers/settings';
 
 const WordCard = ({
   currentWord,
-  // isLogged,
+  isFirstPassDone,
   currentInput,
   progress,
   textExample,
@@ -66,6 +66,7 @@ const WordCard = ({
         />
         {(progress.isGuessed && !progress.isDifficultChosen)
           && <SpacingRepeating
+            isFirstPassDone={isFirstPassDone}
             progress={progress}
             currentWord={currentWord}
             onChangeProgress={onChangeProgress}
@@ -90,7 +91,7 @@ const WordCard = ({
 
 WordCard.propTypes = {
   currentWord: PropTypes.object,
-  isLogged: PropTypes.bool,
+  isFirstPassDone: PropTypes.bool,
   currentInput: PropTypes.string,
   progress: PropTypes.object,
   textExampleTranslate: PropTypes.string,

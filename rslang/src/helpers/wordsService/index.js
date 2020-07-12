@@ -14,10 +14,12 @@ import {
   clearSessionData,
   clearLocalUserData,
   localThings,
+  saveNewUserWordId,
+  getNewWordsIds,
 } from './storageModel';
 import {
   changeStats,
-  checkForCurrentUserWord,
+  createUserWord,
   changeUserWord,
   userWordThings,
   changeSettings,
@@ -34,18 +36,20 @@ export const randomizeArray = (arrayOfWords) => {
 };
 
 export const prepareWordObject = (wordObject) => {
-  const userWords = checkForUserWords();
-  return checkForCurrentUserWord(userWords, wordObject);
+  let newWordObject;
+  if (!wordObject?.userWord) {
+    saveNewUserWordId(wordObject.id);
+    newWordObject = createUserWord(wordObject);
+  } else {
+    newWordObject = { ...wordObject };
+  }
+  return newWordObject;
 };
 
 export const updateRepeatingWords = (wordObject, twice) => {
   const repeating = checkForSpacingRepeating();
   saveSpacingRepeating(repeating, wordObject, twice);
 };
-
-export const convertDifficultLevelToRepeats = (level) => (
-  level === levelsOfDifficulty.HARD
-);
 
 export const updateUserWord = (
   userOption,
@@ -60,7 +64,7 @@ export const updateUserWord = (
   saveLocalUserWord(newWord);
   if (thingName === applicationThings.LEARN_WORDS) {
     if (level !== levelsOfDifficulty.EASY && userOption === userWordThings.RATE) {
-      const twice = convertDifficultLevelToRepeats(level);
+      const twice = level === levelsOfDifficulty.HARD;
       updateRepeatingWords(newWord, twice);
     }
   }
@@ -79,8 +83,8 @@ export const updateUserWordRate = (
   thingName,
   level = levelsOfDifficulty.HARD,
 ) => {
-  const { oldRate, oldRepeated } = getOldData(wordObject);
   const current = prepareWordObject(wordObject);
+  const { oldRate, oldRepeated } = getOldData(wordObject);
   if (thingName === applicationThings.LEARN_WORDS) {
     const rate = calculateLearnRate(oldRate, level);
     const stamp = convertStamp(rate);
@@ -95,13 +99,19 @@ export const updateUserWordRate = (
 export const updateUserWordDifficulty = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { difficulty } = current.userWord;
-  updateUserWord(userWordThings.DIFFICULTY, !difficulty, current);
+  updateUserWord(userWordThings.DIFFICULTY, !difficulty, null, null, current);
 };
 
 export const updateUserWordRemoved = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { removed } = current.userWord.optional;
-  updateUserWord(userWordThings.REMOVED, !removed, current);
+  updateUserWord(userWordThings.REMOVED, !removed, null, null, current);
+};
+
+export const updateUserWordRepeated = (wordObject) => {
+  const current = prepareWordObject(wordObject);
+  const { repeated } = current.userWord.optional;
+  updateUserWord(userWordThings.REPEATED, repeated + 1, null, null, current);
 };
 
 export const updateStats = (statsOption, optionData) => {
@@ -199,12 +209,16 @@ export const saveGameResults = (thingName) => {
 };
 
 export const separateSessionWords = (arrayOfWords) => {
-  const newWords = arrayOfWords.filter(
-    (el) => el?.userWord?.optional?.repeated <= 1,
-  );
-  const userWords = arrayOfWords.filter(
-    (el) => el?.userWord?.optional?.repeated > 1,
-  );
+  const newWords = [];
+  const userWords = [];
+  const newWordsIds = getNewWordsIds();
+  arrayOfWords.forEach((el) => {
+    if (newWordsIds.includes(el.id)) {
+      newWords.push(el);
+    } else {
+      userWords.push(el);
+    }
+  });
   return {
     newWords,
     userWords,

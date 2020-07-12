@@ -16,6 +16,7 @@ export const localThings = {
 
 export const sessionThings = {
   WORDS: 'rslangSessionWords',
+  NEW_WORDS: 'rslangNewWords',
   REPEATING: 'rslangSessionRepeating',
 };
 
@@ -101,7 +102,9 @@ export const checkForSpacingRepeating = () => (
 );
 
 export const saveSpacingRepeating = (repeatingArray, wordObject, twice = false) => {
-  const newWords = twice ? [wordObject, ...repeatingArray, wordObject] : [wordObject];
+  const newWords = twice
+    ? [wordObject, ...repeatingArray, wordObject]
+    : [...repeatingArray, wordObject];
   localStorage.setItem(sessionThings.REPEATING, JSON.stringify(newWords));
 };
 
@@ -126,4 +129,17 @@ export const clearSessionData = (thingName) => {
   clearStorageData(sessionThings);
 };
 
-// TODO: check for rate >- 30!!!!
+export const checkForNewUserWordsIds = () => (
+  !localStorage.getItem(sessionThings.NEW_WORDS)
+    ? []
+    : JSON.parse(localStorage.getItem(sessionThings.NEW_WORDS))
+);
+
+export const saveNewUserWordId = (wordId) => {
+  const words = checkForNewUserWordsIds();
+  localStorage.setItem(sessionThings.NEW_WORDS, JSON.stringify([...words, wordId]));
+};
+
+export const getNewWordsIds = () => (
+  JSON.parse(localStorage.getItem(sessionThings.NEW_WORDS))
+);

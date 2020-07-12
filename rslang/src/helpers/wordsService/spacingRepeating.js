@@ -8,10 +8,6 @@ export const defineNewRate = (rate) => {
 
 export const correctedRate = (rate, level) => {
   let coefficient = 0;
-  let correction = 0;
-  if (level !== levelsOfDifficulty.NORMAL && rate <= 4) {
-    correction = level === levelsOfDifficulty.HARD ? -1 : 1;
-  }
   switch (level) {
     case levelsOfDifficulty.HARD:
       coefficient = 0.8;
@@ -23,7 +19,7 @@ export const correctedRate = (rate, level) => {
       coefficient = 1;
       break;
   }
-  return Math.floor(rate * coefficient) + correction;
+  return Math.floor(rate * coefficient);
 };
 
 export const calculateLearnRate = (rate, level) => {

@@ -58,17 +58,7 @@
     "textExampleTranslate": "Моя квартира находится рядом с прекрасным парком и детской площадкой",
     "textMeaningTranslate": "Когда что-то смежно, оно рядом или смежно с чем-то другим",
     "wordTranslate": "смежный",
-    "wordsPerExampleSentence": 10,
-    "userWord": {
-      "difficulty": false,
-      "optional": {
-        "next": "09.07.2020",
-        "rate": 2,
-        "removed": false,
-        "repeated": 1,
-        "wordId": "5e9f5ee35eb9e72bc21b0082"
-      }
-    }
+    "wordsPerExampleSentence": 10
   },
   {
     "id": "5e9f5ee35eb9e72bc21b0083",
@@ -119,17 +109,7 @@
     "textExampleTranslate": "Искусственная елка была сделана из пластика",
     "textMeaningTranslate": "Если что-то искусственное, оно не было сделано естественным путем, но имитирует что-то естественное",
     "wordTranslate": "искусственный",
-    "wordsPerExampleSentence": 8,
-    "userWord": {
-      "difficulty": false,
-      "optional": {
-        "next": "16.07.2020",
-        "rate": 4,
-        "removed": false,
-        "repeated": 2,
-        "wordId": "5e9f5ee35eb9e72bc21b0085"
-      }
-    }
+    "wordsPerExampleSentence": 8
   },
   {
     "id": "5e9f5ee35eb9e72bc21b0086",
@@ -163,17 +143,7 @@
     "textExampleTranslate": "Юрист подпишет наше соглашение",
     "textMeaningTranslate": "Для брокера - это договориться или договориться о деталях чего-то для других",
     "wordTranslate": "маклер",
-    "wordsPerExampleSentence": 6,
-    "userWord": {
-      "difficulty": false,
-      "optional": {
-        "next": "21.07.2020",
-        "rate": 6,
-        "removed": false,
-        "repeated": 3,
-        "wordId": "5e9f5ee35eb9e72bc21b0087"
-      }
-    }
+    "wordsPerExampleSentence": 6
   },
   {
     "id": "5e9f5ee35eb9e72bc21b0088",
