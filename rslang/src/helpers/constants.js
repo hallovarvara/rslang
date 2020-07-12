@@ -48,14 +48,14 @@ const linkedinLink = 'https://www.linkedin.com/in/';
 
 const pagesData = {
   aboutUs: {
-    title: 'О нас',
+    title: 'Кто мы',
     path: 'about-us',
-    guest: { isVisible: true, index: 0 },
+    guest: { isVisible: true, index: 3 },
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
     title: 'Учить слова',
-    path: '',
+    path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
   },
@@ -66,21 +66,21 @@ const pagesData = {
     user: { isVisible: true, index: 1 },
   },
   promo: {
-    title: 'Промо',
-    path: 'promo',
-    guest: { isVisible: false },
-    user: { isVisible: false },
+    title: 'О проекте',
+    path: '',
+    guest: { isVisible: true, index: 0 },
+    user: { isVisible: true, index: 2 },
   },
   settings: {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: true, index: 5 },
+    user: { isVisible: true, index: 6 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: true, index: 5 },
+    guest: { isVisible: true, index: 6 },
     user: { isVisible: false },
   },
   register: {
@@ -92,14 +92,14 @@ const pagesData = {
   statistics: {
     title: 'Статистика',
     path: 'statistics',
-    guest: { isVisible: true, index: 3 },
-    user: { isVisible: true, index: 3 },
+    guest: { isVisible: true, index: 4 },
+    user: { isVisible: true, index: 4 },
   },
   vocabulary: {
     title: 'Словарь',
     path: 'vocabulary',
-    guest: { isVisible: true, index: 4 },
-    user: { isVisible: true, index: 4 },
+    guest: { isVisible: true, index: 5 },
+    user: { isVisible: true, index: 5 },
   },
 };
 
@@ -198,6 +198,11 @@ const audio = {
 
 const text = {
   ru: {
+    /* About us */
+    aboutUs: {
+      description: 'Привет! Мы рады представить продукт нашей совместной работы — приложение по изучению английского языка',
+    },
+
     /* Sign In, Register */
     nickname: 'Логин',
     email: 'Емейл',
@@ -229,6 +234,7 @@ const text = {
       startGame: 'Играть',
       newGame: 'Начать новую игру',
       learnWords: 'Изучать словау',
+      learnEnglishWithUs: 'Учите английский с нами',
     },
   },
 };

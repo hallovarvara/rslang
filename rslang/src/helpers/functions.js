@@ -3,6 +3,8 @@ import {
   count,
 } from './constants';
 
+const getPath = (modulePath = '') => `/${modulePath}`;
+
 const getRandomNumber = (min, max) => (
   Math.floor(
     Math.random() * (
@@ -64,4 +66,5 @@ export {
   getRandomNumber,
   getAverageNumber,
   getTokenLifetimeInMs,
+  getPath,
 };

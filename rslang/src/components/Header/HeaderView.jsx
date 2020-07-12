@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../redux/actions/auth';
 import MenuList from '../../basicComponents/MenuList';
 import { gamesData, pagesData } from '../../helpers/constants';
+import { getPath } from '../../helpers/functions';
 
 const addLinksToHeader = (link, index) => {
   const { title, path } = link;
@@ -15,7 +16,7 @@ const addLinksToHeader = (link, index) => {
       {
         path === pagesData.play.path
           ? <MenuList
-            menuTitle={<NavLink activeClassName="navigation__item_active" to={`/${path}`}>{title}</NavLink>}
+            menuTitle={<NavLink activeClassName="navigation__item_active" to={getPath(path)}>{title}</NavLink>}
             menuItems={Object.values(gamesData).map((gameObj, i) => (
               <NavLink
                 className="menu-list-item__link"
@@ -25,7 +26,12 @@ const addLinksToHeader = (link, index) => {
               </NavLink>
             ))}
           />
-          : <NavLink activeClassName="navigation__item_active" exact to={`/${path}`}>{title}</NavLink>
+          : <NavLink
+            activeClassName="navigation__item_active"
+            exact to={getPath(path)}
+          >
+            {title}
+          </NavLink>
       }
     </li>
   );
