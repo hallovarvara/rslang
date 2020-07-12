@@ -71,6 +71,8 @@ const userService = new UserService();
 
 const { getUserWordsNoRemoved } = userService;
 
+const { SAVANNAH } = applicationThings;
+
 class Savannah extends Component {
   status = questionStatus;
 
@@ -266,14 +268,14 @@ class Savannah extends Component {
       this.resultCurrentQuiz('complete');
       this.guessedWords(idWordPressed, null, 'success');
       this.playAudio(soundSuccess);
-      saveRightToGamesStats(applicationThings.SAVANNAH);
+      saveRightToGamesStats(SAVANNAH);
     } else {
       this.resultCurrentQuiz('mistake');
       this.handleHeart();
       this.playAudio(soundError);
       this.guessedWords(idWordPressed, (!idWordPressed ? null : 'error'), 'success');
-      saveWrongToGamesStats(applicationThings.SAVANNAH);
-      updateUserWordRate(wordObject);
+      saveWrongToGamesStats(SAVANNAH);
+      // updateUserWordRate(wordObject);
     }
   }
 
