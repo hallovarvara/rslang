@@ -39,7 +39,11 @@ const addLinksToHeader = (link, index) => {
 
 const HeaderView = ({ links, isUserLogged, logout: logoutUser }) => (
   <header className="header">
-    <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
+    <h1 className="header__title">
+      <NavLink activeClassName="navigation__item_active" to={getPath()}>
+        RS Lang
+      </NavLink>
+    </h1>
     <nav>
       <ul className="navigation">
         {
