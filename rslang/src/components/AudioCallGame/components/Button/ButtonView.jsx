@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
-import { buttonTextContent } from '../../../../helpers/constants';
+import { text } from '../../../../helpers/constants';
 import style from './ButtonView.module.scss';
 
 const ButtonView = ({
@@ -9,10 +9,17 @@ const ButtonView = ({
   handleClickButton,
   isFalseAnswer,
 }) => {
-  const { next, dontKnow } = buttonTextContent;
+  const { next, dontKnow } = text.ru.button;
   const buttonValue = (isRightAnswer || isFalseAnswer) ? next : dontKnow;
   return (
-    <Button variant="contained" size="large" className={style.button} onClick={handleClickButton}>{buttonValue}</Button>
+    <Button
+      variant="contained"
+      size="large"
+      className={style.button}
+      onClick={handleClickButton}
+    >
+      { buttonValue }
+    </Button>
   );
 };
 

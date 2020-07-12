@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import StartGame from './Components/StartGame';
 import PlayGame from './Components/PlayGame';
 import FinishGame from './Components/FinishGame';
+import UserService from '../../helpers/userService';
+
 import {
-  getCards, getRandomIntInclusive, audioPlay,
-} from './services/services';
+  count,
+  applicationThings,
+  localStorageItems,
+  soundError,
+  soundSuccess,
+} from '../../helpers/constants';
+
 import {
-  AUDIO_PATH, BASIC, CORRECT_ANSWER_ONCE, MULTIPLIER,
-} from './services/constants';
+  saveRightToGamesStats,
+  saveWrongToGamesStats,
+  updateUserWordRate,
+  saveGameResults,
+} from '../../helpers/wordsService';
+import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
 
 import './Sprint.scss';
+import {
+  getRandomNumber,
+  playAudio,
+  shuffleArray,
+} from '../../helpers/functions';
 
 const initialState = {
+  wordObject: {},
+  checkedUserWords: false,
+  allUserWords: [],
   timer: 60,
   score: 0,
   activeQuestion: '',
@@ -47,40 +68,54 @@ const initialState = {
   },
 };
 
-class Sprint extends Component {
-  audioPath = AUDIO_PATH;
+const userService = new UserService();
+const { getUserWordsNoRemoved } = userService;
 
-  basic = BASIC
+class Sprint extends Component {
+  basic = count.sprint.pointsMultiplier
 
   state = initialState
 
-  componentDidMount() {
-    this.updateState(3, 2);
-    this.onReloadGame();
-  }
-
-  updateState = async (group, totalAnswers) => {
+  updateState = async () => {
     const words = [];
     const translateWords = [];
     const answerState = null;
     const audio = [];
     let isTrue = false;
+    const token = this.props.token
+      || localStorage.getItem(localStorageItems.token);
+    const userId = this.props.userId
+      || localStorage.getItem(localStorageItems.userId);
 
     try {
-      const allCards = await getCards(group, totalAnswers);
+      const allUserWordsRandom = shuffleArray(token && this.state.checkedUserWords
+        ? await getUserWordsNoRemoved(userId)
+        : []);
 
+      if (!this.state.allUserWords.length) {
+        this.setState({ allUserWords: allUserWordsRandom });
+      }
+      const { counter, allUserWords } = this.state;
+      const { total } = counter;
+      const userWords = allUserWords.slice(total, total + 2);
+
+      const allCards = (allUserWords.length - 1 > total)
+        ? userWords
+        : await getWordsByAmount(this.state.currentGroup, 2);
       allCards.forEach((card) => {
         words.push(card.word);
         translateWords.push(card.wordTranslate);
         audio.push(card.audio);
       });
-      const activeCard = getRandomIntInclusive(0, allCards.length - 1);
-      const activeQuestion = allCards[activeCard].word;
+      const activeCard = getRandomNumber(0, allCards.length - 1);
+      const activeQuestion = words[0];
+      const wordObject = allCards[0];
       const activeAnswer = translateWords[Math.round(Math.random())];
       if (translateWords[0] === activeAnswer) {
         isTrue = true;
       }
       this.setState({
+        wordObject,
         words,
         translateWords,
         answerState,
@@ -92,15 +127,12 @@ class Sprint extends Component {
         ,
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      // TODO add erorrs' handler
     }
   }
 
-  audioPlay = (path) => {
-    if (this.state.volume) {
-      audioPlay(path);
-    }
-  }
+  audioPlay = (path) => (this.state.volume) && playAudio(path);
 
   handleVolume = () => {
     this.setState(({ volume }) => ({
@@ -125,18 +157,9 @@ class Sprint extends Component {
     });
   }
 
-  guessedWords = (currentAnswer, error, success) => {
-    this.setState({
-      answerState: [
-        { [currentAnswer]: error },
-        { [this.state.activeCard]: success },
-      ],
-    });
-  }
-
   updateCounter = (mult = 1, win = 0) => {
     const multiplier = win && this.state.counter.win
-      && this.state.counter.win % CORRECT_ANSWER_ONCE === 0 ? mult : 1;
+    && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -161,6 +184,7 @@ class Sprint extends Component {
     if (this.state.timer === 0) {
       clearTimeout(timerId);
       this.setState({ isFinished: true });
+      saveGameResults(applicationThings.SPRINT);
     }
   }
 
@@ -187,24 +211,37 @@ class Sprint extends Component {
 
       if (isTrue === this.state.isTrue) {
         this.setState({ isAnswerQuiz: 'check' });
-        this.audioPlay(this.audioPath.success);
-        this.updateCounter(MULTIPLIER, 1);
+        this.audioPlay(soundSuccess);
+        this.updateCounter(count.sprint.counterMultiplier, 1);
         this.updateScore(this.basic);
         this.resultCurrentQuiz('complete');
+        saveRightToGamesStats(applicationThings.SPRINT);
       } else {
-        this.audioPlay(this.audioPath.error);
+        this.audioPlay(soundError);
         this.setState({ isAnswerQuiz: 'times' });
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
+        saveWrongToGamesStats(applicationThings.SPRINT);
+        updateUserWordRate(this.state.wordObject);
       }
-      this.updateState(3, 2);
+      this.updateState();
     }
   }
 
   onReloadGame = () => {
     const state = { ...initialState };
     this.setState({ ...state });
-    this.updateState(3, 2);
+    this.updateState();
+  }
+
+  isChangeUserWords = () => {
+    this.setState(({ checkedUserWords }) => ({
+      checkedUserWords: !checkedUserWords,
+    }));
+  }
+
+  handleCurrentGroup = (event) => {
+    this.setState({ currentGroup: event.target.value });
   }
 
   render() {
@@ -218,6 +255,9 @@ class Sprint extends Component {
       page = <StartGame
         isStarted={isStarted}
         startGame={() => this.setState({ isStarted: true })}
+        handleChangeUserWords={this.isChangeUserWords}
+        handleCurrentGroup={this.handleCurrentGroup}
+        updateState={this.updateState}
       />;
     } else if (isStarted && isFinished) {
       page = <FinishGame
@@ -255,4 +295,16 @@ class Sprint extends Component {
   }
 }
 
-export default Sprint;
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    userId: state.auth.userId,
+  };
+}
+
+Sprint.propTypes = {
+  token: PropTypes.string,
+  userId: PropTypes.string,
+};
+
+export default connect(mapStateToProps)(Sprint);

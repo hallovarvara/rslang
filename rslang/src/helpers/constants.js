@@ -1,20 +1,19 @@
 import noAvatar from '../assets/images/avatar.jpg';
+import soundError from '../assets/audio/error.mp3';
+import soundSuccess from '../assets/audio/success.mp3';
+import soundFinish from '../assets/audio/finish.mp3';
 
-export const preloaderdefaultSettings = {
-  size: 150,
-  color: '#843FDD',
-};
-const defaultPaginationCount = 10;
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
+  base: 'https://kagafon-learn-words.herokuapp.com/',
+  paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
-const unloggedHeaderLinkTitles = ['About us', 'Learn words', 'Play games', 'Statistics', 'Vocabulary', 'Sign In'];
-const loggedHeaderLinkTitles = ['Learn words', 'Play games', 'About us', 'Statistics', 'Vocabulary', 'Settings'];
 
-export const rslangUser = {
-  USER_ID: 'rslangUserId',
-  TOKEN: 'rslangToken',
-  REFRESH_TOKEN: 'rslangRefreshToken',
+const localStorageItems = {
+  nickname: 'rslangName',
+  token: 'rslangToken',
+  userId: 'rslangUserId',
+  refreshTokenDate: 'refreshTokenDate',
 };
 
 export const ratesScale = [
@@ -134,17 +133,17 @@ const pagesData = {
 const gamesData = {
   speakit: {
     title: 'SpeakIt',
-    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
+    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
     path: 'speakit',
   },
   englishPuzzle: {
     title: 'English Puzzle',
-    description: 'Учитесь правильно строить предложения, а заодно знакомьтесь с величайшими мировыми произведениями искусства',
+    description: 'Учитесь строить предложения и знакомьтесь с величайшими произведениями искусства',
     path: 'english-puzzle',
   },
   savannah: {
     title: 'Саванна',
-    description: 'Угадывайте, как переводятся слова, и расширяйте лексикон',
+    description: 'Угадывайте, как переводятся слова, и вместе с этим пополняйте лексикон',
     path: 'savannah',
   },
   audiocall: {
@@ -158,8 +157,8 @@ const gamesData = {
     path: 'sprint',
   },
   unmess: {
-    title: 'Своя игра „Unmess”',
-    description: 'Соединяйте слова и их значения, расширяя как словарный запас, так и знание синонимов и умение понимать смысл предложений',
+    title: 'Unmess',
+    description: 'Соединяйте слова и их значения, расширяя запас слов и улучшая понимание смысла фраз',
     path: 'unmess',
   },
 };
@@ -170,7 +169,7 @@ const teamMembers = [
     surname: 'Лебецкий',
     role: 'Работал как волк, делал все подряд',
     image: noAvatar,
-    linkedinUsername: 'lebetsky-dmitry-20a80519a',
+    linkedinUsername: 'dmitry-lebetsky',
   },
   {
     name: 'Варвара',
@@ -191,7 +190,7 @@ const teamMembers = [
     surname: 'Яцкевич',
     role: 'Работала как волчица, делала все подряд',
     image: noAvatar,
-    linkedinUsername: 'ksenia-yatskevich-6543881b2',
+    linkedinUsername: 'ksenia-yatskevich',
   },
   {
     name: 'Максим',
@@ -218,23 +217,41 @@ const selectorOptions = [
 /* Games */
 
 const audio = {
-  error: './audio/error.mp3',
-  success: './audio/success.mp3',
+  error: 'error.mp3',
+  success: 'success.mp3',
+  win: 'finish.mp3',
 };
 
-const wordsGroups = 6;
-const audiocallMaxLevels = 12;
+const text = {
+  ru: {
+    /* Sign In, Register */
+    nickname: 'Логин',
+    email: 'Емейл',
+    password: 'Пароль',
+    repeatPassword: 'Повторите пароль',
+    alreadyRegistered: 'Уже зарегистрированы?',
+    firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
+    incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
+    userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
 
-const buttonTextContent = {
-  next: 'Далее',
-  dontKnow: 'Не знаю',
-  startGame: 'Играть',
-  newGame: 'Начать новую игру',
-};
+    /* Games */
+    levelsTitles: ['Все', 'Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'],
+    answersCorrect: 'Угадано',
+    answersMistaken: 'Не угадано',
+    howManyAnswers: 'Сколько показывать вариантов ответа',
+    howManyWords: 'Сколько слов хотите угадать',
+    chooseLevel: 'Выберите уровень сложности',
+    notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
 
-const textContent = {
-  correct: 'Правильно',
-  error: 'Неправильно',
+    /* Buttons */
+    button: {
+      next: 'Далее',
+      dontKnow: 'Не знаю',
+      startGame: 'Играть',
+      newGame: 'Начать новую игру',
+      learnWords: 'Изучать словау',
+    },
+  },
 };
 
 const formLabel = {
@@ -244,20 +261,62 @@ const formLabel = {
   answers: 'Сколько показывать вариантов ответов? (2—5)',
 };
 
+const questionStatus = {
+  success: 'success',
+  error: 'error',
+};
+
+const count = {
+  /* API settings */
+  groups: 6,
+  pages: 29,
+  words: 19,
+
+  /* Time */
+  minInHour: 60,
+  secInMin: 60,
+  msInSec: 1000,
+  tokenLifetimeInHours: 4,
+
+  /* Defaults */
+  elementsPerPage: 10,
+
+  /* Game Audiocall */
+  audiocall: {
+    maxLevels: 12,
+  },
+
+  /* Game Savannah */
+  savannah: {
+    defaultLevel: 0,
+    minAnswers: 2,
+    maxAnswers: 5,
+    minQuestions: 5,
+    maxQuestions: 50,
+  },
+
+  /* Game Sprint */
+  sprint: {
+    counterMultiplier: 2,
+    pointsMultiplier: 10,
+    correctAnswerOnce: 4,
+  },
+};
+
 export {
   pagesData,
   selectorOptions,
-  defaultPaginationCount,
   apiLinks,
   linkedinLink,
   gamesData,
   teamMembers,
   audio,
-  wordsGroups,
-  audiocallMaxLevels,
-  buttonTextContent,
-  textContent,
   formLabel,
-  unloggedHeaderLinkTitles,
-  loggedHeaderLinkTitles,
+  count,
+  localStorageItems,
+  text,
+  soundError,
+  soundSuccess,
+  soundFinish,
+  questionStatus,
 };

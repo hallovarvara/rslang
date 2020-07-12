@@ -14,7 +14,7 @@ import {
 import {
   getDiffAndCoplicatedInProgress,
 } from '../../../helpers/wordsService';
-import { rslangUser } from '../../../helpers/constants';
+import { localStorageItems } from '../../../helpers/constants';
 
 export default class LearnWords extends Component {
   state = {
@@ -58,17 +58,9 @@ export default class LearnWords extends Component {
   }
 
   toggleAutoPlay = () => {
-    const { isAutoPlay } = this.state;
-    this.setState({
-      isAutoPlay: !isAutoPlay,
-    });
-  }
-
-  toggleAutoPlay = () => {
-    const { isAutoPlay } = this.state;
-    this.setState({
-      isAutoPlay: !isAutoPlay,
-    });
+    this.setState((state) => ({
+      isAutoPlay: !state.isAutoPlay,
+    }));
   }
 
   toggleCategory = ({ target: { value } }) => {
@@ -92,10 +84,9 @@ export default class LearnWords extends Component {
   }
 
   checkForLoggedUser = () => {
-    const { USER_ID, TOKEN } = rslangUser;
     if (localStorage?.rslangUserId) {
-      const userId = localStorage.getItem(USER_ID);
-      const token = localStorage.getItem(TOKEN);
+      const userId = localStorage.getItem(localStorageItems.userId);
+      const token = localStorage.getItem(localStorageItems.token);
       this.setState({
         isLogged: true,
         token,

@@ -73,18 +73,22 @@ export const checkForUserWords = (storage = sessionThings) => (
 );
 
 export const saveLocalUserWord = (wordObject, storage = sessionThings) => {
-  if (!localStorage.getItem(storage.WORDS)) {
+  const areWordsStored = localStorage.getItem(storage.WORDS);
+  if (areWordsStored) {
     localStorage.setItem(storage.WORDS, JSON.stringify([wordObject]));
   } else {
     const words = JSON.parse(localStorage.getItem(storage.WORDS));
+    const isWordStored = words.findIndex((el) => el.id === wordObject.id) !== -1;
+
     let updatedWords = [];
-    if (words.findIndex((el) => el.id === wordObject.id) !== -1) {
+    if (isWordStored) {
       updatedWords = words.map((word) => (word.id === wordObject.id
         ? { ...word, ...wordObject }
         : word));
     } else {
       updatedWords = [...words, wordObject];
     }
+
     localStorage.setItem(storage.WORDS, JSON.stringify([...updatedWords]));
   }
 };
