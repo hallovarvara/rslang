@@ -1,4 +1,5 @@
 import noAvatar from '../assets/images/avatar.jpg';
+
 import soundError from '../assets/audio/error.mp3';
 import soundSuccess from '../assets/audio/success.mp3';
 import soundFinish from '../assets/audio/finish.mp3';
@@ -10,7 +11,7 @@ const apiLinks = {
 };
 
 const localStorageItems = {
-  nickname: 'rslangName',
+  username: 'rslangName',
   token: 'rslangToken',
   userId: 'rslangUserId',
   refreshTokenDate: 'refreshTokenDate',
@@ -34,6 +35,11 @@ export const userSettingsTemplate = {
   IS_SHOWN_TRANSCRIPTION: 'isShownTranscription',
   IS_SHOWN_EXAMPLE_SENTENCE: 'isShownExampleSentence',
   IS_SHOWN_MEANING: 'isShownMeaning',
+};
+
+const preloaderdefaultSettings = {
+  size: 150,
+  color: '#843FDD',
 };
 
 export const levelsOfDifficulty = {
@@ -104,35 +110,36 @@ const pagesData = {
 };
 
 const gamesData = {
-  speakit: {
-    title: 'SpeakIt',
-    description: 'Вырабатывайте правильное произношение слов вместе с&nbsp;нашей космической игрой',
-    path: 'speakit',
-  },
-  englishPuzzle: {
-    title: 'English Puzzle',
-    description: 'Учитесь строить предложения и&nbsp;знакомьтесь с&nbsp;величайшими произведениями искусства',
-    path: 'english-puzzle',
+  audiocall: {
+    title: 'Аудиовызов',
+    description: 'Прокачивайте восприятие языка на&nbsp;слух, а&nbsp;также увеличивайте свой словарный запас',
+    path: 'audiocall',
   },
   savannah: {
     title: 'Саванна',
     description: 'Угадывайте, как переводятся слова, и&nbsp;вместе с&nbsp;этим пополняйте лексикон',
     path: 'savannah',
   },
-  audiocall: {
-    title: 'Аудиовызов',
-    description: 'Прокачивайте восприятие языка на&nbsp;слух, а&nbsp;также увеличивайте свой словарный запас',
-    path: 'audiocall',
-  },
   sprint: {
     title: 'Спринт',
     description: 'Играйте на&nbsp;время, чтобы точно знать, как много слов вы&nbsp;можете перевести за&nbsp;минуту',
     path: 'sprint',
   },
+  englishPuzzle: {
+    title: 'English Puzzle',
+    description: 'Учитесь строить предложения и&nbsp;знакомьтесь с&nbsp;величайшими произведениями искусства',
+    path: 'english-puzzle',
+  },
+  speakit: {
+    title: 'SpeakIt',
+    description: 'Вырабатывайте правильное произношение слов вместе с&nbsp;нашей космической игрой',
+    path: 'speakit',
+  },
   unmess: {
     title: 'Unmess',
     description: 'Соединяйте слова и&nbsp;их&nbsp;значения, расширяя запас слов и&nbsp;улучшая понимание смысла фраз',
     path: 'unmess',
+    startPath: 'unmess/home',
   },
 };
 
@@ -197,8 +204,12 @@ const audio = {
 
 const text = {
   ru: {
+    /* About us */
+    aboutUs: {
+      description: 'Привет! Мы рады представить продукт нашей совместной работы — приложение по изучению английского языка',
+    },
+
     /* Sign In, Register */
-    welcome: 'Добро пожаловать, {username} :)',
     nickname: 'Логин',
     email: 'Емейл',
     password: 'Пароль',
@@ -278,6 +289,11 @@ const text = {
     chooseLevel: 'Выберите уровень сложности',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
 
+    /* Unmess */
+    unmess: {
+      instruction: 'Схватите слово и отпустите над его значением',
+    },
+
     /* Buttons */
     button: {
       next: 'Далее',
@@ -303,6 +319,17 @@ const questionStatus = {
   success: 'success',
   error: 'error',
 };
+
+const ratesScale = [
+  { level: 30, rate: 31 },
+  { level: 21, rate: 30 },
+  { level: 15, rate: 21 },
+  { level: 10, rate: 15 },
+  { level: 7, rate: 10 },
+  { level: 4, rate: 7 },
+  { level: 2, rate: 4 },
+  { level: 0, rate: 2 },
+];
 
 const count = {
   /* API settings */
@@ -357,4 +384,6 @@ export {
   soundSuccess,
   soundFinish,
   questionStatus,
+  preloaderdefaultSettings,
+  ratesScale,
 };

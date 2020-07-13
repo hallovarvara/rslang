@@ -23,6 +23,7 @@
     "react-animations": "^1.0.0",
     "react-axios": "^2.0.3",
     "react-dom": "^16.13.1",
+    "react-epic-spinners": "^0.4.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.2",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.2",

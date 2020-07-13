@@ -13,7 +13,7 @@ import { getTokenLifetimeInMs } from '../../helpers/functions';
 
 export function logout() {
   localStorage.removeItem(localStorageItems.token);
-  localStorage.removeItem(localStorageItems.nickname);
+  localStorage.removeItem(localStorageItems.username);
   localStorage.removeItem(localStorageItems.userId);
   localStorage.removeItem(localStorageItems.refreshTokenDate);
   return {
@@ -55,7 +55,7 @@ export function auth(email, password) {
       localStorage.setItem(localStorageItems.token, token);
       localStorage.setItem(localStorageItems.userId, userId);
       localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
-      localStorage.setItem(localStorageItems.nickname, name);
+      localStorage.setItem(localStorageItems.username, name);
 
       const expData = new Date(localStorage.getItem(localStorageItems.refreshTokenDate));
       dispatch(authSuccess(name, userId, token));
