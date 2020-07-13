@@ -81,7 +81,7 @@ class Savannah extends Component {
     error: text.ru.answersMistaken,
   };
 
-  state = initialState
+  state = { ...initialState };
 
   updateState = async () => {
     const words = [];
@@ -148,7 +148,6 @@ class Savannah extends Component {
         audio,
         currentUserWordId,
         wordObject,
-
       });
     } catch (e) {
       console.log(e);
@@ -274,9 +273,7 @@ class Savannah extends Component {
       this.playAudio(soundError);
       this.guessedWords(idWordPressed, (!idWordPressed ? null : 'error'), 'success');
       saveWrongToGamesStats(SAVANNAH);
-
-      // TODO :wait Max
-      // updateUserWordRate(wordObject);
+      updateUserWordRate(wordObject, SAVANNAH);
     }
   }
 
@@ -323,6 +320,11 @@ class Savannah extends Component {
     }));
   }
 
+  newStartGameHandle = () => {
+    const state = { ...initialState };
+    this.setState({ ...state });
+  }
+
   render() {
     const {
       heartCount, volume, complete, mistake, translateWords, idWords, timer,
@@ -348,6 +350,7 @@ class Savannah extends Component {
         resultTitle={this.resultTitle}
         status={this.status}
         pathAudio={audio}
+        newStartGameHandle={this.newStartGameHandle}
       />;
     } else if (isStarted && !isFinished) {
       page = <div>
