@@ -23,9 +23,8 @@ const addLinksToHeader = (link, index) => {
                 className="menu-list-item__link"
                 activeClassName="navigation__item_active"
                 key={i}
-                to={gameObj.startPath
-                  ? getPath(gameObj.startPath)
-                  : getPath(gameObj.path)}>{gameObj.title}
+                to={ getPath(gameObj.startPath ?? gameObj.path) }>
+                { gameObj.title }
               </NavLink>
             ))}
           />
