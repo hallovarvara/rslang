@@ -16,6 +16,11 @@ const localStorageItems = {
   refreshTokenDate: 'refreshTokenDate',
 };
 
+export const preloaderdefaultSettings = {
+  size: 150,
+  color: '#843FDD',
+};
+
 export const ratesScale = [
   {
     level: 30, rate: 31,
@@ -249,7 +254,7 @@ const text = {
       dontKnow: 'Не знаю',
       startGame: 'Играть',
       newGame: 'Начать новую игру',
-      learnWords: 'Изучать словау',
+      learnWords: 'Изучать слова',
     },
   },
 };

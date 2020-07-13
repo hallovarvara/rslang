@@ -6,8 +6,6 @@ import {
   saveLocalUserWord,
   checkForSettings,
   saveLocalSettings,
-  checkForSpacingRepeating,
-  saveSpacingRepeating,
   checkForessionThing,
   saveSessionThing,
   getSessionData,
@@ -16,6 +14,8 @@ import {
   localThings,
   saveNewUserWordId,
   getNewWordsIds,
+  sessionThings,
+  storageThingNames,
 } from './storageModel';
 import {
   changeStats,
@@ -46,11 +46,6 @@ export const prepareWordObject = (wordObject) => {
   return newWordObject;
 };
 
-export const updateRepeatingWords = (wordObject, twice) => {
-  const repeating = checkForSpacingRepeating();
-  saveSpacingRepeating(repeating, wordObject, twice);
-};
-
 export const updateUserWord = (
   userOption,
   optionData,
@@ -61,12 +56,10 @@ export const updateUserWord = (
   thingName,
 ) => {
   const newWord = changeUserWord(userOption, optionData, oldRepeated, stamp, wordObject);
-  saveLocalUserWord(newWord);
   if (thingName === applicationThings.LEARN_WORDS) {
-    if (level !== levelsOfDifficulty.EASY && userOption === userWordThings.RATE) {
-      const twice = level === levelsOfDifficulty.HARD;
-      updateRepeatingWords(newWord, twice);
-    }
+    saveLocalUserWord(newWord, sessionThings, storageThingNames.LEARNING);
+  } else {
+    saveLocalUserWord(newWord);
   }
 };
 
@@ -96,22 +89,57 @@ export const updateUserWordRate = (
   }
 };
 
+export const updateGameRate = (wordObject) => {
+  const current = prepareWordObject(wordObject);
+  const { oldRepeated } = getOldData(wordObject);
+  const newNext = calculateGameNext();
+  const stamp = convertStamp(0, newNext);
+  const newWord = changeUserWord(
+    userWordThings.NEXT,
+    newNext,
+    oldRepeated,
+    stamp,
+    current,
+  );
+  saveLocalUserWord(newWord);
+};
+
+export const updateLearnWordsRate = (wordObject, level) => {
+  const current = prepareWordObject(wordObject);
+  const { oldRate, oldRepeated } = getOldData(wordObject);
+  const rate = calculateLearnRate(oldRate, level);
+  const stamp = convertStamp(rate);
+  return changeUserWord(userWordThings.RATE, rate, oldRepeated, stamp, current, level);
+};
+
 export const updateUserWordDifficulty = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { difficulty } = current.userWord;
-  updateUserWord(userWordThings.DIFFICULTY, !difficulty, null, null, current);
+  return changeUserWord(
+    userWordThings.DIFFICULTY,
+    !difficulty,
+    null,
+    null,
+    current,
+  );
 };
 
 export const updateUserWordRemoved = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { removed } = current.userWord.optional;
-  updateUserWord(userWordThings.REMOVED, !removed, null, null, current);
+  return changeUserWord(userWordThings.REMOVED, !removed, null, null, current);
 };
 
 export const updateUserWordRepeated = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { repeated } = current.userWord.optional;
-  updateUserWord(userWordThings.REPEATED, repeated + 1, null, null, current);
+  return changeUserWord(
+    userWordThings.REPEATED,
+    repeated + 1,
+    null,
+    null,
+    current,
+  );
 };
 
 export const updateStats = (statsOption, optionData) => {
@@ -130,6 +158,8 @@ export const updateSettings = (settingOption) => {
   saveLocalSettings(newSettings);
 };
 
+// ----------------------------------------------------------------------
+
 export const prepareUserWordsToServer = (arrayOfWords) => (
   arrayOfWords.map((el) => ({ wordId: el.id, word: { ...el.userWord } }))
 );
@@ -145,6 +175,8 @@ export const saveLocalUserInfoToServer = () => ({
   statistics: getStatistics() || {},
   words: prepareUserWordsToServer(getWords()) || [],
 });
+
+// ----------------------------------------------------------------------
 
 export const getDayLocalUserWords = (dayLimit) => {
   const userWords = getWords();

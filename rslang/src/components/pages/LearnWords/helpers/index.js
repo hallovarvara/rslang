@@ -41,12 +41,11 @@ export const getSessionProgress = () => {
 };
 
 export const setSessionProgress = (progress) => {
+  console.log(RSLANG_SESSION_PROGRESS, progress);
   localStorage.setItem(RSLANG_SESSION_PROGRESS, JSON.stringify(progress));
 };
 
-export const checkSessionProgress = (progress) => (
-  progress.find((el) => el.isGuessed === true)
-);
+export const checkSessionProgress = (words) => words.find((el) => el.progress.isGuessed === true);
 
 export const clearSessionProgress = () => {
   localStorage.removeItem(RSLANG_SESSION_PROGRESS);

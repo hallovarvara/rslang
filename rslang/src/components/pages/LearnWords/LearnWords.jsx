@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from './Views/Header';
 import WordCard from './Views/WordCard';
+import StartView from './Views/StartView';
+import Preloader from '../../../basicComponents/Preloader';
+import response from './helpers/response.json';
 import * as settings from './helpers/settings';
+import { wordBaseTemplate } from './helpers/constants';
 import {
   extractEmphasizedWord,
   getSessionProgress,
@@ -12,7 +16,10 @@ import {
   playAudios,
 } from './helpers';
 import {
-  getDiffAndCoplicatedInProgress,
+  updateLearnWordsRate,
+  updateUserWordRepeated,
+  updateUserWordDifficulty,
+  updateUserWordRemoved,
 } from '../../../helpers/wordsService';
 import { localStorageItems } from '../../../helpers/constants';
 
@@ -21,8 +28,8 @@ export default class LearnWords extends Component {
     wordCount: 0,
     totalWords: 0,
     isAutoPlay: true,
+    words: [],
     progress: [],
-    isPlaying: false,
     isLogged: false,
     token: '',
     userId: '',
@@ -30,32 +37,42 @@ export default class LearnWords extends Component {
     isFetching: false,
     category: 'all',
     isFirstPassDone: false,
+    isStartLearning: false,
+    statsNewWordsCount: 0,
+    statsMistakesCount: 0,
+    statsRightAnswerSeries: 0,
   };
 
   componentDidMount() {
-    const { data } = this.props;
-    const { totalWords } = this.state;
-    const { initialProgressObject } = settings;
     const learnSessionProgress = getSessionProgress();
-    let progress = [];
-    let wordCount;
-    if (totalWords === 0) {
-      if (learnSessionProgress?.length) {
-        progress = learnSessionProgress;
-        wordCount = progress.findIndex((el) => !el.isDifficultChosen);
-      } else {
-        progress = getDiffAndCoplicatedInProgress(data, initialProgressObject);
-        wordCount = 0;
-      }
+    if (learnSessionProgress) {
       this.setState({
-        totalWords: data.length,
-        guessCount: data.length,
-        progress,
-        wordCount,
+        totalWords: learnSessionProgress.length,
+        words: learnSessionProgress,
       });
     }
     this.checkForLoggedUser();
   }
+
+  prepareSessionProgress = (arrayOfWords) => {
+    const { initialProgressObject } = settings;
+    return arrayOfWords.map((el) => ({
+      ...el,
+      progress: { ...initialProgressObject },
+    }));
+  };
+
+  fakeApi = () => (
+    // setTimeout(() => response, 1500)
+    response
+  );
+
+  getDataFromApi = () => {
+    this.setState((state) => ({
+      isFetching: !state.isFetching,
+    }));
+    return this.fakeApi();
+  };
 
   toggleAutoPlay = () => {
     this.setState((state) => ({
@@ -70,9 +87,12 @@ export default class LearnWords extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.progress !== prevState.progress) {
-      const { progress } = this.state;
-      setSessionProgress(progress);
+    // const { wordCount } = this.state;
+    console.log('update state');
+    if (this.state.words !== prevState.words) {
+      console.log('if inside');
+      const { words } = this.state;
+      setSessionProgress(words);
       this.checkForEndOfGame();
     }
   }
@@ -98,18 +118,17 @@ export default class LearnWords extends Component {
   checkForEndOfGame = () => {
     const { progress, totalWords } = this.state;
     if (!checkSessionProgress(progress) && totalWords) {
-      clearSessionProgress();
+      // clearSessionProgress();
       // TODO: add modal pop-up with short stats
     }
   }
 
   playAudio = (audioName) => {
-    const { data } = this.props;
-    const { wordCount, isAutoPlay } = this.state;
+    const { wordCount, isAutoPlay, words } = this.state;
     if (audioName) {
-      playAudios(data[wordCount][audioName]);
+      playAudios(words[wordCount][audioName]);
     } else if (isAutoPlay) {
-      const { audio, audioMeaning, audioExample } = data[wordCount];
+      const { audio, audioMeaning, audioExample } = words[wordCount];
       playAudios([audio, audioMeaning, audioExample]);
     }
   }
@@ -117,7 +136,7 @@ export default class LearnWords extends Component {
   handleNextWord = () => {
     this.setState((state) => (
       {
-        wordCount: state.wordCount === state.progress.length - 1 ? 0 : state.wordCount + 1,
+        wordCount: state.wordCount === state.words.length - 1 ? 0 : state.wordCount + 1,
       }
     ));
   }
@@ -125,16 +144,80 @@ export default class LearnWords extends Component {
   handlePrevWord = () => {
     this.setState((state) => (
       {
-        wordCount: !state.wordCount ? state.progress.length - 1 : state.wordCount - 1,
+        wordCount: !state.wordCount ? state.words.length - 1 : state.wordCount - 1,
       }
     ));
   }
 
+  updateUserWordInState = (wordObject) => {
+    this.setState((state) => ({
+      words: state.words.map((el) => (el.id === wordObject.id ? wordObject : el)),
+    }));
+  }
+
+  handleChangeWordRate = (level) => {
+    const { words, wordCount } = this.state;
+    const wordObject = words[wordCount];
+    const updated = updateLearnWordsRate(wordObject, level);
+    this.updateUserWordInState(updated);
+  }
+
+  handleChangeRepeated = () => {
+    const { words, wordCount } = this.state;
+    const wordObject = words[wordCount];
+    const updated = updateUserWordRepeated(wordObject);
+    this.updateUserWordInState(updated);
+  }
+
   handleChangeProgress = (updated) => {
-    const { progress, wordCount } = this.state;
+    const { words, wordCount } = this.state;
+    console.log(words);
+    const { initialProgressObject } = settings;
     this.setState({
-      progress: progress.map((el, i) => (i === wordCount ? { ...el, ...updated } : el)),
+      words: words.map((el, i) => (i === wordCount
+        ? {
+          ...el,
+          progress: {
+            ...(el?.progress || initialProgressObject),
+            ...updated,
+          },
+        }
+        : el)),
     });
+  }
+
+  handleContinueLearning = () => {
+    this.toggleStartLearning();
+    const words = getSessionProgress();
+    this.setState({
+      words,
+    });
+  }
+
+  handleStartNewLearning = () => {
+    console.log('handleStartNewLearning');
+    this.toggleStartLearning();
+    const wordsFromApiResponse = this.getDataFromApi();
+    const words = this.prepareSessionProgress(wordsFromApiResponse);
+    const statsNewWordsCount = words.filter((el) => !el.userWord).length;
+    setSessionProgress(words);
+    console.log(words);
+    this.setState((state) => (
+      {
+        words,
+        statsNewWordsCount,
+        totalWords: words.length,
+        isFetching: !state.isFetching,
+      }
+    ));
+  }
+
+  toggleStartLearning = () => {
+    this.setState((state) => (
+      {
+        isStartLearning: !state.isStartLearning,
+      }
+    ));
   }
 
   handleEndOfCards = () => {
@@ -143,16 +226,18 @@ export default class LearnWords extends Component {
   }
 
   render() {
-    const { data } = this.props;
     const {
+      words,
       wordCount,
       totalWords,
-      progress,
       currentInput,
       isLogged,
       isFirstPassDone,
+      isStartLearning,
+      isFetching,
     } = this.state;
-    const currentWord = data[wordCount];
+    const currentWord = words[wordCount] || wordBaseTemplate;
+    const { progress } = currentWord;
     const {
       textExample,
       textExampleTranslate,
@@ -175,43 +260,57 @@ export default class LearnWords extends Component {
     } = settings;
     const textExampleSentence = extractEmphasizedWord(textExample, 'b');
     const textMeaningSentence = extractEmphasizedWord(textMeaning, 'i');
-    return (
+    const output = !isStartLearning ? (
+      <StartView
+        onContinueLearning={this.handleContinueLearning}
+        onStartNewLearning={this.handleStartNewLearning}
+        isContinued={Boolean(words.length)}
+      />
+    ) : (
       <div>
-        <Header
-          categoriesSelect={categoriesSelect}
-          onToggleAutoPlay={this.toggleAutoPlay}
-          onToggleCategory={this.toggleCategory}
-        />
-        <WordCard
-          isFirstPassDone={isFirstPassDone}
-          currentWord={currentWord}
-          isLogged={isLogged}
-          currentInput={currentInput}
-          progress={progress[wordCount]}
-          wordCount={wordCount + 1}
-          totalWords={totalWords}
-          textExample={textExampleSentence}
-          textExampleTranslate={textExampleTranslate}
-          image={image}
-          word={word}
-          wordTranslate={wordTranslate}
-          transcription={transcription}
-          textMeaning={textMeaningSentence}
-          textMeaningTranslate={textMeaningTranslate}
-          isShownComplicatedButton={isShownComplicatedButton}
-          isShownAnswerButton={isShownAnswerButton}
-          isShownImageAssociation={isShownImageAssociation}
-          isShownTranslation={isShownTranslation}
-          isShownTranscription={isShownTranscription}
-          isShownExampleSentence={isShownExampleSentence}
-          isShownMeaning={isShownMeaning}
-          onNextWord={this.handleNextWord}
-          onPrevWord={this.handlePrevWord}
-          onChangeProgress={this.handleChangeProgress}
-          onPlayAudio={this.playAudio}
-        />
+        {isFetching && <Preloader />}
+        {!isFetching && (
+          <>
+            <Header
+              categoriesSelect={categoriesSelect}
+              onToggleAutoPlay={this.toggleAutoPlay}
+              onToggleCategory={this.toggleCategory}
+            />
+            <WordCard
+              onChangeRepeated={this.handleChangeRepeated}
+              onChangeWordRate={this.handleChangeWordRate}
+              isFirstPassDone={isFirstPassDone}
+              currentWord={currentWord}
+              isLogged={isLogged}
+              currentInput={currentInput}
+              progress={progress}
+              wordCount={wordCount + 1}
+              totalWords={totalWords}
+              textExample={textExampleSentence}
+              textExampleTranslate={textExampleTranslate}
+              image={image}
+              word={word}
+              wordTranslate={wordTranslate}
+              transcription={transcription}
+              textMeaning={textMeaningSentence}
+              textMeaningTranslate={textMeaningTranslate}
+              isShownComplicatedButton={isShownComplicatedButton}
+              isShownAnswerButton={isShownAnswerButton}
+              isShownImageAssociation={isShownImageAssociation}
+              isShownTranslation={isShownTranslation}
+              isShownTranscription={isShownTranscription}
+              isShownExampleSentence={isShownExampleSentence}
+              isShownMeaning={isShownMeaning}
+              onNextWord={this.handleNextWord}
+              onPrevWord={this.handlePrevWord}
+              onChangeProgress={this.handleChangeProgress}
+              onPlayAudio={this.playAudio}
+            />
+          </>
+        )}
       </div>
     );
+    return <>{output}</>;
   }
 }
 
