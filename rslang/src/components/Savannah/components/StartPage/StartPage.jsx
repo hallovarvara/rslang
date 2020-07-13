@@ -13,6 +13,7 @@ import Switcher from '../UI/switch';
 import { count, gamesData, text } from '../../../../helpers/constants';
 
 import classes from './StartPage.module.scss';
+import { getAverageNumber } from '../../../../helpers/functions';
 
 const StartPage = ({
   onTotalQuizUpdate, onSubmitForm, handleCurrentGroup, handleChangeUserWords,
@@ -26,14 +27,13 @@ const StartPage = ({
     || totalQuestions < count.savannah.minQuestions
     || !totalQuestions;
 
+  const menuItemList = text.ru.levelsTitles;
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
     setAge(event.target.value);
     handleCurrentGroup(event);
   };
-
-  const menuItemList = text.ru.levelsTitles;
 
   return (
     <div className={classes.StartPage}>
@@ -60,6 +60,7 @@ const StartPage = ({
           error={errorQuiz}
           id="savannah-start__questions"
           label={`${text.ru.howManyWords} (${count.savannah.minQuestions}—${count.savannah.maxQuestions})`}
+          value={ getAverageNumber(count.savannah.minQuestions, count.savannah.maxQuestions) }
           variant="filled"
           onChange={onTotalQuizUpdate}
           style={{ margin: '20px 0' }}
@@ -73,6 +74,7 @@ const StartPage = ({
           variant="filled"
           onChange={handleTotalAnswer}
           style={{ marginBottom: 20 }}
+          value={ getAverageNumber(count.savannah.minAnswers, count.savannah.maxAnswers) }
         />
         <Button
           type="submit"
