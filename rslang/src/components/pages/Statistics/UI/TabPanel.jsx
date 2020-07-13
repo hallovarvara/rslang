@@ -45,7 +45,6 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -59,12 +58,12 @@ export default function ScrollableTabsButtonAuto({ dataToday, dataPanel, Schedul
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default" >
+      <AppBar className={classes.flexContainer} position="static" color="default">
         <Tabs
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
-          variant="scrollable"
+          centered
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
