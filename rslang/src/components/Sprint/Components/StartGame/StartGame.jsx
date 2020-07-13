@@ -34,30 +34,30 @@ const StartGame = ({
 const StartGameUserForm = ({
   handleChangeUserWords, handleCurrentGroup, onSubmitForm, token,
 }) => (
-  <div className={'sprint-start__container'}>
+    <div className={'sprint-start__container'}>
 
-    <div className={'sprint-start__form-container'}>
-      {token
-        ? (<React.Fragment>
+      <div className={'sprint-start__form-container'}>
+        {token
+          ? (<React.Fragment>
             <span className={'sprint-start__explanation'}>
-              { text.ru.notEnoughWords }
-    </span>
-          <Switcher
-            handleChangeUserWords={handleChangeUserWords}
-          />
-        </React.Fragment>)
-        : null
-      }
+              {text.ru.notEnoughWords}
+            </span>
+            <Switcher
+              handleChangeUserWords={handleChangeUserWords}
+            />
+          </React.Fragment>)
+          : null
+        }
 
-      <StartGameForm
-        classNameForm={'sprint-start__form'}
-        handleCurrentGroup={handleCurrentGroup}
-        onSubmitForm={onSubmitForm}
-      />
+        <StartGameForm
+          classNameForm={'sprint-start__form'}
+          handleCurrentGroup={handleCurrentGroup}
+          onSubmitForm={onSubmitForm}
+        />
+      </div>
+
     </div>
-
-  </div>
-);
+  );
 
 StartGame.propTypes = {
   startGame: PropTypes.func,

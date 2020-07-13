@@ -2,7 +2,7 @@
   font-size: 24px;
   flex-grow: 1;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 110px);
   background: linear-gradient(#8273e4 0%, #86e669 100%);
 }
 .Container{

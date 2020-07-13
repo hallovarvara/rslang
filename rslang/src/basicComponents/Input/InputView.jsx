@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 
 const InputView = ({
-  placeholder = 'Type',
+  placeholder = '',
   className = '',
   onChange,
   type,
@@ -28,8 +28,8 @@ InputView.propTypes = {
   placeholder: PropTypes.string,
   type: PropTypes.string,
   onChange: PropTypes.func,
-  required: PropTypes.bool,
   error: PropTypes.bool,
+  required: PropTypes.bool,
 };
 
 export default InputView;
