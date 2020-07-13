@@ -1,27 +1,35 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5d97b45de8d980a40eb35f154428a741",
+    "revision": "c746b5b5cafa8137c4c49b3110d05f0e",
     "url": "/rslang/index.html"
   },
   {
-    "revision": "2a92ed3d4d2245aad6ca",
-    "url": "/rslang/static/css/main.8dbb6f18.chunk.css"
+    "revision": "5a59e35a474582ae0d93",
+    "url": "/rslang/static/css/main.204b4f89.chunk.css"
   },
   {
-    "revision": "ed3df039735202c2e328",
-    "url": "/rslang/static/js/2.b4ccc814.chunk.js"
+    "revision": "e1cf6d05652b79e2868a",
+    "url": "/rslang/static/js/2.80f3eb31.chunk.js"
   },
   {
     "revision": "5e9b6f5c16b720e8a86875f97734673e",
-    "url": "/rslang/static/js/2.b4ccc814.chunk.js.LICENSE.txt"
+    "url": "/rslang/static/js/2.80f3eb31.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2a92ed3d4d2245aad6ca",
-    "url": "/rslang/static/js/main.9e1c68bd.chunk.js"
+    "revision": "5a59e35a474582ae0d93",
+    "url": "/rslang/static/js/main.5b0a423f.chunk.js"
   },
   {
     "revision": "bb4dc5ece55c4022ff2c",
     "url": "/rslang/static/js/runtime-main.872131d3.js"
+  },
+  {
+    "revision": "872472520d005db030b7bbdafa4633b1",
+    "url": "/rslang/static/media/RozoviiChulok.87247252.ttf"
+  },
+  {
+    "revision": "bc1886d14e737aded71e6739d263f4a9",
+    "url": "/rslang/static/media/VtksBrilhante2-dLBR.bc1886d1.ttf"
   },
   {
     "revision": "e0cdb1964d6e9b84a4b0723ef971c196",
@@ -44,11 +52,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rslang/static/media/learn-word-card-bg.32715bb3.png"
   },
   {
-    "revision": "3f4effb517f7164e466f04e4f2535c2f",
-    "url": "/rslang/static/media/success.3f4effb5.mp3"
+    "revision": "fd35c247ac4f514c01383f26da5df31a",
+    "url": "/rslang/static/media/start-page-background.fd35c247.jpg"
   },
   {
-    "revision": "2a0a72683ea49f2ab4b5f54e11350f76",
-    "url": "/rslang/static/media/team-photo.2a0a7268.png"
+    "revision": "3f4effb517f7164e466f04e4f2535c2f",
+    "url": "/rslang/static/media/success.3f4effb5.mp3"
   }
 ]);
