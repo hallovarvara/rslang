@@ -93,3 +93,41 @@ export const playAudios = (audios) => {
     };
   }
 };
+
+export const calculatePrevWordCard = (words, current) => {
+  let result;
+  let start;
+  if (current && current !== words.length) {
+    const leftChunk = words.slice(0, current);
+    start = leftChunk.find((el) => !el.isDifficultChosen)
+      ? current - 1
+      : words.length - 1;
+  } else {
+    start = words.length - 1;
+  }
+  for (let i = start; i >= 0; i - 1) {
+    if (!words[i].isDifficultChosen) {
+      result = i;
+      break;
+    }
+  }
+  return result;
+};
+
+export const calculateNextWordCard = (words, current) => {
+  let result;
+  let start;
+  if (current && current !== words.length) {
+    const rightChunk = words.slice(current + 1, words.length);
+    start = rightChunk.find((el) => !el.isDifficultChosen) ? current + 1 : 0;
+  } else {
+    start = 0;
+  }
+  for (let i = start; i < words.length; i + 1) {
+    if (!words[i].isDifficultChosen) {
+      result = i;
+      break;
+    }
+  }
+  return result;
+};

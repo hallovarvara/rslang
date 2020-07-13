@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import { hideWordStyles, showWordStyles } from '../../helpers/style-options';
 
 const WordExtraInfo = ({
-                         progress,
-                         word,
-                         wordTranslate,
-                         transcription,
-                         textMeaning,
-                         textMeaningTranslate,
-                         isShownTranscription,
-                         isShownExampleSentence,
-                         isShownMeaning,
-                         onPlayAudio,
-                       }) => {
+  progress,
+  word,
+  wordTranslate,
+  transcription,
+  textMeaning,
+  textMeaningTranslate,
+  isShownTranscription,
+  isShownExampleSentence,
+  isShownMeaning,
+  onPlayAudio,
+}) => {
   const { begin, emphasis, end } = textMeaning;
   const { isGuessed } = progress;
   return (

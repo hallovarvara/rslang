@@ -11,7 +11,7 @@ import {
 class Header extends React.Component {
   componentDidMount() {
     this.props.authSuccess(
-      localStorage.getItem(localStorageItems.nickname),
+      localStorage.getItem(localStorageItems.username),
       localStorage.getItem(localStorageItems.userId),
       localStorage.getItem(localStorageItems.token),
     );

@@ -15,8 +15,8 @@ export const localThings = {
 };
 
 export const sessionThings = {
-  SETTINGS: 'rslangSessionStatistics',
   WORDS: 'rslangSessionWords',
+  NEW_WORDS: 'rslangNewWords',
   REPEATING: 'rslangSessionRepeating',
 };
 
@@ -106,7 +106,9 @@ export const checkForSpacingRepeating = () => (
 );
 
 export const saveSpacingRepeating = (repeatingArray, wordObject, twice = false) => {
-  const newWords = twice ? [wordObject, ...repeatingArray, wordObject] : [wordObject];
+  const newWords = twice
+    ? [wordObject, ...repeatingArray, wordObject]
+    : [...repeatingArray, wordObject];
   localStorage.setItem(sessionThings.REPEATING, JSON.stringify(newWords));
 };
 
@@ -114,9 +116,13 @@ export const getDataFromStorage = (storage, data) => (
   JSON.parse(localStorage.getItem(storage[data]))
 );
 
-export const clearStorageData = (storage, data) => {
-  localStorage.removeItem(storage[data]);
+export const clearStorageData = (storage) => {
+  Object.values(storage).forEach((el) => {
+    localStorage.removeItem(el);
+  });
 };
+
+export const clearLocalUserData = () => clearStorageData(localThings);
 
 export const getSessionData = (thingName) => (
   JSON.parse(localStorage.getItem(gameSessionThings[thingName]))
@@ -124,4 +130,20 @@ export const getSessionData = (thingName) => (
 
 export const clearSessionData = (thingName) => {
   localStorage.removeItem(gameSessionThings[thingName]);
+  clearStorageData(sessionThings);
 };
+
+export const checkForNewUserWordsIds = () => (
+  !localStorage.getItem(sessionThings.NEW_WORDS)
+    ? []
+    : JSON.parse(localStorage.getItem(sessionThings.NEW_WORDS))
+);
+
+export const saveNewUserWordId = (wordId) => {
+  const words = checkForNewUserWordsIds();
+  localStorage.setItem(sessionThings.NEW_WORDS, JSON.stringify([...words, wordId]));
+};
+
+export const getNewWordsIds = () => (
+  JSON.parse(localStorage.getItem(sessionThings.NEW_WORDS))
+);
