@@ -11,11 +11,11 @@ import {
 import classes from './ResultItem.module.scss';
 
 const ResultItem = ({
-  word, key, translate, audio,
+  word, keyItem, translate, audio,
 }) => (
-    <div className={classes.Item} key={key}>
+    <div className={classes.Item} key={keyItem}>
       <IconButton onClick={() => playAudio(getFilePath(audio))}>
-        <VolumeDownIcon className={classes.VolumeDownIcon} />
+        <VolumeDownIcon className={classes.VolumeDownIcon} style={{ fontSize: 20 }} />
       </IconButton>
       <span className={classes.Word}>{word}</span>
       <span className={classes.Translate}>{`-${translate}`}</span>
@@ -23,14 +23,14 @@ const ResultItem = ({
 
 ResultItem.propTypes = {
   word: PropTypes.string,
-  key: PropTypes.number,
+  keyItem: PropTypes.number,
   translate: PropTypes.string,
   audio: PropTypes.string,
 };
 
 ResultItem.defaultProps = {
   word: '',
-  key: 0,
+  keyItem: 0,
   translate: '',
   audio: '',
 };

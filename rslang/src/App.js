@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import Header from './components/Header';
 import Main from './components/Main';
+
 import store from './redux/store';
 
 const App = () => (
