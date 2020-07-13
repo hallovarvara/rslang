@@ -19,10 +19,13 @@ const addLinksToHeader = (link, index) => {
             menuTitle={<NavLink activeClassName="navigation__item_active" to={getPath(path)}>{title}</NavLink>}
             menuItems={Object.values(gamesData).map((gameObj, i) => (
               <NavLink
+                replace
                 className="menu-list-item__link"
                 activeClassName="navigation__item_active"
                 key={i}
-                to={gameObj.startPath || gameObj.path}>{gameObj.title}
+                to={gameObj.startPath
+                  ? getPath(gameObj.startPath)
+                  : getPath(gameObj.path)}>{gameObj.title}
               </NavLink>
             ))}
           />
