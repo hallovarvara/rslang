@@ -110,30 +110,30 @@ const pagesData = {
 };
 
 const gamesData = {
-  speakit: {
-    title: 'SpeakIt',
-    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
-    path: 'speakit',
-  },
-  englishPuzzle: {
-    title: 'English Puzzle',
-    description: 'Учитесь строить предложения и знакомьтесь с величайшими произведениями искусства',
-    path: 'english-puzzle',
+  audiocall: {
+    title: 'Аудиовызов',
+    description: 'Прокачивайте восприятие языка на слух, а также увеличивайте свой словарный запас',
+    path: 'audiocall',
   },
   savannah: {
     title: 'Саванна',
     description: 'Угадывайте, как переводятся слова, и вместе с этим пополняйте лексикон',
     path: 'savannah',
   },
-  audiocall: {
-    title: 'Аудиовызов',
-    description: 'Прокачивайте восприятие языка на слух, а также увеличивайте свой словарный запас',
-    path: 'audiocall',
-  },
   sprint: {
     title: 'Спринт',
     description: 'Играйте на время, чтобы точно знать, как много слов вы можете перевести за минуту',
     path: 'sprint',
+  },
+  englishPuzzle: {
+    title: 'English Puzzle',
+    description: 'Учитесь строить предложения и знакомьтесь с величайшими произведениями искусства',
+    path: 'english-puzzle',
+  },
+  speakit: {
+    title: 'SpeakIt',
+    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
+    path: 'speakit',
   },
   unmess: {
     title: 'Unmess',
