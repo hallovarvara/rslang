@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {teamMembers, pagesData, text} from '../../../helpers/constants';
+import { teamMembers, pagesData, text } from '../../../helpers/constants';
 import TeamMember from '../../TeamMember';
 import Button from '../../../basicComponents/Button';
 import { getPath } from '../../../helpers/functions';

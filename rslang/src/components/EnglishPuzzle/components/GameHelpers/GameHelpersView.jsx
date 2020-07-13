@@ -43,7 +43,7 @@ const GameHelpersView = ({
       <Button
         variant="contained"
         color="primary"
-        title="Dоспроизведение"
+        title="Воспроизведение"
         onClick={() => handleClickButtonAudio()}
         className={buttonClasses(isAudio)}
       >

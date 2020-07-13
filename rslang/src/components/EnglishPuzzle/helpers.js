@@ -27,9 +27,16 @@ export const replaseUrlBackground = (object, isBackground) => {
   } return 'none';
 };
 
-export const playAudio = (audio, isShow) => {
+export const playAudio = (audio, isShow ) => {
   if (isShow) {
-    const audioElement = new Audio(replaceAudioSrc(audio));
+    
+    let isClick = false;
+    const audioElement = new Audio(audio);
     audioElement.play();
+    audioElement.onended = () => {
+      isClick = true;
+      return isClick;
+    };
+    return isClick;
   }
 };
