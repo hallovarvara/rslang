@@ -18,6 +18,12 @@ import {
   localStorageItems,
 } from './helpers/contants';
 
+import {
+  soundSuccess,
+  soundError,
+} from '../../../helpers/constants';
+import { playAudio } from '../../../helpers/functions';
+
 const getRandomWords = (words) => (
   words
     .sort(() => Math.random() - 0.5)
@@ -115,6 +121,8 @@ class App extends React.Component {
   wordDropped = (droppedWordObj, dropTargetWordObj) => {
     this.setState((state) => {
       const isRightAttempt = droppedWordObj.id === dropTargetWordObj.id;
+      const audio = isRightAttempt ? soundSuccess : soundError;
+      playAudio(audio);
 
       const currentWords = replaceElInArrayOfObject(
         state.currentWords, droppedWordObj, {

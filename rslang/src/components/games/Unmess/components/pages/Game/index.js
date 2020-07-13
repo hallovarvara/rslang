@@ -5,6 +5,15 @@ import { Redirect } from 'react-router-dom';
 import GamePageView from './GamePage.jsx';
 import { localStorageItems } from '../../../helpers/contants';
 
+import {
+  getPath,
+  playAudio,
+} from '../../../../../../helpers/functions';
+import {
+  gamesData,
+  soundFinish,
+} from '../../../../../../helpers/constants';
+
 class GamePage extends React.Component {
   currentDraggedWord = null;
 
@@ -216,7 +225,7 @@ class GamePage extends React.Component {
     const wrongWords = [];
 
     if (currentWords === null) {
-      return <Redirect to="/unmess/home" />;
+      return <Redirect to={getPath(gamesData.unmess.startPath)} />;
     }
 
     currentWords.forEach((wordObj) => {
@@ -230,6 +239,7 @@ class GamePage extends React.Component {
     });
 
     if (untouchedWords.length === 0) {
+      playAudio(soundFinish);
       const currentLatestResults = JSON.parse(
         localStorage.getItem(localStorageItems.latestResults),
       );
