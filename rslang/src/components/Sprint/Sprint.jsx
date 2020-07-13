@@ -8,10 +8,12 @@ import UserService from '../../helpers/userService';
 
 import {
   count,
+  questionStatus,
   applicationThings,
   localStorageItems,
   soundError,
   soundSuccess,
+  text,
 } from '../../helpers/constants';
 
 import {
@@ -76,7 +78,14 @@ const { getUserWordsNoRemoved } = userService;
 class Sprint extends Component {
   basic = count.sprint.pointsMultiplier
 
+  status = questionStatus;
+
   state = initialState
+
+  resultTitle = {
+    success: text.ru.answersCorrect,
+    error: text.ru.answersMistaken,
+  };
 
   updateState = async () => {
     const words = [];
@@ -224,7 +233,7 @@ class Sprint extends Component {
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
         saveWrongToGamesStats(SPRINT);
-        updateUserWordRate(wordObject, SPRINT);
+        // updateUserWordRate(wordObject, SPRINT);
       }
       this.updateState();
     }
@@ -263,13 +272,15 @@ class Sprint extends Component {
       />;
     } else if (isStarted && isFinished) {
       page = <FinishGame
+        status={this.status}
+        resultTitle={this.resultTitle}
         isFinished={isFinished}
         mistake={mistake}
         complete={complete}
         audioPlay={this.audioPlay}
         onReloadGame={this.onReloadGame}
       />;
-    } else if (isStarted && !isFinished) {
+    } else if (isStarted && !isFinished && activeAnswer) {
       page = <PlayGame
         words={words}
         activeAnswer={activeAnswer}
@@ -282,9 +293,8 @@ class Sprint extends Component {
         score={score}
         timer={timer}
         updateTimer={this.updateTimer}
-      />;
+      />
     }
-
     return (
       <div className={'sprint__wrapper'}>
         <div className={'sprint__container'}>
