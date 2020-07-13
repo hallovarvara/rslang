@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ScrollableTabsButtonAuto({ dataToday, dataPanel, myResponsiveCalendarCanvas }) {
+export default function ScrollableTabsButtonAuto({ dataToday, dataPanel, ScheduleStatistics }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
@@ -64,7 +64,6 @@ export default function ScrollableTabsButtonAuto({ dataToday, dataPanel, myRespo
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
-          textColor="primary"
           variant="scrollable"
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
@@ -75,11 +74,17 @@ export default function ScrollableTabsButtonAuto({ dataToday, dataPanel, myRespo
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        {dataToday}
+        {ScheduleStatistics}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {myResponsiveCalendarCanvas}
+        {dataToday}
       </TabPanel>
     </div>
   );
 }
+
+ScrollableTabsButtonAuto.propTypes = {
+  dataToday: PropTypes.node,
+  dataPanel: PropTypes.array,
+  ScheduleStatistics: PropTypes.node,
+};

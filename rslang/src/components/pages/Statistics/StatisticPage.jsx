@@ -1,8 +1,6 @@
 import React from 'react';
 import TabPanel from './UI/TabPanel.jsx';
-import { pagesData } from '../../../helpers/constants';
-import MyResponsiveCalendarCanvas from './UI/scheduleLineStatistics'
-import MyResponsiveLine from './UI/scheduleLine'
+import ScheduleStatistics from './UI/scheduleLine';
 import data from './statData'
 import './StatisticsPage.scss';
 
@@ -11,7 +9,7 @@ const statisticsTodayData = {
   total: ['50', '75%', '46', '4', '12'],
 };
 
-const dataPanel = ['Сегодня', 'За все время'];
+const dataPanel = ['За все время', 'Сегодня'];
 
 const { name, total } = statisticsTodayData;
 
@@ -20,7 +18,7 @@ const StatisticsPage = () => (
     <TabPanel
       dataToday={<DataToday />}
       dataPanel={dataPanel}
-      myResponsiveCalendarCanvas={<MyResponsiveLine data={data} />}
+      ScheduleStatistics={<ScheduleStatistics data={data} />}
     />
 
   </div >
@@ -29,7 +27,6 @@ export default StatisticsPage;
 
 const DataToday = () => (
   <div className={'statistics__wrapp'}>
-    <div className={'statistics__title'}>Серия завершена</div>
     <div className={'statistics__content'}>
       {name.map((item, key) => (
         <div className={'statistics__item'} key={key}>
