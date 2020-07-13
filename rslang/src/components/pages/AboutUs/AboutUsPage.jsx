@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import teamPhoto from '../../../assets/images/team-photo.png';
 import {
   teamMembers,
   pagesData,
@@ -19,7 +18,6 @@ const AboutUsPage = () => (
       <p className="about-us__desctiption">
         { text.ru.aboutUs.description }
       </p>
-      <img src={teamPhoto} alt="team" className="about-us__team-photo"/>
     </section>
     <section className="team-members">
       {

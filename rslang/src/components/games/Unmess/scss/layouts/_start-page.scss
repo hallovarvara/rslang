@@ -2,7 +2,7 @@
   .start-page {
     width: 100%;
     min-height: calc(100vh - 110px);
-    padding: 30px 0px;
+    padding: 30px 0;
     overflow: hidden;
     @include flex(column, center, center);
   }
@@ -13,7 +13,7 @@
 
   .start-page__description {
     margin-bottom: 10px;
-    padding: 0px 20px;
+    padding: 0 20px;
     color: $color-light;
     font-size: 4rem;
     font-family: 'RuHandwrite', cursive;
@@ -37,13 +37,13 @@
   }
 
   .unmess-steppers-container {
-    margin: 50px 0px;
+    margin: 50px 0;
   }
 
   .unmess-steppers-container > * {
     margin-bottom: 15px;
     &:last-child {
-      margin-bottom: 0px;
+      margin-bottom: 0;
     }
   }
 
