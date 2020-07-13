@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getWidthWord, getBackgroundPosition } from '../../helpers';
 import Question from '../../components/Question';
 import PhraseElements from '../../components/PhraseElements';
 import GameHelpers from '../../components/GameHelpers';
@@ -37,11 +38,13 @@ const GamePageView = ({
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
+  const phraseLength = (arr) => (arr.join('').length);
+  const phraseLengthBefore = (arr, index) => (arr.slice(0, index).join('').length);
   const getItemStyle = (item, index, wordArray, rowNumber) => (
     {
-      width: `${(100 * item) / wordArray.join('').length}%`,
+      width: `${getWidthWord(item, phraseLength(wordArray))}%`,
       backgroundImage: `url(${isBackground ? backgroundUrl : ''})`,
-      backgroundPosition: `-${(800 * wordArray.slice(0, index).join('').length) / wordArray.join('').length}px -${rowNumber * 40}px`,
+      backgroundPosition: `-${getBackgroundPosition(phraseLengthBefore(wordArray, index), phraseLength(wordArray))}px -${rowNumber * 40}px`,
     }
   );
 

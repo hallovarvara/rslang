@@ -2,28 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
-import { replaseUrlBackground } from '../../helpers';
-
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
-};
-
-const move = (source, destination, droppableSource, droppableDestination) => {
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination);
-  const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-  destClone.splice(droppableDestination.index, 0, removed);
-
-  const result = {};
-  result[droppableSource.droppableId] = sourceClone;
-  result[droppableDestination.droppableId] = destClone;
-
-  return result;
-};
+import {
+  replaseUrlBackground,
+  getWidthWord, getBackgroundPosition,
+  reorder,
+  move,
+} from '../../helpers';
 
 class PhraseElementsView extends React.Component {
   constructor(props) {
@@ -36,7 +20,7 @@ class PhraseElementsView extends React.Component {
     };
   }
 
-  async componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) {
     if (this.props.errorCount !== prevProps.errorCount) {
       this.setState({
         items: [],
@@ -104,7 +88,7 @@ class PhraseElementsView extends React.Component {
     return answerItems.reduce((acc, item) => (acc + item.content.length), 0);
   }
 
-  getBackgroundPosition = (index) => {
+  getLengthPhraseBefore = (index) => {
     const { answerItems } = this.props;
     return answerItems.slice(0, index).reduce((acc, item) => (acc + item.content.length), 0);
   }
@@ -112,8 +96,8 @@ class PhraseElementsView extends React.Component {
   getItemStyle = (item, index, draggableStyle, numberRow) => ({
     backgroundRepeat: 'no-repeat',
     backgroundImage: `url(${this.props.isBackground ? this.props.backgroundUrl : ''})`, // TODO add level from start form
-    width: `${(100 * item) / this.getWidthPharase()}%`,
-    backgroundPosition: `-${(800 * this.getBackgroundPosition(index)) / this.getWidthPharase()}px -${numberRow * 40}px`,
+    width: `${getWidthWord(item, this.getWidthPharase())}%`,
+    backgroundPosition: `-${getBackgroundPosition(this.getLengthPhraseBefore(index), this.getWidthPharase())}px -${numberRow * 40}px`,
     ...draggableStyle,
   })
 
@@ -127,7 +111,7 @@ class PhraseElementsView extends React.Component {
     );
     const rowItem = classNames('puzzle__row', 'puzzle__row_items');
     const itemStyle = (isDragging) => classNames('puzzle__item', { puzzle__item_active: isDragging });
-    this.getBackgroundPosition();
+    this.getLengthPhraseBefore();
     return (
       <>
       <DragDropContext onDragEnd={this.onDragEnd}>

@@ -21,7 +21,7 @@ const StartPageView = ({ handleClickButtonStart }) => {
       <p className="start-page__description">{description}</p>
       <Stepper
         defaultValue='1'
-        // onChangeCommitted={(event, value) => levelChanged(value - 1)}
+        // onChangeCommitted={(event, value) => levelChanged(value - 1)} // TODO delete or change function
         step={null}
         max={levelsCount}
         marks={stepperMarks}
