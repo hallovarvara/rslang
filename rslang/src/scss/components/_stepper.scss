@@ -1,0 +1,57 @@
+body .stepper-root {
+  width: 300px;
+}
+
+.stepper-container {
+  &.sticky-label .MuiSlider-thumb:before {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    display: block;
+    color: white;
+    font-size: 1.5rem;
+    transform: translate(-50%, 50%);
+    content: var(--stickyLabelValue);
+  }
+
+  &.sticky-label .MuiSlider-markActive {
+    opacity: 0;
+  }
+
+  .MuiTypography-root {
+    margin-bottom: 0px;
+    color: $color-light;
+    font-size: 2.2rem;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+  }
+
+  .MuiSlider-rail {
+    background-color: white;
+    opacity: 1;
+  }
+
+  .MuiSlider-valueLabel {
+    color: black;
+  }
+
+  .MuiSlider-mark {
+    color: black;
+  }
+
+  .MuiSlider-markLabel {
+    color: white;
+    font-size: 1.5rem;
+  }
+
+  .PrivateValueLabel-circle-4 {
+    font-size: 1rem;
+  }
+
+  .MuiSlider-thumb {
+    &:hover,
+    &.MuiSlider-active {
+      box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.16);
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@import '../../../../scss/abstracts/constants';
+
+.item {
+  margin: 10px auto;
+  padding: 15px;
+  color: $color-audiocall-text-dark;
+  font-size: 22px;
+  line-height: 1;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-audiocall-hover;
+  }
+}
+
+.disable {
+  color: $color-audiocall-hover;
+}
+.right {
+  color: $color-audiocall-text-dark;
+  background: $color-right-answer;
+}
+
+.wrong {
+  color: $color-audiocall-text-dark;
+  background: $color-wrong-answer;
+}

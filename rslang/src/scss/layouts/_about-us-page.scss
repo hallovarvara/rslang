@@ -10,15 +10,19 @@
   @include flex(column, center, center);
 }
 
-.about-us__title {
-  margin-bottom: 5px;
-  @include font(9rem, 900, italic);
-}
-
 .about-us__desctiption {
   margin-bottom: 50px;
-  color: rgba($color: $color-text-dark, $alpha: 0.6);
-  @include font(3.2rem, 300, normal);
+
+  text-align: center;
+
+  color: rgba($color: $color-dark, $alpha: 0.6);
+
+  @include font(
+    $size: 3.2rem,
+    $weight: 300,
+    $style: normal,
+    $line-height: 130%
+  );
 }
 
 .about-us__team-photo {
@@ -48,8 +52,12 @@
 
 .team-member__full-name {
   margin-bottom: 5px;
-  font-family: 'Alegreya', serif;
-  @include font(4.6rem, 900, normal);
+
+  @include font(
+    $size: 4.6rem,
+    $weight: $font-weight-black,
+    $family: $font-secondary,
+  );
 }
 
 .team-member__role {
@@ -60,7 +68,7 @@
 }
 
 .team-member-linked-profile {
-  color: rgba($color: $color-text-dark, $alpha: 0.4);
+  color: rgba($color: $color-dark, $alpha: 0.4);
   text-transform: uppercase;
   @include font(2rem, 400, normal);
   @include flex(row, center, flex-end);
@@ -68,8 +76,12 @@
 
 .team-member-linked-profile__link {
   margin-right: 10px;
-  color: rgba($color: $color-text-dark, $alpha: 0.4);
-  @include font(2rem, 900, normal);
+  color: rgba($color: $color-dark, $alpha: 0.4);
+
+  @include font(
+    $size: 2rem,
+    $weight: $font-weight-black
+  );
   @include flex(row, center, flex-end);
 }
 
