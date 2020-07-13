@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../redux/actions/auth';
 import MenuList from '../../basicComponents/MenuList';
 import { gamesData, pagesData } from '../../helpers/constants';
+import { getPath } from '../../helpers/functions';
 
 const addLinksToHeader = (link, index) => {
   const { title, path } = link;
@@ -15,53 +16,64 @@ const addLinksToHeader = (link, index) => {
       {
         path === pagesData.play.path
           ? <MenuList
-            menuTitle={<NavLink activeClassName="navigation__item_active" to={`/${path}`}>{title}</NavLink>}
+            menuTitle={<NavLink activeClassName="navigation__item_active" to={getPath(path)}>{title}</NavLink>}
             menuItems={Object.values(gamesData).map((gameObj, i) => (
               <NavLink
+                replace
                 className="menu-list-item__link"
                 activeClassName="navigation__item_active"
                 key={i}
-                to={gameObj.path}>{gameObj.title}
+                to={ getPath(gameObj.startPath ?? gameObj.path) }>
+                { gameObj.title }
               </NavLink>
             ))}
           />
-          : <NavLink activeClassName="navigation__item_active" exact to={`/${path}`}>{title}</NavLink>
+          : <NavLink
+            activeClassName="navigation__item_active"
+            exact to={getPath(path)}
+          >
+            {title}
+          </NavLink>
       }
     </li>
   );
 };
 
-const HeaderView = ({ links, isUserLogged, logout }) => (
-    <header className="header">
-      <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
-      <nav>
-        <ul className="navigation">
-          {
-            links.map(addLinksToHeader)
-          }
-          {
-            isUserLogged && <li className="navigation__item exit-icon">
-              <NavLink activeClassName="navigation__item_active" to="/">
-                <IconButton
-                  onClick={logout}>
-                  <ExitToAppIcon
-                    color="disabled"
-                    style={{ fontSize: '3rem' }}
-                  />
-                </IconButton>
-
-              </NavLink>
-            </li>
-          }
-        </ul>
-      </nav>
-    </header>
+const HeaderView = ({ links, isUserLogged, logout: logoutUser }) => (
+  <header className="header">
+    <h1 className="header__title">
+      <NavLink activeClassName="navigation__item_active" to={getPath()}>
+        RS Lang
+      </NavLink>
+    </h1>
+    <nav>
+      <ul className="navigation">
+        {
+          links.map(addLinksToHeader)
+        }
+        {
+          isUserLogged && <li className="navigation__item exit-icon">
+            <NavLink activeClassName="navigation__item_active" to="/">
+              <IconButton
+                onClick={logoutUser}>
+                <ExitToAppIcon
+                  color="disabled"
+                  style={{ fontSize: '3rem' }}
+                />
+              </IconButton>
+             </NavLink>
+          </li>
+        }
+      </ul>
+    </nav>
+  </header>
 );
 
 HeaderView.propTypes = {
   linkTitles: PropTypes.arrayOf(PropTypes.string),
   isUserLogged: PropTypes.bool,
   links: PropTypes.array,
+  logout: PropTypes.func,
 };
 
 function mapDispatchToProps(dispatch) {

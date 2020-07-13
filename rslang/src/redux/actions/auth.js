@@ -6,7 +6,6 @@ import {
   apiLinks,
   count,
   localStorageItems,
-  pagesData,
   text,
 } from '../../helpers/constants';
 
@@ -14,7 +13,7 @@ import { getTokenLifetimeInMs } from '../../helpers/functions';
 
 export function logout() {
   localStorage.removeItem(localStorageItems.token);
-  localStorage.removeItem(localStorageItems.nickname);
+  localStorage.removeItem(localStorageItems.username);
   localStorage.removeItem(localStorageItems.userId);
   localStorage.removeItem(localStorageItems.refreshTokenDate);
   return {
@@ -46,9 +45,9 @@ export function auth(email, password) {
       password,
     };
     try {
-      const url = apiLinks.base + pagesData.signIn.path;
+      const url = apiLinks.base
 
-      const response = await axios.post(url, authData);
+      const response = await axios.post(`${url}signin`, authData);
       const { data } = response;
       const { name, userId, token } = data;
       const refreshTokenDate = new Date(new Date().getTime() + getTokenLifetimeInMs());
@@ -56,7 +55,7 @@ export function auth(email, password) {
       localStorage.setItem(localStorageItems.token, token);
       localStorage.setItem(localStorageItems.userId, userId);
       localStorage.setItem(localStorageItems.refreshTokenDate, refreshTokenDate);
-      localStorage.setItem(localStorageItems.nickname, name);
+      localStorage.setItem(localStorageItems.username, name);
 
       const expData = new Date(localStorage.getItem(localStorageItems.refreshTokenDate));
       dispatch(authSuccess(name, userId, token));

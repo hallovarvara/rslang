@@ -14,7 +14,17 @@
     "textExampleTranslate": "Я чувствовал себя ненормальным сегодня утром, как будто я был болен",
     "textMeaningTranslate": "Если что-то ненормальное, оно отличается от нормального или среднего",
     "wordTranslate": "аномальный",
-    "wordsPerExampleSentence": 9
+    "wordsPerExampleSentence": 9,
+    "userWord": {
+      "difficulty": false,
+      "optional": {
+        "next": "20.07.2020",
+        "rate": 0,
+        "removed": false,
+        "repeated": 1,
+        "wordId": "5e9f5ee35eb9e72bc21b0080"
+      }
+    }
   },
   {
     "id": "5e9f5ee35eb9e72bc21b0081",

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-
+import { connect } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import Button from '@material-ui/core/Button';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import Switcher from '../UI/switch';
 
 import { count, gamesData, text } from '../../../../helpers/constants';
 
@@ -16,8 +16,8 @@ import classes from './StartPage.module.scss';
 import { getAverageNumber } from '../../../../helpers/functions';
 
 const StartPage = ({
-  onTotalQuizUpdate, onSubmitForm, handleCurrentGroup,
-  handleTotalAnswer, totalAnswers, totalQuestions,
+  onTotalQuizUpdate, onSubmitForm, handleCurrentGroup, handleChangeUserWords,
+  handleTotalAnswer, totalAnswers, totalQuestions, token,
 }) => {
   const errorAnswer = totalAnswers > count.savannah.maxAnswers
     || totalAnswers < count.savannah.minAnswers
@@ -27,6 +27,7 @@ const StartPage = ({
     || totalQuestions < count.savannah.minQuestions
     || !totalQuestions;
 
+  const menuItemList = text.ru.levelsTitles;
   const [age, setAge] = React.useState('');
 
   const handleChange = (event) => {
@@ -34,15 +35,13 @@ const StartPage = ({
     handleCurrentGroup(event);
   };
 
-  const menuItemList = text.ru.levelsTitles;
-
   return (
     <div className={classes.StartPage}>
-      <h1>{ gamesData.savannah.title }</h1>
+      <h1>{gamesData.savannah.title}</h1>
       <form className={classes.form} onSubmit={(!errorQuiz && !errorAnswer) ? onSubmitForm : null}>
         <FormControl className={classes.formControl} required>
           <InputLabel id="select-label">
-            { text.ru.chooseLevel }
+            {text.ru.chooseLevel}
           </InputLabel>
           <Select
             labelId="select-label"
@@ -60,17 +59,17 @@ const StartPage = ({
           required
           error={errorQuiz}
           id="savannah-start__questions"
-          label={ `${text.ru.howManyWords} (${count.savannah.minQuestions}—${count.savannah.maxQuestions})` }
+          label={`${text.ru.howManyWords} (${count.savannah.minQuestions}—${count.savannah.maxQuestions})`}
+          value={ getAverageNumber(count.savannah.minQuestions, count.savannah.maxQuestions) }
           variant="filled"
           onChange={onTotalQuizUpdate}
           style={{ margin: '20px 0' }}
-          value={ getAverageNumber(count.savannah.minQuestions, count.savannah.maxQuestions) }
         />
         <TextField
           required
           error={errorAnswer}
           id="savannah-start__answers"
-          label={ `${text.ru.howManyAnswers} (${count.savannah.minAnswers}—${count.savannah.maxAnswers})` }
+          label={`${text.ru.howManyAnswers} (${count.savannah.minAnswers}—${count.savannah.maxAnswers})`}
           inputProps={{ pattern: '[2-5]' }}
           variant="filled"
           onChange={handleTotalAnswer}
@@ -85,8 +84,20 @@ const StartPage = ({
           startIcon={<PlayCircleOutlineIcon />}
           style={{ background: 'rgba(130, 115, 228, 1)' }}
         >
-          { text.ru.button.startGame }
-      </Button>
+          {text.ru.button.startGame}
+        </Button>
+
+        {token
+          ? (<React.Fragment>
+            <Switcher
+              handleChangeUserWords={handleChangeUserWords}
+            />
+            <span className={classes.startExplanation}>
+              {text.ru.notEnoughWords}
+            </span>
+          </React.Fragment>)
+          : null
+        }
       </form >
     </div >);
 };
@@ -98,6 +109,8 @@ StartPage.propTypes = {
   handleTotalAnswer: PropTypes.func,
   totalAnswers: PropTypes.number,
   totalQuestions: PropTypes.number,
+  token: PropTypes.string,
+  handleChangeUserWords: PropTypes.func,
 };
 
 StartPage.defaultProps = {
@@ -109,4 +122,9 @@ StartPage.defaultProps = {
   totalQuestions: 0,
 };
 
-export default StartPage;
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+  };
+}
+export default connect(mapStateToProps)(StartPage);
