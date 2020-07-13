@@ -133,6 +133,7 @@ const gamesData = {
     title: 'Unmess',
     description: 'Соединяйте слова и их значения, расширяя запас слов и улучшая понимание смысла фраз',
     path: 'unmess',
+    startPath: 'unmess/home',
   },
 };
 
@@ -197,6 +198,11 @@ const audio = {
 
 const text = {
   ru: {
+    /* About us */
+    aboutUs: {
+      description: 'Привет! Мы рады представить продукт нашей совместной работы — приложение по изучению английского языка',
+    },
+
     /* Sign In, Register */
     nickname: 'Логин',
     email: 'Емейл',
@@ -215,6 +221,11 @@ const text = {
     howManyWords: 'Сколько слов хотите угадать',
     chooseLevel: 'Выберите уровень сложности',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
+
+    /* Unmess */
+    unmess: {
+      instruction: 'Схватите слово и отпустите над его значением',
+    },
 
     /* Buttons */
     button: {

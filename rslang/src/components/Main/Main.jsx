@@ -13,6 +13,7 @@ import SignUpPage from '../pages/SignUp';
 import AudioCallGame from '../AudioCallGame';
 import SprintGame from '../Sprint';
 import SavannahGame from '../Savannah';
+import UnmessGame from '../games/Unmess';
 
 import { gamesData, pagesData } from '../../helpers/constants';
 import { getPath } from '../../helpers/functions';
@@ -24,7 +25,7 @@ const {
 
 const {
   audiocall, sprint, savannah,
-  // unmess, englishPuzzle, speakit,
+  unmess, // englishPuzzle, speakit,
 } = gamesData;
 
 const Main = () => (
@@ -42,7 +43,7 @@ const Main = () => (
       <Route path={getPath(audiocall.path)} component={AudioCallGame} />
       <Route path={getPath(sprint.path)} component={SprintGame} />
       <Route path={getPath(savannah.path)} component={SavannahGame} />
-      {/*<Route path={getPath(unmess.path)} component={UnmessGame} />*/}
+      <Route path={getPath(unmess.path)} component={UnmessGame} />
       {/*<Route path={getPath(speakit.path)} component={SpeakitGame} />*/}
       {/*<Route path={getPath(englishPuzzle.path)} component={EnglishPuzzleGame} />*/}
     </Switch>
