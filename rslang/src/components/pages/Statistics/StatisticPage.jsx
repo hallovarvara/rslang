@@ -2,7 +2,7 @@ import React from 'react';
 import {pagesData} from "../../../helpers/constants";
 
 const StatisticsPage = () => (
-  <div>
+  <div className='statistics-page'>
     <h1>{pagesData.statistics.title}</h1>
     <ul>
       <li className="text">1</li>
