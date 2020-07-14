@@ -240,7 +240,7 @@ const text = {
       dontKnow: 'Не знаю',
       startGame: 'Играть',
       newGame: 'Начать новую игру',
-      learnWords: 'Изучать словау',
+      learnWords: 'Изучать слова',
       learnEnglishWithUs: 'Учите английский с нами',
     },
   },

@@ -15,11 +15,11 @@ import {
 } from '../../helpers/constants';
 
 import {
-  saveRightToGamesStats,
-  saveWrongToGamesStats,
-  updateUserWordRate,
-  saveGameResults,
+  handleGameRightAnswer,
+  handleGameWrongAnswer,
+  saveSessionInfoToLocal,
 } from '../../helpers/wordsService';
+
 import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
 
 import './Sprint.scss';
@@ -67,8 +67,6 @@ const initialState = {
     audio: [],
   },
 };
-
-const { SPRINT } = applicationThings;
 
 const userService = new UserService();
 const { getUserWordsNoRemoved } = userService;
@@ -161,7 +159,7 @@ class Sprint extends Component {
 
   updateCounter = (mult = 1, win = 0) => {
     const multiplier = win && this.state.counter.win
-      && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
+    && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -186,7 +184,7 @@ class Sprint extends Component {
     if (this.state.timer === 0) {
       clearTimeout(timerId);
       this.setState({ isFinished: true });
-      saveGameResults(applicationThings.SPRINT);
+      saveSessionInfoToLocal(applicationThings.SPRINT);
     }
   }
 
@@ -202,7 +200,7 @@ class Sprint extends Component {
       value = null;
     }
     if (value !== null) {
-      const { answerState, wordObject, isTrue: isTrueState } = this.state;
+      const { answerState } = this.state;
       const isTrue = value;
 
       if (answerState) {
@@ -211,20 +209,19 @@ class Sprint extends Component {
 
       this.setState({ answerState: true });
 
-      if (isTrue === isTrueState) {
+      if (isTrue === this.state.isTrue) {
         this.setState({ isAnswerQuiz: 'check' });
         this.audioPlay(soundSuccess);
         this.updateCounter(count.sprint.counterMultiplier, 1);
         this.updateScore(this.basic);
         this.resultCurrentQuiz('complete');
-        saveRightToGamesStats(SPRINT);
+        handleGameRightAnswer(applicationThings.SPRINT, this.state.wordObject);
       } else {
         this.audioPlay(soundError);
         this.setState({ isAnswerQuiz: 'times' });
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
-        saveWrongToGamesStats(SPRINT);
-        updateUserWordRate(wordObject, SPRINT);
+        handleGameWrongAnswer(applicationThings.SPRINT, this.state.wordObject);
       }
       this.updateState();
     }
