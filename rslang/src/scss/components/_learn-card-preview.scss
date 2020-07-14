@@ -135,7 +135,7 @@
   position: relative;
   left: 0;
   color: rgba($color: $color-dark, $alpha: 0.4);
-  transition: left 0.7s ease;
+  transition: left 0.7s ease, opacity 0.7s ease;
   @include font(3rem, 300, normal);
   &.to-left {
     left: -116px;
