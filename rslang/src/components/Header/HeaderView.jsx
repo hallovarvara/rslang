@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -45,34 +46,79 @@ const addLinksToHeader = (link, index) => {
   );
 };
 
-const HeaderView = ({ links, isUserLogged, logout: logoutUser }) => (
-  <header className="header">
-    <NavLink activeClassName="navigation__item_active" to={getPath()}>
-      <h1><span className="visually-hidden">RS Lang</span></h1>
-      <Logo className='logo' />
-    </NavLink>
-    <nav>
-      <ul className="navigation">
-        {
-          links.map(addLinksToHeader)
-        }
-        {
-          isUserLogged && <li className="navigation__item exit-icon">
-            <NavLink activeClassName="navigation__item_active" to="/">
-              <IconButton
-                onClick={logoutUser}>
-                <ExitToAppIcon
-                  color="disabled"
-                  style={{ fontSize: '3rem' }}
-                />
-              </IconButton>
-             </NavLink>
-          </li>
-        }
-      </ul>
-    </nav>
-  </header>
-);
+class HeaderView extends React.Component {
+  state = {
+    currentGame: null,
+  }
+
+  componentDidMount() {
+    this.updateLogoAccordingToCurrentGame();
+    window.addEventListener('hashchange', this.updateLogoAccordingToCurrentGame);
+  }
+
+  updateLogoAccordingToCurrentGame = () => {
+    this.setCurrentGame(this.getCurrentGame());
+  }
+
+  getCurrentGame = () => {
+    const {
+      path: currentGame,
+    } = Object.values(gamesData).find((gameObj) => (
+      window.location.href.includes(gameObj.path)
+    )) || { path: null };
+    return currentGame;
+  }
+
+  setCurrentGame = (currentGame) => {
+    this.setState({
+      currentGame,
+    });
+  }
+
+  render() {
+    const {
+      links,
+      isUserLogged,
+      logout: logoutUser,
+    } = this.props;
+
+    const { currentGame } = this.state;
+
+    const logoClasses = classNames({
+      logo: true,
+      [`logo_${currentGame}`]: Boolean(currentGame),
+    });
+
+    return (
+      <header className="header">
+      <NavLink activeClassName="navigation__item_active" to={getPath()}>
+        <h1><span className="visually-hidden">RS Lang</span></h1>
+        <Logo className={logoClasses} />
+      </NavLink>
+      <nav>
+        <ul className="navigation">
+          {
+            links.map(addLinksToHeader)
+          }
+          {
+            isUserLogged && <li className="navigation__item exit-icon">
+              <NavLink activeClassName="navigation__item_active" to="/">
+                <IconButton
+                  onClick={logoutUser}>
+                  <ExitToAppIcon
+                    color="disabled"
+                    style={{ fontSize: '3rem' }}
+                  />
+                </IconButton>
+               </NavLink>
+            </li>
+          }
+        </ul>
+      </nav>
+    </header>
+    );
+  }
+}
 
 HeaderView.propTypes = {
   linkTitles: PropTypes.arrayOf(PropTypes.string),
