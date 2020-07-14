@@ -24,6 +24,10 @@ body .menu-list-item__link {
   height: 100%;
   padding: 8px 30px;
   color: $color-light;
+
+  &.navigation__item_active {
+    font-weight: $font-weight-black;
+  }
 }
 
 body .menu-list-button {

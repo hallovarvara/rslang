@@ -10,6 +10,7 @@ const apiLinks = {
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
+
 const localStorageItems = {
   username: 'rslangName',
   token: 'rslangToken',
@@ -51,6 +52,7 @@ export const levelsOfDifficulty = {
 export const dateFormatTemplate = 'DD.MM.YYYY';
 
 const linkedinLink = 'https://www.linkedin.com/in/';
+const promoVideoLink = 'https://www.w3schools.com/html/mov_bbb.mp4';
 
 const pagesData = {
   aboutUs: {
@@ -305,6 +307,8 @@ const text = {
       startLearningWithUs: 'Начать учиться с нами',
       playRightNow: 'Сыграть прямо сейчас',
     },
+
+    noVideoSupport: 'Извините, ваш браузер не поддерживает встроенное видео',
   },
 };
 
@@ -372,6 +376,7 @@ export {
   pagesData,
   selectorOptions,
   apiLinks,
+  promoVideoLink,
   linkedinLink,
   gamesData,
   teamMembers,

@@ -11,3 +11,7 @@
 .visually-hidden {
   @extend %hide;
 }
+
+.text_centered {
+  text-align: center;
+}

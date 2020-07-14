@@ -13,3 +13,8 @@
 %menu-item {
   @include font($size: 2rem, $spacing: 0.04rem);
 }
+
+%padding {
+  padding: 0 30px;
+  padding-top: $header-height + 80px;
+}

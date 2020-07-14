@@ -32,8 +32,8 @@
 }
 
 .navigation__item a {
-  text-transform: none;
   color: $color-dark;
+  text-transform: none;
   cursor: default;
 
   @extend %menu-item;
