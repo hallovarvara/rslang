@@ -1,4 +1,5 @@
 import React from 'react';
+// import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from '@material-ui/core';
 import classNames from 'classnames';
@@ -13,7 +14,9 @@ const StartPageView = ({
   numberLevel,
   numberPage,
   getPage,
+  // token,
 }) => {
+  // console.log(token, 1111)
   const { englishPuzzle: { title, description } } = gamesData;
   const { ru: { button: { startGame }, chooseLevel, choosePage } } = text;
   const buttonStyle = classNames('button', 'button_big');
@@ -60,6 +63,12 @@ const StartPageView = ({
     </div>
   );
 };
+// function mapStateToProps(state) {
+//   return {
+//     token: state.auth.token,
+//     userId: state.auth.userId,
+//   };
+// }
 
 StartPageView.propTypes = {
   handleClickButtonStart: PropTypes.func,
@@ -67,6 +76,11 @@ StartPageView.propTypes = {
   numberLevel: PropTypes.number,
   numberPage: PropTypes.number,
   getPage: PropTypes.func,
+
+  // token: PropTypes.string,
+  // userId: PropTypes.string,
 };
 
+// export default connect(mapStateToProps)(StartPageView);
 export default StartPageView;
+

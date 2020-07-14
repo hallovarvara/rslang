@@ -1,12 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { replaseUrlBackground, paintingObj } from './helpers';
 import EnglishPuzzleView from './EnglishPuzzleView.jsx';
 import { getWords } from '../../helpers/wordsService/wordsApi';
+import UserService from '../../helpers/userService';
+
+const userService = new UserService();
+
+const { getUserWordsNoRemoved } = userService;
 
 class EnglishPuzzle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      checkedUserWords: false,
       numberLevel: 0,
       numberPage: 0,
       paintingInfo: paintingObj(), // TODO level from form
@@ -40,7 +48,15 @@ class EnglishPuzzle extends React.Component {
       numberLevel,
       numberPage,
     } = this.state;
-    const data = await getWords(numberPage, numberLevel);
+    const { userId, token } = this.props;
+    let data = [];
+    if (token) {
+      data = await getUserWordsNoRemoved(userId);
+    }
+    if (data.length < 10) {
+      const addWords = await getWords(numberPage, numberLevel);
+      data = data.concat(addWords).slice(0, 10);
+    }
     this.setState({
       data,
       isStart: true,
@@ -81,5 +97,18 @@ class EnglishPuzzle extends React.Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    userId: state.auth.userId,
+  };
+}
 
-export default EnglishPuzzle;
+// export default EnglishPuzzle;
+
+EnglishPuzzle.propTypes = {
+  token: PropTypes.string,
+  userId: PropTypes.string,
+};
+
+export default connect(mapStateToProps)(EnglishPuzzle);
