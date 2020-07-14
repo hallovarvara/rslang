@@ -10,12 +10,19 @@ import classes from './ActiveQuiz.module.scss';
 const Zoom = styled.div`animation: 2s ${keyframes`${zoomInLeft}`}`;
 
 class ActiveQuiz extends Component {
+
+  timerId = setInterval(() => {
+    this.props.onTimeOut();
+  }, 1000);
+
   componentDidUpdate() {
-    if (this.props.timer === 6) this.props.onDefault();
+    if (this.props.timer === 6) {
+      this.props.onDefault();
+    }
   }
 
-  componentDidMount() {
-    this.props.onTimeOut();
+  componentWillUnmount() {
+    clearInterval(this.timerId);
   }
 
   render() {

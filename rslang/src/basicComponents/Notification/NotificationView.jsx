@@ -34,7 +34,7 @@ export default function IntegrationNotistack(props) {
   };
 
   const {
-    afterClose = () => {},
+    afterClose = () => { },
     duration = 5000,
     position = {
       vertical: 'top',

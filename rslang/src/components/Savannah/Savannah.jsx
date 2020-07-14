@@ -69,7 +69,7 @@ const initialState = {
 const userService = new UserService();
 
 const { getUserWordsNoRemoved } = userService;
-
+let timerOn;
 class Savannah extends Component {
   status = questionStatus;
 
@@ -228,11 +228,9 @@ class Savannah extends Component {
   }
 
   onTimeOut = () => {
-    setInterval(() => {
-      this.setState(({ timer }) => ({
-        timer: timer + 1,
-      }));
-    }, 1000);
+    this.setState(({ timer }) => ({
+      timer: timer + 1,
+    }));
   }
 
   gameStatus = (idWordPressed = 'default') => {
@@ -256,7 +254,6 @@ class Savannah extends Component {
   }
 
   onCorrectAnswer = (idWordPressed) => {
-
     const { idWords, activeCard } = this.state;
 
     if (idWordPressed === idWords[activeCard]) {
