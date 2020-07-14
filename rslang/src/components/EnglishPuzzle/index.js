@@ -1,6 +1,7 @@
 import React from 'react';
 import { replaseUrlBackground, paintingObj } from './helpers';
 import EnglishPuzzleView from './EnglishPuzzleView.jsx';
+import { getWords } from '../../helpers/wordsService/wordsApi';
 
 class EnglishPuzzle extends React.Component {
   constructor(props) {
@@ -13,16 +14,24 @@ class EnglishPuzzle extends React.Component {
     };
   }
 
+  getLevel = (group) => {
+    this.setState({
+      numberLevel: group,
+    });
+  }
+
   handleClickButtonBackground = () => {
     const { isBackground } = this.state;
     this.setState({ isBackground: !isBackground });
   }
 
-  handleClickButtonStart = () => {
-    const { isBackground, paintingInfo } = this.state;
+  handleClickButtonStart = async () => {
+    const { isBackground, paintingInfo, numberLevel = 1 } = this.state;
+    const data = await getWords(1, numberLevel);
     this.setState({
+      data,
       isStart: true,
-      paintingInfo: paintingObj(),
+      paintingInfo: paintingObj(numberLevel),
       backgroundUrl: replaseUrlBackground(paintingInfo, isBackground),
     });
   }
@@ -33,13 +42,16 @@ class EnglishPuzzle extends React.Component {
 
   render() {
     const {
+      data,
       isStart,
       backgroundUrl,
       isBackground,
       paintingInfo,
+      numberLevel,
     } = this.state;
     return (
       <EnglishPuzzleView
+        data={data}
         paintingInfo={paintingInfo}
         backgroundUrl={backgroundUrl}
         isStart={isStart}
@@ -47,6 +59,8 @@ class EnglishPuzzle extends React.Component {
         handleClickButtonStart={this.handleClickButtonStart}
         handleClickButtonBackground={this.handleClickButtonBackground}
         handleClickNewGame={this.handleClickNewGame}
+        getLevel={this.getLevel}
+        numberLevel={numberLevel}
       />
     );
   }

@@ -6,7 +6,7 @@ import { gamesData, text } from '../../../../helpers/constants';
 import { levelsCount } from '../../constants';
 import Stepper from '../../../../basicComponents/Stepper';
 
-const StartPageView = ({ handleClickButtonStart }) => {
+const StartPageView = ({ handleClickButtonStart, getLevel, numberLevel }) => {
   const { englishPuzzle: { title, description } } = gamesData;
   const { ru: { button: { startGame }, chooseLevel } } = text;
   const buttonStyle = classNames('button', 'button_big');
@@ -20,8 +20,8 @@ const StartPageView = ({ handleClickButtonStart }) => {
       <h2 className="start-page__title">{title}</h2>
       <p className="start-page__description">{description}</p>
       <Stepper
-        defaultValue='1'
-        // onChangeCommitted={(event, value) => levelChanged(value - 1)} // TODO delete or change function
+        defaultValue={numberLevel + 1}
+        onChangeCommitted={(event, value) => getLevel(value - 1)}
         step={null}
         max={levelsCount}
         marks={stepperMarks}
@@ -32,7 +32,7 @@ const StartPageView = ({ handleClickButtonStart }) => {
       <Button
         className={buttonStyle}
         variant="contained"
-        onClick={handleClickButtonStart}
+        onClick={() => handleClickButtonStart()}
       >
         {startGame}
       </Button>
@@ -42,6 +42,8 @@ const StartPageView = ({ handleClickButtonStart }) => {
 
 StartPageView.propTypes = {
   handleClickButtonStart: PropTypes.func,
+  getLevel: PropTypes.func,
+  numberLevel: PropTypes.number,
 };
 
 export default StartPageView;

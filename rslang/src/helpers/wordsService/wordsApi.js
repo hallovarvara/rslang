@@ -9,6 +9,20 @@ export const getWords = async (page, group) => {
   return response.data;
 };
 
+// export const getWords = async (page, group) => {
+//   const url = `${apiLinks.base}words?page=${page}&group=${group}`;
+//   const data = await axios
+//     .get(url)
+//     .then((response) => {
+//       const dat = response.data;
+//       return dat;
+//     })
+//     .catch((error) => {
+//       console.log(error);
+//     });
+//   return data;
+// };
+
 export const getWordsById = async (wordId) => {
   const url = `${apiLinks.base}words/${wordId}`;
   const response = await axios.get(url);

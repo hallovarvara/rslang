@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import data from '../../mockData';
+// import data from '../../mockData';
 import { generateQuestionsArray, shuffle } from '../../helpers';
 import GamePageView from './GamePageView.jsx';
 
@@ -9,7 +9,11 @@ class GamePage extends React.Component {
     super(props);
     this.props = props;
     const {
-      handleClickNewGame, backgroundUrl, handleClickButtonBackground, paintingInfo,
+      handleClickNewGame,
+      backgroundUrl,
+      handleClickButtonBackground,
+      paintingInfo,
+      data,
     } = this.props;
     this.paintingInfo = paintingInfo;
     this.handleClickNewGame = handleClickNewGame;
@@ -17,7 +21,7 @@ class GamePage extends React.Component {
     this.handleClickButtonBackground = handleClickButtonBackground;
     this.state = {
       level: 0,
-      maxLevel: 10, // TODO Settings
+      maxLevel: 10,
       dataWords: data, // TODO use API
       questionList: [],
       phrasesArray: [],
@@ -188,6 +192,7 @@ GamePage.propTypes = {
   handleClickButtonBackground: PropTypes.func,
   paintingInfo: PropTypes.object,
   isBackground: PropTypes.bool,
+  data: PropTypes.array,
 };
 
 export default GamePage;
