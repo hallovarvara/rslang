@@ -189,8 +189,8 @@ const teamMembers = [
   },
 ];
 
-const selectorOptions = [
-  'new & repeating', 'complicated', 'removed',
+const vocabularySelectorOptions = [
+  'изучаемые', 'сложные', 'удаленные',
 ];
 
 /* Games */
@@ -326,7 +326,7 @@ const count = {
 
 export {
   pagesData,
-  selectorOptions,
+  vocabularySelectorOptions,
   apiLinks,
   linkedinLink,
   gamesData,
