@@ -134,6 +134,7 @@ const gamesData = {
     title: 'SpeakIt',
     description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
     path: 'speakit',
+    startPath: 'speakit/home',
   },
   unmess: {
     title: 'Unmess',
@@ -227,11 +228,27 @@ const text = {
     howManyAnswers: 'Сколько показывать вариантов ответа',
     howManyWords: 'Сколько слов хотите угадать',
     chooseLevel: 'Выберите уровень сложности',
+    choosePage: 'Выберите набор слов',
+    newGame: 'Новая игра',
+    restart: 'Сначала',
+    speakPlease: 'Нажмите и произносите слова',
+    results: 'Результаты',
+    return: 'Назад',
+    latestRusults: 'Последние результаты',
+    currentResults: 'Текущие результаты',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
 
     /* Unmess */
     unmess: {
       instruction: 'Схватите слово и отпустите над его значением',
+    },
+
+    /* Speakit */
+    speakit: {
+      instruction: ['Нажмите на слово, чтобы услышать его произношение.', 'Нажмите на кнопку и произнесите слово в микрофон.'],
+      mistakes: 'Ошибок',
+      know: 'Знаю',
+      noResults: 'У вас еще нет результатов :(',
     },
 
     /* Buttons */
