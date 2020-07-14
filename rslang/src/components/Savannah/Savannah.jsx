@@ -31,10 +31,10 @@ import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
 
 import classes from './Savannah.module.scss';
 
-const { defaultLevel, minQuestions, maxQuestions, minAnswers, maxAnswers } = count.savannah;
-
+const {
+  defaultLevel, minQuestions, maxQuestions, minAnswers, maxAnswers,
+} = count.savannah;
 const totalQuestionsState = getAverageNumber(minQuestions, maxQuestions);
-
 const totalAnswersState = getAverageNumber(minAnswers, maxAnswers);
 
 const initialState = {
@@ -110,7 +110,10 @@ class Savannah extends Component {
         currentUserWordId = allUserWordsRandom[counter - 1]?._id;
       }
 
-      const resultArray = [allUserWordsRandom[counter - 1], ...await getWordsByAmount(2, totalAnswers - 1)];
+      const resultArray = [
+        allUserWordsRandom[counter - 1],
+        ...await getWordsByAmount(2, totalAnswers - 1)
+      ];
 
       if (!allUserWords.length) {
         this.setState({ allUserWords: allUserWordsRandom });
