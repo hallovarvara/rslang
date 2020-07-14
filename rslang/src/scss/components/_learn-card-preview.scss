@@ -114,13 +114,32 @@
 }
 
 .target-learn-word-container__target-word {
-  margin-right: 20px;
+  margin-right: 13px;
   @include font(5.2rem, 600, normal);
 }
 
+.target-learn-word-container__volume-icon {
+  display: inline-block;
+  width: 23px;
+  height: 27px;
+  margin-right: 20px;
+  @include background-image(url('../../assets/images/volume_down_24px.png'));
+}
+
+.target-learn-word-container__target-word-translation {
+  margin-right: 20px;
+  @include font(3rem, 400, normal);
+}
+
 .target-learn-word-container__transcription {
+  position: relative;
+  left: 0;
   color: rgba($color: $color-dark, $alpha: 0.4);
+  transition: left 0.7s ease;
   @include font(3rem, 300, normal);
+  &.to-left {
+    left: -116px;
+  }
 }
 
 .learn-word-card-info__explanation {
