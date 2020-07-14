@@ -16,6 +16,7 @@ import AudioCallGame from '../AudioCallGame';
 import SprintGame from '../Sprint';
 import SavannahGame from '../Savannah';
 import UnmessGame from '../games/Unmess';
+import SpeakitGame from '../games/Speakit';
 
 import Notification from '../../basicComponents/Notification';
 
@@ -29,7 +30,7 @@ const {
 
 const {
   audiocall, sprint, savannah,
-  unmess, // englishPuzzle, speakit,
+  unmess, speakit, // englishPuzzle,
 } = gamesData;
 
 const Main = ({ username, authFailed }) => (
@@ -48,7 +49,7 @@ const Main = ({ username, authFailed }) => (
       <Route path={getPath(sprint.path)} component={SprintGame} />
       <Route path={getPath(savannah.path)} component={SavannahGame} />
       <Route path={getPath(unmess.path)} component={UnmessGame} />
-      {/*<Route path={getPath(speakit.path)} component={SpeakitGame} />*/}
+      <Route path={getPath(speakit.path)} component={SpeakitGame} />
       {/*<Route path={getPath(englishPuzzle.path)} component={EnglishPuzzleGame} />*/}
     </Switch>
     {

@@ -1,16 +1,16 @@
-// Abstracts
+/* Abstracts */
 @import './scss/abstracts/constants';
 @import './scss/abstracts/mixins';
 
-// Vendors
+/* Vendors */
 @import './scss/vendor/normalize';
 
-// Base
+/* Base */
 @import './scss/base/typography';
 @import './scss/base/base';
 @import './scss/base/helpers';
 
-// Components
+/* Components */
 @import './scss/components/select-list';
 @import './scss/components/paginaition';
 @import './scss/components/buttons';
@@ -26,7 +26,7 @@
 @import './scss/components/notification';
 @import './scss/components/preloader';
 
-//Layouts
+/* Layouts */
 @import './scss/layouts/header';
 @import './scss/layouts/promo-demonstration';
 @import './scss/layouts/play-games-page';

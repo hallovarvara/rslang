@@ -1,0 +1,127 @@
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($color-light, 1);
+  }
+  55% {
+    box-shadow: 0 0 0px 18px rgba($color-light, 0);
+  }
+  100% {
+    box-shadow: unset;
+  }
+}
+
+.speakit-game-container {
+  .buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1120px;
+    height: 63px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    @include media-laptop {
+      width: 760px;
+    }
+    @include media-tablet {
+      width: 100%;
+      height: auto;
+      @include flex(column, center, center);
+    }
+  }
+
+  .buttons-container div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: $color-light;
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(#140035, #244e8c);
+    border: 1px solid $color-light;
+    border-radius: 5px;
+    cursor: pointer;
+    @include font(2.7rem, 100);
+    @include media-laptop {
+      font-size: 2.4rem;
+    }
+    @include media-tablet {
+      height: 63px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.buttons-container div:last-child {
+  @include media-tablet {
+    margin-bottom: 0;
+  }
+}
+
+.speakit-game-container .buttons-container__results,
+.speakit-game-container .buttons-container__restart {
+  width: 200px;
+  height: 100%;
+  @include media-hover {
+    &:hover::before {
+      left: 220px;
+      transition: left 0.5s;
+    }
+  }
+  @include media-laptop {
+    width: 180px;
+  }
+  @include media-tablet {
+    width: 390px;
+  }
+  @include media-mobile {
+    width: 100%;
+  }
+  &::before {
+    position: absolute;
+    top: -30px;
+    left: -120px;
+    width: 100px;
+    height: 129px;
+    background: rgba(255, 255, 255, 0.7);
+    transform: rotate(20deg);
+    content: '';
+  }
+}
+
+.speakit-game-container .buttons-container__speak-please {
+  width: 660px;
+  height: 100%;
+  @include media-hover {
+    &:hover::before {
+      left: 670px;
+      transition: left 0.7s;
+    }
+  }
+  @include media-laptop {
+    width: 360px;
+  }
+  @include media-tablet {
+    width: 390px;
+  }
+  @include media-mobile {
+    width: 100%;
+  }
+  &::before {
+    position: absolute;
+    top: -30px;
+    left: -120px;
+    width: 100px;
+    height: 129px;
+    background: rgba(255, 255, 255, 0.7);
+    transform: rotate(20deg);
+    content: '';
+  }
+  &_active {
+    background: linear-gradient(
+      darken(#140035, 10%),
+      darken(#244e8c, 10%)
+    ) !important;
+    animation: pulse 1.5s ease 0s infinite;
+  }
+}
