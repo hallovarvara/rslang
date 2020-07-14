@@ -8,10 +8,12 @@ import UserService from '../../helpers/userService';
 
 import {
   count,
+  questionStatus,
   applicationThings,
   localStorageItems,
   soundError,
   soundSuccess,
+  text,
 } from '../../helpers/constants';
 
 import {
@@ -74,7 +76,14 @@ const { getUserWordsNoRemoved } = userService;
 class Sprint extends Component {
   basic = count.sprint.pointsMultiplier
 
+  status = questionStatus;
+
   state = initialState
+
+  resultTitle = {
+    success: text.ru.answersCorrect,
+    error: text.ru.answersMistaken,
+  };
 
   updateState = async () => {
     const words = [];
@@ -159,7 +168,7 @@ class Sprint extends Component {
 
   updateCounter = (mult = 1, win = 0) => {
     const multiplier = win && this.state.counter.win
-    && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
+      && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -260,13 +269,15 @@ class Sprint extends Component {
       />;
     } else if (isStarted && isFinished) {
       page = <FinishGame
+        status={this.status}
+        resultTitle={this.resultTitle}
         isFinished={isFinished}
         mistake={mistake}
         complete={complete}
         audioPlay={this.audioPlay}
         onReloadGame={this.onReloadGame}
       />;
-    } else if (isStarted && !isFinished) {
+    } else if (isStarted && !isFinished && activeAnswer) {
       page = <PlayGame
         words={words}
         activeAnswer={activeAnswer}
