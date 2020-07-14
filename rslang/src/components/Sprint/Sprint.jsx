@@ -12,6 +12,7 @@ import {
   localStorageItems,
   soundError,
   soundSuccess,
+  gamesData,
 } from '../../helpers/constants';
 
 import {
@@ -288,8 +289,8 @@ class Sprint extends Component {
     return (
       <div className={'sprint__wrapper'}>
         <div className={'sprint__container'}>
+          <h1>{ gamesData.sprint.title }</h1>
           {page}
-
         </div>
       </div>
 

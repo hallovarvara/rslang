@@ -5,6 +5,7 @@
   height: $header-height;
   padding: 20px 50px;
   background-color: rgba($color: $color-light, $alpha: 0.8);
+  backdrop-filter: blur(10px) hue-rotate(-60deg) saturate(250%);
   @include flex(row, space-between, center);
 }
 

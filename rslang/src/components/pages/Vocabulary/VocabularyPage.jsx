@@ -12,7 +12,7 @@ const VocabularyView = ( { selectorOptions, changeVocabularyType, selectedOption
   };
 
   return (
-    <div>
+    <div className='vocabulary-page'>
       <h1>{pagesData.vocabulary.title}</h1>
       <select className="vocabulary-selector" onChange={ ( e ) => onSelectorChange( e ) }
         value={ selectedOption } >

@@ -92,7 +92,6 @@ class HeaderView extends React.Component {
     return (
       <header className="header">
       <NavLink activeClassName="navigation__item_active" to={getPath()}>
-        <h1><span className="visually-hidden">RS Lang</span></h1>
         <Logo className={logoClasses} />
       </NavLink>
       <nav>

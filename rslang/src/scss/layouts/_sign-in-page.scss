@@ -1,8 +1,8 @@
 .sign-in-page {
   min-height: 100vh;
-  padding: 50px 0px 150px 0px;
   background-color: $color-primary;
   @include flex(column, center, center);
+  @extend %padding;
 }
 
 .sign-in-form {

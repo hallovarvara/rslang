@@ -186,7 +186,7 @@ export default class LearnWords extends Component {
     const textExampleSentence = extractEmphasizedWord(textExample, 'b');
     const textMeaningSentence = extractEmphasizedWord(textMeaning, 'i');
     return (
-      <div>
+      <div className='learn-words'>
         <Header
           categoriesSelect={categoriesSelect}
           onToggleAutoPlay={this.toggleAutoPlay}
