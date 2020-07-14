@@ -2,10 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { difficultLabels } from '../../helpers/constants';
 import { levelsOfDifficulty } from '../../../../../helpers/constants';
-// import {
-//   updateUserWordRate,
-//   updateUserWordRepeated,
-// } from '../../../../../helpers/wordsService';
 
 const { HARD, NORMAL, EASY } = levelsOfDifficulty;
 const { HARD_LABEL, NORMAL_LABEL, EASY_LABEL } = difficultLabels;
@@ -14,16 +10,23 @@ const handleChoseDifficulty = (
   onChangeRepeated, onChangeWordRate,
   level,
   isFirstPassDone,
+  onChangeProgress,
 ) => {
   if (isFirstPassDone) {
     onChangeRepeated();
   } else {
     onChangeWordRate(level);
   }
+  onChangeProgress({ isDifficultChosen: true });
 };
 
 const SpacingRepeating = (props) => {
-  const { isFirstPassDone, onChangeWordRate, onChangeRepeated } = props;
+  const {
+    isFirstPassDone,
+    onChangeWordRate,
+    onChangeRepeated,
+    onChangeProgress,
+  } = props;
   return (
     <div>
       <button
@@ -32,6 +35,7 @@ const SpacingRepeating = (props) => {
           onChangeWordRate,
           HARD,
           isFirstPassDone,
+          onChangeProgress,
         )
         }
       >
@@ -44,6 +48,7 @@ const SpacingRepeating = (props) => {
           onChangeWordRate,
           NORMAL,
           isFirstPassDone,
+          onChangeProgress,
         )
         }
       >
@@ -55,6 +60,7 @@ const SpacingRepeating = (props) => {
           onChangeRepeated, onChangeWordRate,
           EASY,
           isFirstPassDone,
+          onChangeProgress,
         )
         }
       >
@@ -71,6 +77,7 @@ SpacingRepeating.propTypes = {
   currentWord: PropTypes.object,
   onChangeWordRate: PropTypes.func,
   onChangeRepeated: PropTypes.func,
+  onChangeProgress: PropTypes.func,
 };
 
 export default SpacingRepeating;

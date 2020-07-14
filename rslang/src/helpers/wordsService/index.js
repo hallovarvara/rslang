@@ -1,4 +1,4 @@
-import { levelsOfDifficulty, applicationThings } from '../constants';
+import { applicationThings } from '../constants';
 import {
   checkForStatistics,
   saveLocalStatistics,
@@ -14,8 +14,6 @@ import {
   localThings,
   saveNewUserWordId,
   getNewWordsIds,
-  sessionThings,
-  storageThingNames,
 } from './storageModel';
 import {
   changeStats,
@@ -23,17 +21,15 @@ import {
   changeUserWord,
   userWordThings,
   changeSettings,
-  getWordsDiffAndComplicated,
   statsThingNames,
   changeSessionStatsObject,
   convertStamp,
+  convertDate,
 } from './dataModels';
-import { filterByThing, shufleWordsArray } from './wordsFilters';
+import {
+  filterByThing,
+} from './wordsFilters';
 import { calculateLearnRate, calculateGameNext } from './spacingRepeating';
-
-export const randomizeArray = (arrayOfWords) => {
-  shufleWordsArray(arrayOfWords);
-};
 
 export const prepareWordObject = (wordObject) => {
   let newWordObject;
@@ -46,23 +42,6 @@ export const prepareWordObject = (wordObject) => {
   return newWordObject;
 };
 
-export const updateUserWord = (
-  userOption,
-  optionData,
-  oldRepeated,
-  stamp,
-  wordObject,
-  level,
-  thingName,
-) => {
-  const newWord = changeUserWord(userOption, optionData, oldRepeated, stamp, wordObject);
-  if (thingName === applicationThings.LEARN_WORDS) {
-    saveLocalUserWord(newWord, sessionThings, storageThingNames.LEARNING);
-  } else {
-    saveLocalUserWord(newWord);
-  }
-};
-
 const getOldData = ({ userWord }) => (
   {
     oldRate: userWord?.optional?.rate || 0,
@@ -71,75 +50,45 @@ const getOldData = ({ userWord }) => (
   }
 );
 
-export const updateUserWordRate = (
-  wordObject,
-  thingName,
-  level = levelsOfDifficulty.HARD,
-) => {
-  const current = prepareWordObject(wordObject);
-  const { oldRate, oldRepeated } = getOldData(wordObject);
-  if (thingName === applicationThings.LEARN_WORDS) {
-    const rate = calculateLearnRate(oldRate, level);
-    const stamp = convertStamp(rate);
-    updateUserWord(userWordThings.RATE, rate, oldRepeated, stamp, current, level, thingName);
-  } else {
-    const newNext = calculateGameNext();
-    const stamp = convertStamp(0, newNext);
-    updateUserWord(userWordThings.NEXT, newNext, oldRepeated, stamp, current, level, thingName);
-  }
-};
-
 export const updateGameRate = (wordObject) => {
   const current = prepareWordObject(wordObject);
-  const { oldRepeated } = getOldData(wordObject);
-  const newNext = calculateGameNext();
-  const stamp = convertStamp(0, newNext);
-  const newWord = changeUserWord(
-    userWordThings.NEXT,
-    newNext,
-    oldRepeated,
-    stamp,
-    current,
-  );
+  const next = calculateGameNext();
+  const stamp = convertStamp(0, next);
+  const newWord = changeUserWord(current, { stamp, next });
   saveLocalUserWord(newWord);
 };
 
 export const updateLearnWordsRate = (wordObject, level) => {
   const current = prepareWordObject(wordObject);
-  const { oldRate, oldRepeated } = getOldData(wordObject);
+  const { oldRate } = getOldData(wordObject);
   const rate = calculateLearnRate(oldRate, level);
   const stamp = convertStamp(rate);
-  return changeUserWord(userWordThings.RATE, rate, oldRepeated, stamp, current, level);
+  const next = convertDate(rate);
+  const repeated = 1;
+  return changeUserWord(current, {
+    stamp, rate, next, repeated,
+  });
 };
 
 export const updateUserWordDifficulty = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { difficulty } = current.userWord;
-  return changeUserWord(
-    userWordThings.DIFFICULTY,
-    !difficulty,
-    null,
-    null,
-    current,
-  );
+  current.userWord.difficulty = !difficulty;
+  return { ...current };
 };
 
 export const updateUserWordRemoved = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { removed } = current.userWord.optional;
-  return changeUserWord(userWordThings.REMOVED, !removed, null, null, current);
+  current.userWord.optional.removed = !removed;
+  return { ...current };
 };
 
 export const updateUserWordRepeated = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { repeated } = current.userWord.optional;
-  return changeUserWord(
-    userWordThings.REPEATED,
-    repeated + 1,
-    null,
-    null,
-    current,
-  );
+  current.userWord.optional.repeated = repeated + 1;
+  return { ...current };
 };
 
 export const updateStats = (statsOption, optionData) => {
@@ -189,32 +138,20 @@ export const getComplicatedWords = (dayLimit) => {
   return filterByThing(userWords, userWordThings.DIFFICULTY, dayLimit);
 };
 
-export const getDiffAndCoplicatedInProgress = (arrayOfWordsObjects, template) => (
-  arrayOfWordsObjects.map((wordObject) => (wordObject?.userWord
-    ? { ...template, ...getWordsDiffAndComplicated(wordObject?.userWord) }
-    : { ...template }))
-);
-
 export const saveDataToSessionStats = (thingName, keyName, keyValue = 1) => {
   const current = checkForessionThing(thingName);
   const updated = changeSessionStatsObject(current, keyName, keyValue);
   saveSessionThing(thingName, updated);
 };
 
-export const saveRightToGamesStats = (thingName) => {
+export const handleGameRightAnswer = (thingName, wordObject) => {
   saveDataToSessionStats(thingName, statsThingNames.RIGHT);
+  prepareWordObject(wordObject);
 };
 
-export const saveWrongToGamesStats = (thingName) => {
+export const handleGameWrongAnswer = (thingName, wordObject) => {
   saveDataToSessionStats(thingName, statsThingNames.WRONG);
-};
-
-export const getGameSessionResults = (thingName) => (
-  getSessionData(thingName)
-);
-
-export const clearGameSessionResults = (thingName) => {
-  clearSessionData(thingName);
+  updateGameRate(wordObject);
 };
 
 export const clearLocalUserInfo = () => {
@@ -235,7 +172,7 @@ export const saveGameResults = (thingName) => {
     const sessionWords = checkForUserWords();
     results = calculateLearnWordsResults(sessionWords);
   } else {
-    results = getGameSessionResults(thingName);
+    results = getSessionData(thingName);
   }
   updateStats(thingName, results);
 };
@@ -277,14 +214,14 @@ export const saveSessionWordsToLocal = () => {
 export const saveSessionInfoToLocal = (thingName) => {
   saveSessionWordsToLocal();
   saveGameResults(thingName);
-  clearGameSessionResults(thingName);
+  clearSessionData(thingName);
 };
 
 export const prepareSessionInfoToServer = (thingName) => {
   const sessionWords = checkForUserWords();
   const stats = thingName === applicationThings.LEARN_WORDS
     ? calculateLearnWordsResults(sessionWords)
-    : getGameSessionResults(thingName);
+    : getSessionData(thingName);
   const checked = checkForDone(sessionWords);
   const { newWords, userWords } = separateSessionWords(checked.words);
   if (thingName === applicationThings.LEARN_WORDS) {

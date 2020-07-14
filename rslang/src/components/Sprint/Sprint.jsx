@@ -15,10 +15,9 @@ import {
 } from '../../helpers/constants';
 
 import {
-  saveRightToGamesStats,
-  saveWrongToGamesStats,
-  updateUserWordRate,
-  saveGameResults,
+  handleGameRightAnswer,
+  handleGameWrongAnswer,
+  saveSessionInfoToLocal,
 } from '../../helpers/wordsService';
 import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
 
@@ -184,7 +183,7 @@ class Sprint extends Component {
     if (this.state.timer === 0) {
       clearTimeout(timerId);
       this.setState({ isFinished: true });
-      saveGameResults(applicationThings.SPRINT);
+      saveSessionInfoToLocal(applicationThings.SPRINT);
     }
   }
 
@@ -215,14 +214,13 @@ class Sprint extends Component {
         this.updateCounter(count.sprint.counterMultiplier, 1);
         this.updateScore(this.basic);
         this.resultCurrentQuiz('complete');
-        saveRightToGamesStats(applicationThings.SPRINT);
+        handleGameRightAnswer(applicationThings.SPRINT, this.state.wordObject);
       } else {
         this.audioPlay(soundError);
         this.setState({ isAnswerQuiz: 'times' });
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
-        saveWrongToGamesStats(applicationThings.SPRINT);
-        updateUserWordRate(this.state.wordObject);
+        handleGameWrongAnswer(applicationThings.SPRINT, this.state.wordObject);
       }
       this.updateState();
     }

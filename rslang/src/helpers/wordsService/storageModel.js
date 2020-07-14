@@ -4,7 +4,6 @@ import {
   generateStatsTemplate,
   generateSettingsTemplate,
   generateUserWordsTemplate,
-  generateSpacingRepeatingTemplate,
 } from './dataModels';
 import { applicationThings } from '../constants';
 
@@ -26,7 +25,6 @@ export const sessionThings = {
   LEARNING: 'rslangSessionLearningWords',
   WORDS: 'rslangSessionWords',
   NEW_WORDS: 'rslangNewWords',
-  // REPEATING: 'rslangSessionRepeating',
 };
 
 export const gameSessionThings = {
@@ -87,8 +85,7 @@ export const saveLocalUserWord = (
   storage = sessionThings,
   storageThing = storageThingNames.WORDS,
 ) => {
-  const areWordsStored = localStorage.getItem(storage[storageThing]);
-  console.log(areWordsStored, wordObject, storage, storageThing);
+  const areWordsStored = JSON.parse(localStorage.getItem(storage[storageThing]));
   if (!areWordsStored) {
     localStorage.setItem(storage[storageThing], JSON.stringify([wordObject]));
   } else {
@@ -118,21 +115,6 @@ export const checkForSettings = () => (
 export const saveLocalSettings = (settings) => {
   localStorage.setItem(localThings.SETTINGS, JSON.stringify({ ...settings }));
 };
-
-export const checkForSpacingRepeating = () => (
-  checkForLocalThing(sessionThings.REPEATING, generateSpacingRepeatingTemplate)
-);
-
-// export const saveSpacingRepeating = (repeatingArray, wordObject, twice = false) => {
-//   const newWords = twice
-//     ? [wordObject, ...repeatingArray, wordObject]
-//     : [...repeatingArray, wordObject];
-//   localStorage.setItem(sessionThings.REPEATING, JSON.stringify(newWords));
-// };
-
-export const getDataFromStorage = (storage, data) => (
-  JSON.parse(localStorage.getItem(storage[data]))
-);
 
 export const clearStorageData = (storage) => {
   Object.values(storage).forEach((el) => {

@@ -22,4 +22,6 @@ export const initialProgressObject = {
   isRemoved: false,
   isComplicated: false,
   mistaken: false,
+  secondRepeat: false,
+  thirdRepeat: false,
 };

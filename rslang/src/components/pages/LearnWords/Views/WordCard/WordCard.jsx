@@ -35,16 +35,20 @@ const WordCard = ({
   onPlayAudio,
   onChangeWordRate,
   onChangeRepeated,
+  onStatsChanged,
+  onShowTip,
+  onChangeRemoved,
+  onChangeDifficulty,
 }) => (
   <div>
     <div>
       <StatusBar
         progress={progress}
-        onChangeProgress={onChangeProgress}
-        currentWord={currentWord}
         wordCount={wordCount}
         totalWords={totalWords}
         isShownComplicatedButton={isShownComplicatedButton}
+        onChangeRemoved={onChangeRemoved}
+        onChangeDifficulty={onChangeDifficulty}
       />
       <Word
         progress={progress}
@@ -53,6 +57,7 @@ const WordCard = ({
         isShownTranslation={isShownTranslation}
         onChangeProgress={onChangeProgress}
         onPlayAudio={onPlayAudio}
+        onStatsChanged={onStatsChanged}
       />
       <WordExtraInfo
         progress={progress}
@@ -73,6 +78,7 @@ const WordCard = ({
           currentWord={currentWord}
           onChangeWordRate={onChangeWordRate}
           onChangeRepeated={onChangeRepeated}
+          onChangeProgress={onChangeProgress}
         />
       )}
     </div>
@@ -86,7 +92,7 @@ const WordCard = ({
         isShownImageAssociation={isShownImageAssociation}
         onNextWord={onNextWord}
         onPrevWord={onPrevWord}
-        onChangeProgress={onChangeProgress}
+        onShowTip={onShowTip}
       />
     </div>
   </div>
@@ -120,6 +126,10 @@ WordCard.propTypes = {
   onPlayAudio: PropTypes.func,
   onChangeWordRate: PropTypes.func,
   onChangeRepeated: PropTypes.func,
+  onStatsChanged: PropTypes.func,
+  onShowTip: PropTypes.func,
+  onChangeDifficulty: PropTypes.func,
+  onChangeRemoved: PropTypes.func,
 };
 
 WordCard.defaultProps = {
@@ -149,6 +159,10 @@ WordCard.defaultProps = {
   onChangeProgress: () => {},
   onPlayAudio: () => {},
   onChangeWordRate: () => {},
+  onStatsChanged: () => {},
+  onShowTip: () => {},
+  onChangeDifficulty: () => {},
+  onChangeRemoved: () => {},
 };
 
 export default WordCard;

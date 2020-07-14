@@ -1,8 +1,8 @@
-import { baseUrl } from './settings';
 import { RSLANG_SESSION_PROGRESS } from './constants';
 import { successColor, fewErrorsColor, manyErrorsColor } from './style-options';
+import { apiLinks } from '../../../../helpers/constants';
 
-export const resourceUrl = (path) => `${baseUrl}${path}`;
+export const resourceUrl = (path) => `${apiLinks.file}${path}`;
 
 export const extractEmphasizedWord = (str, surroundingTag) => {
   const sentence = {};
@@ -41,11 +41,13 @@ export const getSessionProgress = () => {
 };
 
 export const setSessionProgress = (progress) => {
-  console.log(RSLANG_SESSION_PROGRESS, progress);
   localStorage.setItem(RSLANG_SESSION_PROGRESS, JSON.stringify(progress));
 };
 
-export const checkSessionProgress = (words) => words.find((el) => el.progress.isGuessed === true);
+export const checkSessionProgress = (words) => {
+  console.log('inside check');
+  return words.find((el) => el.progress.isGuessed === true);
+};
 
 export const clearSessionProgress = () => {
   localStorage.removeItem(RSLANG_SESSION_PROGRESS);
