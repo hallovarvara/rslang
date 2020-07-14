@@ -4,16 +4,8 @@
   width: 100%;
   height: $header-height;
   padding: 20px 50px;
-  background-color: $color-secondary;
+  background-color: rgba($color: $color-light, $alpha: 0.8);
   @include flex(row, space-between, center);
-}
-
-.header__title {
-  font-size: 6rem;
-}
-
-.header__title a {
-  color: $color-dark;
 }
 
 .navigation {
@@ -25,9 +17,11 @@
 
 .navigation__item {
   padding: 0px 20px;
+
   &:first-child {
     padding-left: 0px;
   }
+
   &:last-child {
     padding-right: 0px;
   }
@@ -38,15 +32,16 @@
 }
 
 .navigation__item a {
-  font-size: 2.4rem;
-  font-family: $font-primary;
-  font-weight: $font-weight-regular;
-  text-transform: initial;
-
+  text-transform: none;
   color: $color-dark;
+  cursor: default;
 
-  &:hover {
-    text-decoration: underline;
+  @extend %menu-item;
+  @include transition(color);
+
+  &:not(.navigation__item_active):hover {
+    color: $color-primary-dark;
+    cursor: pointer;
   }
 
   &.navigation__item_active {

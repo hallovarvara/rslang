@@ -52,7 +52,7 @@ const initialState = {
   translateWords: [],
   words: [],
   isFinished: false,
-  isStarted: true,
+  isStarted: false,
   volume: true,
   mistake: {
     total: 0,

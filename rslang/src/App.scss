@@ -1,6 +1,7 @@
 // Abstracts
 @import './scss/abstracts/constants';
 @import './scss/abstracts/mixins';
+@import './scss/abstracts/placeholders';
 
 // Vendors
 @import './scss/vendor/normalize';
@@ -11,6 +12,7 @@
 @import './scss/base/helpers';
 
 // Components
+@import './scss/components/logo';
 @import './scss/components/select-list';
 @import './scss/components/paginaition';
 @import './scss/components/buttons';
@@ -25,7 +27,7 @@
 @import './scss/components/notification';
 @import './scss/components/preloader';
 
-//Layouts
+// Layouts
 @import './scss/layouts/header';
 @import './scss/layouts/promo-demonstration';
 @import './scss/layouts/play-games-page';
@@ -33,6 +35,7 @@
 @import './scss/layouts/words-settings';
 @import './scss/layouts/learn-card-preview-container';
 @import './scss/layouts/preview-settings';
+@import './scss/layouts/promo-page';
 @import './scss/layouts/sign-in-page';
 @import './scss/layouts/sign-up-page';
 @import './scss/layouts/about-us-page';

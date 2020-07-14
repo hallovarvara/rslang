@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton';
-import { connect } from 'react-redux';
 import { logout } from '../../redux/actions/auth';
 import MenuList from '../../basicComponents/MenuList';
-import { gamesData, pagesData } from '../../helpers/constants';
+import { ReactComponent as Logo } from '../../assets/images/logo.svg';
+
+import {
+  gamesData,
+  pagesData,
+} from '../../helpers/constants';
+
 import { getPath } from '../../helpers/functions';
 
 const addLinksToHeader = (link, index) => {
@@ -41,11 +47,10 @@ const addLinksToHeader = (link, index) => {
 
 const HeaderView = ({ links, isUserLogged, logout: logoutUser }) => (
   <header className="header">
-    <h1 className="header__title">
-      <NavLink activeClassName="navigation__item_active" to={getPath()}>
-        RS Lang
-      </NavLink>
-    </h1>
+    <NavLink activeClassName="navigation__item_active" to={getPath()}>
+      <h1><span className="visually-hidden">RS Lang</span></h1>
+      <Logo className='logo' />
+    </NavLink>
     <nav>
       <ul className="navigation">
         {
