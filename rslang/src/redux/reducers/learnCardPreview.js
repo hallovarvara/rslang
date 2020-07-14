@@ -7,6 +7,7 @@ const initialState = {
     transcription: true,
     showAnswerButton: true,
     exampleSentence: true,
+    exampleSentenceTranslation: true,
   },
 };
 
