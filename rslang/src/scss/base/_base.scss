@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body {
+  position: relative;
+}
+
 a {
   color: $color-dark;
   text-decoration: none;

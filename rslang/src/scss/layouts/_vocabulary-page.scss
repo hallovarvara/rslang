@@ -1,0 +1,8 @@
+.vocabulary-page-container {
+  background-color: $color-primary;
+}
+
+.vocabulary-settings-container {
+  margin-bottom: 50px;
+  @include flex(row, space-between, center);
+}

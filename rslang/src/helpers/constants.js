@@ -189,10 +189,8 @@ const teamMembers = [
   },
 ];
 
-const selectorOptions = [
-  ['new', 'new & repeating'],
-  ['complicated', 'complicated'],
-  ['removed', 'removed'],
+const vocabularySelectorOptions = [
+  'изучаемые', 'сложные', 'удаленные',
 ];
 
 /* Games */
@@ -220,6 +218,9 @@ const text = {
     incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
     welcome: 'Добро пожаловать, {username} :)',
+
+    /* Vocabulary page */
+    restoreForLearning: 'Вернуть к изучаемым',
 
     /* Games */
     levelsTitles: ['Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'],
@@ -326,7 +327,7 @@ const count = {
 
 export {
   pagesData,
-  selectorOptions,
+  vocabularySelectorOptions,
   apiLinks,
   linkedinLink,
   gamesData,
