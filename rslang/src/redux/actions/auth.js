@@ -1,12 +1,16 @@
 import axios from 'axios';
 
-import { AUTH_LOGOUT, AUTH_SUCCESS } from './actionsTypes';
+import {
+  AUTH_LOGOUT,
+  AUTH_SUCCESS,
+  AUTH_FAILED,
+  AUTH_START,
+} from './actionsTypes';
 
 import {
   apiLinks,
   count,
   localStorageItems,
-  text,
 } from '../../helpers/constants';
 
 import { getTokenLifetimeInMs } from '../../helpers/functions';
@@ -38,14 +42,27 @@ export function authSuccess(name, userId, token) {
   };
 }
 
+export function authFailed() {
+  return {
+    type: AUTH_FAILED,
+  };
+}
+
+export function authStart() {
+  return {
+    type: AUTH_START,
+  };
+}
+
 export function auth(email, password) {
   return async (dispatch) => {
     const authData = {
       email,
       password,
     };
+    dispatch(authStart());
     try {
-      const url = apiLinks.base
+      const url = apiLinks.base;
 
       const response = await axios.post(`${url}signin`, authData);
       const { data } = response;
@@ -61,8 +78,7 @@ export function auth(email, password) {
       dispatch(authSuccess(name, userId, token));
       dispatch(autoLogout((expData.getTime() - new Date().getTime()) / count.msInSec));
     } catch (e) {
-      // TODO Delete alert, add error message below the H1 title
-      alert(text.ru.incorrectLoginData);
+      dispatch(authFailed());
     }
   };
 }

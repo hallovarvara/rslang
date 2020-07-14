@@ -21,10 +21,9 @@ import {
 } from '../../helpers/functions';
 
 import {
-  saveRightToGamesStats,
-  saveWrongToGamesStats,
-  updateUserWordRate,
-  saveGameResults,
+  handleGameRightAnswer,
+  handleGameWrongAnswer,
+  saveSessionInfoToLocal,
 } from '../../helpers/wordsService';
 
 import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
@@ -70,8 +69,6 @@ const initialState = {
 const userService = new UserService();
 
 const { getUserWordsNoRemoved } = userService;
-
-const { SAVANNAH } = applicationThings;
 
 class Savannah extends Component {
   status = questionStatus;
@@ -189,7 +186,7 @@ class Savannah extends Component {
   handleClose = () => {
     this.setState({ isFinished: true });
     this.playAudio(soundFinish);
-    saveGameResults(applicationThings.SAVANNAH);
+    saveSessionInfoToLocal(applicationThings.SAVANNAH);
   }
 
   playAudio = (path) => this.state.volume && playAudio(path);
@@ -260,20 +257,19 @@ class Savannah extends Component {
 
   onCorrectAnswer = (idWordPressed) => {
 
-    const { idWords, activeCard, wordObject } = this.state;
+    const { idWords, activeCard } = this.state;
 
     if (idWordPressed === idWords[activeCard]) {
       this.resultCurrentQuiz('complete');
       this.guessedWords(idWordPressed, null, 'success');
       this.playAudio(soundSuccess);
-      saveRightToGamesStats(SAVANNAH);
+      handleGameRightAnswer(applicationThings.SAVANNAH, this.state.wordObject);
     } else {
       this.resultCurrentQuiz('mistake');
       this.handleHeart();
       this.playAudio(soundError);
       this.guessedWords(idWordPressed, (!idWordPressed ? null : 'error'), 'success');
-      saveWrongToGamesStats(SAVANNAH);
-      updateUserWordRate(wordObject, SAVANNAH);
+      handleGameWrongAnswer(applicationThings.SAVANNAH, this.state.wordObject);
     }
   }
 

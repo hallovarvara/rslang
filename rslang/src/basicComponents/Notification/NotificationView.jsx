@@ -18,7 +18,7 @@ function MyApp(props) {
 
   useEffect(() => {
     enqueueSnackbar(message, { variant });
-  }, []);
+  }, [enqueueSnackbar, message, variant]);
 
   return <></>;
 }
@@ -57,6 +57,6 @@ export default function IntegrationNotistack(props) {
 
 IntegrationNotistack.propTypes = {
   afterClose: PropTypes.func,
-  duration: PropTypes.func,
+  duration: PropTypes.number,
   position: PropTypes.object,
 };

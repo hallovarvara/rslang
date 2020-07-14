@@ -9,20 +9,24 @@ import {
   prepareRightAnswerStyles,
   prepareWrongAnswerStyles,
 } from '../../helpers';
+import { buttonsNames } from '../../helpers/constants';
 import CheckedSentense from '../CheckedSentence';
 
 class Word extends Component {
   state = {
     value: '',
-  }
+  };
 
   handleInput = ({ target: { value } }) => {
     this.setState({ value });
-    const { onChangeProgress, progress: { difference } } = this.props;
+    const {
+      onChangeProgress,
+      progress: { difference },
+    } = this.props;
     if (value && difference) {
       onChangeProgress({ isShownWord: false });
     }
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -36,26 +40,30 @@ class Word extends Component {
     this.setState({
       value: '',
     });
-  }
+  };
 
   handleError = (currentWord, inputWord) => {
+    const { onChangeProgress, onStatsChanged } = this.props;
+    console.log(onStatsChanged);
     const difference = showDifferenceInWords(currentWord, inputWord);
-    const { onChangeProgress } = this.props;
     onChangeProgress({ isShownWord: true, difference });
+    onStatsChanged(false);
     setTimeout(() => {
       onChangeProgress({ isWordSemiOpacity: true });
     }, 2000);
-  }
+  };
 
   handleSuccess = () => {
-    const { onChangeProgress, onPlayAudio } = this.props;
+    const { onChangeProgress, onPlayAudio, onStatsChanged } = this.props;
+    console.log(onStatsChanged);
     onChangeProgress({
       isGuessed: true,
       isShownWord: true,
       difference: null,
     });
+    onStatsChanged(true);
     onPlayAudio();
-  }
+  };
 
   render() {
     const {
@@ -72,18 +80,23 @@ class Word extends Component {
       isWordSemiOpacity,
       difference,
     } = progress;
-    const {
-      value,
-    } = this.state;
-    const wrongAnswerStyles = prepareWrongAnswerStyles(isShownWord, isWordSemiOpacity);
+    const { value } = this.state;
+    const wrongAnswerStyles = prepareWrongAnswerStyles(
+      isShownWord,
+      isWordSemiOpacity,
+    );
     const rightAnswerStyles = prepareRightAnswerStyles(isGuessed);
-    const output = difference
-      ? <CheckedSentense sentence={difference} styles={wrongAnswerStyles} />
-      : <span style={rightAnswerStyles}>{emphasis}</span>;
+    const output = difference ? (
+      <CheckedSentense sentence={difference} styles={wrongAnswerStyles} />
+    ) : (
+      <span style={rightAnswerStyles}>{emphasis}</span>
+    );
     return (
       <div>
         <div>
-          {isGuessed && <button onClick={() => onPlayAudio('audioExample')}>Play</button>}
+          {isGuessed && (
+            <button onClick={() => onPlayAudio('audioExample')}>{buttonsNames.PLAY}</button>
+          )}
           <span>{begin}</span>
           <div style={{ position: 'relative', display: 'inline' }}>
             {output}
@@ -101,7 +114,9 @@ class Word extends Component {
           </div>
           <span style={{ marginLeft: '10px' }}>{end}</span>
         </div>
-        <button disabled={!value} onClick={this.handleSubmit}>Проверить ответ</button>
+        <button disabled={!value} onClick={this.handleSubmit}>
+          {buttonsNames.CHECK_ANSWER}
+        </button>
         {isGuessed && isShownTranslation && <p>{textExampleTranslate}</p>}
       </div>
     );
@@ -115,6 +130,7 @@ Word.propTypes = {
   isShownTranslation: PropTypes.bool,
   onChangeProgress: PropTypes.func,
   onPlayAudio: PropTypes.func,
+  onStatsChanged: PropTypes.func,
 };
 
 export default Word;

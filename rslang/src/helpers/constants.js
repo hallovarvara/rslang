@@ -218,6 +218,7 @@ const text = {
     firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
     incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
+    welcome: 'Добро пожаловать, {username} :)',
 
     /* Games */
     levelsTitles: ['Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'],
@@ -239,7 +240,7 @@ const text = {
       dontKnow: 'Не знаю',
       startGame: 'Играть',
       newGame: 'Начать новую игру',
-      learnWords: 'Изучать словау',
+      learnWords: 'Изучать слова',
       learnEnglishWithUs: 'Учите английский с нами',
     },
   },

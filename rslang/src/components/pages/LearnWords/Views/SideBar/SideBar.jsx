@@ -7,29 +7,27 @@ const { SHOW_ANSWER, PREV, NEXT } = buttonsNames;
 
 const SideBar = ({
   progress,
-  word,
   image,
   isShownAnswerButton,
   isShownImageAssociation,
   onNextWord,
   onPrevWord,
-  onChangeProgress,
+  onShowTip,
 }) => (
   <div>
     <div>
-      {isShownImageAssociation && <img src={resourceUrl(image)} alt={word} />}
-        {isShownAnswerButton && (
-          <button
-            onClick={() => onChangeProgress({
-              isGuessed: true,
-              isShownWord: true,
-              isUsedTip: true,
-            })}
-            disabled={progress.isGuessed}
-          >
-            {SHOW_ANSWER}
-          </button>
-        )}
+        {isShownImageAssociation && <img src={resourceUrl(image)} alt="uknown word" />}
+      {isShownAnswerButton && (
+        <button
+          onClick={() => {
+            onShowTip();
+          }
+          }
+          disabled={progress.isGuessed}
+        >
+          {SHOW_ANSWER}
+        </button>
+      )}
     </div>
     <div>
       <button onClick={() => onPrevWord()}>{PREV}</button>
@@ -46,7 +44,7 @@ SideBar.propTypes = {
   isShownImageAssociation: PropTypes.bool,
   onNextWord: PropTypes.func,
   onPrevWord: PropTypes.func,
-  onChangeProgress: PropTypes.func,
+  onShowTip: PropTypes.func,
 };
 
 export default SideBar;
