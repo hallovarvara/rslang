@@ -16,13 +16,19 @@
   $weight: $font-weight-semibold,
   $style: normal,
   $family: $font-primary,
-  $line-height: normal
+  $line-height: normal,
+  $spacing: normal
 ) {
   font-weight: $weight;
   font-size: $size;
   font-family: $family;
   font-style: $style;
   line-height: $line-height;
+  letter-spacing: $spacing;
+}
+
+@mixin transition($properties: all) {
+  transition: $properties $animation-time ease-in-out;
 }
 
 /* MEDIA */

@@ -17,7 +17,7 @@ const AnswerList = ({
           key={key}
           id={id[key]}
           guessedWords={guessedWords}
-          value={`${key + 1} ${value}`}
+          value={value}
           state={state ? state[0][id[key]] : null}
           trueAnswer={state && key === +trueNumberAnswer ? state[1][trueNumberAnswer] : null}
           keyPressed={keyPressed}
