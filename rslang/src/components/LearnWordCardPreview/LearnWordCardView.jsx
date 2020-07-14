@@ -85,9 +85,9 @@ LearnWordCardView.propTypes = {
   previewSettings: PropTypes.object,
 };
 
-const mapStateToProps = ({ learnCardPreviewSettings }) => (
+const mapStateToProps = (store) => (
   {
-    previewSettings: learnCardPreviewSettings,
+    previewSettings: store.learnCardPreview.learnCardPreviewSettings,
   }
 );
 
