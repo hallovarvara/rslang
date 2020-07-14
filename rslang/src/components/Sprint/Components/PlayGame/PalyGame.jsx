@@ -36,6 +36,7 @@ class PlayGame extends Component {
     }
   }
 
+
   render() {
     const {
       words, activeAnswer, onCLick,
