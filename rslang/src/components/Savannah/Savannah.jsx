@@ -69,7 +69,6 @@ const initialState = {
 const userService = new UserService();
 
 const { getUserWordsNoRemoved } = userService;
-let timerOn;
 class Savannah extends Component {
   status = questionStatus;
 
