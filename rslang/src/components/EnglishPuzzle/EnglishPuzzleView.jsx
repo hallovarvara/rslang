@@ -15,6 +15,8 @@ const EnglishPuzzleView = ({
   data,
   getLevel,
   numberLevel,
+  getPage,
+  numberPage,
 }) => (
   <div className="container">
     {(!isStart)
@@ -22,6 +24,8 @@ const EnglishPuzzleView = ({
           getLevel={getLevel}
           handleClickButtonStart={handleClickButtonStart}
           numberLevel={numberLevel}
+          getPage={getPage}
+          numberPage={numberPage}
         />
       : <GamePage
           data={data}
@@ -45,6 +49,8 @@ EnglishPuzzleView.propTypes = {
   data: PropTypes.array,
   getLevel: PropTypes.func,
   numberLevel: PropTypes.number,
+  getPage: PropTypes.func,
+  numberPage: PropTypes.number,
 };
 
 export default EnglishPuzzleView;

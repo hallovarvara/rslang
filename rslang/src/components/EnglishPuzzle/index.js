@@ -7,6 +7,8 @@ class EnglishPuzzle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      numberLevel: 0,
+      numberPage: 0,
       paintingInfo: paintingObj(), // TODO level from form
       isStart: false,
       backgroundUrl: '',
@@ -20,14 +22,25 @@ class EnglishPuzzle extends React.Component {
     });
   }
 
+  getPage = (page) => {
+    this.setState({
+      numberPage: page,
+    });
+  }
+
   handleClickButtonBackground = () => {
     const { isBackground } = this.state;
     this.setState({ isBackground: !isBackground });
   }
 
   handleClickButtonStart = async () => {
-    const { isBackground, paintingInfo, numberLevel = 1 } = this.state;
-    const data = await getWords(1, numberLevel);
+    const {
+      isBackground,
+      paintingInfo,
+      numberLevel,
+      numberPage,
+    } = this.state;
+    const data = await getWords(numberPage, numberLevel);
     this.setState({
       data,
       isStart: true,
@@ -48,6 +61,7 @@ class EnglishPuzzle extends React.Component {
       isBackground,
       paintingInfo,
       numberLevel,
+      numberPage,
     } = this.state;
     return (
       <EnglishPuzzleView
@@ -61,6 +75,8 @@ class EnglishPuzzle extends React.Component {
         handleClickNewGame={this.handleClickNewGame}
         getLevel={this.getLevel}
         numberLevel={numberLevel}
+        getPage={this.getPage}
+        numberPage={numberPage}
       />
     );
   }
