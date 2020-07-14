@@ -10,7 +10,6 @@ import { text } from '../../../../helpers/constants';
 
 export default function StartGameForm({ classNameForm, handleCurrentGroup, onSubmitForm }) {
   const menuItemList = [...text.ru.levelsTitles];
-  menuItemList.shift();
 
   return (
     <form className={classNameForm} onSubmit={onSubmitForm}>

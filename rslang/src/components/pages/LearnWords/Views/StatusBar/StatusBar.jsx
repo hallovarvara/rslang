@@ -2,30 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { buttonsNames } from '../../helpers/constants';
-import {
-  updateUserWordDifficulty,
-  updateUserWordRemoved,
-} from '../../../../../helpers/wordsService';
+// import {
+//   updateUserWordDifficulty,
+//   updateUserWordRemoved,
+// } from '../../../../../helpers/wordsService';
 
 const { COMPLICATED, REMOVE } = buttonsNames;
 
-export const handleWordRemove = (wordObject, onChangeProgress, isRemoved) => {
-  updateUserWordRemoved(wordObject);
-  onChangeProgress({ isRemoved: !isRemoved });
-};
+// export const handleWordRemove = (wordObject, onChangeProgress, isRemoved) => {
+//   updateUserWordRemoved(wordObject);
+//   onChangeProgress({ isRemoved: !isRemoved });
+// };
 
-export const handleWordComplicated = (wordObject, onChangeProgress, isComplicated) => {
-  updateUserWordDifficulty(wordObject);
-  onChangeProgress({ isComplicated: !isComplicated });
-};
+// export const handleWordComplicated = (onChangeDifficulty) => {
+//   updateUserWordDifficulty(wordObject);
+//   onChangeProgress({ isComplicated: !isComplicated });
+// };
 
 const StatusBar = ({
   progress: { isRemoved, isComplicated },
-  onChangeProgress,
-  currentWord,
+  // onChangeProgress,
+  // currentWord,
   wordCount,
   totalWords,
   isShownComplicatedButton,
+  onChangeDifficulty,
+  onChangeRemoved,
 }) => (
   <div>
     {/* //TODO: Here will be Material UI ProgressBar with 'totalWords' / 'wordCount' */}
@@ -35,7 +37,7 @@ const StatusBar = ({
           && <button
           className={classNames({ active: isComplicated })}
           onClick={
-            () => handleWordComplicated(currentWord, onChangeProgress, isComplicated)
+            () => onChangeDifficulty()
           } >
             {COMPLICATED}
           </button>
@@ -43,7 +45,7 @@ const StatusBar = ({
         <button
           className={classNames({ active: isRemoved })}
           onClick={
-            () => handleWordRemove(currentWord, onChangeProgress, isRemoved)
+            () => onChangeRemoved()
           } >
         {REMOVE}
       </button>
@@ -58,6 +60,8 @@ StatusBar.propTypes = {
   wordCount: PropTypes.number,
   totalWords: PropTypes.number,
   isShownComplicatedButton: PropTypes.bool,
+  onChangeDifficulty: PropTypes.func,
+  onChangeRemoved: PropTypes.func,
 };
 
 export default StatusBar;

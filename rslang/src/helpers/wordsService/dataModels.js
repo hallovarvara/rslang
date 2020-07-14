@@ -3,7 +3,6 @@ import {
   applicationThings,
   userSettingsTemplate,
   dateFormatTemplate,
-  levelsOfDifficulty,
 } from '../constants';
 
 export const userWordTemplate = {
@@ -168,51 +167,28 @@ export const convertStamp = (days, oldDate) => (
     : moment().add(days, 'days').valueOf()
 );
 
-export const changeUserWord = (userOption, optionData, oldRepeated, stamp, wordObject) => {
-  const newUserWord = wordObject?.userWord
-    ? { ...wordObject.userWord }
-    : { ...userWordTemplate };
-  const { optional } = newUserWord;
-  if (userOption === userWordThings.DIFFICULTY) {
-    newUserWord[userWordThings.DIFFICULTY] = optionData;
-  } else {
-    switch (userOption) {
-      case userWordThings.RATE:
-        optional.rate = optionData;
-        optional.next = convertDate(optionData);
-        optional.stamp = stamp;
-        optional.repeated = oldRepeated + 1;
-        break;
-      case userWordThings.NEXT:
-        optional.next = optionData;
-        optional.stamp = stamp;
-        break;
-      case userWordThings.REMOVED:
-        optional.removed = optionData;
-        break;
-      case userWordThings.REPEATED:
-        optional.repeated = optionData;
-        break;
-      default:
-        break;
+export const sumUserWordProps = (targetObject, newData) => {
+  const result = {};
+  Object.keys(targetObject).forEach((key) => {
+    result[key] = newData[key] ? newData[key] : targetObject[key];
+    if (key === 'repeated' && newData.repeated) {
+      result[key] = targetObject[key] + 1;
     }
-  }
-  const userWord = { ...newUserWord, optional };
-  return { ...wordObject, userWord };
+  });
+  return result;
 };
 
-export const checkUserWordById = (userWords, wordId) => {
-  const existendWord = userWords.find((word) => word.id === wordId);
-  return existendWord;
-};
-
-export const generateSpacingRepeatingTemplate = () => (
-  []
-);
-
-export const getWordsDiffAndComplicated = ({ difficulty, optional }) => (
-  {
-    isRemoved: optional.removed,
-    isComplicated: difficulty === levelsOfDifficulty.HARD,
+export const changeUserWord = (wordObject, updatedUserWord) => {
+  const userWord = wordObject?.userWord || { ...userWordTemplate };
+  if (updatedUserWord.difficulty) {
+    userWord.difficulty = updatedUserWord.difficulty;
+  } else {
+    userWord.optional = {
+      ...sumUserWordProps(userWord.optional, updatedUserWord),
+    };
   }
-);
+  return {
+    ...wordObject,
+    userWord,
+  };
+};

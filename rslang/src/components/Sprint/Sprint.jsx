@@ -8,18 +8,20 @@ import UserService from '../../helpers/userService';
 
 import {
   count,
+  questionStatus,
   applicationThings,
   localStorageItems,
   soundError,
   soundSuccess,
+  text,
 } from '../../helpers/constants';
 
 import {
-  saveRightToGamesStats,
-  saveWrongToGamesStats,
-  updateUserWordRate,
-  saveGameResults,
+  handleGameRightAnswer,
+  handleGameWrongAnswer,
+  saveSessionInfoToLocal,
 } from '../../helpers/wordsService';
+
 import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
 
 import './Sprint.scss';
@@ -68,15 +70,20 @@ const initialState = {
   },
 };
 
-const { SPRINT } = applicationThings;
-
 const userService = new UserService();
 const { getUserWordsNoRemoved } = userService;
 
 class Sprint extends Component {
   basic = count.sprint.pointsMultiplier
 
+  status = questionStatus;
+
   state = initialState
+
+  resultTitle = {
+    success: text.ru.answersCorrect,
+    error: text.ru.answersMistaken,
+  };
 
   updateState = async () => {
     const words = [];
@@ -186,7 +193,7 @@ class Sprint extends Component {
     if (this.state.timer === 0) {
       clearTimeout(timerId);
       this.setState({ isFinished: true });
-      saveGameResults(applicationThings.SPRINT);
+      saveSessionInfoToLocal(applicationThings.SPRINT);
     }
   }
 
@@ -202,7 +209,7 @@ class Sprint extends Component {
       value = null;
     }
     if (value !== null) {
-      const { answerState, wordObject, isTrue: isTrueState } = this.state;
+      const { answerState } = this.state;
       const isTrue = value;
 
       if (answerState) {
@@ -211,20 +218,19 @@ class Sprint extends Component {
 
       this.setState({ answerState: true });
 
-      if (isTrue === isTrueState) {
+      if (isTrue === this.state.isTrue) {
         this.setState({ isAnswerQuiz: 'check' });
         this.audioPlay(soundSuccess);
         this.updateCounter(count.sprint.counterMultiplier, 1);
         this.updateScore(this.basic);
         this.resultCurrentQuiz('complete');
-        saveRightToGamesStats(SPRINT);
+        handleGameRightAnswer(applicationThings.SPRINT, this.state.wordObject);
       } else {
         this.audioPlay(soundError);
         this.setState({ isAnswerQuiz: 'times' });
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
-        saveWrongToGamesStats(SPRINT);
-        updateUserWordRate(wordObject, SPRINT);
+        handleGameWrongAnswer(applicationThings.SPRINT, this.state.wordObject);
       }
       this.updateState();
     }
@@ -263,13 +269,15 @@ class Sprint extends Component {
       />;
     } else if (isStarted && isFinished) {
       page = <FinishGame
+        status={this.status}
+        resultTitle={this.resultTitle}
         isFinished={isFinished}
         mistake={mistake}
         complete={complete}
         audioPlay={this.audioPlay}
         onReloadGame={this.onReloadGame}
       />;
-    } else if (isStarted && !isFinished) {
+    } else if (isStarted && !isFinished && activeAnswer) {
       page = <PlayGame
         words={words}
         activeAnswer={activeAnswer}

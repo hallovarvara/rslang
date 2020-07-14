@@ -17,6 +17,7 @@ const SettingsPage = (props) => {
     transcription: transcriptionVisibility,
     showAnswerButton: showAnswerButtonVisibility,
     exampleSentence: exampleSentenceVisibility,
+    exampleSentenceTranslation: exampleSentenceTranslationVisibility,
   } = props.previewSettings;
   return (
     <section className="settings-page">
@@ -36,7 +37,7 @@ const SettingsPage = (props) => {
         <h4 className="learn-card-preview__title">Что показывать на карточке слова</h4>
         <div className="preview-settings">
           <label className="preview-settings__setting translation">
-            <Checkbox previewSettingName="translation" checked={translationVisibility}/>Перевод
+            <Checkbox previewSettingName="translation" checked={translationVisibility}/>Перевод слова
           </label>
           <label className="preview-settings__setting complicated-button">
             <Checkbox previewSettingName="complicatedButton" checked={complicatedButtonVisibility}/>Кнопка «Сложные»
@@ -56,6 +57,9 @@ const SettingsPage = (props) => {
           <label className="preview-settings__setting example-sentence">
             <Checkbox previewSettingName="exampleSentence" checked={exampleSentenceVisibility}/>Пример предложения
           </label>
+          <label className="preview-settings__setting example-sentence">
+            <Checkbox previewSettingName="exampleSentenceTranslation" checked={exampleSentenceTranslationVisibility} /> Перевод примера предложения
+          </label>
         </div>
         <LearnWordCardPreview />
       </div>
@@ -67,9 +71,9 @@ SettingsPage.propTypes = {
   previewSettings: PropTypes.object,
 };
 
-const mapStateToProps = ({ learnCardPreviewSettings }) => (
+const mapStateToProps = (store) => (
   {
-    previewSettings: learnCardPreviewSettings,
+    previewSettings: store.learnCardPreview.learnCardPreviewSettings,
   }
 );
 
