@@ -14,10 +14,11 @@ const LearnWordCardView = ({ previewSettings }) => {
     transcription: transcriptionVisibility,
     showAnswerButton: showAnswerButtonVisibility,
     exampleSentence: exampleSentenceVisibility,
+    exampleSentenceTranslation: exampleSentenceTranslationVisibility,
   } = previewSettings;
 
   const translationItemClasses = classNames({
-    'learn-word-card-info__sentence-translation': true,
+    'target-learn-word-container__target-word-translation': true,
     hidden: !translationVisibility,
   });
   const complicatedButtonItemClasses = classNames({
@@ -35,6 +36,7 @@ const LearnWordCardView = ({ previewSettings }) => {
   const transcriptionItemClasses = classNames({
     'target-learn-word-container__transcription': true,
     hidden: !transcriptionVisibility,
+    'to-left': !translationVisibility,
   });
   const showAnswerButtonItemClasses = classNames({
     'learn-word-card-control__show-answer-button': true,
@@ -43,6 +45,10 @@ const LearnWordCardView = ({ previewSettings }) => {
   const exampleSentenceItemClasses = classNames({
     'learn-word-card-info__example-sentence': true,
     hidden: !exampleSentenceVisibility,
+  });
+  const exampleSentenceTranslationClasses = classNames({
+    'learn-word-card-info__sentence-translation': true,
+    hidden: !exampleSentenceTranslationVisibility,
   });
 
   return (
@@ -60,10 +66,12 @@ const LearnWordCardView = ({ previewSettings }) => {
           <p className="learn-word-card-sentence">
             I <span className="learn-word-card-sentence__target-word">run</span> every morning
           </p>
-          <p className={translationItemClasses}>Я бегаю каждое утро</p>
+          <p className={exampleSentenceTranslationClasses}>Я бегаю каждое утро</p>
           <div className="line learn-word-card-info__line"></div>
           <div className="target-learn-word-container">
             <p className="target-learn-word-container__target-word">run</p>
+            <span className="target-learn-word-container__volume-icon"></span>
+            <p className={translationItemClasses}>бегать</p>
             <p className={transcriptionItemClasses}>/rən/</p>
           </div>
           <p className={meaningItemClasses}>Move at a speed faster than a walk</p>
@@ -85,9 +93,9 @@ LearnWordCardView.propTypes = {
   previewSettings: PropTypes.object,
 };
 
-const mapStateToProps = ({ learnCardPreviewSettings }) => (
+const mapStateToProps = (store) => (
   {
-    previewSettings: learnCardPreviewSettings,
+    previewSettings: store.learnCardPreview.learnCardPreviewSettings,
   }
 );
 
