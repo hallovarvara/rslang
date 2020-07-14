@@ -341,7 +341,7 @@ export default class LearnWords extends Component {
         isContinued={Boolean(words.length)}
       />
     ) : (
-      <div>
+      <div className='learn-words'>
         {isShownShortStats && !isFetching && (
           <ShortStats
             totalWords={totalWords}
