@@ -32,7 +32,7 @@ const {
   unmess, // englishPuzzle, speakit,
 } = gamesData;
 
-const Main = ({ username }) => (
+const Main = ({ username, authFailed }) => (
   <main className="main">
     <Switch>
       <Route path={getPath(learnWords.path)} component={LearnWords} />
@@ -59,15 +59,25 @@ const Main = ({ username }) => (
         duration={5000}
         position={{ vertical: 'top', horizontal: 'center' }}/>
     }
+    {
+      authFailed
+      && <Notification
+        variant="error"
+        message={`${text.ru.incorrectLoginData}`}
+        duration={5000}
+        position={{ vertical: 'top', horizontal: 'center' }}/>
+    }
   </main>
 );
 
 Main.propTypes = {
   username: PropTypes.string,
+  authFailed: PropTypes.bool,
 };
 
 const mapStateToProps = (store) => ({
   username: store.auth.name,
+  authFailed: store.auth.failed,
 });
 
 export default connect(mapStateToProps)(Main);
