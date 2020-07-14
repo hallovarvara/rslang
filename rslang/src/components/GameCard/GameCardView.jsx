@@ -12,15 +12,15 @@ const GameCardView = ({
     path, startPath,
   },
 }) => (
-    <div className="game-card">
-      <h5 className="game-card__title">{title}</h5>
-      <p className="game-card__description">{ Parser(description) }</p>
-      <Link className="link-btn game-card__link-button-container" to={
-        getPath(startPath ?? path)
-      }>
-        <Button type="secondary" value={`${title} →`}/>
-      </Link>
-    </div>
+  <div className="game-card">
+    <h5 className="game-card__title">{title}</h5>
+    <p className="game-card__description">{ Parser(description) }</p>
+    <Link className="link-btn game-card__link-button-container" to={
+      getPath(startPath ?? path)
+    }>
+      <Button type="secondary" value={`${title} →`}/>
+    </Link>
+  </div>
 );
 
 GameCardView.propTypes = {

@@ -56,6 +56,14 @@ const pauseAudio = (path) => {
   audioElement.pause();
 };
 
+const generateStepperMarks = (stepsCount) => (
+  (new Array(stepsCount).fill({}))
+    .map((obj, index) => ({
+      value: index + 1,
+      label: `${index + 1}`,
+    }))
+);
+
 export {
   getFilePath,
   generateQuestionsArray,
@@ -67,4 +75,5 @@ export {
   getAverageNumber,
   getTokenLifetimeInMs,
   getPath,
+  generateStepperMarks,
 };

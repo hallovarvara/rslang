@@ -1,17 +1,17 @@
-// Abstracts
+/* Abstracts */
 @import './scss/abstracts/constants';
 @import './scss/abstracts/mixins';
 @import './scss/abstracts/placeholders';
 
-// Vendors
+/* Vendors */
 @import './scss/vendor/normalize';
 
-// Base
+/* Base */
 @import './scss/base/typography';
 @import './scss/base/base';
 @import './scss/base/helpers';
 
-// Components
+/* Components */
 @import './scss/components/logo';
 @import './scss/components/select-list';
 @import './scss/components/paginaition';
@@ -27,7 +27,7 @@
 @import './scss/components/notification';
 @import './scss/components/preloader';
 
-// Layouts
+/* Layouts */
 @import './scss/layouts/header';
 @import './scss/layouts/learn-words';
 @import './scss/layouts/play-games-page';

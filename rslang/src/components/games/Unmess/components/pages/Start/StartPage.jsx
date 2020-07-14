@@ -6,15 +6,12 @@ import StartButton from '../../StartButton';
 import Preloader from '../../Preloader';
 import Stepper from '../../../../../../basicComponents/Stepper';
 
-import { levelsCount, pagesCount } from '../../../helpers/contants';
+import {
+  levelsCount,
+  pagesCount,
+} from '../../../helpers/contants';
 
-const generateStepperMarks = (stepsCount) => (
-  (new Array(stepsCount).fill({}))
-    .map((obj, index) => ({
-      value: index + 1,
-      label: `${index + 1}`,
-    }))
-);
+import { generateStepperMarks } from '../../../../../../helpers/functions';
 
 const StartPage = (props) => {
   const {

@@ -19,7 +19,10 @@
 
 .logo_speakit {
   .logo__spot {
-    fill: $color-secondary;
+    fill: $color-light;
+  }
+  .logo__text {
+    fill: #c128f6;
   }
 }
 
@@ -28,7 +31,7 @@
     fill: $color-light;
   }
   .logo__text {
-    fill: #0C5C75;
+    fill: #0c5c75;
   }
 }
 
