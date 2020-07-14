@@ -14,16 +14,16 @@ const WordCardView = ({ wordData, restoreWord }) => {
     <div className="word-card-container">
       <div className="word-card-preview-wrapper">
         <div className="word-card-preview">
-          <img className="word-card-preview__img" src = {`${apiLinks.file}${wordData.image}`} alt="word" />
+          <img className="word-card-preview__img" src={`${apiLinks.file}${wordData.image}`} alt="word" />
           <div className="word-card-main-info">
             <div className="target-word-wrapper">
-              <p className="target-word-wrapper__word" title={wordData.word}>{ wordData.word }</p>
-              <p className="target-word-wrapper__translation" title={wordData.wordTranslate}>{ wordData.wordTranslate }</p>
+              <p className="target-word-wrapper__word" title={wordData.word}>{wordData.word}</p>
+              <p className="target-word-wrapper__translation" title={wordData.wordTranslate}>{wordData.wordTranslate}</p>
             </div>
             <button className="word-card-main-info__pronunciation-button" onClick={() => playAudio(`${apiLinks.file}${wordData.audio}`)}></button>
           </div>
         </div>
-        <button className="word-card-preview-wrapper__restore-button" onClick={ onRestoreWord }>{text.ru.restoreForLearning}</button>
+        <button className="word-card-preview-wrapper__restore-button" onClick={onRestoreWord}>{text.ru.restoreForLearning}</button>
       </div>
       <div className="word-card-additional-info">
         <p className="word-card-additional-info__transciption" title={`/ ${wordData.transcription} /`}>{`/ ${wordData.transcription} /`}</p>

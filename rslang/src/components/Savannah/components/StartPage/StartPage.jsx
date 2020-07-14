@@ -13,27 +13,24 @@ import Switcher from '../UI/switch';
 import { count, gamesData, text } from '../../../../helpers/constants';
 
 import classes from './StartPage.module.scss';
-import { getAverageNumber } from '../../../../helpers/functions';
+
+const {
+  defaultLevel, minQuestions, maxQuestions, minAnswers, maxAnswers,
+} = count.savannah;
 
 const StartPage = ({
   onTotalQuizUpdate, onSubmitForm, handleCurrentGroup, handleChangeUserWords,
   handleTotalAnswer, totalAnswers, totalQuestions, token,
 }) => {
-  const errorAnswer = totalAnswers > count.savannah.maxAnswers
-    || totalAnswers < count.savannah.minAnswers
+  const errorAnswer = totalAnswers > maxAnswers
+    || totalAnswers < minAnswers
     || !totalAnswers;
 
-  const errorQuiz = totalQuestions > count.savannah.maxQuestions
-    || totalQuestions < count.savannah.minQuestions
+  const errorQuiz = totalQuestions > maxQuestions
+    || totalQuestions < minQuestions
     || !totalQuestions;
 
   const menuItemList = text.ru.levelsTitles;
-  const [age, setAge] = React.useState('');
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-    handleCurrentGroup(event);
-  };
 
   return (
     <div className={classes.StartPage}>
@@ -46,11 +43,11 @@ const StartPage = ({
           <Select
             labelId="select-label"
             id="simple-select"
-            value={age}
-            onChange={handleChange}
+            defaultValue={defaultLevel}
+            onChange={(event) => handleCurrentGroup(event)}
           >
             {menuItemList.map((value, key) => (
-              <MenuItem value={key - 1} key={key}>{value}</MenuItem>
+              <MenuItem value={key} key={key}>{value}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -59,8 +56,8 @@ const StartPage = ({
           required
           error={errorQuiz}
           id="savannah-start__questions"
-          label={`${text.ru.howManyWords} (${count.savannah.minQuestions}—${count.savannah.maxQuestions})`}
-          value={ getAverageNumber(count.savannah.minQuestions, count.savannah.maxQuestions) }
+          label={`${text.ru.howManyWords} (${minQuestions}—${maxQuestions})`}
+          value={totalQuestions}
           variant="filled"
           onChange={onTotalQuizUpdate}
           style={{ margin: '20px 0' }}
@@ -69,12 +66,12 @@ const StartPage = ({
           required
           error={errorAnswer}
           id="savannah-start__answers"
-          label={`${text.ru.howManyAnswers} (${count.savannah.minAnswers}—${count.savannah.maxAnswers})`}
+          label={`${text.ru.howManyAnswers} (${minAnswers}—${maxAnswers})`}
           inputProps={{ pattern: '[2-5]' }}
           variant="filled"
           onChange={handleTotalAnswer}
           style={{ marginBottom: 20 }}
-          value={ getAverageNumber(count.savannah.minAnswers, count.savannah.maxAnswers) }
+          value={totalAnswers}
         />
         <Button
           type="submit"
