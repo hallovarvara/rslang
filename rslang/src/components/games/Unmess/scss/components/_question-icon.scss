@@ -1,0 +1,12 @@
+.unmess-game-container .question-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-image: url('../../assets/images/question-icon.png');
+  background-position: center;
+  background-size: cover;
+  @include media-mobile {
+    width: 35px;
+    height: 35px;
+  }
+}

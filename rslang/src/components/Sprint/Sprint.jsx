@@ -19,6 +19,7 @@ import {
   handleGameWrongAnswer,
   saveSessionInfoToLocal,
 } from '../../helpers/wordsService';
+
 import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
 
 import './Sprint.scss';
@@ -51,7 +52,7 @@ const initialState = {
   translateWords: [],
   words: [],
   isFinished: false,
-  isStarted: true,
+  isStarted: false,
   volume: true,
   mistake: {
     total: 0,

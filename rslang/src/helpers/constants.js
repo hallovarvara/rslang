@@ -1,4 +1,5 @@
 import noAvatar from '../assets/images/avatar.jpg';
+
 import soundError from '../assets/audio/error.mp3';
 import soundSuccess from '../assets/audio/success.mp3';
 import soundFinish from '../assets/audio/finish.mp3';
@@ -10,43 +11,11 @@ const apiLinks = {
 };
 
 const localStorageItems = {
-  nickname: 'rslangName',
+  username: 'rslangName',
   token: 'rslangToken',
   userId: 'rslangUserId',
   refreshTokenDate: 'refreshTokenDate',
 };
-
-export const preloaderdefaultSettings = {
-  size: 150,
-  color: '#843FDD',
-};
-
-export const ratesScale = [
-  {
-    level: 30, rate: 31,
-  },
-  {
-    level: 21, rate: 30,
-  },
-  {
-    level: 15, rate: 21,
-  },
-  {
-    level: 10, rate: 15,
-  },
-  {
-    level: 7, rate: 10,
-  },
-  {
-    level: 4, rate: 7,
-  },
-  {
-    level: 2, rate: 4,
-  },
-  {
-    level: 0, rate: 2,
-  },
-];
 
 export const applicationThings = {
   LEARN_WORDS: 'learnWords',
@@ -68,6 +37,11 @@ export const userSettingsTemplate = {
   IS_SHOWN_MEANING: 'isShownMeaning',
 };
 
+const preloaderdefaultSettings = {
+  size: 150,
+  color: '#843FDD',
+};
+
 export const levelsOfDifficulty = {
   HARD: 'hard',
   NORMAL: 'normal',
@@ -80,14 +54,14 @@ const linkedinLink = 'https://www.linkedin.com/in/';
 
 const pagesData = {
   aboutUs: {
-    title: 'О нас',
+    title: 'Кто мы',
     path: 'about-us',
-    guest: { isVisible: true, index: 0 },
+    guest: { isVisible: true, index: 3 },
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
     title: 'Учить слова',
-    path: '',
+    path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
   },
@@ -98,21 +72,21 @@ const pagesData = {
     user: { isVisible: true, index: 1 },
   },
   promo: {
-    title: 'Промо',
-    path: 'promo',
-    guest: { isVisible: false },
-    user: { isVisible: false },
+    title: 'О проекте',
+    path: '',
+    guest: { isVisible: true, index: 0 },
+    user: { isVisible: true, index: 2 },
   },
   settings: {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: true, index: 5 },
+    user: { isVisible: true, index: 6 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: true, index: 5 },
+    guest: { isVisible: true, index: 6 },
     user: { isVisible: false },
   },
   register: {
@@ -124,47 +98,48 @@ const pagesData = {
   statistics: {
     title: 'Статистика',
     path: 'statistics',
-    guest: { isVisible: true, index: 3 },
-    user: { isVisible: true, index: 3 },
+    guest: { isVisible: true, index: 4 },
+    user: { isVisible: true, index: 4 },
   },
   vocabulary: {
     title: 'Словарь',
     path: 'vocabulary',
-    guest: { isVisible: true, index: 4 },
-    user: { isVisible: true, index: 4 },
+    guest: { isVisible: true, index: 5 },
+    user: { isVisible: true, index: 5 },
   },
 };
 
 const gamesData = {
-  speakit: {
-    title: 'SpeakIt',
-    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
-    path: 'speakit',
-  },
-  englishPuzzle: {
-    title: 'English Puzzle',
-    description: 'Учитесь строить предложения и знакомьтесь с величайшими произведениями искусства',
-    path: 'english-puzzle',
+  audiocall: {
+    title: 'Аудиовызов',
+    description: 'Прокачивайте восприятие языка на слух, а также увеличивайте свой словарный запас',
+    path: 'audiocall',
   },
   savannah: {
     title: 'Саванна',
     description: 'Угадывайте, как переводятся слова, и вместе с этим пополняйте лексикон',
     path: 'savannah',
   },
-  audiocall: {
-    title: 'Аудиовызов',
-    description: 'Прокачивайте восприятие языка на слух, а также увеличивайте свой словарный запас',
-    path: 'audiocall',
-  },
   sprint: {
     title: 'Спринт',
     description: 'Играйте на время, чтобы точно знать, как много слов вы можете перевести за минуту',
     path: 'sprint',
   },
+  englishPuzzle: {
+    title: 'English Puzzle',
+    description: 'Учитесь строить предложения и знакомьтесь с величайшими произведениями искусства',
+    path: 'english-puzzle',
+  },
+  speakit: {
+    title: 'SpeakIt',
+    description: 'Вырабатывайте правильное произношение слов вместе с нашей космической игрой',
+    path: 'speakit',
+  },
   unmess: {
     title: 'Unmess',
     description: 'Соединяйте слова и их значения, расширяя запас слов и улучшая понимание смысла фраз',
     path: 'unmess',
+    startPath: 'unmess/home',
   },
 };
 
@@ -229,6 +204,11 @@ const audio = {
 
 const text = {
   ru: {
+    /* About us */
+    aboutUs: {
+      description: 'Привет! Мы рады представить продукт нашей совместной работы — приложение по изучению английского языка',
+    },
+
     /* Sign In, Register */
     nickname: 'Логин',
     email: 'Емейл',
@@ -240,13 +220,18 @@ const text = {
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
 
     /* Games */
-    levelsTitles: ['Все', 'Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'],
+    levelsTitles: ['Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'],
     answersCorrect: 'Угадано',
     answersMistaken: 'Не угадано',
     howManyAnswers: 'Сколько показывать вариантов ответа',
     howManyWords: 'Сколько слов хотите угадать',
     chooseLevel: 'Выберите уровень сложности',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
+
+    /* Unmess */
+    unmess: {
+      instruction: 'Схватите слово и отпустите над его значением',
+    },
 
     /* Buttons */
     button: {
@@ -255,6 +240,7 @@ const text = {
       startGame: 'Играть',
       newGame: 'Начать новую игру',
       learnWords: 'Изучать слова',
+      learnEnglishWithUs: 'Учите английский с нами',
     },
   },
 };
@@ -270,6 +256,17 @@ const questionStatus = {
   success: 'success',
   error: 'error',
 };
+
+const ratesScale = [
+  { level: 30, rate: 31 },
+  { level: 21, rate: 30 },
+  { level: 15, rate: 21 },
+  { level: 10, rate: 15 },
+  { level: 7, rate: 10 },
+  { level: 4, rate: 7 },
+  { level: 2, rate: 4 },
+  { level: 0, rate: 2 },
+];
 
 const count = {
   /* API settings */
@@ -324,4 +321,6 @@ export {
   soundSuccess,
   soundFinish,
   questionStatus,
+  preloaderdefaultSettings,
+  ratesScale,
 };

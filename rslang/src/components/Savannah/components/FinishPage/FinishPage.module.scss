@@ -1,6 +1,8 @@
 .FinishPage{
-display: block;
-}
-.finishWrapper{
-  padding: 50px;
-}
+  display: block;
+  text-align: center;
+  }
+  .finishWrapper{
+    display: flex;
+    justify-content: space-around;
+  }

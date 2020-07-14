@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import teamPhoto from '../../../assets/images/team-photo.png';
-import { teamMembers, pagesData } from '../../../helpers/constants';
+import { Link } from 'react-router-dom';
+import {teamMembers, pagesData, text} from '../../../helpers/constants';
 import TeamMember from '../../TeamMember';
 import Button from '../../../basicComponents/Button';
+import { getPath } from '../../../helpers/functions';
 
 const mapTeamMembersToItems = (member, index) => <TeamMember key={index} {...member} />;
 
@@ -12,15 +12,17 @@ const AboutUsPage = () => (
     <section className="about-us">
       <h1>{pagesData.aboutUs.title}</h1>
       <p className="about-us__desctiption">Привет! Мы рады представить продукт нашей совместной работы — приложение по изучению английского языка</p>
-      <img src={teamPhoto} alt="team" className="about-us__team-photo"></img>
     </section>
     <section className="team-members">
       {
         teamMembers.map(mapTeamMembersToItems)
       }
     </section>
-    <Link to={ pagesData.learnWords.path }>
-      <Button className="demonstration-container__start-button" value="Учите английский с нами" />
+    <Link to={ getPath(pagesData.learnWords.path) }>
+      <Button
+        className="demonstration-container__start-button"
+        value={ text.ru.button.learnEnglishWithUs }
+      />
     </Link>
   </div>
 );
