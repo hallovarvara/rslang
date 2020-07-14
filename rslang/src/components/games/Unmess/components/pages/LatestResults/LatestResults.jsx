@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import GameTitle from '../../GameTitle';
 
 import mapLatestResultsToItems from '../../../helpers/map_latest_results_to_items';
-import { localStorageItems } from '../../../helpers/contants';
+import { localStorageItems } from '../../../../helpers/contants';
 
 const LatestResults = (props) => {
   const {

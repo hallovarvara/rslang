@@ -1,15 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
-import LevelsList from '../../LevelsList';
 import StarsList from '../../StartsList';
 import WordsList from '../../WordsList';
 import WordAssociation from '../../WordAssociation';
 import SpeakButton from '../../SpeakButton';
-import PreloaderContainer from '../../PreloaderContainer';
+import NewGameIcon from '../../NewGameIcon';
+
+import { text, gamesData } from '../../../../../../helpers/constants';
+import { getPath } from '../../../../../../helpers/functions';
 
 class GamePage extends React.Component {
+  componentDidMount() {
+    if (this.props.isGameInProcess) {
+      this.props.startRecognition();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.isGameInProcess) {
+      this.props.abortRecognition();
+    }
+  }
+
   render() {
     const {
       loading,
@@ -33,13 +47,16 @@ class GamePage extends React.Component {
     }
 
     if (loading) {
-      return <PreloaderContainer />;
+      return <Redirect to={getPath(gamesData.speakit.startPath || gamesData.speakit.path)}/>;
     }
 
     return (
       <div className="container">
         <div className="navigation">
-          <LevelsList levelChanged={levelChanged} currentLevel={currentLevel}/>
+          <NewGameIcon
+            abortGame={abortGame}
+            levelChanged={levelChanged}
+            currentLevel={currentLevel}/>
           <StarsList userHasWon={userHasWon} starsCount={starsCount} />
         </div>
         <WordAssociation
@@ -53,11 +70,11 @@ class GamePage extends React.Component {
         <div className="buttons-container">
           <div
             onClick={abortGame}
-            className="buttons-container__restart"><span>Restart</span></div>
+            className="buttons-container__restart"><span>{text.ru.restart}</span></div>
           <SpeakButton onClick={startGame} isGameInProcess={isGameInProcess} />
           <div className="buttons-container__results">
             <Link to="/speakit/current-results" className="link-in-button">
-              <span>Results</span>
+              <span>{text.ru.results}</span>
             </Link>
           </div>
         </div>
@@ -81,6 +98,8 @@ GamePage.propTypes = {
   userHasWon: PropTypes.func,
   userRedirected: PropTypes.func,
   redirect: PropTypes.bool,
+  startRecognition: PropTypes.func,
+  abortRecognition: PropTypes.func,
 };
 
 export default GamePage;

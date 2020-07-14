@@ -21,6 +21,7 @@ class App extends React.Component {
     loading: true,
     starsCount: 0,
     currentLevel: 0,
+    currentPage: 0,
     currentActiveWords: [],
     currentWords: [],
     isGameInProcess: false,
@@ -28,7 +29,7 @@ class App extends React.Component {
     isUserWon: false,
   }
 
-  levels = null
+  allWords = null
 
   recognitionService = this.props.recognitionService;
 
@@ -38,11 +39,13 @@ class App extends React.Component {
     const { wordsService } = this.props;
     wordsService.getAllWords(pagesCount, levelsCount)
       .then((allWords) => {
-        this.levels = allWords;
-        this.setState({
+        this.allWords = allWords;
+        this.setState((state) => ({
           loading: false,
-          currentWords: this.generateCurrentWords(0),
-        });
+          currentWords: this.generateCurrentWords(
+            state.currentLevel, state.currentPage,
+          ),
+        }));
       });
     this.recognitionService.recognition.addEventListener('result', (event) => {
       this
@@ -53,17 +56,37 @@ class App extends React.Component {
     });
   }
 
-  generateCurrentWords = (level) => this.levels[level]
+  startRecognition = () => {
+    this.recognitionService.recognition.addEventListener('end', this.recognitionService.recognition.start);
+    this.recognitionService.recognition.start();
+  }
+
+  abortRecognition = () => {
+    this.recognitionService.recognition.removeEventListener('end', this.recognitionService.recognition.start);
+    this.recognitionService.recognition.abort();
+  }
+
+  generateCurrentWords = (level, page) => this.allWords[level][page]
     .slice(0)
     .sort(() => Math.random() - 0.5)
     .slice(0, amountOfWordsOnOnePage)
 
   levelChanged = (level) => {
-    this.setState({
+    this.setState((state) => ({
       currentLevel: level,
-      currentWords: this.generateCurrentWords(level),
-    });
-    this.abortGame();
+      currentWords: this.generateCurrentWords(
+        level, state.currentPage,
+      ),
+    }));
+  }
+
+  pageChanged = (page) => {
+    this.setState((state) => ({
+      currentPage: page,
+      currentWords: this.generateCurrentWords(
+        state.currentLevel, page,
+      ),
+    }));
   }
 
   currentActiveWordsChanged = (wordObj, isClicked) => {
@@ -97,8 +120,7 @@ class App extends React.Component {
         recognitionResults: '',
         starsCount: 0,
       });
-      this.recognitionService.recognition.addEventListener('end', this.recognitionService.recognition.start);
-      this.recognitionService.recognition.start();
+      this.startRecognition();
     }
   };
 
@@ -116,8 +138,7 @@ class App extends React.Component {
         isUserWon: false,
       };
     });
-    this.recognitionService.recognition.removeEventListener('end', this.recognitionService.recognition.start);
-    this.recognitionService.recognition.abort();
+    this.abortRecognition();
   }
 
   saveResults = () => {
@@ -135,10 +156,8 @@ class App extends React.Component {
       this.setState({
         isUserWon: true,
       });
-      setTimeout(() => {
-        this.props.history.push('/speakit/current-results');
-      }, 1500);
       this.saveResults();
+      this.props.history.push('/speakit/current-results');
     }
   }
 
@@ -162,6 +181,7 @@ class App extends React.Component {
     const {
       loading,
       currentLevel,
+      currentPage,
       starsCount,
       recognitionResults,
       currentActiveWords,
@@ -172,13 +192,22 @@ class App extends React.Component {
     return (
       <div className="speakit-game-container">
         <Switch>
-          <Route path="/speakit/home" render={() => <HomePage loading={loading}/>} />
+          <Route path="/speakit/home" render={() => (
+            <HomePage
+              loading={loading}
+              currentLevel={currentLevel}
+              currentPage={currentPage}
+              levelChanged={this.levelChanged}
+              pageChanged={this.pageChanged}/>
+          )} />
           <Route
             path="/speakit/game"
             render={() => (
               <GamePage
+                startRecognition={this.startRecognition}
+                abortRecognition={this.abortRecognition}
                 loading={loading}
-                levels={this.levels}
+                allWords={this.allWords}
                 currentLevel={currentLevel}
                 starsCount={starsCount}
                 recognitionResults={recognitionResults}
@@ -196,6 +225,7 @@ class App extends React.Component {
             path="/speakit/current-results"
             render={() => (
               <CurrentResultsPage
+                abortGame={this.abortGame}
                 isGameInProcess={isGameInProcess}
                 currentLevel={currentLevel}
                 levelChanged={this.levelChanged}
@@ -207,6 +237,8 @@ class App extends React.Component {
             path="/speakit/latest-results"
             render={() => (
               <LatestResultsPage
+                abortGame={this.abortGame}
+                loading={loading}
                 levelChanged={this.levelChanged}
                 currentLevel={currentLevel} />
             )} />

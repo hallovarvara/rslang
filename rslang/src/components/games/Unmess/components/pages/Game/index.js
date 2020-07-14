@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import GamePageView from './GamePage.jsx';
-import { localStorageItems } from '../../../helpers/contants';
+import { localStorageItems } from '../../../../helpers/contants';
 
 import {
   getPath,

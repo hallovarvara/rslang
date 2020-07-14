@@ -16,7 +16,7 @@ import {
   levelsCount,
   wordsPerPage,
   localStorageItems,
-} from './helpers/contants';
+} from '../helpers/contants';
 
 import {
   soundSuccess,

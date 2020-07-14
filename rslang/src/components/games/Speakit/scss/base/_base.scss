@@ -10,6 +10,15 @@
   max-width: 1140px;
   min-height: 100vh;
   margin: 0 auto;
+  @include media-laptop {
+    max-width: 760px;
+  }
+  @include media-tablet {
+    max-width: 500px;
+  }
+  @include media-mobile {
+    max-width: 300px;
+  }
 }
 
 .speakit-game-container {

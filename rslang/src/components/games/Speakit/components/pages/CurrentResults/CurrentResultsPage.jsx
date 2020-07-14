@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
-import PreloaderContainer from '../../PreloaderContainer';
 import divideWordsIntoKnownAndMistakes from '../../../helpers/divide_words_into_known_and_mistakes';
 import mapWordObjectToRowItem from '../../../helpers/map_word_object_to_row_item';
+
+import { text, gamesData } from '../../../../../../helpers/constants';
+import { getPath } from '../../../../../../helpers/functions';
 
 const CurrentResultsPage = (props) => {
   const {
@@ -14,10 +16,11 @@ const CurrentResultsPage = (props) => {
     currentActiveWords,
     currentWords,
     isGameInProcess,
+    abortGame,
   } = props;
 
   if (loading) {
-    return <PreloaderContainer />;
+    return <Redirect to={getPath(gamesData.speakit.startPath || gamesData.speakit.path)} />;
   }
 
   let { known, mistakes } = divideWordsIntoKnownAndMistakes(currentWords, currentActiveWords);
@@ -31,13 +34,13 @@ const CurrentResultsPage = (props) => {
     <div className="results-page">
       <div className="results">
         <div className="results-container">
-          <div className="results-container__mistakes-count">{`Ошибок - ${mistakes.length}`}</div>
+          <div className="results-container__mistakes-count">{`${text.ru.speakit.mistakes} - ${mistakes.length}`}</div>
           <div className="mistakes-container">
             {
               mistakes.map(mapWordObjectToRowItem)
             }
         </div>
-          <div className="results-container__know-count">{`Знаю - ${known.length}`}</div>
+          <div className="results-container__know-count">{`${text.ru.speakit.know} - ${known.length}`}</div>
           <div className="know-container">
             {
               known.map(mapWordObjectToRowItem)
@@ -45,12 +48,15 @@ const CurrentResultsPage = (props) => {
           </div>
         </div>
         <div className="results-buttons-container">
-          <div className="results-buttons-container__return"><Link className="link-in-button" to="/speakit/game">Return</Link></div>
-          <div className="results-buttons-container__new-game" onClick={() => levelChanged(currentLevel)}>
-            <Link className="link-in-button" to="/speakit/game">New game</Link>
+          <div className="results-buttons-container__return"><Link className="link-in-button" to="/speakit/game">{text.ru.return}</Link></div>
+          <div className="results-buttons-container__new-game" onClick={() => {
+            abortGame();
+            levelChanged(currentLevel);
+          }}>
+            <Link className="link-in-button" to="/speakit/home">{text.ru.newGame}</Link>
           </div>
           <div className="results-buttons-container__latest-results">
-            <Link to="/speakit/latest-results" className="link-in-button">Latest results</Link>
+            <Link to="/speakit/latest-results" className="link-in-button">{text.ru.latestRusults}</Link>
           </div>
         </div>
       </div>
@@ -65,6 +71,7 @@ CurrentResultsPage.propTypes = {
   currentActiveWords: PropTypes.arrayOf(PropTypes.object),
   currentWords: PropTypes.arrayOf(PropTypes.object),
   isGameInProcess: PropTypes.bool,
+  abortGame: PropTypes.func,
 };
 
 export default CurrentResultsPage;

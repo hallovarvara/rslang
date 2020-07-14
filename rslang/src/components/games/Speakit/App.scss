@@ -1,5 +1,6 @@
 // Abstracts from root styles
 @import '../../../scss/abstracts/constants';
+@import '../../../scss/abstracts/mixins';
 
 // Abstracts
 @import 'scss/abstracts/constants';
@@ -7,6 +8,7 @@
 
 // Base
 @import 'scss/base/base';
+@import 'scss/base/fonts';
 
 // Components
 @import 'scss/components/preloader';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import teamPhoto from '../../../assets/images/team-photo.png';
+import teamPhoto from '../../../assets/images/game-card-bg.jpg';
 import { teamMembers } from '../../../helpers/constants';
 import TeamMember from '../../TeamMember';
 import Button from '../../../basicComponents/Button';

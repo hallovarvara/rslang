@@ -4,7 +4,10 @@
   justify-content: space-between;
   width: 100%;
   height: auto;
-  margin: 0px 0px 20px 0px;
+  margin: 0px 0px 30px 0px;
+  @include media-tablet {
+    justify-content: space-around;
+  }
 }
 
 .speakit-game-container .word-item {
@@ -26,6 +29,18 @@
     &:hover::before {
       top: -30px;
       left: -30px;
+    }
+  }
+  @include media-laptop {
+    width: 220px;
+    margin: 10px 0;
+    &:last-child {
+      margin: 10px auto;
+    }
+  }
+  @include media-tablet {
+    &:last-child {
+      margin: 10px 0;
     }
   }
   &:hover {

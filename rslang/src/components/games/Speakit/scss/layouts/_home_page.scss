@@ -1,45 +1,79 @@
-.speakit-game-container .home-page-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 135px 15px 50px 15px;
-}
+.speakit-game-container {
+  .home-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 50px 15px 50px 15px;
+    overflow-x: hidden;
+  }
 
-.speakit-game-container .home-page-container__title {
-  margin-bottom: 25px;
-  color: $color-light;
-  font-family: 'Cutive Mono', monospace;
-  letter-spacing: 23px;
-  text-align: center;
-  text-shadow: 0px 0px 8px $color-light;
-  @include font(60px, 100);
-}
+  .home-page-container__title {
+    margin-bottom: 15px;
+    color: $color-light;
+    font-family: 'Cutive Mono', monospace;
+    letter-spacing: 23px;
+    text-align: center;
+    text-shadow: 0px 0px 8px $color-light;
+    @include font(6rem, 100, italic);
+    @include media-tablet {
+      font-size: 5.8rem;
+      letter-spacing: 20px;
+    }
+    @include media-big-mobile {
+      font-size: 5.5rem;
+      letter-spacing: 15px;
+    }
+    @include media-mobile {
+      font-size: 5.3rem;
+      letter-spacing: 8px;
+    }
+  }
 
-.speakit-game-container .home-page-container__description {
-  margin-bottom: 50px;
-  color: $color-light;
-  font-family: 'Cutive Mono', monospace;
-  text-align: center;
-  text-shadow: 0px 0px 15px $color-light;
-  @include font(30px, 100);
-}
+  .home-page-container__description {
+    margin-bottom: 50px;
+    padding: 0 15px;
+    color: $color-light;
+    font-family: $font-secondary;
+    line-height: 125%;
+    letter-spacing: 3px;
+    text-align: center;
+    text-shadow: 0px 0px 15px $color-light;
+    @include font(3rem, 400, italic);
+    @include media-tablet {
+      font-size: 2.8rem;
+    }
+    @include media-big-mobile {
+      font-size: 2.5rem;
+    }
+    @include media-mobile {
+      font-size: 2.3rem;
+    }
+  }
 
-.speakit-game-container .home-page-container__gif {
-  width: 63px;
-  height: 63px;
+  .home-page-container__gif {
+    width: 63px;
+    height: 63px;
+  }
+
+  .speakit-levels-stepper,
+  .speakit-pages-stepper {
+    .MuiTypography-root {
+      font-weight: 100;
+    }
+  }
 }
 
 .speakit-game-container .home-page-container__button {
   position: relative;
-  width: 201px;
-  height: 63px;
+  width: 300px;
+  height: 68px;
   overflow: hidden;
   color: $color-light;
-  font-family: 'Cutive Mono', monospace;
+  font-family: $font-primary;
   background: transparent;
   border: 2px solid $color-light;
   outline: none;
@@ -59,8 +93,8 @@
     position: absolute;
     top: 100%;
     left: 100%;
-    width: 270px;
-    height: 140px;
+    width: 370px;
+    height: 125px;
     background: $color-light;
     border-radius: 50%;
     transition: top 0.7s, left 0.7s;
@@ -68,5 +102,15 @@
   }
   * {
     position: relative;
+  }
+}
+
+.speakit-game-container .speakit-steppers-container {
+  margin-bottom: 30px;
+  & > * {
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
   }
 }
