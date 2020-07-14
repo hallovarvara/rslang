@@ -18,6 +18,10 @@ body .stepper-root {
     opacity: 0;
   }
 
+  &.sticky-label .MuiSlider-mark {
+    color: white;
+  }
+
   .MuiTypography-root {
     margin-bottom: 0px;
     color: $color-light;

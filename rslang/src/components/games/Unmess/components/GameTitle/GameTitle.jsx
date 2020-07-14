@@ -3,7 +3,7 @@ import React from 'react';
 import Popover from '../../../../../basicComponents/Popover';
 import {
   gamesData,
-  text
+  text,
 } from '../../../../../helpers/constants';
 
 const GameTitle = () => (
