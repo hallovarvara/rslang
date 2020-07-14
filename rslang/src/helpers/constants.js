@@ -189,9 +189,7 @@ const teamMembers = [
 ];
 
 const selectorOptions = [
-  ['new', 'new & repeating'],
-  ['complicated', 'complicated'],
-  ['removed', 'removed'],
+  'new & repeating', 'complicated', 'removed',
 ];
 
 /* Games */
@@ -219,6 +217,9 @@ const text = {
     incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
     welcome: 'Добро пожаловать, {username} :)',
+
+    /* Vocabulary page */
+    restoreForLearning: 'Вернуть к изучаемым',
 
     /* Games */
     levelsTitles: ['Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'],
