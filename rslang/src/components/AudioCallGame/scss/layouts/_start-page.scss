@@ -1,0 +1,58 @@
+.audiocall-container {
+  .start-page {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+    @include flex(column, center, center);
+  }
+
+  .start-page__title {
+    color: $color-light;
+    font-weight: normal;
+    font-size: 6rem;
+    line-height: 1.5;
+    letter-spacing: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    @media (max-width: 720px) {
+      font-size: 4rem;
+    }
+    @media (max-width: 520px) {
+      font-size: 3rem;
+    }
+  }
+
+  .start-page__description {
+    margin: 0 0 40px;
+    color: $color-light;
+    font-size: 2.4rem;
+    line-height: 1.5;
+    text-align: center;
+    @media (max-width: 720px) {
+      font-size: 1.8rem;
+    }
+  }
+
+  .start__form {
+    width: 50%;
+    @include flex(column, center, center);
+    .start-page__input {
+      margin: 10px;
+      width: 100%;
+      * {
+        color: $color-light;          
+        font-size: 2.2rem; 
+      }
+      label {
+        font-size: 2rem; 
+        color: $color-dark;
+      }
+    }
+  }
+}
+
+
+
+
+

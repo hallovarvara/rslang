@@ -1,11 +1,33 @@
+// Abstacts from main
 @import '../../scss/abstracts/constants';
+@import '../../scss/abstracts/mixins';
 
-.audiocall-container {
-  min-height: 100vh;
-  background: $color-audiocall-primary;
-  background: linear-gradient(
-    to bottom,
-    $color-audiocall-primary 0%,
-    $color-audiocall-secondary 100%
-  );
-}
+// Abstarcs
+
+@import './scss/abstracts/placeholders';
+
+// Base
+@import '../../scss/base/base';
+@import '../../scss/base/typography';
+@import './scss/base/base';
+@import './scss/base/fonts';
+@import './scss/base/helpers';
+
+// Layouts
+@import './scss/layouts/flex-div-with-span';
+@import './scss/layouts/start-page';
+@import './scss/layouts/game-page';
+@import './scss/layouts/finish-page';
+
+// Components
+@import './scss/components/preloader';
+@import './scss/components/game-title';
+@import './scss/components/question';
+@import './scss/components/audio-icon';
+@import './scss/components/button';
+@import './scss/components/levels-stepper';
+
+// Vendors
+@import './scss/vendors/normalize';
+
+// @include flex(column, center, center);
