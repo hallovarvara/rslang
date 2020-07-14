@@ -43,6 +43,11 @@ const generateQuestionsArray = (
   shuffleArray(data).slice(0, amountLevels)
 );
 
+const removeTag = (str) => {
+  const [withTag, withoutTag] = str.match(/<.*>(.*?)<\/.*>/);
+  return str.replace(withTag, withoutTag);
+};
+
 /* Media */
 const getFilePath = (mediaPath) => apiLinks.file + mediaPath;
 
@@ -67,6 +72,7 @@ const generateStepperMarks = (stepsCount) => (
 export {
   getFilePath,
   generateQuestionsArray,
+  removeTag,
   playAudio,
   pauseAudio,
   countQuestionsSets,

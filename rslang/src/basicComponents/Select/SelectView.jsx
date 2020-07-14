@@ -6,8 +6,35 @@ const mapSelectTitlesToItems = (title, index) => (
     <MenuItem key={index} value={title} classes={{ root: 'menu-item' }}>{title}</MenuItem>
 );
 
-const SelectView = ({ selectTitles = ['first', 'second', 'third'], className = '' }) => (
-  <Select className={className} classes={{ root: 'select-input', icon: 'select-arrow' }} defaultValue={selectTitles[0]}>
+const selectClasses = {
+  root: 'select-input',
+  icon: 'select-arrow',
+};
+
+const SelectView = ({
+  selectTitles = ['first', 'second', 'third'],
+  className = '',
+  defaultValue = selectTitles[0],
+  menuPosition = { vertical: 'bottom', horizontal: 'center' },
+  menuTransormOrigin = { vertical: 'top', horizontal: 'center' },
+  disableScrollLock = true,
+  onChange = () => {},
+}) => (
+  <Select
+    className={`select-list ${className}`}
+    classes={selectClasses}
+    defaultValue={defaultValue}
+    onChange={onChange}
+    MenuProps={{
+      getContentAnchorEl: null,
+      anchorOrigin: menuPosition,
+      transformOrigin: menuTransormOrigin,
+      disableScrollLock,
+      PopoverClasses: {
+        root: 'select-popover-root',
+      },
+    }}
+    >
     {
       selectTitles.map(mapSelectTitlesToItems)
     }
@@ -17,6 +44,11 @@ const SelectView = ({ selectTitles = ['first', 'second', 'third'], className = '
 SelectView.propTypes = {
   className: PropTypes.string,
   selectTitles: PropTypes.arrayOf(PropTypes.string),
+  defaultValue: PropTypes.string,
+  menuPosition: PropTypes.object,
+  menuTransormOrigin: PropTypes.object,
+  disableScrollLock: PropTypes.object,
+  onChange: PropTypes.func,
 };
 
 export default SelectView;

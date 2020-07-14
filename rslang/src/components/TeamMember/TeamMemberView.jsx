@@ -1,4 +1,5 @@
 import React from 'react';
+import Parser from 'html-react-parser';
 import PropTypes from 'prop-types';
 
 import noAvatar from '../../assets/images/avatar.jpg';
@@ -16,7 +17,7 @@ const TeamMemberView = (props) => {
     <div className="team-member">
       <img src={image} alt="team-member" className="team-member__image"/>
       <p className="team-member__full-name">{`${name} ${surname}`}</p>
-      <p className="team-member__role">{role}</p>
+      <p className="team-member__role">{Parser(role)}</p>
       {
         linkedinUsername.length > 0 &&
         <p className="team-member-linked-profile">

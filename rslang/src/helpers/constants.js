@@ -1,8 +1,13 @@
-import noAvatar from '../assets/images/avatar.jpg';
-
 import soundError from '../assets/audio/error.mp3';
 import soundSuccess from '../assets/audio/success.mp3';
 import soundFinish from '../assets/audio/finish.mp3';
+
+import Varya from '../assets/images/team/varvara-deviaterikova.jpg';
+import Ksusha from '../assets/images/team/kseniya-yatskevich.jpeg';
+import Max from '../assets/images/team/maksym-kaspriv.jpg';
+import Artem from '../assets/images/team/artem-rimarchyk.jpeg';
+// import Dima from '../assets/images/team/dmitry-lebetsky.jpg'; // TODO add Dima's photo
+import Lesha from '../assets/images/team/alexei-osipov.jpg';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
@@ -67,7 +72,7 @@ const pagesData = {
     user: { isVisible: true, index: 0 },
   },
   play: {
-    title: 'Выберите игру',
+    title: 'Играть',
     path: 'play',
     guest: { isVisible: true, index: 2 },
     user: { isVisible: true, index: 1 },
@@ -147,53 +152,51 @@ const gamesData = {
 
 const teamMembers = [
   {
-    name: 'Дмитрий',
-    surname: 'Лебецкий',
-    role: 'Работал как волк, делал все подряд',
-    image: noAvatar,
-    linkedinUsername: 'dmitry-lebetsky',
-  },
-  {
     name: 'Варвара',
     surname: 'Девятерикова',
-    role: 'Работала как волчица, делала все подряд',
-    image: noAvatar,
+    role: 'Тимлид. Проектировала и оформляла, верстала, тестировала, стыковала команду и код. Настроила git, сделала доску задач и заполняла ее. Создала инструкции по Git и совместной работе, планировала, устраивала встречи и вела заметки по ним, помогала команде и презентовала проект',
+    image: Varya,
     linkedinUsername: 'hallovarvara',
+  },
+  {
+    name: 'Максим',
+    surname: 'Касприв',
+    role: 'Придумал, внедрил и презентовал алгоритм интервального повторения слов, реализовал изучение слов, настраиваемые сервисы для получения слов, модели данных для статистики, настроек и общую для проекта. Снял 2 обучающих видео, разобрался в устройстве бэкэнда и помогал команде',
+    image: Max,
+    linkedinUsername: 'maksym-kaspriv',
+  },
+  {
+    name: 'Дмитрий',
+    surname: 'Лебецкий',
+    role: `Сделал игры ${gamesData.speakit.title} и ${gamesData.unmess.title} с уникальным дизайном, базовые компоненты и страницы, словарь. Верстал, стилизовал, структурировал код, помогал тимлиду и команде`,
+    // image: Dima,  // TODO add Dima's photo
+    linkedinUsername: 'dmitry-lebetsky',
   },
   {
     name: 'Артем',
     surname: 'Римарчук',
-    role: 'Работал как волк, делал все подряд',
-    image: noAvatar,
+    role: `Сделал игры ${gamesData.sprint.title} и ${gamesData.savannah.title}, статистику, авторизацию, регистрацию. Разработал сервисы для получения слов в модулях приложения, фильтрации данных пользователя для бэкэнда и отправки данных на бэкэнд, активно исправлял ошибки приложения`,
+    image: Artem,
     linkedinUsername: 'artemrimarchyk',
   },
   {
     name: 'Ксения',
     surname: 'Яцкевич',
-    role: 'Работала как волчица, делала все подряд',
-    image: noAvatar,
+    role: `Сделала игры ${gamesData.audiocall.title} и ${gamesData.englishPuzzle.title}, настраивала окружение проекта, устанавливала необходимый для работы инструментарий`,
+    image: Ksusha,
     linkedinUsername: 'ksenia-yatskevich',
-  },
-  {
-    name: 'Максим',
-    surname: 'Касприв',
-    role: 'Работал как волк, делал все подряд',
-    image: noAvatar,
-    linkedinUsername: 'maksym-kaspriv',
   },
   {
     name: 'Алексей',
     surname: 'Осипов',
-    role: 'Работал как волк, делал все подряд',
-    image: noAvatar,
+    role: 'Разработал базовую структуру страницы словаря',
+    image: Lesha,
     linkedinUsername: '',
   },
 ];
 
-const selectorOptions = [
-  ['new', 'new & repeating'],
-  ['complicated', 'complicated'],
-  ['removed', 'removed'],
+const vocabularySelectorOptions = [
+  'изучаемые', 'сложные', 'удаленные',
 ];
 
 /* Games */
@@ -221,6 +224,12 @@ const text = {
     incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
     welcome: 'Добро пожаловать, {username} :)',
+
+    /* Play page */
+    chooseGame: 'Выберите игру',
+
+    /* Vocabulary page */
+    restoreForLearning: 'Вернуть к изучаемым',
 
     /* Promo */
     promo: {
@@ -391,7 +400,7 @@ const count = {
 
 export {
   pagesData,
-  selectorOptions,
+  vocabularySelectorOptions,
   apiLinks,
   promoVideoLink,
   linkedinLink,
