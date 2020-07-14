@@ -10,7 +10,6 @@ const apiLinks = {
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
-
 const localStorageItems = {
   username: 'rslangName',
   token: 'rslangToken',
@@ -68,7 +67,7 @@ const pagesData = {
     user: { isVisible: true, index: 0 },
   },
   play: {
-    title: 'Играть',
+    title: 'Выберите игру',
     path: 'play',
     guest: { isVisible: true, index: 2 },
     user: { isVisible: true, index: 1 },
