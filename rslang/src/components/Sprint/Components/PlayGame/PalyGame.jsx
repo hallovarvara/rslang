@@ -6,8 +6,6 @@ import PetsIcon from '@material-ui/icons/Pets';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import Button from '@material-ui/core/Button';
-import DoneIcon from '@material-ui/icons/Done';
-import CloseIcon from '@material-ui/icons/Close';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
@@ -35,7 +33,6 @@ class PlayGame extends Component {
       this.props.updateTimer();
     }
   }
-
 
   render() {
     const {
@@ -67,11 +64,11 @@ class PlayGame extends Component {
           <div className={'sprint-play__rangs'}>
             {this.arr.map((value, key) => (
               <div className={`sprint-play__rang-item sprint-play__${value}`} key={key}>
+
                 {value
                   ? <CheckCircleRoundedIcon style={{ fontSize: '36px' }} key={key} />
                   : <CancelRoundedIcon style={{ fontSize: '36px' }} key={key} />
                 }
-                {/* <i className={`sprint-play__icons fa fa-${value}`} key={key}></i> */}
               </div>
             ))}
           </div>

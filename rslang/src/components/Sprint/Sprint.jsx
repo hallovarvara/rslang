@@ -42,7 +42,7 @@ const initialState = {
   activeAnswer: '',
   activeCard: 0,
   isTrue: false,
-  isAnswerQuiz: null,
+  isAnswerQuiz: 'default',
   audio: [],
   answerState: null,
   currentGroup: null,
@@ -169,7 +169,7 @@ class Sprint extends Component {
 
   updateCounter = (mult = 1, win = 0) => {
     const multiplier = win && this.state.counter.win
-    && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
+      && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -297,7 +297,7 @@ class Sprint extends Component {
     return (
       <div className={'sprint__wrapper'}>
         <div className={'sprint__container'}>
-          <h1>{ gamesData.sprint.title }</h1>
+          <h1>{gamesData.sprint.title}</h1>
           {page}
 
         </div>
