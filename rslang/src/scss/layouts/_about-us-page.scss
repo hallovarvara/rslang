@@ -5,9 +5,9 @@
 
 .about-us {
   width: 100%;
-  padding: 50px 150px 90px 150px;
   background-color: $color-primary;
   @include flex(column, center, center);
+  @extend %padding;
 }
 
 .about-us__desctiption {
@@ -48,6 +48,7 @@
   height: 200px;
   margin-bottom: 20px;
   object-fit: cover;
+  border-radius: 500px;
 }
 
 .team-member__full-name {

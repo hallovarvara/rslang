@@ -7,13 +7,14 @@ import FinishGame from './Components/FinishGame';
 import UserService from '../../helpers/userService';
 
 import {
+  text,
   count,
+  gamesData,
   questionStatus,
   applicationThings,
   localStorageItems,
   soundError,
   soundSuccess,
-  text,
 } from '../../helpers/constants';
 
 import {
@@ -219,7 +220,7 @@ class Sprint extends Component {
       this.setState({ answerState: true });
 
       if (isTrue === this.state.isTrue) {
-        this.setState({ isAnswerQuiz: 'check' });
+        this.setState({ isAnswerQuiz: 1 });
         this.audioPlay(soundSuccess);
         this.updateCounter(count.sprint.counterMultiplier, 1);
         this.updateScore(this.basic);
@@ -227,7 +228,7 @@ class Sprint extends Component {
         handleGameRightAnswer(applicationThings.SPRINT, this.state.wordObject);
       } else {
         this.audioPlay(soundError);
-        this.setState({ isAnswerQuiz: 'times' });
+        this.setState({ isAnswerQuiz: 0 });
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
         handleGameWrongAnswer(applicationThings.SPRINT, this.state.wordObject);
@@ -296,6 +297,7 @@ class Sprint extends Component {
     return (
       <div className={'sprint__wrapper'}>
         <div className={'sprint__container'}>
+          <h1>{gamesData.sprint.title}</h1>
           {page}
 
         </div>

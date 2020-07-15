@@ -8,7 +8,7 @@ const { AUTO_VOICE } = buttonsNames;
 const Header = ({ categoriesSelect, onToggleAutoPlay, onToggleCategory }) => (
   <div>
     <div>
-      <h1>{pagesData.learnWords.title}</h1>
+      <h1>{ pagesData.learnWords.title }</h1>
       {/* //TODO: Here will be helper: Add right English word to sentence */}
     </div>
     {/* //TODO: Here will be two UI components */}

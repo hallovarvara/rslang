@@ -1,0 +1,51 @@
+.logo {
+  position: relative;
+  top: 20px;
+  width: auto;
+  height: 135px;
+}
+
+.logo_savannah {
+  .logo__spot {
+    fill: complement($color-savannah-secondary);
+  }
+}
+
+.logo_sprint {
+  .logo__spot {
+    fill: $color-sprint-primary;
+  }
+}
+
+.logo_speakit {
+  .logo__spot {
+    fill: $color-light;
+  }
+  .logo__text {
+    fill: #c128f6;
+  }
+}
+
+.logo_unmess {
+  .logo__spot {
+    fill: $color-light;
+  }
+  .logo__text {
+    fill: #0c5c75;
+  }
+}
+
+.logo_english-puzzle {
+  .logo__spot {
+    fill: $color-secondary;
+  }
+}
+
+.logo_audiocall {
+  .logo__spot {
+    fill: $color-light;
+  }
+  .logo__text {
+    fill: $color-audiocall-secondary;
+  }
+}
