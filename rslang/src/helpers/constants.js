@@ -11,7 +11,7 @@ import Lesha from '../assets/images/team/alexei-osipov.jpg';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
-  base: 'https://afternoon-falls-25894.herokuapp.com/',
+  base: 'https://kagafon-learn-words.herokuapp.com/',
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
