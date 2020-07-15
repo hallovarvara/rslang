@@ -1,11 +1,13 @@
 import {
-  statsGameTemplate,
-  statsLearnTemplate,
-  generateStatsTemplate,
+  // generateStatsTemplate,
   generateSettingsTemplate,
-  generateUserWordsTemplate,
 } from './dataModels';
 import { applicationThings } from '../constants';
+import {
+  statsTemplate,
+  statsLearnObjTemplate,
+  statsGameObjTemplate,
+} from './statsModel';
 
 export const storageThingNames = {
   STATISTICS: 'STATISTICS',
@@ -37,9 +39,9 @@ export const gameSessionThings = {
   unmess: 'rslangUnmessSession',
 };
 
-export const checkForLocalThing = (thingName, templateGenerator) => (
+export const checkForLocalThing = (thingName, template) => (
   !localStorage.getItem(thingName)
-    ? templateGenerator()
+    ? template
     : JSON.parse(localStorage.getItem(thingName))
 );
 
@@ -49,18 +51,19 @@ export const getSessionThing = (thingName, template) => (
     : JSON.parse(localStorage.getItem(thingName))
 );
 
-export const checkForessionThing = (thingName) => {
+export const checkForSessionThing = (thingName) => {
   let template;
   if (thingName === applicationThings.LEARN_WORDS) {
-    template = { ...statsLearnTemplate };
+    template = { ...statsLearnObjTemplate };
   } else {
-    template = { ...statsGameTemplate };
-    delete template.games;
+    template = { ...statsGameObjTemplate };
+    template.games = 1;
     if (thingName === applicationThings.PUZZLE) {
       delete template.right;
     }
   }
-  return getSessionThing(gameSessionThings[thingName], template);
+  const result = getSessionThing(gameSessionThings[thingName], template);
+  return result;
 };
 
 export const saveSessionThing = (thingName, thingValue) => {
@@ -68,7 +71,7 @@ export const saveSessionThing = (thingName, thingValue) => {
 };
 
 export const checkForStatistics = () => (
-  checkForLocalThing(localThings.STATISTICS, generateStatsTemplate)
+  checkForLocalThing(localThings.STATISTICS, statsTemplate)
 );
 
 export const saveLocalStatistics = (statsObject) => {
@@ -78,7 +81,7 @@ export const saveLocalStatistics = (statsObject) => {
 export const checkForUserWords = (
   storage = sessionThings,
   storageThing = storageThingNames.WORDS,
-) => checkForLocalThing(storage[storageThing], generateUserWordsTemplate);
+) => checkForLocalThing(storage[storageThing], []);
 
 export const saveLocalUserWord = (
   wordObject,

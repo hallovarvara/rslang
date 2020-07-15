@@ -55,7 +55,7 @@ class Word extends Component {
 
   handleSuccess = () => {
     const { onChangeProgress, onPlayAudio, onStatsChanged } = this.props;
-    console.log(onStatsChanged);
+    // console.log(onStatsChanged);
     onChangeProgress({
       isGuessed: true,
       isShownWord: true,

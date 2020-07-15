@@ -14,18 +14,25 @@ import {
   setSessionProgress,
   checkSessionProgress,
   playAudios,
+  replaceElInArrayOfObject,
 } from './helpers';
 import {
   updateLearnWordsRate,
   updateUserWordRepeated,
   updateUserWordDifficulty,
   updateUserWordRemoved,
+  handleGameRightAnswer,
+  handleGameWrongAnswer,
+  prepareSessionInfoToServer,
+  saveSessionInfoToLocal,
 } from '../../../helpers/wordsService';
 import {
   localStorageItems,
   levelsOfDifficulty,
+  applicationThings,
 } from '../../../helpers/constants';
 import { clearSessionData } from '../../../helpers/wordsService/storageModel';
+import { statsTemplate, changeStats } from '../../../helpers/wordsService/statsModel';
 
 export default class LearnWords extends Component {
   state = initialState;
@@ -88,8 +95,11 @@ export default class LearnWords extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.words !== prevState.words) {
+    if (this.state.words.length && this.state.words !== prevState.words) {
       const { words } = this.state;
+      // if (this.state.words) {
+      //   setSessionProgress(words);
+      // }
       setSessionProgress(words);
       // this.checkForEndOfGame();
     }
@@ -194,9 +204,11 @@ export default class LearnWords extends Component {
   }
 
   updateUserWordInState = (wordObject) => {
-    this.setState((state) => ({
-      words: state.words.map((el) => (el.id === wordObject.id ? wordObject : el)),
-    }));
+    const newWords = this.state.words
+      .map((el) => (el.id === wordObject.id
+        ? { ...wordObject }
+        : { ...el }));
+    this.setState({ words: [...newWords] });
   }
 
   handleShowTip = () => {
@@ -354,49 +366,76 @@ export default class LearnWords extends Component {
           />
         )}
         {isFetching && <Preloader />}
-        {!isFetching && (
-          <>
-            <Header
-              categoriesSelect={categoriesSelect}
-              onToggleAutoPlay={this.toggleAutoPlay}
-              onToggleCategory={this.toggleCategory}
-            />
-            <WordCard
-              onChangeRemoved={this.handleChangeRemoved}
-              onChangeDifficulty={this.handleChangeDifficulty}
-              onShowTip={this.handleShowTip}
-              onStatsChanged={this.handleStatsChanged}
-              onChangeRepeated={this.handleChangeRepeated}
-              onChangeWordRate={this.handleChangeWordRate}
-              isFirstPassDone={isFirstPassDone}
-              currentWord={currentWord}
-              isLogged={isLogged}
-              currentInput={currentInput}
-              progress={progress}
-              wordCount={wordCount + 1}
-              totalWords={totalWords}
-              textExample={textExampleSentence}
-              textExampleTranslate={textExampleTranslate}
-              image={image}
-              word={word}
-              wordTranslate={wordTranslate}
-              transcription={transcription}
-              textMeaning={textMeaningSentence}
-              textMeaningTranslate={textMeaningTranslate}
-              isShownComplicatedButton={isShownComplicatedButton}
-              isShownAnswerButton={isShownAnswerButton}
-              isShownImageAssociation={isShownImageAssociation}
-              isShownTranslation={isShownTranslation}
-              isShownTranscription={isShownTranscription}
-              isShownExampleSentence={isShownExampleSentence}
-              isShownMeaning={isShownMeaning}
-              onNextWord={this.handleNextWord}
-              onPrevWord={this.handlePrevWord}
-              onChangeProgress={this.handleChangeProgress}
-              onPlayAudio={this.playAudio}
-            />
-          </>
-        )}
+          {!isFetching && currentWord && (
+            <>
+              <Header
+                categoriesSelect={categoriesSelect}
+                onToggleAutoPlay={this.toggleAutoPlay}
+                onToggleCategory={this.toggleCategory}
+              />
+              <WordCard
+                onChangeRemoved={this.handleChangeRemoved}
+                onChangeDifficulty={this.handleChangeDifficulty}
+                onShowTip={this.handleShowTip}
+                onStatsChanged={this.handleStatsChanged}
+                onChangeRepeated={this.handleChangeRepeated}
+                onChangeWordRate={this.handleChangeWordRate}
+                isFirstPassDone={isFirstPassDone}
+                currentWord={currentWord}
+                isLogged={isLogged}
+                currentInput={currentInput}
+                progress={progress}
+                wordCount={wordCount + 1}
+                totalWords={totalWords}
+                textExample={textExampleSentence}
+                textExampleTranslate={textExampleTranslate}
+                image={image}
+                word={word}
+                wordTranslate={wordTranslate}
+                transcription={transcription}
+                textMeaning={textMeaningSentence}
+                textMeaningTranslate={textMeaningTranslate}
+                isShownComplicatedButton={isShownComplicatedButton}
+                isShownAnswerButton={isShownAnswerButton}
+                isShownImageAssociation={isShownImageAssociation}
+                isShownTranslation={isShownTranslation}
+                isShownTranscription={isShownTranscription}
+                isShownExampleSentence={isShownExampleSentence}
+                isShownMeaning={isShownMeaning}
+                onNextWord={this.handleNextWord}
+                onPrevWord={this.handlePrevWord}
+                onChangeProgress={this.handleChangeProgress}
+                onPlayAudio={this.playAudio}
+              />
+              <button onClick={
+                () => this.setState({ isFirstPassDone: true })
+              }>Test</button>
+              <button onClick={
+                () => handleGameRightAnswer(applicationThings.SAVANNAH, currentWord)
+              }>game right</button>
+              <button onClick={
+                () => handleGameWrongAnswer(applicationThings.SAVANNAH, currentWord)
+              }>game wrong</button>
+              <button onClick={
+                () => {
+                  const stats = JSON.parse(localStorage.rslangUserStatistics);
+                  console.log(prepareSessionInfoToServer(applicationThings.LEARN_WORDS, stats));
+                }
+              }>prepare</button>
+              <button onClick={
+                () => saveSessionInfoToLocal(applicationThings.LEARN_WORDS)
+              }>save</button>
+              <button onClick={
+                () => console.log(changeStats(
+                  applicationThings.SAVANNAH,
+                  { games: 1, wrong: 4, right: 9 },
+                  statsTemplate,
+                ))
+              }>
+                update stats
+              </button>
+            </>
+          )}
       </div>
     );
     return <>{output}</>;
