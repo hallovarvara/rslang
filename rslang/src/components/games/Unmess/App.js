@@ -29,18 +29,25 @@ import {
 } from '../../../helpers/constants';
 import { playAudio } from '../../../helpers/functions';
 
-const getRandomWords = (words) => (
-  words
-    .sort(() => Math.random() - 0.5)
-    .slice(0, wordsPerPage)
-    .map((obj) => ({ ...obj, attempt: null, hideDefinition: true }))
-);
+// const getRandomWords = (words) => (
+//   words
+//     .sort(() => Math.random() - 0.5)
+//     .slice(0, wordsPerPage)
+//     .map((obj) => ({ ...obj, attempt: null, hideDefinition: true }))
+// );
 
-const getShuffledWords = (words) => (
+// const getShuffledWords = (words) => (
+//   words
+//     .slice()
+//     .sort(() => Math.random() - 0.5)
+//     .map((wordObj) => ({ ...wordObj }))
+// );
+
+const shuffleArray = (words) => (
   words
     .slice()
     .sort(() => Math.random() - 0.5)
-    .map((wordObj) => ({ ...wordObj }))
+    .map((wordObj) => ({ ...wordObj, attempt: null, hideDefinition: true }))
 );
 
 const replaceElInArrayOfObject = (array, object, newProps) => {
@@ -64,7 +71,7 @@ class App extends React.Component {
     shuffledCurrentWords: null,
     repeatingWords: null,
     newWords: null,
-    useRepeatingWords: true,
+    useUserWords: true,
     notifications: [],
   }
 
@@ -73,38 +80,55 @@ class App extends React.Component {
   componentDidMount() {
     this.userService = new UserService();
     this.userId = this.props.userId;
-    this.setState({ useRepeatingWords: Boolean(this.userId) });
+    this.setState({ useUserWords: Boolean(this.userId) });
 
-    console.log(this.userService);
-    console.log(this.userId);
+    console.log('USER ID ', this.userId);
 
     if (localStorage.getItem(localStorageItems.latestResults) === null) {
       localStorage.setItem(localStorageItems.latestResults, JSON.stringify([]));
     }
 
     const { wordsService } = this.props;
-    Promise.all([
-      wordsService.getAllWords(pagesCount, levelsCount),
-      this.userService.getUserWordsNoRemoved(this.userId)
-    ])
+    const requests = [wordsService.getAllWords(pagesCount, levelsCount)];
+    if (this.userId) {
+      console.log('heeey');
+      requests.push(this.userService.getUserWordsNoRemoved(this.userId));
+    }
+    Promise.all(requests)
       .then(([allWords, userWords]) => {
         this.allWords = allWords;
-        console.log(userWords);
+        console.log('USER WORDS ', userWords);
+        this.userWords = shuffleArray(userWords || []);
         const { currentLevel, currentPage } = this.state;
-        const currentWords = getRandomWords(this.allWords[currentLevel][currentPage]);
-        const shuffledCurrentWords = getShuffledWords(currentWords);
+        const currentWords = this.generateCurrentWords(currentLevel, currentPage);
+        const shuffledCurrentWords = shuffleArray(currentWords);
+        console.log('CURRENT WORDS: ', currentWords);
+        console.log('SHUFFLED CURRENT WORDS: ', shuffledCurrentWords);
         this.setState({
           loading: false,
           currentWords,
           shuffledCurrentWords,
         });
       })
-      .catch((error) => console.log('back crush', error));
+      .catch((error) => {
+        console.log('BACKEND CRASHED ', error);
+        this.showNotifications([{
+          type: 'error',
+          message: text.ru.backendCrashed,
+        }]);
+      });
   }
 
+  generateCurrentWords = (currentLevel, currentPage) => (
+    [
+      ...shuffleArray(this.state.useUserWords ? this.userWords : []),
+      ...shuffleArray(this.allWords[currentLevel][currentPage]),
+    ].slice(0, wordsPerPage)
+  )
+
   levelChanged = (level) => {
-    const currentWords = getRandomWords(this.allWords[level][this.state.currentPage]);
-    const shuffledCurrentWords = getShuffledWords(currentWords);
+    const currentWords = this.generateCurrentWords(level, this.state.currentPage);
+    const shuffledCurrentWords = shuffleArray(currentWords);
     this.setState({
       currentLevel: level,
       currentWords,
@@ -113,8 +137,8 @@ class App extends React.Component {
   }
 
   pageChanged = (page) => {
-    const currentWords = getRandomWords(this.allWords[this.state.currentLevel][page]);
-    const shuffledCurrentWords = getShuffledWords(currentWords);
+    const currentWords = this.generateCurrentWords(this.state.currentLevel, page);
+    const shuffledCurrentWords = shuffleArray(currentWords);
     this.setState({
       currentPage: page,
       currentWords,
@@ -177,7 +201,7 @@ class App extends React.Component {
       currentLevel,
       currentPage,
       shuffledCurrentWords,
-      useRepeatingWords,
+      useUserWords,
     } = this.state;
 
     return (
@@ -187,7 +211,7 @@ class App extends React.Component {
             <StartPage
               showNotifications={this.showNotifications}
               isUserLogged={Boolean(this.userId)}
-              useRepeatingWords={useRepeatingWords}
+              useUserWords={useUserWords}
               currentPage={currentPage}
               currentLevel={currentLevel}
               loading={loading}
@@ -225,7 +249,7 @@ class App extends React.Component {
             <Notification
               key={index}
               variant={notif.type}
-              message={text.ru.loginPleaseToUseThisFeature}
+              message={notif.message}
               afterClose={() => this.showNotifications([])}
             />
           ))

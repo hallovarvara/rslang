@@ -21,7 +21,7 @@ const StartPage = (props) => {
     pageChanged,
     currentLevel,
     currentPage,
-    useRepeatingWords,
+    useUserWords,
     isUserLogged,
     showNotifications,
   } = props;
@@ -37,7 +37,7 @@ const StartPage = (props) => {
             <div className="unmess-settings-container">
               <Select
                 showNotifications={showNotifications}
-                useRepeatingWords={useRepeatingWords}
+                useUserWords={useUserWords}
                 isUserLogged={isUserLogged}/>
               <Stepper
                   defaultValue={currentLevel + 1}
@@ -75,7 +75,7 @@ StartPage.propTypes = {
   pageChanged: PropTypes.func,
   currentLevel: PropTypes.number,
   currentPage: PropTypes.number,
-  useRepeatingWords: PropTypes.bool,
+  useUserWords: PropTypes.bool,
   isUserLogged: PropTypes.bool,
   showNotifications: PropTypes.func,
 };

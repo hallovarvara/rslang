@@ -6,11 +6,11 @@ import { text } from '../../../../helpers/constants';
 
 const SelectView = (props) => {
   const {
-    useRepeatingWords = true,
+    useUserWords = true,
     isUserLogged,
     showNotifications = () => {},
   } = props;
-  const defaultValue = text.ru.selectOptionsForUsedWord[Number(!useRepeatingWords)];
+  const defaultValue = text.ru.selectOptionsForUsedWord[Number(!useUserWords)];
   return (
     <Select
     {...props}
@@ -19,7 +19,7 @@ const SelectView = (props) => {
     value={isUserLogged ? null : defaultValue}
     onChange={isUserLogged ? () => {} : (event) => {
       if (event.target.value !== defaultValue) {
-        showNotifications([{ type: 'error' }]);
+        showNotifications([{ type: 'error', message: text.ru.loginPleaseToUseThisFeature }]);
       }
     }}
     />
@@ -27,7 +27,7 @@ const SelectView = (props) => {
 };
 
 SelectView.propTypes = {
-  useRepeatingWords: PropTypes.bool,
+  useUserWords: PropTypes.bool,
   isUserLogged: PropTypes.bool,
   showNotifications: PropTypes.func,
 };

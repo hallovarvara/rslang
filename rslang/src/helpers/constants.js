@@ -312,6 +312,7 @@ const text = {
     studiedByYou: 'изученные вами',
     newByComplexity: 'новые по сложности',
     loginPleaseToUseThisFeature: 'Войдите в систему, чтобы воспользоваться этим функционалом',
+    backendCrashed: 'Извините, сервис временно недоступен',
 
     /* Unmess */
     unmess: {
