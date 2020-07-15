@@ -1,0 +1,30 @@
+// Abstacts from main
+@import '../../scss/abstracts/constants';
+@import '../../scss/abstracts/mixins';
+
+// Base
+@import '../../scss/base/base';
+@import '../../scss/base/typography';
+@import './scss/base/base';
+@import './scss/base/helpers';
+
+// Layouts
+@import './scss/layouts/flex-div-with-span';
+@import './scss/layouts/start-page';
+@import './scss/layouts/game-page';
+@import './scss/layouts/finish-page';
+
+// Components
+@import './scss/components/preloader';
+@import './scss/components/game-title';
+@import './scss/components/question';
+@import './scss/components/audio-icon';
+@import './scss/components/button';
+@import './scss/components/levels-stepper';
+@import './scss/components/puzzle';
+@import './scss/components/helpers-button';
+
+// Vendors
+@import './scss/vendors/normalize';
+
+// @include flex(column, center, center);

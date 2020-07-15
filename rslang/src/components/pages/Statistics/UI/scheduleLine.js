@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ResponsiveLine } from '@nivo/line';
 
 const ScheduleStatistics = ({ data }) => (
-  <div style={{ height: 'calc(100vh - 200px)' }}>
+  <div className='statistics__chart'>
     <ResponsiveLine
       data={data}
       margin={{

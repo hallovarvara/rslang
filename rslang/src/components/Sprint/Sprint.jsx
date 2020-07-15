@@ -239,7 +239,7 @@ class Sprint extends Component {
       this.setState({ answerState: true });
 
       if (isTrue === this.state.isTrue) {
-        this.setState({ isAnswerQuiz: 'check' });
+        this.setState({ isAnswerQuiz: 1 });
         this.audioPlay(soundSuccess);
         this.updateCounter(count.sprint.counterMultiplier, 1);
         this.updateScore(this.basic);
@@ -247,7 +247,7 @@ class Sprint extends Component {
         handleGameRightAnswer(applicationThings.SPRINT, this.state.wordObject);
       } else {
         this.audioPlay(soundError);
-        this.setState({ isAnswerQuiz: 'times' });
+        this.setState({ isAnswerQuiz: 0 });
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
         handleGameWrongAnswer(applicationThings.SPRINT, this.state.wordObject);

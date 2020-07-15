@@ -1,0 +1,46 @@
+.english-puzzle-container {
+  .start-page {
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 0px;
+    @include flex(column, center, center);
+  }
+
+  .start-page__title {
+    color: $color-light;
+    font-weight: normal;
+    font-size: 8rem;
+    line-height: 1.5;
+    letter-spacing: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    @media (max-width: 720px) {
+      font-size: 5rem;
+    }
+    @media (max-width: 520px) {
+      font-size: 3rem;
+    }
+  }
+
+  .start-page__description {
+    margin: 20px 0 40px;
+    color: $color-light;
+    font-size: 3rem;
+    line-height: 1.5;
+    text-align: center;
+    @media (max-width: 720px) {
+      font-size: 1.8rem;
+    }
+  }
+
+  button {
+    &:not(:first-child) {
+      margin-left: 20px;
+    }
+
+    .MuiButton-label {
+      font-size: 2.2rem;
+      text-transform: initial;
+    }
+  }
+}
