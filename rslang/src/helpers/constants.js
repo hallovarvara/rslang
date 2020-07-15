@@ -11,7 +11,7 @@ import Lesha from '../assets/images/team/alexei-osipov.jpg';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
-  base: 'https://kagafon-learn-words.herokuapp.com/',
+  base: 'https://afternoon-falls-25894.herokuapp.com/',
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
@@ -308,6 +308,10 @@ const text = {
     latestRusults: 'Последние результаты',
     currentResults: 'Текущие результаты',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
+    selectOptionsForUsedWord: ['изученные вами', 'новые по сложности'],
+    studiedByYou: 'изученные вами',
+    newByComplexity: 'новые по сложности',
+    loginPleaseToUseThisFeature: 'Войдите в систему, чтобы воспользоваться этим функционалом',
 
     /* Unmess */
     unmess: {

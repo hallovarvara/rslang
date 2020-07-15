@@ -1,7 +1,7 @@
 .unmess-game-container {
   .start-page {
     width: 100%;
-    min-height: calc(100vh - 110px);
+    min-height: calc(100vh - #{$header-height});
     padding: 30px 0;
     overflow: hidden;
     @include flex(column, center, center);
@@ -36,11 +36,12 @@
     }
   }
 
-  .unmess-steppers-container {
+  .unmess-settings-container {
     margin: 50px 0;
+    @include flex(column, center, center);
   }
 
-  .unmess-steppers-container > * {
+  .unmess-settings-container > * {
     margin-bottom: 15px;
     &:last-child {
       margin-bottom: 0;

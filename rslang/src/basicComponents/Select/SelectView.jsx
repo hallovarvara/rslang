@@ -19,26 +19,28 @@ const SelectView = ({
   menuTransormOrigin = { vertical: 'top', horizontal: 'center' },
   disableScrollLock = true,
   onChange = () => {},
+  value = null,
 }) => (
-  <Select
-    className={`select-list ${className}`}
-    classes={selectClasses}
-    defaultValue={defaultValue}
-    onChange={onChange}
-    MenuProps={{
-      getContentAnchorEl: null,
-      anchorOrigin: menuPosition,
-      transformOrigin: menuTransormOrigin,
-      disableScrollLock,
-      PopoverClasses: {
-        root: 'select-popover-root',
-      },
-    }}
-    >
-    {
-      selectTitles.map(mapSelectTitlesToItems)
-    }
-  </Select>
+    <Select
+      className={`select-list ${className}`}
+      classes={selectClasses}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      {...(value ? { value } : {})}
+      MenuProps={{
+        getContentAnchorEl: null,
+        anchorOrigin: menuPosition,
+        transformOrigin: menuTransormOrigin,
+        disableScrollLock,
+        PopoverClasses: {
+          root: 'select-popover-root',
+        },
+      }}
+      >
+      {
+        selectTitles.map(mapSelectTitlesToItems)
+      }
+    </Select>
 );
 
 SelectView.propTypes = {
@@ -49,6 +51,7 @@ SelectView.propTypes = {
   menuTransormOrigin: PropTypes.object,
   disableScrollLock: PropTypes.object,
   onChange: PropTypes.func,
+  value: PropTypes.string,
 };
 
 export default SelectView;

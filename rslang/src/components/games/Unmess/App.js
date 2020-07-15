@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './App.scss';
+
+import Notification from '../../../basicComponents/Notification';
 
 import StartPage from './components/pages/Start';
 import GamePage from './components/pages/Game';
@@ -10,6 +13,7 @@ import ResultsPage from './components/pages/Results';
 import LatestResultsPage from './components/pages/LatestResults';
 
 import { withWordsService } from '../hoc';
+import UserService from '../../../helpers/userService';
 
 import {
   pagesCount,
@@ -21,6 +25,7 @@ import {
 import {
   soundSuccess,
   soundError,
+  text,
 } from '../../../helpers/constants';
 import { playAudio } from '../../../helpers/functions';
 
@@ -57,19 +62,34 @@ class App extends React.Component {
     loading: true,
     currentWords: null,
     shuffledCurrentWords: null,
+    repeatingWords: null,
+    newWords: null,
+    useRepeatingWords: true,
+    notifications: [],
   }
 
   allWords = null;
 
   componentDidMount() {
+    this.userService = new UserService();
+    this.userId = this.props.userId;
+    this.setState({ useRepeatingWords: Boolean(this.userId) });
+
+    console.log(this.userService);
+    console.log(this.userId);
+
     if (localStorage.getItem(localStorageItems.latestResults) === null) {
       localStorage.setItem(localStorageItems.latestResults, JSON.stringify([]));
     }
 
     const { wordsService } = this.props;
-    wordsService.getAllWords(pagesCount, levelsCount)
-      .then((result) => {
-        this.allWords = result;
+    Promise.all([
+      wordsService.getAllWords(pagesCount, levelsCount),
+      this.userService.getUserWordsNoRemoved(this.userId)
+    ])
+      .then(([allWords, userWords]) => {
+        this.allWords = allWords;
+        console.log(userWords);
         const { currentLevel, currentPage } = this.state;
         const currentWords = getRandomWords(this.allWords[currentLevel][currentPage]);
         const shuffledCurrentWords = getShuffledWords(currentWords);
@@ -78,7 +98,8 @@ class App extends React.Component {
           currentWords,
           shuffledCurrentWords,
         });
-      });
+      })
+      .catch((error) => console.log('back crush', error));
   }
 
   levelChanged = (level) => {
@@ -143,6 +164,12 @@ class App extends React.Component {
     });
   }
 
+  showNotifications = (notifications) => {
+    this.setState({
+      notifications,
+    });
+  }
+
   render() {
     const {
       loading,
@@ -150,6 +177,7 @@ class App extends React.Component {
       currentLevel,
       currentPage,
       shuffledCurrentWords,
+      useRepeatingWords,
     } = this.state;
 
     return (
@@ -157,6 +185,9 @@ class App extends React.Component {
         <Switch>
           <Route path="/unmess/home" render={() => (
             <StartPage
+              showNotifications={this.showNotifications}
+              isUserLogged={Boolean(this.userId)}
+              useRepeatingWords={useRepeatingWords}
               currentPage={currentPage}
               currentLevel={currentLevel}
               loading={loading}
@@ -189,6 +220,16 @@ class App extends React.Component {
               currentWords={currentWords} />
           )} />
         </Switch>
+        {
+          this.state.notifications.map((notif, index) => (
+            <Notification
+              key={index}
+              variant={notif.type}
+              message={text.ru.loginPleaseToUseThisFeature}
+              afterClose={() => this.showNotifications([])}
+            />
+          ))
+        }
       </div>
     );
   }
@@ -196,6 +237,11 @@ class App extends React.Component {
 
 App.propTypes = {
   wordsService: PropTypes.object,
+  userId: PropTypes.string,
 };
 
-export default withWordsService()(App);
+const mapStateToProps = (store) => ({
+  userId: store.auth.userId,
+});
+
+export default withWordsService()(connect(mapStateToProps)(App));
