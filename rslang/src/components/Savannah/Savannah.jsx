@@ -8,7 +8,7 @@ import ActiveQuiz from './components/ActiveQuiz';
 import UserService from '../../helpers/userService';
 
 import {
-  questionStatus,
+  questionStatus, count,
   text, localStorageItems, applicationThings,
   soundFinish, soundSuccess, soundError,
 } from '../../helpers/constants';
@@ -18,6 +18,7 @@ import {
   getRandomNumber,
   playAudio,
   shuffleArray,
+  getAverageNumber,
 } from '../../helpers/functions';
 
 import {
@@ -30,6 +31,12 @@ import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
 
 import classes from './Savannah.module.scss';
 
+const {
+  defaultLevel, minQuestions, maxQuestions, minAnswers, maxAnswers,
+} = count.savannah;
+const totalQuestionsState = getAverageNumber(minQuestions, maxQuestions);
+const totalAnswersState = getAverageNumber(minAnswers, maxAnswers);
+
 const initialState = {
   currentUserWordId: '',
   wordObject: {},
@@ -40,14 +47,14 @@ const initialState = {
   activeCard: 0,
   audio: [],
   answerState: null,
-  currentGroup: null,
+  currentGroup: defaultLevel,
   counter: 1,
   changeGroup: false,
   idWords: [],
   isFinished: false,
   isStarted: false,
-  totalAnswers: 2,
-  totalQuestions: 5,
+  totalAnswers: totalAnswersState,
+  totalQuestions: totalQuestionsState,
   translateWords: [],
   volume: true,
   heartCount: 5,
@@ -103,7 +110,10 @@ class Savannah extends Component {
         currentUserWordId = allUserWordsRandom[counter - 1]?._id;
       }
 
-      const resultArray = [allUserWordsRandom[counter - 1], ...await getWordsByAmount(2, totalAnswers - 1)];
+      const resultArray = [
+        allUserWordsRandom[counter - 1],
+        ...await getWordsByAmount(2, totalAnswers - 1)
+      ];
 
       if (!allUserWords.length) {
         this.setState({ allUserWords: allUserWordsRandom });
@@ -209,11 +219,7 @@ class Savannah extends Component {
   }
 
   handleCurrentGroup = (event) => {
-    if (event.target.value === -1) {
-      this.setState({ changeGroup: true, currentGroup: 0 });
-    } else {
-      this.setState({ currentGroup: event.target.value, changeGroup: false });
-    }
+    this.setState({ currentGroup: event.target.value, changeGroup: false });
   }
 
   handleTotalAnswer = (e) => {

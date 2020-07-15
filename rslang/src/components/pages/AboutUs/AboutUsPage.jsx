@@ -1,9 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {teamMembers, pagesData, text} from '../../../helpers/constants';
+
+import {
+  teamMembers,
+  pagesData,
+  text,
+} from '../../../helpers/constants';
+
+import { getPath } from '../../../helpers/functions';
+
 import TeamMember from '../../TeamMember';
 import Button from '../../../basicComponents/Button';
-import { getPath } from '../../../helpers/functions';
 
 const mapTeamMembersToItems = (member, index) => <TeamMember key={index} {...member} />;
 

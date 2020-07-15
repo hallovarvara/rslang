@@ -1,5 +1,6 @@
-.vocabulary-page-container {
+.vocabulary-page {
   background-color: $color-primary;
+  @extend %padding;
 }
 
 .vocabulary-settings-container {

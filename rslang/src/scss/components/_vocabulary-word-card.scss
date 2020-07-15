@@ -1,4 +1,4 @@
-.vocabulary-page-container {
+.vocabulary-page {
   .cards-container {
     width: 100%;
     cursor: default;
@@ -102,10 +102,12 @@
   .word-card-additional-info__meaning {
     color: $color-dark;
     @include font(3rem, 400, normal);
+    text-align: center;
   }
 
   .word-card-additional-info__example-sentence {
     color: rgba($color: $color-dark, $alpha: 0.4);
     @include font(3rem, 400, normal);
+    text-align: center;
   }
 }
