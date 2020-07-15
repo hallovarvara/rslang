@@ -18,7 +18,7 @@ const EnglishPuzzleView = ({
   getPage,
   numberPage,
 }) => (
-  <div className="container">
+  <div className="english-puzzle-container">
     {(!isStart)
       ? <StartPage
           getLevel={getLevel}

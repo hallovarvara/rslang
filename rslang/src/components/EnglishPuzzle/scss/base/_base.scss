@@ -1,11 +1,15 @@
-.container {
+@import '../../../../scss/abstracts/placeholders';
+@import '../../../../scss/abstracts/mixins';
+
+.english-puzzle-container {
   box-sizing: border-box;
-  min-height: calc(100vh - 110px);
-  padding: 20px 0 0;
+  min-height: 100vh;
   background: $color-englishPuzzle-primary;
   background: linear-gradient(
     to bottom,
     $color-englishPuzzle-primary 0%,
     $color-englishPuzzle-secondary 100%
   );
+
+  @extend %padding;
 }

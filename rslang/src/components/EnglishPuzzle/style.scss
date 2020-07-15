@@ -2,15 +2,10 @@
 @import '../../scss/abstracts/constants';
 @import '../../scss/abstracts/mixins';
 
-// Abstarcs
-
-@import './scss/abstracts/placeholders';
-
 // Base
 @import '../../scss/base/base';
 @import '../../scss/base/typography';
 @import './scss/base/base';
-@import './scss/base/fonts';
 @import './scss/base/helpers';
 
 // Layouts

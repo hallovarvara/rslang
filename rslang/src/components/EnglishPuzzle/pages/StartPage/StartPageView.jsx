@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Parser from 'html-react-parser';
 import { Button } from '@material-ui/core';
 import classNames from 'classnames';
 import { gamesData, text } from '../../../../helpers/constants';
@@ -25,7 +26,7 @@ const StartPageView = ({
   return (
     <div className="start-page">
       <h2 className="start-page__title">{title}</h2>
-      <p className="start-page__description">{description}</p>
+      <p className="start-page__description">{Parser(description)}</p>
       <div className="puzzle-steppers-container">
         <Stepper
           defaultValue={numberLevel + 1}

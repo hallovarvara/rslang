@@ -1,4 +1,4 @@
-.container {
+.english-puzzle-container {
   .start-page {
     width: 100%;
     margin: 0 auto;
@@ -7,7 +7,7 @@
   }
 
   .start-page__title {
-    color: $color-text-light;
+    color: $color-light;
     font-weight: normal;
     font-size: 8rem;
     line-height: 1.5;
@@ -23,8 +23,8 @@
   }
 
   .start-page__description {
-    margin: 40px 0;
-    color: $color-text-light;
+    margin: 20px 0 40px;
+    color: $color-light;
     font-size: 3rem;
     line-height: 1.5;
     text-align: center;
@@ -33,7 +33,3 @@
     }
   }
 }
-
-
-
-
