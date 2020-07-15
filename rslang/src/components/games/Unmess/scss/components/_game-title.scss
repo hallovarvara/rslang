@@ -1,0 +1,8 @@
+.unmess-game-container .game-title {
+  color: $color-light;
+  font-size: 12rem;
+  font-family: 'Messy', sans-serif;
+  @include media-mobile {
+    font-size: 9.5rem;
+  }
+}

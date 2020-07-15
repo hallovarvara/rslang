@@ -1,0 +1,41 @@
+body {
+  .select-list {
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+
+  .select-input {
+    padding: 5px 24px 5px 5px;
+    @include font(
+      $size: 2.5rem,
+      $weight: $font-weight-bold,
+      $line-height: 100%
+    );
+    &:focus {
+      background-color: transparent;
+    }
+  }
+
+  .select-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .select-underline {
+    &:before {
+      display: none;
+    }
+  }
+
+  .menu-item {
+    justify-content: center;
+    font-size: 2rem;
+  }
+
+  .select-popover-root {
+    position: absolute !important;
+    z-index: 1 !important;
+  }
+}

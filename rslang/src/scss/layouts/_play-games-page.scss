@@ -1,0 +1,17 @@
+.play-games {
+  background-color: $color-primary;
+  @include flex(column, center, center);
+
+  @extend %padding;
+}
+
+.play-games__title {
+  padding-bottom: 60px;
+  font-size: 9rem;
+}
+
+.games-cards-container {
+  flex-wrap: wrap;
+  width: 100%;
+  @include flex(row, center, center);
+}

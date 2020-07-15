@@ -1,0 +1,11 @@
+@import '../../../../scss/abstracts/constants';
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  color: $color-audiocall-text-light;
+  font-size: 1.8rem;
+}

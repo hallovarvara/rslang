@@ -1,0 +1,10 @@
+.settings-page {
+  padding: 160px 100px 120px 100px;
+  background-color: $color-primary;
+  @include flex(column, center, center);
+}
+
+.settings_page__title {
+  margin-bottom: 50px;
+  font-size: 9rem;
+}

@@ -1,0 +1,21 @@
+@import '../../../../scss/abstracts/constants';
+
+.ActiveQuiz {
+  display: block;
+}
+
+@keyframes rotate {
+  100% {
+    transform: translateY(250px);
+  }
+  70% {
+    color: $color-dark;
+  }
+}
+
+.Question {
+  height: 32px;
+  color: rgba($color-dark, $alpha: 0.1);
+  text-align: center;
+  animation: rotate 6s linear infinite;
+}

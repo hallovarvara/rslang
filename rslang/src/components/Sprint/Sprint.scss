@@ -1,0 +1,16 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+@import './src/scss/abstracts/placeholders';
+
+.sprint__wrapper {
+  flex-grow: 1;
+  width: 100%;
+  height: 100vh;
+  font-size: 24px;
+  background: linear-gradient(
+    $color-sprint-secondary 0%,
+    $color-sprint-primary 100%
+  );
+
+  @extend %padding;
+}
