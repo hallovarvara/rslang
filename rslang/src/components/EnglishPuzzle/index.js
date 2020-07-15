@@ -17,7 +17,7 @@ class EnglishPuzzle extends React.Component {
       checkedUserWords: false,
       numberLevel: 0,
       numberPage: 0,
-      paintingInfo: paintingObj(), // TODO level from form
+      paintingInfo: paintingObj(),
       isStart: false,
       backgroundUrl: '',
       isBackground: true,
@@ -103,8 +103,6 @@ function mapStateToProps(state) {
     userId: state.auth.userId,
   };
 }
-
-// export default EnglishPuzzle;
 
 EnglishPuzzle.propTypes = {
   token: PropTypes.string,

@@ -8,6 +8,7 @@ import {
   reorder,
   move,
 } from '../../helpers';
+import { heightRow }from '../../constants';
 
 class PhraseElementsView extends React.Component {
   constructor(props) {
@@ -97,7 +98,7 @@ class PhraseElementsView extends React.Component {
     backgroundRepeat: 'no-repeat',
     backgroundImage: `url(${this.props.isBackground ? this.props.backgroundUrl : ''})`, // TODO add level from start form
     width: `${getWidthWord(item, this.getWidthPharase())}%`,
-    backgroundPosition: `-${getBackgroundPosition(this.getLengthPhraseBefore(index), this.getWidthPharase())}px -${numberRow * 40}px`,
+    backgroundPosition: `-${getBackgroundPosition(this.getLengthPhraseBefore(index), this.getWidthPharase())}px -${numberRow * heightRow}px`,
     ...draggableStyle,
   })
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getWidthWord, getBackgroundPosition } from '../../helpers';
+import { heightRow }from '../../constants';
 import Question from '../../components/Question';
 import PhraseElements from '../../components/PhraseElements';
 import GameHelpers from '../../components/GameHelpers';
@@ -44,7 +45,9 @@ const GamePageView = ({
     {
       width: `${getWidthWord(item, phraseLength(wordArray))}%`,
       backgroundImage: `url(${isBackground ? backgroundUrl : ''})`,
-      backgroundPosition: `-${getBackgroundPosition(phraseLengthBefore(wordArray, index), phraseLength(wordArray))}px -${rowNumber * 40}px`,
+      backgroundPosition:
+        `-${getBackgroundPosition(phraseLengthBefore(wordArray, index), phraseLength(wordArray))}px 
+        -${rowNumber * heightRow}px`,
     }
   );
 
