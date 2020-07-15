@@ -1,6 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import AudioCallView from './AudioCall.jsx';
 import { getWords } from '../../helpers/wordsService/wordsApi';
+import UserService from '../../helpers/userService';
+
+const userService = new UserService();
+
+const { getUserWordsNoRemoved } = userService;
 
 class AudioCall extends React.Component {
   constructor(props) {
@@ -34,7 +41,6 @@ class AudioCall extends React.Component {
 
   setNumberLevel = (e) => {
     const amountQuestions = e.target.value || e.target.defaultValue;
-    console.log(amountQuestions, 78999999)
     this.setState({ countQuestions: +amountQuestions });
   }
 
@@ -43,10 +49,17 @@ class AudioCall extends React.Component {
     this.setState({ countAnswers: +countAnswers });
   }
 
-  handleSubmitForm = async () => {
-    const { numberPage, numberLevel } = this.state;
-    const data = await getWords(numberPage, numberLevel);
-    console.log(data, 4444);
+  handleSubmitForm = async (e) => {
+    const { numberPage, numberLevel, countQuestions } = this.state;
+    const { userId, token } = this.props;
+    let data = [];
+    if (token) {
+      data = await getUserWordsNoRemoved(userId);
+    }
+    if (data.length < countQuestions) {
+      const addWords = await getWords(numberPage, numberLevel);
+      data = data.concat(addWords).slice(0, countQuestions);
+    }
     this.setState({
       data,
       isStart: true
@@ -85,6 +98,17 @@ class AudioCall extends React.Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    userId: state.auth.userId,
+  };
+}
 
-export default AudioCall;
+AudioCall.propTypes = {
+  token: PropTypes.string,
+  userId: PropTypes.string,
+};
+
+export default connect(mapStateToProps)(AudioCall);
 

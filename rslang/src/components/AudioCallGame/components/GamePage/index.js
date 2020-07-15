@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GamePageView from './GamePageView.jsx';
-// import data from '../../mockData';
 import { shuffleArray, generateQuestionsArray, playAudio } from '../../../../helpers/functions';
 import {
   soundSuccess,
@@ -13,11 +12,10 @@ class GamePage extends React.Component {
     super(props);
     this.props = props;
     const { handleClickNewGame, data, countQuestions } = this.props;
-    console.log(data, countQuestions, 7777777777)
     this.handleClickNewGame = handleClickNewGame;
     this.state = {
       countQuestions,
-      dataWords: data, // TODO API
+      dataWords: data,
       level: 0,
       questionList: [],
       errorAnswerArray: [],
@@ -32,7 +30,7 @@ class GamePage extends React.Component {
     console.log(countQuestions)
     const { level } = this.state;
     const questionList = generateQuestionsArray(dataWords, countQuestions);
-    console.log(questionList)
+    console.log(dataWords, questionList, level)
     const answerArray = this.getAnswersArray(dataWords, questionList, level);
     this.setState({ questionList, answerArray });
   }
@@ -42,7 +40,7 @@ class GamePage extends React.Component {
     if (dataWords && questionList.length !== 0 && countQuestions !== level) {
       const currentQuestion = questionList[level];
       const arrayWrongAnswer = shuffleArray(dataWords.filter((word) => (
-        word.id !== currentQuestion.id)));
+        (word.id || word._id) !== (currentQuestion.id || currentQuestion._id))));
       const answerArray = shuffleArray(
         arrayWrongAnswer.slice(0, countAnswers - 1).concat(currentQuestion),
       );
@@ -105,7 +103,7 @@ class GamePage extends React.Component {
     } = this.state;
     const question = questionList[level];
     if (!isRightAnswer && !isFalseAnswer) {
-      if (id === question.id) {
+      if (id === (question._id || question.id)) {
         this.setAnswer(rightAnswerArray, question, id);
         this.setState({ isRightAnswer: true });
         playAudio(soundSuccess);

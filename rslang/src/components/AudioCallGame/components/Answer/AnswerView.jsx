@@ -13,14 +13,14 @@ const AnswerView = ({
 }) => {
   const answerItem = classNames(
     style.item,
-    { [style.right]: ((isRightAnswer || isFalseAnswer) && answer.id === question.id) },
-    { [style.wrong]: isFalseAnswer && answer.id === currentAnswerId },
+    { [style.right]: ((isRightAnswer || isFalseAnswer) && (answer.id || answer._id) === (question.id || question._id)) },
+    { [style.wrong]: isFalseAnswer && (answer.id || answer._id) === currentAnswerId },
     { [style.disable]: isRightAnswer || isFalseAnswer },
   );
   return (
   <li className={answerItem}
-    key={answer.id}
-    onClick = {() => handleClickAnswer(answer.id)}
+    key={answer.id || answer._id}
+    onClick = {() => handleClickAnswer(answer.id || answer._id)}
   >{answer.wordTranslate}</li>
   );
 };

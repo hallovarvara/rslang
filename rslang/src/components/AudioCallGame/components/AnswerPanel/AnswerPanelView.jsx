@@ -21,7 +21,7 @@ const AnswerPanelView = ({
           handleClickAnswer = {handleClickAnswer}
           question={question}
           answer={answer}
-          key={answer.id}
+          key={answer.id || answer._id}
           currentAnswerId={currentAnswerId}
         />
       ));
