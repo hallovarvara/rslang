@@ -108,8 +108,8 @@ export default class UserService {
     await axiosuser.delete(`users/${userId}/words/${wordId}`);
   };
 
-  getUserAllWords = async (userId) => {
-    const rawResponse = axiosuser.get(`users/${userId}/words`);
+  getUserAllWords = async ({ userId, page, wordsPerPage }) => {
+    const rawResponse = axiosuser.get(`users/${userId}/words?page=${page}&wordsPerPage=${wordsPerPage}`);
     const content = await rawResponse;
     return content.data;
   };

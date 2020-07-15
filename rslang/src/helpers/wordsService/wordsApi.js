@@ -1,12 +1,20 @@
 import axios from 'axios';
 
 import { apiLinks, count } from '../constants';
-import { getRandomNumber } from '../functions';
+import { getRandomNumber, handleError } from '../functions';
 
 export const getWords = async (page, group) => {
   const url = `${apiLinks.base}words?page=${page}&group=${group}`;
-  const response = await axios.get(url);
-  return response.data;
+
+  let data;
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+
+  return data;
 };
 
 export const getWordsById = async (wordId) => {

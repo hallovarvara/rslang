@@ -328,6 +328,7 @@ const text = {
       dontKnow: 'Не знаю',
       startGame: 'Играть',
       newGame: 'Начать новую игру',
+      check: 'Проверить',
       learnWords: 'Изучать слова',
       learnEnglishWithUs: 'Учите английский с нами',
       startLearningWithUs: 'Начать учиться с нами',
