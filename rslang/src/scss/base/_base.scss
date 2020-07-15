@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+body {
+  position: relative;
+  background-color: $color-secondary;
+}
+
 a {
   color: $color-dark;
   text-decoration: none;

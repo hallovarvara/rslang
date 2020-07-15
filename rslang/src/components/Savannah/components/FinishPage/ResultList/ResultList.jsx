@@ -20,6 +20,7 @@ const ResultList = ({ result, resultTitle, status }) => {
         {words.map((word, key) => (
           <ResultItem
             key={key}
+            keyItem={key}
             word={word}
             translate={translate[key]}
             result={result}

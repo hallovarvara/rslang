@@ -5,15 +5,24 @@
 
 .about-us {
   width: 100%;
-  padding: 50px 150px 90px 150px;
   background-color: $color-primary;
   @include flex(column, center, center);
+  @extend %padding;
 }
 
 .about-us__desctiption {
   margin-bottom: 50px;
+
+  text-align: center;
+
   color: rgba($color: $color-dark, $alpha: 0.6);
-  @include font(3.2rem, 300, normal);
+
+  @include font(
+    $size: 3.2rem,
+    $weight: 300,
+    $style: normal,
+    $line-height: 130%
+  );
 }
 
 .about-us__team-photo {
@@ -39,6 +48,7 @@
   height: 200px;
   margin-bottom: 20px;
   object-fit: cover;
+  border-radius: 500px;
 }
 
 .team-member__full-name {

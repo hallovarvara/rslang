@@ -1,0 +1,25 @@
+// Abstacts from main
+@import '../../../scss/abstracts/constants';
+@import '../../../scss/abstracts/mixins';
+@import '../../../scss/abstracts/placeholders';
+
+// Base
+@import './scss/base/base';
+@import './scss/base/typography';
+@import './scss/base/fonts';
+@import './scss/base/helpers';
+
+// Components
+@import './scss/components/preloader';
+@import './scss/components/game-title';
+@import './scss/components/question-icon';
+@import './scss/components/audio-icon';
+
+// Layouts
+@import './scss/layouts/flex-div-with-span';
+@import './scss/layouts/start-page';
+@import './scss/layouts/game-page';
+@import './scss/layouts/results-page';
+
+// Vendors
+@import './scss/vendors/normalize';

@@ -1,16 +1,19 @@
-// Abstracts
+/* Abstracts */
 @import './scss/abstracts/constants';
 @import './scss/abstracts/mixins';
+@import './scss/abstracts/placeholders';
 
-// Vendors
+/* Vendors */
 @import './scss/vendor/normalize';
 
-// Base
+/* Base */
 @import './scss/base/typography';
 @import './scss/base/base';
 @import './scss/base/helpers';
+@import './scss/base/fonts';
 
-// Components
+/* Components */
+@import './scss/components/logo';
 @import './scss/components/select-list';
 @import './scss/components/paginaition';
 @import './scss/components/buttons';
@@ -19,19 +22,25 @@
 @import './scss/components/checkbox';
 @import './scss/components/linear-progress';
 @import './scss/components/learn-card-preview';
+@import './scss/components/vocabulary-word-card';
 @import './scss/components/game-card';
+@import './scss/components/stepper';
 @import './scss/components/menu-list';
+@import './scss/components/notification';
 @import './scss/components/preloader';
 
-//Layouts
+/* Layouts */
 @import './scss/layouts/header';
-@import './scss/layouts/main';
-@import './scss/layouts/promo-demonstration';
+@import './scss/layouts/learn-words';
 @import './scss/layouts/play-games-page';
 @import './scss/layouts/settings-page';
+@import 'scss/layouts/statistics-page';
 @import './scss/layouts/words-settings';
+@import './scss/layouts/vocabulary-page';
 @import './scss/layouts/learn-card-preview-container';
 @import './scss/layouts/preview-settings';
+@import './scss/layouts/promo-page';
 @import './scss/layouts/sign-in-page';
 @import './scss/layouts/sign-up-page';
 @import './scss/layouts/about-us-page';
+@import './scss/layouts/vocabulary-page';

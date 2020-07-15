@@ -3,6 +3,8 @@ import {
   count,
 } from './constants';
 
+const getPath = (modulePath = '') => `/${modulePath}`;
+
 const getRandomNumber = (min, max) => (
   Math.floor(
     Math.random() * (
@@ -41,6 +43,11 @@ const generateQuestionsArray = (
   shuffleArray(data).slice(0, amountLevels)
 );
 
+const removeTag = (str) => {
+  const [withTag, withoutTag] = str.match(/<.*>(.*?)<\/.*>/);
+  return str.replace(withTag, withoutTag);
+};
+
 /* Media */
 const getFilePath = (mediaPath) => apiLinks.file + mediaPath;
 
@@ -54,9 +61,23 @@ const pauseAudio = (path) => {
   audioElement.pause();
 };
 
+const generateStepperMarks = (stepsCount) => (
+  (new Array(stepsCount).fill({}))
+    .map((obj, index) => ({
+      value: index + 1,
+      label: `${index + 1}`,
+    }))
+);
+
+const handleError = (error) => {
+  console.error(error);
+  // TODO handle error
+};
+
 export {
   getFilePath,
   generateQuestionsArray,
+  removeTag,
   playAudio,
   pauseAudio,
   countQuestionsSets,
@@ -64,4 +85,7 @@ export {
   getRandomNumber,
   getAverageNumber,
   getTokenLifetimeInMs,
+  getPath,
+  generateStepperMarks,
+  handleError,
 };

@@ -32,7 +32,7 @@ margin-left: 10px;
 .sprint-play__board{
   background-color: rgb(233, 233, 233);
   margin: 0 auto;
-  margin-bottom: 15vh;
+  margin-bottom: 13vh;
   text-align: center;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
   border-radius: 5px;
@@ -48,6 +48,11 @@ margin-left: 10px;
   height: 30px;
   border-radius: 50%;
   box-sizing: border-box;
+}
+.sprint-play__icons{
+  position: relative;
+  top: 2.5px;
+  opacity: .5;
 }
 .sprint-play__word{
   margin-bottom: 20px;
@@ -74,7 +79,7 @@ margin-left: 10px;
   background: #c986d6;
 }
 .sprint-play__default{
-  background: #ffffff;;
+  visibility: hidden;
 }
 
 @media (max-width: 400px) {

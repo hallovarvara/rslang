@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton';
-import { connect } from 'react-redux';
 import { logout } from '../../redux/actions/auth';
 import MenuList from '../../basicComponents/MenuList';
-import { gamesData, pagesData } from '../../helpers/constants';
+import { ReactComponent as Logo } from '../../assets/images/logo.svg';
+
+import {
+  gamesData,
+  pagesData,
+} from '../../helpers/constants';
+
+import { getPath } from '../../helpers/functions';
 
 const addLinksToHeader = (link, index) => {
   const { title, path } = link;
@@ -15,27 +23,77 @@ const addLinksToHeader = (link, index) => {
       {
         path === pagesData.play.path
           ? <MenuList
-            menuTitle={<NavLink activeClassName="navigation__item_active" to={`/${path}`}>{title}</NavLink>}
+            menuTitle={<NavLink activeClassName="navigation__item_active" to={getPath(path)}>{title}</NavLink>}
             menuItems={Object.values(gamesData).map((gameObj, i) => (
               <NavLink
+                replace
                 className="menu-list-item__link"
                 activeClassName="navigation__item_active"
                 key={i}
-                to={gameObj.path}>{gameObj.title}
+                to={ getPath(gameObj.startPath ?? gameObj.path) }>
+                { gameObj.title }
               </NavLink>
             ))}
           />
-          : <NavLink activeClassName="navigation__item_active" exact to={`/${path}`}>{title}</NavLink>
+          : <NavLink
+            activeClassName="navigation__item_active"
+            exact to={getPath(path)}
+          >
+            {title}
+          </NavLink>
       }
     </li>
   );
 };
 
-const HeaderView = ({ links, isUserLogged, logout }) => {
+class HeaderView extends React.Component {
+  state = {
+    currentGame: null,
+  }
 
-  return (
-    <header className="header">
-      <h1 className="header__title"><NavLink activeClassName="navigation__item_active" to="/promo">RS Lang</NavLink></h1>
+  componentDidMount() {
+    this.updateLogoAccordingToCurrentGame();
+    window.addEventListener('hashchange', this.updateLogoAccordingToCurrentGame);
+  }
+
+  updateLogoAccordingToCurrentGame = () => {
+    this.setCurrentGame(this.getCurrentGame());
+  }
+
+  getCurrentGame = () => {
+    const {
+      path: currentGame,
+    } = Object.values(gamesData).find((gameObj) => (
+      window.location.href.includes(gameObj.path)
+    )) || { path: null };
+    return currentGame;
+  }
+
+  setCurrentGame = (currentGame) => {
+    this.setState({
+      currentGame,
+    });
+  }
+
+  render() {
+    const {
+      links,
+      isUserLogged,
+      logout: logoutUser,
+    } = this.props;
+
+    const { currentGame } = this.state;
+
+    const logoClasses = classNames({
+      logo: true,
+      [`logo_${currentGame}`]: Boolean(currentGame),
+    });
+
+    return (
+      <header className="header">
+      <NavLink activeClassName="navigation__item_active" to={getPath()}>
+        <Logo className={logoClasses} />
+      </NavLink>
       <nav>
         <ul className="navigation">
           {
@@ -45,26 +103,27 @@ const HeaderView = ({ links, isUserLogged, logout }) => {
             isUserLogged && <li className="navigation__item exit-icon">
               <NavLink activeClassName="navigation__item_active" to="/">
                 <IconButton
-                  onClick={logout}>
+                  onClick={logoutUser}>
                   <ExitToAppIcon
                     color="disabled"
                     style={{ fontSize: '3rem' }}
                   />
                 </IconButton>
-
-              </NavLink>
+               </NavLink>
             </li>
           }
         </ul>
       </nav>
     </header>
-  );
-};
+    );
+  }
+}
 
 HeaderView.propTypes = {
   linkTitles: PropTypes.arrayOf(PropTypes.string),
   isUserLogged: PropTypes.bool,
   links: PropTypes.array,
+  logout: PropTypes.func,
 };
 
 function mapDispatchToProps(dispatch) {

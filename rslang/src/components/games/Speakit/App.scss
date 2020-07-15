@@ -1,0 +1,24 @@
+// Abstracts from root styles
+@import '../../../scss/abstracts/constants';
+@import '../../../scss/abstracts/mixins';
+
+// Abstracts
+@import 'scss/abstracts/constants';
+@import 'scss/abstracts/mixins';
+
+// Base
+@import 'scss/base/base';
+@import 'scss/base/fonts';
+
+// Components
+@import 'scss/components/preloader';
+@import 'scss/components/link-in-button';
+
+// Layouts
+@import 'scss/layouts/home_page';
+@import 'scss/layouts/navigation';
+@import 'scss/layouts/word_association';
+@import 'scss/layouts/words_container';
+@import 'scss/layouts/buttons_container';
+@import 'scss/layouts/results';
+@import 'scss/layouts/preloader-container';

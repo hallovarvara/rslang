@@ -1,6 +1,8 @@
 @import '../../scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+@import './src/scss/abstracts/placeholders';
 
-.container {
+.audiocall-container {
   min-height: 100vh;
   background: $color-audiocall-primary;
   background: linear-gradient(
@@ -8,4 +10,5 @@
     $color-audiocall-primary 0%,
     $color-audiocall-secondary 100%
   );
+  @extend %padding;
 }

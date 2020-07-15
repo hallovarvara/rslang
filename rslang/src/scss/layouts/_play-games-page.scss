@@ -1,7 +1,8 @@
 .play-games {
-  padding-top: 60px;
   background-color: $color-primary;
   @include flex(column, center, center);
+
+  @extend %padding;
 }
 
 .play-games__title {

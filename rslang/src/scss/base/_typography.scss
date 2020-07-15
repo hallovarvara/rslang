@@ -17,11 +17,15 @@ h6 {
   color: $color-dark;
   font-weight: $font-weight-black;
   font-family: $font-secondary;
-  font-style: italic;
 }
 
 h1 {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto 3.5rem;
   font-size: 9rem;
+  line-height: 105%;
+  text-align: center;
 }
 
 h4 {
@@ -29,5 +33,12 @@ h4 {
 }
 
 p {
-  margin: 0;
+  margin: 0 auto;
+
+  @include font(
+    $size: 3rem,
+    $weight: $font-weight-light,
+    $line-height: 160%,
+    $spacing: 0.06rem,
+  );
 }

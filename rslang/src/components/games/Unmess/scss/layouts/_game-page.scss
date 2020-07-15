@@ -1,0 +1,206 @@
+@keyframes smooth-display {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.unmess-game-container {
+  .game-page {
+    min-height: calc(100vh - 110px);
+    padding: 35px 0px 20px 0px;
+    @include flex(column, flex-start, center);
+  }
+
+  .game-title-container {
+    margin-bottom: 35px;
+    @include flex(row, center, center);
+  }
+
+  .game-title-container__title {
+    margin-right: 20px;
+    @include media-mobile {
+      font-size: 7.5rem;
+    }
+  }
+
+  .game-container {
+    margin-bottom: 20px;
+    color: $color-light;
+    font-size: 3rem;
+    word-break: break-word;
+    @include flex(row, center, flex-start);
+    @include media-tablet {
+      font-size: 2.5rem;
+    }
+    @include media-big-mobile {
+      font-size: 2rem;
+    }
+    @include media-mobile {
+      font-size: 1.8rem;
+    }
+  }
+
+  .words-container,
+  .definitions-container {
+    margin: 0px 20px;
+    @include flex(column, center, center);
+    @include media-big-mobile {
+      margin: 0px 10px;
+    }
+  }
+
+  .words-container__word,
+  .definitions-container__definition {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 15px 10px;
+    overflow: hidden;
+    background-color: rgba(white, 0.2);
+    box-shadow: 0px 0px 2px $color-light;
+    cursor: pointer;
+    span {
+      pointer-events: none;
+    }
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  .words-container__word {
+    width: 240px;
+    @include media-tablet {
+      width: 200px;
+    }
+    @include media-big-mobile {
+      width: 150px;
+    }
+    @include media-mobile {
+      width: 100px;
+    }
+  }
+
+  .definitions-container__definition {
+    width: 430px;
+    @include media-tablet {
+      width: 300px;
+    }
+    @include media-big-mobile {
+      width: 250px;
+    }
+    @include media-mobile {
+      width: 170px;
+    }
+    &.dragover {
+      background-color: rgba(#b7e3ff, 0.2);
+    }
+  }
+
+  .attempts-container {
+    width: 710px;
+    color: white;
+    font-size: 3rem;
+    word-break: break-word;
+    @include flex(column, center, center);
+    @include media-tablet {
+      width: 540px;
+      font-size: 2.5rem;
+    }
+    @include media-big-mobile {
+      width: 420px;
+      font-size: 2rem;
+    }
+    @include media-mobile {
+      width: 290px;
+      font-size: 1.8rem;
+    }
+  }
+
+  .right-attempts-container,
+  .wrong-attempts-container {
+    width: 100%;
+    @include flex(column, center, center);
+  }
+
+  .right-attempts-container {
+    margin-bottom: 20px;
+  }
+
+  .right-attempt,
+  .wrong-attempt {
+    width: 100%;
+    margin-bottom: 20px;
+    @include flex(row, flex-start, flex-start);
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  .right-attempt {
+    background-color: $color-correct;
+  }
+
+  .wrong-attempt {
+    background-color: $color-mistake;
+  }
+
+  .right-attempt__word,
+  .wrong-attempt__word {
+    width: 280px;
+    padding: 15px 10px;
+    @include media-tablet {
+      width: 240px;
+    }
+    @include media-big-mobile {
+      width: 170px;
+    }
+    @include media-mobile {
+      width: 120px;
+    }
+  }
+
+  .right-attempt__definition,
+  .wrong-attempt__definition {
+    width: 430px;
+    padding: 15px 10px;
+    @include media-tablet {
+      width: 300px;
+    }
+    @include media-tablet {
+      width: 250px;
+    }
+    @include media-mobile {
+      width: 170px;
+    }
+  }
+
+  .wrong-attempt__definition {
+    animation: smooth-display 1s linear;
+  }
+
+  .wront-attempt__show-answer {
+    align-self: center;
+    padding: 15px 10px;
+  }
+
+  .wront-attempt__show-answer span {
+    padding: 20px 40px;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    @include media-tablet {
+      padding: 20px 35px;
+    }
+    @include media-mobile {
+      padding: 15px 5px;
+    }
+  }
+}
+
+body .game-title-container__description {
+  padding: 5px 10px;
+  font-size: 2rem;
+  text-align: center;
+}
