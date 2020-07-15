@@ -53,7 +53,8 @@ export const changeSettings = (userOption, wordObject) => {
 // ---------------------------------------------------------------
 
 export const createUserWord = (wordObject) => {
-  const userWord = { wordId: wordObject.id, ...userWordTemplate };
+  // const userWord = { wordId: wordObject.id, ...userWordTemplate };
+  const userWord = { ...userWordTemplate };
   return { ...wordObject, userWord };
 };
 

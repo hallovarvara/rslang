@@ -44,7 +44,7 @@ class Word extends Component {
 
   handleError = (currentWord, inputWord) => {
     const { onChangeProgress, onStatsChanged } = this.props;
-    console.log(onStatsChanged);
+    // console.log(onStatsChanged);
     const difference = showDifferenceInWords(currentWord, inputWord);
     onChangeProgress({ isShownWord: true, difference });
     onStatsChanged(false);

@@ -111,6 +111,13 @@ export const updateStatsByThing = (
   encodeMap,
   decodedTemplate,
 ) => {
+  console.log(thingName,
+    newResults,
+    statsObject,
+    decodeMap,
+    encodeMap,
+    decodedTemplate,
+  );
   let dayKey = {};
   let decodedCurrent = decodedTemplate;
   const { year, month, day } = getToday();
@@ -124,6 +131,7 @@ export const updateStatsByThing = (
   }
   const updated = sumObjectsProperties(decodedCurrent, newResults);
   const ecodedCurrent = encodeStatsToString(updated, encodeMap);
+  console.log(updated, ecodedCurrent);
   monthKey[day] = ecodedCurrent;
   yearKey[month] = monthKey;
   thingStats[year] = yearKey;

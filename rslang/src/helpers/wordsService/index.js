@@ -166,13 +166,14 @@ export const clearLocalUserInfo = () => {
 
 // TODO Stats
 export const calculateLearnWordsResults = (arrayOfWords) => {
-  // console.log(arrayOfWords);
+  console.log(arrayOfWords);
   const stats = {};
   stats.learned = arrayOfWords.filter((el) => el?.userWord?.optional?.rate >= 31).length;
   stats.inScope = arrayOfWords.filter((el) => el?.userWord).length;
   stats.semiLearned = arrayOfWords.filter((el) => el?.userWord?.optional?.rate >= 15).length;
   stats.complicated = arrayOfWords.filter((el) => el?.userWord?.difficulty).length;
   stats.removed = arrayOfWords.filter((el) => el?.userWord?.optional?.removed).length;
+  console.log(stats);
   return stats;
 };
 
@@ -180,10 +181,12 @@ export const calculateLearnWordsResults = (arrayOfWords) => {
 export const saveGameResults = (thingName) => {
   let results;
   if (thingName === applicationThings.LEARN_WORDS) {
-    const sessionWords = checkForUserWords(sessionThings, applicationThings.LEARN_WORDS);
+    const sessionWords = checkForUserWords(sessionThings, storageThingNames.LEARNING);
     results = calculateLearnWordsResults(sessionWords);
+    console.log('INSIDE IF', results, sessionWords);
   } else {
     results = getSessionData(thingName);
+    console.log('INSIDE IF', results);
   }
   updateStats(thingName, results);
 };
@@ -212,9 +215,13 @@ export const checkForDone = (arrayOfWords) => {
   return result.filter((el) => el?.userWord?.optional?.rate < 31);
 };
 
-export const saveSessionWordsToLocal = () => {
-  const sessionWords = checkForUserWords();
+export const saveSessionWordsToLocal = (thingName) => {
+  const storaThing = thingName === applicationThings.LEARN_WORDS
+    ? storageThingNames.LEARNING
+    : storageThingNames.WORDS;
+  const sessionWords = checkForUserWords(sessionThings, storaThing);
   const checked = checkForDone(sessionWords);
+  console.log(sessionWords, checked);
   if (checked) {
     checked.forEach((el) => {
       saveLocalUserWord(el, localThings);
@@ -223,7 +230,7 @@ export const saveSessionWordsToLocal = () => {
 };
 
 export const saveSessionInfoToLocal = (thingName) => {
-  saveSessionWordsToLocal();
+  saveSessionWordsToLocal(thingName);
   saveGameResults(thingName);
   clearSessionData(thingName);
 };
@@ -232,13 +239,16 @@ export const prepareSessionInfoToServer = (thingName, statsObject) => {
   const storaThing = thingName === applicationThings.LEARN_WORDS
     ? storageThingNames.LEARNING
     : storageThingNames.WORDS;
+  console.log(thingName, storaThing);
   const sessionWords = checkForUserWords(sessionThings, storaThing);
   const statsResults = thingName === applicationThings.LEARN_WORDS
     ? calculateLearnWordsResults(sessionWords)
     : getSessionData(thingName);
+  console.log(sessionWords, statsResults);
   const stats = changeStats(thingName, statsResults, statsObject);
   const checked = checkForDone(sessionWords);
   const { newWords, userWords } = separateSessionWords(checked);
+  console.log(checked, newWords, userWords);
   return {
     stats,
     newWords: prepareUserWordsToServer(newWords),

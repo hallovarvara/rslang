@@ -94,16 +94,13 @@ export default class LearnWords extends Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.words.length && this.state.words !== prevState.words) {
-      const { words } = this.state;
-      // if (this.state.words) {
-      //   setSessionProgress(words);
-      // }
-      setSessionProgress(words);
-      // this.checkForEndOfGame();
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.words.length && this.state.words !== prevState.words) {
+  //     const { words } = this.state;
+  //     setSessionProgress(words);
+  //     this.checkForEndOfGame();
+  //   }
+  // }
 
   toggleCategory = ({ target: { value } }) => {
     this.setState({
@@ -204,16 +201,17 @@ export default class LearnWords extends Component {
   }
 
   updateUserWordInState = (wordObject) => {
-    const newWords = this.state.words
-      .map((el) => (el.id === wordObject.id
-        ? { ...wordObject }
-        : { ...el }));
-    this.setState({ words: [...newWords] });
+    this.setState((state) => ({
+      words: state.words.map((el) => (el.id === wordObject?.id ? wordObject : el)),
+    }));
+    const { words } = this.state;
+    setSessionProgress(words);
+    this.checkForEndOfGame();
   }
 
   handleShowTip = () => {
     const { words, wordCount } = this.state;
-    const wordObject = words[wordCount];
+    const wordObject = { ...words[wordCount] };
     wordObject.progress.secondRepeat = true;
     wordObject.progress.isGuessed = true;
     wordObject.progress.isShownWord = true;
@@ -221,9 +219,10 @@ export default class LearnWords extends Component {
     this.updateUserWordInState(wordObject);
   }
 
-  handleChangeWordRate = (level) => {
+  handleChangeWordRate = (level, updatedProgress) => {
+    let progress;
     const { words, wordCount } = this.state;
-    const wordObject = words[wordCount];
+    const wordObject = { ...words[wordCount] };
     const updated = updateLearnWordsRate(wordObject, level);
     if (level === levelsOfDifficulty.HARD) {
       updated.progress.secondRepeat = true;
@@ -231,12 +230,19 @@ export default class LearnWords extends Component {
     } else if (level === levelsOfDifficulty.NORMAL) {
       updated.progress.secondRepeat = true;
     }
-    this.updateUserWordInState(updated);
+    if (updatedProgress) {
+      const { initialProgressObject } = settings;
+      progress = {
+        ...(wordObject?.progress || initialProgressObject),
+        ...updatedProgress,
+      };
+    }
+    this.updateUserWordInState({ ...updated, progress: { ...progress } });
   }
 
   handleChangeInWord = (modifyingFunction) => {
     const { words, wordCount } = this.state;
-    const wordObject = words[wordCount];
+    const wordObject = { ...words[wordCount] };
     const updated = modifyingFunction(wordObject);
     this.updateUserWordInState(updated);
   }
@@ -270,15 +276,18 @@ export default class LearnWords extends Component {
   }
 
   handleContinueLearning = () => {
-    this.toggleStartLearning();
+    // this.toggleStartLearning();
     const words = getSessionProgress();
-    this.setState({
-      words,
-    });
+    this.setState((state) => (
+      {
+        words,
+        isStartLearning: !state.isStartLearning,
+      }
+    ));
   }
 
   handleStartNewLearning = () => {
-    this.toggleStartLearning();
+    // this.toggleStartLearning();
     clearSessionData();
     const wordsFromApiResponse = this.getDataFromApi();
     const words = this.prepareSessionProgress(wordsFromApiResponse);
@@ -290,17 +299,18 @@ export default class LearnWords extends Component {
         statsNewWordsCount,
         totalWords: words.length,
         isFetching: !state.isFetching,
-      }
-    ));
-  }
-
-  toggleStartLearning = () => {
-    this.setState((state) => (
-      {
         isStartLearning: !state.isStartLearning,
       }
     ));
   }
+
+  // toggleStartLearning = () => {
+  //   this.setState((state) => (
+  //     {
+  //       isStartLearning: !state.isStartLearning,
+  //     }
+  //   ));
+  // }
 
   handleEndOfCards = () => {
     // TODO: maube here will be nice to add some info pop up

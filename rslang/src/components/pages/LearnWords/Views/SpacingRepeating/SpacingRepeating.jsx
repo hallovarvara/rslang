@@ -15,9 +15,9 @@ const handleChoseDifficulty = (
   if (isFirstPassDone) {
     onChangeRepeated();
   } else {
-    onChangeWordRate(level);
+    onChangeWordRate(level, { isDifficultChosen: true });
   }
-  onChangeProgress({ isDifficultChosen: true });
+  // onChangeProgress({ isDifficultChosen: true });
 };
 
 const SpacingRepeating = (props) => {
