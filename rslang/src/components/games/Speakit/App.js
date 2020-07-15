@@ -2,19 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './App.scss';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { withWordsService, withRecognitionService, withLocalStorageService } from '../hoc';
 import {
   pagesCount, levelsCount,
   amountOfWordsOnOnePage, apiLinks,
 } from './helpers/constants';
+
+import Notification from '../../../basicComponents/Notification';
 import HomePage from './components/pages/Home';
 import GamePage from './components/pages/Game';
 import CurrentResultsPage from './components/pages/CurrentResults';
 import LatestResultsPage from './components/pages/LatestResults';
 
 import { playAudio } from '../../../helpers/functions';
-import { soundSuccess } from '../../../helpers/constants';
+import { soundSuccess, text } from '../../../helpers/constants';
+import UserService from '../../../helpers/userService';
+
+const shuffleArray = (words) => (
+  words
+    .slice()
+    .sort(() => Math.random() - 0.5)
+    .map((wordObj) => ({ ...wordObj }))
+);
 
 class App extends React.Component {
   state = {
@@ -27,6 +38,8 @@ class App extends React.Component {
     isGameInProcess: false,
     recognitionResults: null,
     isUserWon: false,
+    useUserWords: true,
+    notifications: [],
   }
 
   allWords = null
@@ -36,16 +49,37 @@ class App extends React.Component {
   localStorageService = this.props.localStorageService;
 
   componentDidMount() {
+    this.userService = new UserService();
+    this.userId = this.props.userId;
+    this.setState({ useUserWords: Boolean(this.userId) });
     const { wordsService } = this.props;
-    wordsService.getAllWords(pagesCount, levelsCount)
-      .then((allWords) => {
+    console.log(this.userId);
+
+    const requests = [wordsService.getAllWords(pagesCount, levelsCount)];
+    if (this.userId) {
+      console.log('heeey');
+      requests.push(this.userService.getUserWordsNoRemoved(this.userId));
+    }
+
+    Promise.all(requests)
+      .then(([allWords, userWords]) => {
         this.allWords = allWords;
-        this.setState((state) => ({
+        console.log('USER WORDS ', userWords);
+        this.userWords = shuffleArray(userWords || []);
+        const { currentLevel, currentPage } = this.state;
+        const currentWords = this.generateCurrentWords(currentLevel, currentPage);
+        console.log('CURRENT WORDS: ', currentWords);
+        this.setState({
           loading: false,
-          currentWords: this.generateCurrentWords(
-            state.currentLevel, state.currentPage,
-          ),
-        }));
+          currentWords,
+        });
+      })
+      .catch((error) => {
+        console.log('BACKEND CRASHED ', error);
+        this.showNotifications([{
+          type: 'error',
+          message: text.ru.backendCrashed,
+        }]);
       });
     this.recognitionService.recognition.addEventListener('result', (event) => {
       this
@@ -53,6 +87,18 @@ class App extends React.Component {
         .onRecognitionResults(
           event, this.recognitionResultsChanged.bind(this),
         );
+    });
+  }
+
+  setUsingOfUserWords = (useUserWords) => {
+    const currentWords = this.generateCurrentWords(
+      this.state.currentLevel,
+      this.state.currentPage,
+      useUserWords,
+    );
+    this.setState({
+      useUserWords,
+      currentWords,
     });
   }
 
@@ -66,27 +112,33 @@ class App extends React.Component {
     this.recognitionService.recognition.abort();
   }
 
-  generateCurrentWords = (level, page) => this.allWords[level][page]
-    .slice(0)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, amountOfWordsOnOnePage)
+  generateCurrentWords = (currentLevel, currentPage, useUserWords = this.state.useUserWords) => (
+    [
+      ...shuffleArray(useUserWords ? this.userWords : []),
+      ...shuffleArray(this.allWords[currentLevel][currentPage]),
+    ].slice(0, amountOfWordsOnOnePage)
+  )
 
   levelChanged = (level) => {
-    this.setState((state) => ({
+    const currentWords = this.generateCurrentWords(level, this.state.currentPage);
+    this.setState({
       currentLevel: level,
-      currentWords: this.generateCurrentWords(
-        level, state.currentPage,
-      ),
-    }));
+      currentWords,
+    });
   }
 
   pageChanged = (page) => {
-    this.setState((state) => ({
+    const currentWords = this.generateCurrentWords(this.state.currentLevel, page);
+    this.setState({
       currentPage: page,
-      currentWords: this.generateCurrentWords(
-        state.currentLevel, page,
-      ),
-    }));
+      currentWords,
+    });
+  }
+
+  showNotifications = (notifications) => {
+    this.setState({
+      notifications,
+    });
   }
 
   currentActiveWordsChanged = (wordObj, isClicked) => {
@@ -187,6 +239,7 @@ class App extends React.Component {
       currentActiveWords,
       isGameInProcess,
       currentWords,
+      useUserWords,
     } = this.state;
 
     return (
@@ -194,6 +247,10 @@ class App extends React.Component {
         <Switch>
           <Route path="/speakit/home" render={() => (
             <HomePage
+              setUsingOfUserWords={this.setUsingOfUserWords}
+              showNotifications={this.showNotifications}
+              isUserLogged={Boolean(this.userId)}
+              useUserWords={useUserWords}
               loading={loading}
               currentLevel={currentLevel}
               currentPage={currentPage}
@@ -244,6 +301,16 @@ class App extends React.Component {
             )} />
             <Route render={() => <h2 style={{ paddingTop: '300px' }}>heeey</h2>} />
         </Switch>
+        {
+          this.state.notifications.map((notif, index) => (
+            <Notification
+              key={index}
+              variant={notif.type}
+              message={notif.message}
+              afterClose={() => this.showNotifications([])}
+            />
+          ))
+        }
       </div>
     );
   }
@@ -254,6 +321,17 @@ App.propTypes = {
   recognitionService: PropTypes.object,
   localStorageService: PropTypes.object,
   history: PropTypes.object,
+  userId: PropTypes.string,
 };
 
-export default withLocalStorageService()(withRecognitionService()(withWordsService()(App)));
+const mapStateToProps = (store) => ({
+  userId: store.auth.userId,
+});
+
+export default withLocalStorageService()(
+  withRecognitionService()(
+    withWordsService()(
+      connect(mapStateToProps)(App),
+    ),
+  ),
+);

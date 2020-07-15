@@ -105,8 +105,9 @@
   }
 }
 
-.speakit-game-container .speakit-steppers-container {
+.speakit-game-container .speakit-settings-container {
   margin-bottom: 30px;
+  @include flex(column, center, center);
   & > * {
     margin-bottom: 15px;
     &:last-child {

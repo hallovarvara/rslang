@@ -308,6 +308,11 @@ const text = {
     latestRusults: 'Последние результаты',
     currentResults: 'Текущие результаты',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
+    selectOptionsForUsedWord: ['изученные вами', 'новые по сложности'],
+    studiedByYou: 'изученные вами',
+    newByComplexity: 'новые по сложности',
+    loginPleaseToUseThisFeature: 'Войдите в систему, чтобы воспользоваться этим функционалом',
+    backendCrashed: 'Извините, сервис временно недоступен',
 
     /* Unmess */
     unmess: {
