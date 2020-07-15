@@ -223,7 +223,7 @@ const text = {
     firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
     incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
-    welcome: 'Добро пожаловать, {username} :)',
+    welcome: 'Привет, {username} :)',
 
     /* Play page */
     chooseGame: 'Выберите игру',

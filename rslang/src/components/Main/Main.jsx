@@ -57,17 +57,13 @@ const Main = ({ username, authFailed }) => (
       Boolean(username)
       && <Notification
         variant="success"
-        message={`${text.ru.welcome.replace('{username}', username)}`}
-        duration={5000}
-        position={{ vertical: 'top', horizontal: 'center' }}/>
+        message={`${text.ru.welcome.replace('{username}', username)}`}/>
     }
     {
       authFailed
       && <Notification
         variant="error"
-        message={`${text.ru.incorrectLoginData}`}
-        duration={5000}
-        position={{ vertical: 'top', horizontal: 'center' }}/>
+        message={`${text.ru.incorrectLoginData}`}/>
     }
   </main>
 );
