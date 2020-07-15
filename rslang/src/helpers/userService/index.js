@@ -109,7 +109,7 @@ export default class UserService {
   };
 
   getUserAllWords = async (userId) => {
-    const rawResponse = axiosuser.get(`users/${userId}/words`);
+    const rawResponse = axiosuser.get(`users/${userId}/words?wordsPerPage=0`);
     const content = await rawResponse;
     return content.data;
   };
