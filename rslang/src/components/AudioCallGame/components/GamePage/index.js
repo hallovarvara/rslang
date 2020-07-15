@@ -6,6 +6,8 @@ import {
   soundSuccess,
   soundError,
 } from '../../../../helpers/constants';
+import { handleGameRightAnswer, handleGameWrongAnswer, saveSessionInfoToLocal } from '../../../../helpers/wordsService';
+import { applicationThings } from '../../../../helpers/constants';
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -106,11 +108,13 @@ class GamePage extends React.Component {
       if (id === (question._id || question.id)) {
         this.setAnswer(rightAnswerArray, question, id);
         this.setState({ isRightAnswer: true });
+        handleGameRightAnswer(applicationThings.AUDIOCALL, question)
         playAudio(soundSuccess);
         this.nextLevel = setTimeout(this.changeLevel, 2000);
       } else {
         this.setAnswer(errorAnswerArray, question, id);
         this.setState({ isFalseAnswer: true });
+        handleGameWrongAnswer(applicationThings.AUDIOCALL, question);
         playAudio(soundError);
         this.nextLevel = setTimeout(this.changeLevel, 2000);
       }
