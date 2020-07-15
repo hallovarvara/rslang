@@ -166,14 +166,12 @@ export const clearLocalUserInfo = () => {
 
 // TODO Stats
 export const calculateLearnWordsResults = (arrayOfWords) => {
-  console.log(arrayOfWords);
   const stats = {};
   stats.learned = arrayOfWords.filter((el) => el?.userWord?.optional?.rate >= 31).length;
   stats.inScope = arrayOfWords.filter((el) => el?.userWord).length;
   stats.semiLearned = arrayOfWords.filter((el) => el?.userWord?.optional?.rate >= 15).length;
   stats.complicated = arrayOfWords.filter((el) => el?.userWord?.difficulty).length;
   stats.removed = arrayOfWords.filter((el) => el?.userWord?.optional?.removed).length;
-  console.log(stats);
   return stats;
 };
 
@@ -183,10 +181,8 @@ export const saveGameResults = (thingName) => {
   if (thingName === applicationThings.LEARN_WORDS) {
     const sessionWords = checkForUserWords(sessionThings, storageThingNames.LEARNING);
     results = calculateLearnWordsResults(sessionWords);
-    console.log('INSIDE IF', results, sessionWords);
   } else {
     results = getSessionData(thingName);
-    console.log('INSIDE IF', results);
   }
   updateStats(thingName, results);
 };
@@ -221,7 +217,6 @@ export const saveSessionWordsToLocal = (thingName) => {
     : storageThingNames.WORDS;
   const sessionWords = checkForUserWords(sessionThings, storaThing);
   const checked = checkForDone(sessionWords);
-  console.log(sessionWords, checked);
   if (checked) {
     checked.forEach((el) => {
       saveLocalUserWord(el, localThings);
@@ -239,16 +234,13 @@ export const prepareSessionInfoToServer = (thingName, statsObject) => {
   const storaThing = thingName === applicationThings.LEARN_WORDS
     ? storageThingNames.LEARNING
     : storageThingNames.WORDS;
-  console.log(thingName, storaThing);
   const sessionWords = checkForUserWords(sessionThings, storaThing);
   const statsResults = thingName === applicationThings.LEARN_WORDS
     ? calculateLearnWordsResults(sessionWords)
     : getSessionData(thingName);
-  console.log(sessionWords, statsResults);
   const stats = changeStats(thingName, statsResults, statsObject);
   const checked = checkForDone(sessionWords);
   const { newWords, userWords } = separateSessionWords(checked);
-  console.log(checked, newWords, userWords);
   return {
     stats,
     newWords: prepareUserWordsToServer(newWords),

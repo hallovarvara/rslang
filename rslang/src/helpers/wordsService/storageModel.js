@@ -81,10 +81,9 @@ export const saveLocalStatistics = (statsObject) => {
 export const checkForUserWords = (
   storage = sessionThings,
   storageThing = storageThingNames.WORDS,
-) => {
-  console.log(checkForLocalThing(storage[storageThing], storage[storageThing]));
-  return checkForLocalThing(storage[storageThing], []);
-};
+) => (
+  checkForLocalThing(storage[storageThing], [])
+);
 
 export const saveLocalUserWord = (
   wordObject,
