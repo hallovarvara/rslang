@@ -1,0 +1,22 @@
+.promo-page {
+  text-align: center;
+  @extend %padding;
+
+  video {
+    width: 70%;
+    margin-bottom: 90px;
+  }
+}
+
+.promo-page__subtitle {
+  max-width: 1040px;
+  margin-bottom: 70px;
+  text-transform: uppercase;
+
+  @include font(
+    $size: 3.4rem,
+    $weight: $font-weight-extralight,
+    $line-height: 170%,
+    $spacing: 0.08rem,
+  );
+}

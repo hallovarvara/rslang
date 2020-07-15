@@ -1,0 +1,40 @@
+%hide {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(1px 1px 1px 1px); // IE6, IE7
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+%menu-item {
+  @include font($size: 2rem, $spacing: 0.04rem);
+}
+
+%padding {
+  padding: 0 50px 90px;
+  padding-top: $header-height + 60px;
+}
+
+%hoverGlossButton {
+  &:before {
+    position: absolute;
+    top: -127%;
+    left: -21%;
+    display: block;
+    width: 10%;
+    height: 400%;
+    background-color: white;
+    transform: rotate(20deg);
+    content: '';
+  }
+  &:hover {
+    &:before {
+      left: 105%;
+      transition: left 0.7s, top 0.7s;
+    }
+  }
+}

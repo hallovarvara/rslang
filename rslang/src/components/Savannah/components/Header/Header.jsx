@@ -12,22 +12,22 @@ import classes from './Header.module.scss';
 const Header = ({
   volume, heartCount, handleVolume, mistakeTotal, handleClose,
 }) => {
-  const arrComplete = Array(heartCount).fill(<FavoriteIcon />);
-  const arrMistake = Array(mistakeTotal).fill(<FavoriteBorderIcon />);
+  const arrComplete = Array(heartCount).fill('');
+  const arrMistake = Array(mistakeTotal).fill('');
   return (
     <div className={classes.Header}>
       <IconButton onClick={handleVolume}>
         {volume
-          ? <VolumeUpIcon className={classes.Icon} />
-          : <VolumeOffIcon className={classes.Icon} />}
+          ? <VolumeUpIcon className={classes.Icon} style={{ fontSize: 20 }} />
+          : <VolumeOffIcon className={classes.Icon} style={{ fontSize: 20 }} />}
       </IconButton>
       <div>
-        {arrMistake.map((value) => value)}
-        {arrComplete.map((value) => value)}
+        {arrMistake.map((value, key) => <FavoriteBorderIcon key={key} style={{ fontSize: 20 }} />)}
+        {arrComplete.map((value, key) => <FavoriteIcon key={key} style={{ fontSize: 20 }} />)}
         <IconButton
           onClick={handleClose}
           className={classes.CloseButton}>
-          <CloseIcon className={classes.Icon} />
+          <CloseIcon className={classes.Icon} style={{ fontSize: 20 }} />
         </IconButton>
       </div>
     </div>

@@ -2,31 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import VolumeDownIcon from '@material-ui/icons/VolumeDown';
-import { audioPlay } from '../../../services/services';
+
+import {
+  playAudio,
+  getFilePath,
+} from '../../../../../../helpers/functions';
 
 import classes from './ResultItem.module.scss';
 
 const ResultItem = ({
-  word, key, translate, audio,
+  word, keyItem, translate, audio,
 }) => (
-    <div className={classes.Item} key={key}>
-      <IconButton onClick={() => audioPlay(audio)}>
-        <VolumeDownIcon className={classes.VolumeDownIcon} />
+    <div className={classes.Item} key={keyItem}>
+      <IconButton onClick={() => playAudio(getFilePath(audio))}>
+        <VolumeDownIcon className={classes.VolumeDownIcon} style={{ fontSize: 20 }} />
       </IconButton>
       <span className={classes.Word}>{word}</span>
-      <span className={classes.Translate}>{`-${translate}`}</span>
+      <span className={classes.Translate}>{` ${translate}`}</span>
     </div>);
 
 ResultItem.propTypes = {
   word: PropTypes.string,
-  key: PropTypes.number,
+  keyItem: PropTypes.number,
   translate: PropTypes.string,
   audio: PropTypes.string,
 };
 
 ResultItem.defaultProps = {
   word: '',
-  key: 0,
+  keyItem: 0,
   translate: '',
   audio: '',
 };

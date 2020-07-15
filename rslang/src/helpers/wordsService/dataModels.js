@@ -3,7 +3,6 @@ import {
   applicationThings,
   userSettingsTemplate,
   dateFormatTemplate,
-  levelsOfDifficulty,
 } from '../constants';
 
 export const userWordTemplate = {
@@ -11,6 +10,7 @@ export const userWordTemplate = {
   optional: {
     rate: 0,
     next: '',
+    stamp: 0,
     removed: false,
     repeated: 0,
   },
@@ -21,6 +21,7 @@ export const userWordThings = {
   OPTIONAL: 'optional',
   RATE: 'rate',
   NEXT: 'next',
+  STAMP: 'stamp',
   REMOVED: 'removed',
   REPEATED: 'repeated',
 };
@@ -155,55 +156,39 @@ export const createUserWord = (wordObject) => {
 };
 
 export const convertDate = (days) => (
-  days === 0
+  !days
     ? moment().format(dateFormatTemplate)
     : moment().add(days, 'days').format(dateFormatTemplate)
 );
 
-export const changeUserWord = (userOption, optionData, oldRepeated, wordObject) => {
-  const newUserWord = wordObject?.userWord
-    ? { ...wordObject.userWord }
-    : { ...userWordTemplate };
-  const { optional } = newUserWord;
-  if (userOption === userWordThings.DIFFICULTY) {
-    newUserWord[userWordThings.DIFFICULTY] = optionData;
-  } else {
-    switch (userOption) {
-      case userWordThings.RATE:
-        optional.rate = optionData;
-        optional.next = convertDate(optionData);
-        optional.repeated = oldRepeated + 1;
-        break;
-      case userWordThings.REMOVED:
-        optional.removed = optionData;
-        break;
-      default:
-        break;
+export const convertStamp = (days, oldDate) => (
+  !days
+    ? moment(oldDate.split('.').reverse().join('-')).valueOf()
+    : moment().add(days, 'days').valueOf()
+);
+
+export const sumUserWordProps = (targetObject, newData) => {
+  const result = {};
+  Object.keys(targetObject).forEach((key) => {
+    result[key] = newData[key] ? newData[key] : targetObject[key];
+    if (key === 'repeated' && newData.repeated) {
+      result[key] = targetObject[key] + 1;
     }
-  }
-  const userWord = { ...newUserWord, optional };
-  return { ...wordObject, userWord };
+  });
+  return result;
 };
 
-export const checkUserWordById = (userWords, wordId) => (
-  userWords.find((word) => word.id === wordId)
-);
-
-export const checkForCurrentUserWord = (userWords, wordObject) => (
-  {
-    ...userWords.length > 0
-      ? checkUserWordById(userWords, wordObject.id) || createUserWord(wordObject)
-      : createUserWord(wordObject),
+export const changeUserWord = (wordObject, updatedUserWord) => {
+  const userWord = wordObject?.userWord || { ...userWordTemplate };
+  if (updatedUserWord.difficulty) {
+    userWord.difficulty = updatedUserWord.difficulty;
+  } else {
+    userWord.optional = {
+      ...sumUserWordProps(userWord.optional, updatedUserWord),
+    };
   }
-);
-
-export const generateSpacingRepeatingTemplate = () => (
-  []
-);
-
-export const getWordsDiffAndComplicated = ({ difficulty, optional }) => (
-  {
-    isRemoved: optional.removed,
-    isComplicated: difficulty === levelsOfDifficulty.HARD,
-  }
-);
+  return {
+    ...wordObject,
+    userWord,
+  };
+};

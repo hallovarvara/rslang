@@ -3,7 +3,7 @@ import Main from './components/Main';
 import './style.scss';
 
 const AudioCall = () => (
-  <div className="container">
+  <div className="audiocall-container">
     <Main />
   </div>
 );

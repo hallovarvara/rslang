@@ -1,55 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-
+import { connect } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import Button from '@material-ui/core/Button';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import {
-  ANSWERS_TOTAL_MIN, ANSWERS_TOTAL_MAX, QUESTIONS_TOTAL_MIN, QUESTIONS_TOTAL_MAX, MENU_ITEM_LIST,
-} from '../services/constants';
+import Switcher from '../UI/switch';
+
+import { count, gamesData, text } from '../../../../helpers/constants';
 
 import classes from './StartPage.module.scss';
 
+const {
+  defaultLevel, minQuestions, maxQuestions, minAnswers, maxAnswers,
+} = count.savannah;
+
 const StartPage = ({
-  onTotalQuizUpdate, onSubmitForm, handleCurrentGroup,
-  handleTotalAnswer, totalAnswers, totalQuestions,
+  onTotalQuizUpdate, onSubmitForm, handleCurrentGroup, handleChangeUserWords,
+  handleTotalAnswer, totalAnswers, totalQuestions, token,
 }) => {
-  const errorAnswer = totalAnswers > ANSWERS_TOTAL_MAX
-    || totalAnswers < ANSWERS_TOTAL_MIN
+  const errorAnswer = totalAnswers > maxAnswers
+    || totalAnswers < minAnswers
     || !totalAnswers;
 
-  const errorQuiz = totalQuestions > QUESTIONS_TOTAL_MAX
-    || totalQuestions < QUESTIONS_TOTAL_MIN
+  const errorQuiz = totalQuestions > maxQuestions
+    || totalQuestions < minQuestions
     || !totalQuestions;
 
-  const [age, setAge] = React.useState('');
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-    handleCurrentGroup(event);
-  };
-
-  const menuItemList = MENU_ITEM_LIST;
+  const menuItemList = text.ru.levelsTitles;
 
   return (
     <div className={classes.StartPage}>
-      <div className={classes.titleName}>SAVANAH GAME</div>
+      <h1>{gamesData.savannah.title}</h1>
       <form className={classes.form} onSubmit={(!errorQuiz && !errorAnswer) ? onSubmitForm : null}>
         <FormControl className={classes.formControl} required>
-          <InputLabel id="select-label">Уровень</InputLabel>
+          <InputLabel id="select-label">
+            {text.ru.chooseLevel}
+          </InputLabel>
           <Select
             labelId="select-label"
             id="simple-select"
-            value={age}
-            onChange={handleChange}
+            defaultValue={defaultLevel}
+            onChange={(event) => handleCurrentGroup(event)}
           >
             {menuItemList.map((value, key) => (
-              <MenuItem value={key - 1} key={key}>{value}</MenuItem>
+              <MenuItem value={key} key={key}>{value}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -58,22 +56,22 @@ const StartPage = ({
           required
           error={errorQuiz}
           id="savannah-start__questions"
-          label="Количество вопросов от 5 до 50"
+          label={`${text.ru.howManyWords} (${minQuestions}—${maxQuestions})`}
+          value={totalQuestions}
           variant="filled"
           onChange={onTotalQuizUpdate}
           style={{ margin: '20px 0' }}
-
         />
         <TextField
           required
           error={errorAnswer}
           id="savannah-start__answers"
-          label="Количество ответов от 2 до 5"
+          label={`${text.ru.howManyAnswers} (${minAnswers}—${maxAnswers})`}
           inputProps={{ pattern: '[2-5]' }}
           variant="filled"
           onChange={handleTotalAnswer}
           style={{ marginBottom: 20 }}
-          labelColor='#fff'
+          value={totalAnswers}
         />
         <Button
           type="submit"
@@ -83,8 +81,20 @@ const StartPage = ({
           startIcon={<PlayCircleOutlineIcon />}
           style={{ background: 'rgba(130, 115, 228, 1)' }}
         >
-          PLAY
-      </Button>
+          {text.ru.button.startGame}
+        </Button>
+
+        {token
+          ? (<React.Fragment>
+            <Switcher
+              handleChangeUserWords={handleChangeUserWords}
+            />
+            <span className={classes.startExplanation}>
+              {text.ru.notEnoughWords}
+            </span>
+          </React.Fragment>)
+          : null
+        }
       </form >
     </div >);
 };
@@ -96,6 +106,8 @@ StartPage.propTypes = {
   handleTotalAnswer: PropTypes.func,
   totalAnswers: PropTypes.number,
   totalQuestions: PropTypes.number,
+  token: PropTypes.string,
+  handleChangeUserWords: PropTypes.func,
 };
 
 StartPage.defaultProps = {
@@ -107,4 +119,9 @@ StartPage.defaultProps = {
   totalQuestions: 0,
 };
 
-export default StartPage;
+function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+  };
+}
+export default connect(mapStateToProps)(StartPage);

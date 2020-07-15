@@ -27,13 +27,14 @@ const SimpleMenu = ({
   };
 
   return (
-    <div className="hello">
+    <div>
       <Button
         aria-controls="simple-menu"
         aria-haspopup="true"
         onMouseEnter={handleClick}
         onMouseLeave={(event) => {
-          if (!event.relatedTarget.closest('.menu-list-popover__paper')) {
+          if (!event.relatedTarget.closest
+            || !event.relatedTarget.closest('.menu-list-popover__paper')) {
             handleClose();
           }
         }}

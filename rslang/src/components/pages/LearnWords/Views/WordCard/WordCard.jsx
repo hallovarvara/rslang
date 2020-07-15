@@ -9,7 +9,7 @@ import { initialProgressObject } from '../../helpers/settings';
 
 const WordCard = ({
   currentWord,
-  // isLogged,
+  isFirstPassDone,
   currentInput,
   progress,
   textExample,
@@ -33,64 +33,74 @@ const WordCard = ({
   onPrevWord,
   onChangeProgress,
   onPlayAudio,
+  onChangeWordRate,
+  onChangeRepeated,
+  onStatsChanged,
+  onShowTip,
+  onChangeRemoved,
+  onChangeDifficulty,
 }) => (
   <div>
-      <div>
-        <StatusBar
+    <div>
+      <StatusBar
+        progress={progress}
+        wordCount={wordCount}
+        totalWords={totalWords}
+        isShownComplicatedButton={isShownComplicatedButton}
+        onChangeRemoved={onChangeRemoved}
+        onChangeDifficulty={onChangeDifficulty}
+      />
+      <Word
+        progress={progress}
+        textExample={textExample}
+        textExampleTranslate={textExampleTranslate}
+        isShownTranslation={isShownTranslation}
+        onChangeProgress={onChangeProgress}
+        onPlayAudio={onPlayAudio}
+        onStatsChanged={onStatsChanged}
+      />
+      <WordExtraInfo
+        progress={progress}
+        word={word}
+        wordTranslate={wordTranslate}
+        transcription={transcription}
+        textMeaning={textMeaning}
+        textMeaningTranslate={textMeaningTranslate}
+        isShownTranscription={isShownTranscription}
+        isShownExampleSentence={isShownExampleSentence}
+        isShownMeaning={isShownMeaning}
+        onPlayAudio={onPlayAudio}
+      />
+      {progress.isGuessed && !progress.isDifficultChosen && (
+        <SpacingRepeating
+          isFirstPassDone={isFirstPassDone}
           progress={progress}
-          onChangeProgress={onChangeProgress}
           currentWord={currentWord}
-          wordCount={wordCount}
-          totalWords={totalWords}
-          isShownComplicatedButton={isShownComplicatedButton}
-        />
-        <Word
-          progress={progress}
-          textExample={textExample}
-          textExampleTranslate={textExampleTranslate}
-          isShownTranslation={isShownTranslation}
-          onChangeProgress={onChangeProgress}
-          onPlayAudio={onPlayAudio}
-        />
-        <WordExtraInfo
-          progress={progress}
-          word={word}
-          wordTranslate={wordTranslate}
-          transcription={transcription}
-          textMeaning={textMeaning}
-          textMeaningTranslate={textMeaningTranslate}
-          isShownTranscription={isShownTranscription}
-          isShownExampleSentence={isShownExampleSentence}
-          isShownMeaning={isShownMeaning}
-          onPlayAudio={onPlayAudio}
-        />
-        {(progress.isGuessed && !progress.isDifficultChosen)
-          && <SpacingRepeating
-            progress={progress}
-            currentWord={currentWord}
-            onChangeProgress={onChangeProgress}
-            />
-        }
-      </div>
-      <div>
-        <SideBar
-          progress={progress}
-          currentInput={currentInput}
-          word={word}
-          image={image}
-          isShownAnswerButton={isShownAnswerButton}
-          isShownImageAssociation={isShownImageAssociation}
-          onNextWord={onNextWord}
-          onPrevWord={onPrevWord}
+          onChangeWordRate={onChangeWordRate}
+          onChangeRepeated={onChangeRepeated}
           onChangeProgress={onChangeProgress}
         />
-      </div>
+      )}
+    </div>
+    <div>
+      <SideBar
+        progress={progress}
+        currentInput={currentInput}
+        word={word}
+        image={image}
+        isShownAnswerButton={isShownAnswerButton}
+        isShownImageAssociation={isShownImageAssociation}
+        onNextWord={onNextWord}
+        onPrevWord={onPrevWord}
+        onShowTip={onShowTip}
+      />
+    </div>
   </div>
 );
 
 WordCard.propTypes = {
   currentWord: PropTypes.object,
-  isLogged: PropTypes.bool,
+  isFirstPassDone: PropTypes.bool,
   currentInput: PropTypes.string,
   progress: PropTypes.object,
   textExampleTranslate: PropTypes.string,
@@ -114,6 +124,12 @@ WordCard.propTypes = {
   onPrevWord: PropTypes.func,
   onChangeProgress: PropTypes.func,
   onPlayAudio: PropTypes.func,
+  onChangeWordRate: PropTypes.func,
+  onChangeRepeated: PropTypes.func,
+  onStatsChanged: PropTypes.func,
+  onShowTip: PropTypes.func,
+  onChangeDifficulty: PropTypes.func,
+  onChangeRemoved: PropTypes.func,
 };
 
 WordCard.defaultProps = {
@@ -142,6 +158,11 @@ WordCard.defaultProps = {
   onPrevWord: () => {},
   onChangeProgress: () => {},
   onPlayAudio: () => {},
+  onChangeWordRate: () => {},
+  onStatsChanged: () => {},
+  onShowTip: () => {},
+  onChangeDifficulty: () => {},
+  onChangeRemoved: () => {},
 };
 
 export default WordCard;

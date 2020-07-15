@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { ResponsiveLine } from '@nivo/line';
 
 const ScheduleStatistics = ({ data }) => (
-  <div style={{ height: 'calc(100vh - 220px)' }}>
+  <div style={{ height: 'calc(100vh - 105px)' }}>
     <ResponsiveLine
       data={data}
       margin={{
-        top: 10, right: 50, bottom: 50, left: 50,
+        top: 80, right: 50, bottom: 50, left: 50,
       }}
       xScale={{ type: 'point' }}
       yScale={{

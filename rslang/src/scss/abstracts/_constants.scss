@@ -1,23 +1,43 @@
 /* Colors */
-$color-primary: #e5e5e5;
-$color-secondary: #ffffff;
+$color-primary: #cab1ff;
+$color-primary-dark: #843fdd;
+$color-secondary: #e0fff8;
 $color-dark: #000;
 $color-light: #fff;
 
+/* Games */
+$color-sprint-primary: #fcff79;
+$color-sprint-secondary: #ff8d8d;
+$color-savannah-primary: #75eefe;
+$color-savannah-secondary: #c7ff81;
+
 /* Audiocall game */
 $color-audiocall-primary: #ce03ed;
-$color-audiocall-secondary: #dbd086;
+$color-audiocall-secondary: #718DF2;
 $color-audiocall-hover: #00000033;
 $color-audiocall-text-dark: #1a1919;
 $color-audiocall-text-light: #ffffff;
 $color-right-answer: #a1f045b3;
 $color-wrong-answer: #f0576cb3;
 
+/* Unmess game */
+$color-active-light: #4082a2;
+$color-active-dark: #2d637c;
+
+$color-correct: #94c924;
+$color-mistake: #fe766d;
+
+$mobile-width: 500px;
+$big-mobile-width: 600px;
+$tablet-width: 800px;
+$laptop-width: 1200px;
+
 /* Fonts: families */
 $font-primary: 'Inter', 'Arial', 'Tahoma', sans-serif;
 $font-secondary: 'Alegreya', 'Georgia', 'Times', 'Times New Roman', serif;
 
 /* Fonts: weights */
+$font-weight-extralight: 200;
 $font-weight-light: 300;
 $font-weight-regular: 400;
 $font-weight-semibold: 500;
@@ -25,4 +45,7 @@ $font-weight-bold: 600;
 $font-weight-black: 900;
 
 /* Blocks' sizes */
-$header-height: 110px;
+$header-height: 100px;
+
+/* Animation */
+$animation-time: 0.3s;

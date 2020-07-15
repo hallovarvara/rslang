@@ -4,9 +4,16 @@ import {
   generateStatsTemplate,
   generateSettingsTemplate,
   generateUserWordsTemplate,
-  generateSpacingRepeatingTemplate,
 } from './dataModels';
 import { applicationThings } from '../constants';
+
+export const storageThingNames = {
+  STATISTICS: 'STATISTICS',
+  WORDS: 'WORDS',
+  SETTINGS: 'SETTINGS',
+  LEARNING: 'LEARNING',
+  NEW_WORDS: 'NEW_WORDS',
+};
 
 export const localThings = {
   STATISTICS: 'rslangUserStatistics',
@@ -15,9 +22,9 @@ export const localThings = {
 };
 
 export const sessionThings = {
-  SETTINGS: 'rslangSessionStatistics',
+  LEARNING: 'rslangSessionLearningWords',
   WORDS: 'rslangSessionWords',
-  REPEATING: 'rslangSessionRepeating',
+  NEW_WORDS: 'rslangNewWords',
 };
 
 export const gameSessionThings = {
@@ -68,16 +75,21 @@ export const saveLocalStatistics = (statsObject) => {
   localStorage.setItem(localThings.STATISTICS, JSON.stringify({ ...statsObject }));
 };
 
-export const checkForUserWords = (storage = sessionThings) => (
-  checkForLocalThing(storage.WORDS, generateUserWordsTemplate)
-);
+export const checkForUserWords = (
+  storage = sessionThings,
+  storageThing = storageThingNames.WORDS,
+) => checkForLocalThing(storage[storageThing], generateUserWordsTemplate);
 
-export const saveLocalUserWord = (wordObject, storage = sessionThings) => {
-  const areWordsStored = localStorage.getItem(storage.WORDS);
-  if (areWordsStored) {
-    localStorage.setItem(storage.WORDS, JSON.stringify([wordObject]));
+export const saveLocalUserWord = (
+  wordObject,
+  storage = sessionThings,
+  storageThing = storageThingNames.WORDS,
+) => {
+  const areWordsStored = JSON.parse(localStorage.getItem(storage[storageThing]));
+  if (!areWordsStored) {
+    localStorage.setItem(storage[storageThing], JSON.stringify([wordObject]));
   } else {
-    const words = JSON.parse(localStorage.getItem(storage.WORDS));
+    const words = JSON.parse(localStorage.getItem(storage[storageThing]));
     const isWordStored = words.findIndex((el) => el.id === wordObject.id) !== -1;
 
     let updatedWords = [];
@@ -89,7 +101,10 @@ export const saveLocalUserWord = (wordObject, storage = sessionThings) => {
       updatedWords = [...words, wordObject];
     }
 
-    localStorage.setItem(storage.WORDS, JSON.stringify([...updatedWords]));
+    localStorage.setItem(
+      storage[storageThing],
+      JSON.stringify([...updatedWords]),
+    );
   }
 };
 
@@ -101,22 +116,13 @@ export const saveLocalSettings = (settings) => {
   localStorage.setItem(localThings.SETTINGS, JSON.stringify({ ...settings }));
 };
 
-export const checkForSpacingRepeating = () => (
-  checkForLocalThing(sessionThings.REPEATING, generateSpacingRepeatingTemplate)
-);
-
-export const saveSpacingRepeating = (repeatingArray, wordObject, twice = false) => {
-  const newWords = twice ? [wordObject, ...repeatingArray, wordObject] : [wordObject];
-  localStorage.setItem(sessionThings.REPEATING, JSON.stringify(newWords));
+export const clearStorageData = (storage) => {
+  Object.values(storage).forEach((el) => {
+    localStorage.removeItem(el);
+  });
 };
 
-export const getDataFromStorage = (storage, data) => (
-  JSON.parse(localStorage.getItem(storage[data]))
-);
-
-export const clearStorageData = (storage, data) => {
-  localStorage.removeItem(storage[data]);
-};
+export const clearLocalUserData = () => clearStorageData(localThings);
 
 export const getSessionData = (thingName) => (
   JSON.parse(localStorage.getItem(gameSessionThings[thingName]))
@@ -124,4 +130,20 @@ export const getSessionData = (thingName) => (
 
 export const clearSessionData = (thingName) => {
   localStorage.removeItem(gameSessionThings[thingName]);
+  clearStorageData(sessionThings);
 };
+
+export const checkForNewUserWordsIds = () => (
+  !localStorage.getItem(sessionThings.NEW_WORDS)
+    ? []
+    : JSON.parse(localStorage.getItem(sessionThings.NEW_WORDS))
+);
+
+export const saveNewUserWordId = (wordId) => {
+  const words = checkForNewUserWordsIds();
+  localStorage.setItem(sessionThings.NEW_WORDS, JSON.stringify([...words, wordId]));
+};
+
+export const getNewWordsIds = () => (
+  JSON.parse(localStorage.getItem(sessionThings.NEW_WORDS))
+);
