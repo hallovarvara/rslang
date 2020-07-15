@@ -17,6 +17,10 @@
     $size: 3.4rem,
     $weight: $font-weight-extralight,
     $line-height: 170%,
-    $spacing: 0.08rem,
+    $spacing: 0.08rem
   );
+}
+
+.promo-page__start-button.MuiButton-root.btn {
+  @extend %promo-button;
 }

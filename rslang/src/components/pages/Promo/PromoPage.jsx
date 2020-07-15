@@ -9,8 +9,7 @@ import {
   text,
 } from '../../../helpers/constants';
 
-// import feature1 from '../../../assets/images/promo/feature-comfort-safe.png';
-// TODO add to promo page with the other features
+import feature1 from '../../../assets/images/promo/feature-comfort-safe.png';
 
 const PromoPageView = () => (
   <div className="promo-page">
@@ -23,7 +22,7 @@ const PromoPageView = () => (
       </video>
       <Link to={ pagesData.learnWords.path }>
         <Button
-          className="demonstration-container__start-button"
+          className="promo-page__start-button"
           value={ text.ru.button.startLearningWithUs }
         />
       </Link>
