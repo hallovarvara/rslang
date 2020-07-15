@@ -1,27 +1,37 @@
 {
   "files": {
-    "main.css": "/rslang/static/css/main.204b4f89.chunk.css",
-    "main.js": "/rslang/static/js/main.5b0a423f.chunk.js",
-    "main.js.map": "/rslang/static/js/main.5b0a423f.chunk.js.map",
+    "main.css": "/rslang/static/css/main.04249a64.chunk.css",
+    "main.js": "/rslang/static/js/main.34940962.chunk.js",
+    "main.js.map": "/rslang/static/js/main.34940962.chunk.js.map",
     "runtime-main.js": "/rslang/static/js/runtime-main.872131d3.js",
     "runtime-main.js.map": "/rslang/static/js/runtime-main.872131d3.js.map",
-    "static/js/2.80f3eb31.chunk.js": "/rslang/static/js/2.80f3eb31.chunk.js",
-    "static/js/2.80f3eb31.chunk.js.map": "/rslang/static/js/2.80f3eb31.chunk.js.map",
+    "static/js/2.5e8a1933.chunk.js": "/rslang/static/js/2.5e8a1933.chunk.js",
+    "static/js/2.5e8a1933.chunk.js.map": "/rslang/static/js/2.5e8a1933.chunk.js.map",
     "index.html": "/rslang/index.html",
-    "precache-manifest.4982173599210e956e868d10483eef74.js": "/rslang/precache-manifest.4982173599210e956e868d10483eef74.js",
+    "precache-manifest.936438301ffe9757b1e7065e46b2051d.js": "/rslang/precache-manifest.936438301ffe9757b1e7065e46b2051d.js",
     "service-worker.js": "/rslang/service-worker.js",
-    "static/css/main.204b4f89.chunk.css.map": "/rslang/static/css/main.204b4f89.chunk.css.map",
-    "static/js/2.80f3eb31.chunk.js.LICENSE.txt": "/rslang/static/js/2.80f3eb31.chunk.js.LICENSE.txt",
+    "static/css/main.04249a64.chunk.css.map": "/rslang/static/css/main.04249a64.chunk.css.map",
+    "static/js/2.5e8a1933.chunk.js.LICENSE.txt": "/rslang/static/js/2.5e8a1933.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/rslang/static/media/start-page-background.fd35c247.jpg",
+    "static/media/alexei-osipov.jpg": "/rslang/static/media/alexei-osipov.50d875c8.jpg",
+    "static/media/artem-rimarchyk.jpeg": "/rslang/static/media/artem-rimarchyk.94f0cdb9.jpeg",
     "static/media/avatar.jpg": "/rslang/static/media/avatar.e0cdb196.jpg",
+    "static/media/blank.jpg": "/rslang/static/media/blank.3fc3a070.jpg",
+    "static/media/dmitry-lebetsky.jpg": "/rslang/static/media/dmitry-lebetsky.213348b2.jpg",
     "static/media/error.mp3": "/rslang/static/media/error.48034e1e.mp3",
     "static/media/finish.mp3": "/rslang/static/media/finish.889fedc6.mp3",
-    "static/media/success.mp3": "/rslang/static/media/success.3f4effb5.mp3"
+    "static/media/kseniya-yatskevich.jpeg": "/rslang/static/media/kseniya-yatskevich.4c7cc08b.jpeg",
+    "static/media/logo.0832a54c.svg": "/rslang/static/media/logo.0832a54c.svg",
+    "static/media/maksym-kaspriv.jpg": "/rslang/static/media/maksym-kaspriv.ce493864.jpg",
+    "static/media/success.mp3": "/rslang/static/media/success.3f4effb5.mp3",
+    "static/media/tmp-features.jpg": "/rslang/static/media/tmp-features.eea6af5c.jpg",
+    "static/media/tmp-spacing-repetition.jpg": "/rslang/static/media/tmp-spacing-repetition.287cb94c.jpg",
+    "static/media/varvara-deviaterikova.jpg": "/rslang/static/media/varvara-deviaterikova.abcc829e.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.872131d3.js",
-    "static/js/2.80f3eb31.chunk.js",
-    "static/css/main.204b4f89.chunk.css",
-    "static/js/main.5b0a423f.chunk.js"
+    "static/js/2.5e8a1933.chunk.js",
+    "static/css/main.04249a64.chunk.css",
+    "static/js/main.34940962.chunk.js"
   ]
 }
