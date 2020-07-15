@@ -35,9 +35,8 @@ $laptop-width: 1200px;
 /* English-puzzle game */
 $color-englishPuzzle-primary: #6663f5;
 $color-englishPuzzle-secondary: #ffb99b;
-$color-active-puzzle: #b9ec76;
+$color-active-puzzle: complement($color-englishPuzzle-secondary);
 $color-puzzle: #087b83;
-$color-active-row: #dad5d5;
 $color-button-disabled: #aaa9a9;
 $color-button-text: #4082a2;
 

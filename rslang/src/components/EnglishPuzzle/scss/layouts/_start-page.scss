@@ -32,4 +32,15 @@
       font-size: 1.8rem;
     }
   }
+
+  button {
+    &:not(:first-child) {
+      margin-left: 20px;
+    }
+
+    .MuiButton-label {
+      font-size: 2.2rem;
+      text-transform: initial;
+    }
+  }
 }

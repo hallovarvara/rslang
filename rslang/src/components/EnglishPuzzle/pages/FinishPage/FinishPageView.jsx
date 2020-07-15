@@ -25,9 +25,8 @@ const FinishPageView = ({
           </>)
         : ''
       }
-      <p className="title">{answersMistaken}:
+      <p className="title">{answersMistaken}
         <span className="wrong">{errorCount}</span>
-        фраз
       </p>
       <Button
         className={buttonStyle}

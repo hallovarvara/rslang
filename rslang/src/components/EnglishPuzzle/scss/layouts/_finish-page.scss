@@ -1,8 +1,7 @@
 .finish-page {
-  padding: 60px;
   @include flex(column, center, center);
   .picture {
-    width: 30%;
+    width: 70%;
     margin: 20px auto;
   }
   .text {
@@ -28,7 +27,7 @@
     transition: all 0.7s ease;
   }
   .title {
-    margin: 40px 0;
+    margin: 40px 0 20px;
     color: $color-light;
     font-size: 2.2rem;
     text-align: center;
