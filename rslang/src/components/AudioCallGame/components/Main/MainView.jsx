@@ -6,10 +6,10 @@ import StartGamePage from '../StartGamePage';
 const MainView = ({
   handleChooseLevel,
   setNumberLevel,
-  setNumberAnswers,
+  setcountAnswers,
   handleSubmitForm,
   level, // TODO for API
-  numberAnswers,
+  countAnswers,
   isStart,
   numberLevel,
   handleClickNewGame,
@@ -18,13 +18,13 @@ const MainView = ({
     ? <StartGamePage
       handleChooseLevel={handleChooseLevel}
       setNumberLevel={setNumberLevel}
-      setNumberAnswers={setNumberAnswers}
+      setcountAnswers={setcountAnswers}
       handleSubmitForm={handleSubmitForm}
     />
     : <GamePage
       level={level}
       handleClickNewGame={handleClickNewGame}
-      numberAnswers={numberAnswers}
+      countAnswers={countAnswers}
       isStart={isStart}
       numberLevel={numberLevel}
     />
@@ -33,11 +33,11 @@ const MainView = ({
 MainView.propTypes = {
   handleChooseLevel: PropTypes.func,
   setNumberLevel: PropTypes.func,
-  setNumberAnswers: PropTypes.func,
+  setcountAnswers: PropTypes.func,
   handleSubmitForm: PropTypes.func,
   handleClickNewGame: PropTypes.func,
   level: PropTypes.number,
-  numberAnswers: PropTypes.number,
+  countAnswers: PropTypes.number,
   isStart: PropTypes.bool,
   numberLevel: PropTypes.number,
 };

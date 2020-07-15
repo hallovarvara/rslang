@@ -7,16 +7,18 @@ import './style.scss';
 const AudioCallView = ({
   handleChooseLevel,
   setNumberLevel,
-  setNumberAnswers,
+  setcountAnswers,
   handleSubmitForm,
-  level, // TODO for API
-  numberAnswers,
+  // level, // TODO for API
+  countAnswers,
   isStart,
   numberLevel,
   numberPage,
   getLevel,
   getPage,
   handleClickNewGame,
+  data,
+  countQuestions,
 }) => (
   <div className="audiocall-container">
     {(!isStart)
@@ -27,15 +29,16 @@ const AudioCallView = ({
       numberLevel={numberLevel}
       handleChooseLevel={handleChooseLevel}
       setNumberLevel={setNumberLevel}
-      setNumberAnswers={setNumberAnswers}
+      setcountAnswers={setcountAnswers}
       handleSubmitForm={handleSubmitForm}
     />
       : <GamePage
-      level={level}
+      data={data}
+      // level={level}
       handleClickNewGame={handleClickNewGame}
-      numberAnswers={numberAnswers}
+      countAnswers={countAnswers}
       isStart={isStart}
-      numberLevel={numberLevel}
+      countQuestions={countQuestions}
     />}
   </div>
 );
@@ -43,11 +46,11 @@ const AudioCallView = ({
 AudioCallView.propTypes = {
   handleChooseLevel: PropTypes.func,
   setNumberLevel: PropTypes.func,
-  setNumberAnswers: PropTypes.func,
+  setcountAnswers: PropTypes.func,
   handleSubmitForm: PropTypes.func,
   handleClickNewGame: PropTypes.func,
   level: PropTypes.number,
-  numberAnswers: PropTypes.number,
+  countAnswers: PropTypes.number,
   isStart: PropTypes.bool,
   numberLevel: PropTypes.number,
   numberPage: PropTypes.number,

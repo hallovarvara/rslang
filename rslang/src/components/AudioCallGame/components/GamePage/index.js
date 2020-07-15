@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GamePageView from './GamePageView.jsx';
-import data from '../../mockData';
+// import data from '../../mockData';
 import { shuffleArray, generateQuestionsArray, playAudio } from '../../../../helpers/functions';
 import {
   soundSuccess,
@@ -12,9 +12,11 @@ class GamePage extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    const { handleClickNewGame } = this.props;
+    const { handleClickNewGame, data, countQuestions } = this.props;
+    console.log(data, countQuestions, 7777777777)
     this.handleClickNewGame = handleClickNewGame;
     this.state = {
+      countQuestions,
       dataWords: data, // TODO API
       level: 0,
       questionList: [],
@@ -26,21 +28,23 @@ class GamePage extends React.Component {
   }
 
   componentDidMount = () => {
-    const { dataWords, maxLevel } = this.state;
+    const { dataWords, countQuestions } = this.state;
+    console.log(countQuestions)
     const { level } = this.state;
-    const questionList = generateQuestionsArray(dataWords, maxLevel);
+    const questionList = generateQuestionsArray(dataWords, countQuestions);
+    console.log(questionList)
     const answerArray = this.getAnswersArray(dataWords, questionList, level);
     this.setState({ questionList, answerArray });
   }
 
   getAnswersArray = (dataWords, questionList, level) => {
-    const { numberLevel, numberAnswers } = this.props;
-    if (dataWords && questionList.length !== 0 && numberLevel !== level) {
+    const { countQuestions, countAnswers } = this.props;
+    if (dataWords && questionList.length !== 0 && countQuestions !== level) {
       const currentQuestion = questionList[level];
       const arrayWrongAnswer = shuffleArray(dataWords.filter((word) => (
         word.id !== currentQuestion.id)));
       const answerArray = shuffleArray(
-        arrayWrongAnswer.slice(0, numberAnswers - 1).concat(currentQuestion),
+        arrayWrongAnswer.slice(0, countAnswers - 1).concat(currentQuestion),
       );
       return answerArray;
     } return null;
@@ -49,8 +53,8 @@ class GamePage extends React.Component {
   changeLevel = () => {
     const { dataWords, questionList } = this.state;
     let { level } = this.state;
-    const { numberLevel } = this.props;
-    if (level < numberLevel) {
+    const { countQuestions } = this.props;
+    if (level < countQuestions) {
       level += 1;
       const answerArray = this.getAnswersArray(dataWords, questionList, level);
       clearTimeout(this.nextLevel);
@@ -147,7 +151,7 @@ class GamePage extends React.Component {
 GamePage.propTypes = {
   handleClickNewGame: PropTypes.func,
   numberLevel: PropTypes.number,
-  numberAnswers: PropTypes.number,
+  countAnswers: PropTypes.number,
 };
 
 export default GamePage;

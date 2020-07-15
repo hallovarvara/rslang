@@ -304,7 +304,7 @@ const count = {
 
   /* Game Audiocall */
   audiocall: {
-    maxLevels: 12,
+    countQuestionss: 12,
   },
 
   /* Game Savannah */

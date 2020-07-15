@@ -7,7 +7,7 @@ class Main extends React.Component {
     this.state = {
       levelAPI: 0,
       numberLevel: 5,
-      numberAnswers: 5,
+      countAnswers: 5,
       isStart: false,
     };
   }
@@ -22,9 +22,9 @@ class Main extends React.Component {
     this.setState({ numberLevel: +amountQuestions });
   }
 
-  setNumberAnswers = (e) => {
-    const numberAnswers = e.target.value || e.target.defaultValue;
-    this.setState({ numberAnswers: +numberAnswers });
+  setcountAnswers = (e) => {
+    const countAnswers = e.target.value || e.target.defaultValue;
+    this.setState({ countAnswers: +countAnswers });
   }
 
   handleSubmitForm = () => {
@@ -38,7 +38,7 @@ class Main extends React.Component {
   render() {
     const {
       levelAPI, // TODO for ARI
-      numberAnswers,
+      countAnswers,
       isStart,
       numberLevel,
     } = this.state;
@@ -47,10 +47,10 @@ class Main extends React.Component {
         handleChooseLevel={this.handleChooseLevel}
         handleClickNewGame={this.handleClickNewGame}
         setNumberLevel={this.setNumberLevel}
-        setNumberAnswers={this.setNumberAnswers}
+        setcountAnswers={this.setcountAnswers}
         handleSubmitForm={this.handleSubmitForm}
         levelAPI={levelAPI} // TODO for API
-        numberAnswers={numberAnswers}
+        countAnswers={countAnswers}
         isStart={isStart}
         numberLevel={numberLevel}
       />

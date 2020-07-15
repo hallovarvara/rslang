@@ -1,5 +1,6 @@
 import React from 'react';
 import AudioCallView from './AudioCall.jsx';
+import { getWords } from '../../helpers/wordsService/wordsApi';
 
 class AudioCall extends React.Component {
   constructor(props) {
@@ -8,8 +9,8 @@ class AudioCall extends React.Component {
       numberLevel: 0,
       numberPage: 0,
       levelAPI: 0,
-      // numberLevel: 5,
-      numberAnswers: 5,
+      countQuestions: 5,
+      countAnswers: 5,
       isStart: false,
     };
   }
@@ -33,16 +34,23 @@ class AudioCall extends React.Component {
 
   setNumberLevel = (e) => {
     const amountQuestions = e.target.value || e.target.defaultValue;
-    this.setState({ numberLevel: +amountQuestions });
+    console.log(amountQuestions, 78999999)
+    this.setState({ countQuestions: +amountQuestions });
   }
 
-  setNumberAnswers = (e) => {
-    const numberAnswers = e.target.value || e.target.defaultValue;
-    this.setState({ numberAnswers: +numberAnswers });
+  setcountAnswers = (e) => {
+    const countAnswers = e.target.value || e.target.defaultValue;
+    this.setState({ countAnswers: +countAnswers });
   }
 
-  handleSubmitForm = () => {
-    this.setState({ isStart: true });
+  handleSubmitForm = async () => {
+    const { numberPage, numberLevel } = this.state;
+    const data = await getWords(numberPage, numberLevel);
+    console.log(data, 4444);
+    this.setState({
+      data,
+      isStart: true
+     });
   }
 
   handleClickNewGame = () => {
@@ -51,14 +59,16 @@ class AudioCall extends React.Component {
 
   render() {
     const {
-      // levelAPI, // TODO for ARI
-      numberAnswers,
+      countAnswers,
       isStart,
+      countQuestions,
       numberLevel,
       numberPage,
+      data,
     } = this.state;
     return (
       <AudioCallView
+        data={data}
         getLevel={this.getLevel}
         getPage={this.getPage}
         numberPage={numberPage}
@@ -66,10 +76,10 @@ class AudioCall extends React.Component {
         handleChooseLevel={this.handleChooseLevel}
         handleClickNewGame={this.handleClickNewGame}
         setNumberLevel={this.setNumberLevel}
-        setNumberAnswers={this.setNumberAnswers}
+        setcountAnswers={this.setcountAnswers}
         handleSubmitForm={this.handleSubmitForm}
-        // levelAPI={levelAPI} // TODO for API
-        numberAnswers={numberAnswers}
+        countQuestions={countQuestions}
+        countAnswers={countAnswers}
         isStart={isStart}
       />
     );

@@ -22,7 +22,7 @@ const StartGamePageView = ({
   handleChooseLevel,
   level,
   setNumberLevel,
-  setNumberAnswers,
+  setcountAnswers,
   handleSubmitForm,
   numberLevel,
   numberPage,
@@ -73,7 +73,7 @@ const StartGamePageView = ({
           stickyLabel={true}
         />
       </div>
-      <form className="start__form" onSubmit={handleSubmitForm}>
+      <form className="start__form" onSubmit={() => handleSubmitForm()}>
         <TextField
           required
           className="start-page__input"
@@ -94,12 +94,13 @@ const StartGamePageView = ({
           defaultValue="5"
           inputProps={{ pattern: '[2-5]', min: '2', max: '5' }}
           variant="filled"
-          onChange={setNumberAnswers}
+          onChange={setcountAnswers}
         />
         <Button
           className={buttonStyle}
           type="submit"
           variant="contained"
+          // onClick={() => handleSubmitForm()}
         >
          {startGame}
         </Button>
@@ -112,7 +113,7 @@ StartGamePageView.propTypes = {
   handleChooseLevel: PropTypes.func,
   level: PropTypes.number,
   setNumberLevel: PropTypes.func,
-  setNumberAnswers: PropTypes.func,
+  setcountAnswers: PropTypes.func,
   handleSubmitForm: PropTypes.func,
   numberLevel: PropTypes.number,
   numberPage: PropTypes.number,
