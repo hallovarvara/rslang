@@ -24,6 +24,7 @@ const StartPage = (props) => {
     useUserWords,
     isUserLogged,
     showNotifications,
+    setUsingOfUserWords,
   } = props;
 
   return (
@@ -36,6 +37,7 @@ const StartPage = (props) => {
           : (<>
             <div className="unmess-settings-container">
               <Select
+                setUsingOfUserWords={setUsingOfUserWords}
                 showNotifications={showNotifications}
                 useUserWords={useUserWords}
                 isUserLogged={isUserLogged}/>
@@ -78,6 +80,7 @@ StartPage.propTypes = {
   useUserWords: PropTypes.bool,
   isUserLogged: PropTypes.bool,
   showNotifications: PropTypes.func,
+  setUsingOfUserWords: PropTypes.func,
 };
 
 export default StartPage;

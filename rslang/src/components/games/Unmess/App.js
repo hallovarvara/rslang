@@ -119,9 +119,23 @@ class App extends React.Component {
       });
   }
 
-  generateCurrentWords = (currentLevel, currentPage) => (
+  setUsingOfUserWords = (useUserWords) => {
+    const currentWords = this.generateCurrentWords(
+      this.state.currentLevel,
+      this.state.currentPage,
+      useUserWords,
+    );
+    const shuffledCurrentWords = shuffleArray(currentWords);
+    this.setState({
+      useUserWords,
+      currentWords,
+      shuffledCurrentWords,
+    });
+  }
+
+  generateCurrentWords = (currentLevel, currentPage, useUserWords = this.state.useUserWords) => (
     [
-      ...shuffleArray(this.state.useUserWords ? this.userWords : []),
+      ...shuffleArray(useUserWords ? this.userWords : []),
       ...shuffleArray(this.allWords[currentLevel][currentPage]),
     ].slice(0, wordsPerPage)
   )
@@ -209,6 +223,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/unmess/home" render={() => (
             <StartPage
+              setUsingOfUserWords={this.setUsingOfUserWords}
               showNotifications={this.showNotifications}
               isUserLogged={Boolean(this.userId)}
               useUserWords={useUserWords}
