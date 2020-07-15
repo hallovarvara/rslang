@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "142ffb9f6a903e8ca2634405f7c2bd4a",
+    "revision": "32a7dee63f20a007b2abe67c0b17a24e",
     "url": "/rslang/index.html"
   },
   {
-    "revision": "c6955c1a516151b184b8",
-    "url": "/rslang/static/css/main.04249a64.chunk.css"
+    "revision": "6cf130cd87932dba6a7a",
+    "url": "/rslang/static/css/main.ee09e056.chunk.css"
   },
   {
     "revision": "dabe95aee0231b931427",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rslang/static/js/2.5e8a1933.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c6955c1a516151b184b8",
-    "url": "/rslang/static/js/main.34940962.chunk.js"
+    "revision": "6cf130cd87932dba6a7a",
+    "url": "/rslang/static/js/main.7bcabc28.chunk.js"
   },
   {
     "revision": "bb4dc5ece55c4022ff2c",
@@ -74,6 +74,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "9ddf9bf7a11dcbacc77d8a0b0e37326c",
     "url": "/rslang/static/media/hove_page_background1.9ddf9bf7.jpg"
+  },
+  {
+    "revision": "c6199e06d757c6cc1f085c4b4b860093",
+    "url": "/rslang/static/media/icon-github.c6199e06.svg"
   },
   {
     "revision": "4c7cc08bee84c3ab85bb1bda16604fe1",
