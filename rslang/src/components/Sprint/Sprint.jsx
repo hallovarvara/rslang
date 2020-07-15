@@ -169,7 +169,7 @@ class Sprint extends Component {
 
   updateCounter = (mult = 1, win = 0) => {
     const multiplier = win && this.state.counter.win
-    && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
+      && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -220,7 +220,7 @@ class Sprint extends Component {
       this.setState({ answerState: true });
 
       if (isTrue === this.state.isTrue) {
-        this.setState({ isAnswerQuiz: 'check' });
+        this.setState({ isAnswerQuiz: 1 });
         this.audioPlay(soundSuccess);
         this.updateCounter(count.sprint.counterMultiplier, 1);
         this.updateScore(this.basic);
@@ -228,7 +228,7 @@ class Sprint extends Component {
         handleGameRightAnswer(applicationThings.SPRINT, this.state.wordObject);
       } else {
         this.audioPlay(soundError);
-        this.setState({ isAnswerQuiz: 'times' });
+        this.setState({ isAnswerQuiz: 0 });
         this.updateCounter();
         this.resultCurrentQuiz('mistake');
         handleGameWrongAnswer(applicationThings.SPRINT, this.state.wordObject);
@@ -297,7 +297,7 @@ class Sprint extends Component {
     return (
       <div className={'sprint__wrapper'}>
         <div className={'sprint__container'}>
-          <h1>{ gamesData.sprint.title }</h1>
+          <h1>{gamesData.sprint.title}</h1>
           {page}
 
         </div>
