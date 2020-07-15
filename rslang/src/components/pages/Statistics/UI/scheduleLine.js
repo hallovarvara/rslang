@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { ResponsiveLine } from '@nivo/line';
 
 const ScheduleStatistics = ({ data }) => (
-  <div style={{ height: 'calc(100vh - 105px)' }}>
+  <div style={{ height: 'calc(100vh - 200px)' }}>
     <ResponsiveLine
       data={data}
       margin={{
-        top: 80, right: 50, bottom: 50, left: 50,
+        top: 40, right: 50, bottom: 50, left: 50,
       }}
       xScale={{ type: 'point' }}
       yScale={{
@@ -15,14 +15,7 @@ const ScheduleStatistics = ({ data }) => (
       }}
       curve="monotoneX"
       axisTop={null}
-      axisRight={{
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        format: '.2s',
-        legend: '',
-        legendOffset: 0,
-      }}
+      axisRight={null}
       axisBottom={{
         tickSize: 5,
         tickPadding: 5,
@@ -39,7 +32,6 @@ const ScheduleStatistics = ({ data }) => (
         legendPosition: 'middle',
       }}
       enableGridX
-      /* colors={{ scheme: 'nivo' }} */
       gridXValues={'string'}
       lineWidth={2}
       pointSize={6}

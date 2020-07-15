@@ -73,10 +73,10 @@ export default function ScrollableTabsButtonAuto({ dataToday, dataPanel, Schedul
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        {ScheduleStatistics}
+        {dataToday}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {dataToday}
+        {ScheduleStatistics}
       </TabPanel>
     </div>
   );
