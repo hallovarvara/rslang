@@ -21,12 +21,13 @@
   
   .Title{
     color: rgb(82, 82, 82);
-    margin: 0 0 10px 35px;
+    margin: 0 0 10px 43px;
   }
   
   .Content{
     display: flex;
     flex-direction: column;
     padding: 4px 0;
+    justify-content: start;
   }
   

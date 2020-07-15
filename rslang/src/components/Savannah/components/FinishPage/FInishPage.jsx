@@ -22,19 +22,21 @@ const FinishPage = ({
           status={status.success}
         />
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        onClick={newStartGameHandle}
-        style={{
-          background: 'rgba(130, 115, 228, 1)',
-          position: 'absolute',
-          bottom: 50,
-        }}
-      >
-        {text.ru.button.newGame}
-      </Button>
+      <div style={{ textAlign: 'center' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          onClick={newStartGameHandle}
+          style={{
+            background: 'rgba(130, 115, 228, 1)',
+            position: 'absolute',
+            bottom: 50,
+          }}
+        >
+          {text.ru.button.newGame}
+        </Button>
+      </div>
     </div>);
 
 FinishPage.propTypes = {

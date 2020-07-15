@@ -85,7 +85,7 @@ class Savannah extends Component {
     error: text.ru.answersMistaken,
   };
 
-  state = { ...initialState };
+  state = JSON.parse(JSON.stringify(initialState))
 
   updateState = async () => {
     const words = [];
@@ -234,11 +234,9 @@ class Savannah extends Component {
   }
 
   onTimeOut = () => {
-    setInterval(() => {
-      this.setState(({ timer }) => ({
-        timer: timer + 1,
-      }));
-    }, 1000);
+    this.setState(({ timer }) => ({
+      timer: timer + 1,
+    }));
   }
 
   gameStatus = (idWordPressed = 'default') => {
@@ -323,7 +321,7 @@ class Savannah extends Component {
   }
 
   newStartGameHandle = () => {
-    const state = { ...initialState };
+    const state = JSON.parse(JSON.stringify(initialState))
     this.setState({ ...state });
   }
 
