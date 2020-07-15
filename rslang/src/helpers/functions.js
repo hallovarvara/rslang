@@ -69,6 +69,11 @@ const generateStepperMarks = (stepsCount) => (
     }))
 );
 
+const handleError = (error) => {
+  console.error(error);
+  // TODO handle error
+};
+
 export {
   getFilePath,
   generateQuestionsArray,
@@ -82,4 +87,5 @@ export {
   getTokenLifetimeInMs,
   getPath,
   generateStepperMarks,
+  handleError,
 };
