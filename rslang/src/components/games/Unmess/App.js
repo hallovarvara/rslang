@@ -69,8 +69,6 @@ class App extends React.Component {
     loading: true,
     currentWords: null,
     shuffledCurrentWords: null,
-    repeatingWords: null,
-    newWords: null,
     useUserWords: true,
     notifications: [],
   }
