@@ -6,7 +6,7 @@ import Varya from '../assets/images/team/varvara-deviaterikova.jpg';
 import Ksusha from '../assets/images/team/kseniya-yatskevich.jpeg';
 import Max from '../assets/images/team/maksym-kaspriv.jpg';
 import Artem from '../assets/images/team/artem-rimarchyk.jpeg';
-// import Dima from '../assets/images/team/dmitry-lebetsky.jpg'; // TODO add Dima's photo
+import Dima from '../assets/images/team/dmitry-lebetsky.jpg';
 import Lesha from '../assets/images/team/alexei-osipov.jpg';
 
 const apiLinks = {
@@ -81,7 +81,7 @@ const pagesData = {
     title: 'О проекте',
     path: '',
     guest: { isVisible: true, index: 0 },
-    user: { isVisible: true, index: 2 },
+    user: { isVisible: true, index: 3 },
   },
   settings: {
     title: 'Настройки',
@@ -169,7 +169,7 @@ const teamMembers = [
     name: 'Дмитрий',
     surname: 'Лебецкий',
     role: `Сделал игры ${gamesData.speakit.title} и ${gamesData.unmess.title} с уникальным дизайном, базовые компоненты и страницы, словарь. Верстал, стилизовал, структурировал код, помогал тимлиду и команде`,
-    // image: Dima,  // TODO add Dima's photo
+    image: Dima,
     linkedinUsername: 'dmitry-lebetsky',
   },
   {
