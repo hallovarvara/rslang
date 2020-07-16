@@ -66,7 +66,8 @@ const pagesData = {
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
-    title: 'Учить слова',
+    title: 'Изучение слов',
+    description: 'Расширяйте словарный запас, благодаря правилам интервального повторения',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
