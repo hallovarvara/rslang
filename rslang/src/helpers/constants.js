@@ -396,6 +396,7 @@ const count = {
     counterMultiplier: 2,
     pointsMultiplier: 10,
     correctAnswerOnce: 4,
+    defaultLevel: 0,
   },
 };
 

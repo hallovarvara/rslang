@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Switcher from '../UI/switch';
 import StartGameForm from '../UI/StartGameForm';
-
-import { text } from '../../../../helpers/constants';
-
+import Stepper from '../../../../basicComponents/Stepper';
+import { text, count } from '../../../../helpers/constants';
+import { generateStepperMarks } from '../../../../helpers/functions';
 import './StartGame.scss';
+
+const { defaultValue, groups } = count;
 
 const StartGame = ({
   handleChangeUserWords, handleCurrentGroup, startGame, updateState, token,
@@ -16,6 +18,8 @@ const StartGame = ({
     updateState();
     startGame();
   };
+
+
 
   return (
     <div className={'sprint-start__container'}>
@@ -48,15 +52,27 @@ const StartGameUserForm = ({
           </React.Fragment>)
           : null
         }
-
-        <StartGameForm
-          classNameForm={'sprint-start__form'}
-          handleCurrentGroup={handleCurrentGroup}
-          onSubmitForm={onSubmitForm}
+        <Stepper
+          defaultValue={defaultValue}
+          onChangeCommitted={(event, value, ...args) => handleCurrentGroup(value - 1)}
+          step={null}
+          max={count.groups}
+          marks={generateStepperMarks(groups)}
+          className="sprint-levels-stepper"
+          label="Выберите уровень:"
+          arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#F9C74F', '#F8961E', '#F3722C', '#F94144']}
+          stickyLabel={false}
         />
       </div>
 
-    </div>
+      <StartGameForm
+        classNameForm={'sprint-start__form'}
+        handleCurrentGroup={handleCurrentGroup}
+        onSubmitForm={onSubmitForm}
+      />
+
+
+    </div >
   );
 
 StartGame.propTypes = {

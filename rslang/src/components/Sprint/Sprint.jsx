@@ -45,7 +45,7 @@ const initialState = {
   isAnswerQuiz: 'default',
   audio: [],
   answerState: null,
-  currentGroup: null,
+  currentGroup: 0,
   counter: {
     total: 0,
     multiplier: 1,
@@ -253,8 +253,8 @@ class Sprint extends Component {
     }));
   }
 
-  handleCurrentGroup = (event) => {
-    this.setState({ currentGroup: event.target.value });
+  handleCurrentGroup = (value) => {
+    this.setState({ currentGroup: value });
   }
 
   render() {
