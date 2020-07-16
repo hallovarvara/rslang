@@ -45,10 +45,7 @@ export const setSessionProgress = (progress) => {
   localStorage.setItem(RSLANG_SESSION_PROGRESS, JSON.stringify(progress));
 };
 
-export const checkSessionProgress = (words) => {
-  console.log('inside check');
-  return words.find((el) => el.progress.isGuessed === true);
-};
+export const checkSessionProgress = (words) => words.find((el) => !el.progress.isGuessed);
 
 export const clearSessionProgress = () => {
   localStorage.removeItem(RSLANG_SESSION_PROGRESS);
@@ -134,6 +131,20 @@ export const calculateNextWordCard = (words, current) => {
   return result;
 };
 
+<<<<<<< HEAD
 export const mapSentenceToSpanItems = (sentence) => (
   sentence.split(' ').map((word, index) => <span key={index}>{word}</span>)
 );
+=======
+export const replaceElInArrayOfObject = (array, object) => {
+  const indexOfObject = array.findIndex((wordObj) => (
+    wordObj.id === object.id
+  ));
+
+  return [
+    ...array.slice(0, indexOfObject),
+    { ...object },
+    ...array.slice(indexOfObject + 1),
+  ].map((wordObj) => ({ ...wordObj }));
+};
+>>>>>>> 7c7e90a04b6ba17b4951320ac99408b105bd6f7d

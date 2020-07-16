@@ -3,7 +3,6 @@ export const initialState = {
   totalWords: 0,
   isAutoPlay: true,
   words: [],
-  progress: [],
   isLogged: false,
   token: '',
   userId: '',
