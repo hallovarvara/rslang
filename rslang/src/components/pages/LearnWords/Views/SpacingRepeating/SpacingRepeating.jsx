@@ -10,14 +10,12 @@ const handleChoseDifficulty = (
   onChangeRepeated, onChangeWordRate,
   level,
   isFirstPassDone,
-  onChangeProgress,
 ) => {
   if (isFirstPassDone) {
     onChangeRepeated();
   } else {
-    onChangeWordRate(level);
+    onChangeWordRate(level, { isDifficultChosen: true });
   }
-  onChangeProgress({ isDifficultChosen: true });
 };
 
 const SpacingRepeating = (props) => {
@@ -25,7 +23,6 @@ const SpacingRepeating = (props) => {
     isFirstPassDone,
     onChangeWordRate,
     onChangeRepeated,
-    onChangeProgress,
   } = props;
   return (
     <div>
@@ -35,7 +32,6 @@ const SpacingRepeating = (props) => {
           onChangeWordRate,
           HARD,
           isFirstPassDone,
-          onChangeProgress,
         )
         }
       >
@@ -48,7 +44,6 @@ const SpacingRepeating = (props) => {
           onChangeWordRate,
           NORMAL,
           isFirstPassDone,
-          onChangeProgress,
         )
         }
       >
@@ -60,7 +55,6 @@ const SpacingRepeating = (props) => {
           onChangeRepeated, onChangeWordRate,
           EASY,
           isFirstPassDone,
-          onChangeProgress,
         )
         }
       >
@@ -77,7 +71,6 @@ SpacingRepeating.propTypes = {
   currentWord: PropTypes.object,
   onChangeWordRate: PropTypes.func,
   onChangeRepeated: PropTypes.func,
-  onChangeProgress: PropTypes.func,
 };
 
 export default SpacingRepeating;
