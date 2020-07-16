@@ -9,102 +9,170 @@ import { initialProgressObject } from '../../helpers/settings';
 
 import LinearProgress from '../../../../../basicComponents/LinearProgress';
 
-const WordCard = ({
-  currentWord,
-  isFirstPassDone,
-  currentInput,
-  progress,
-  textExample,
-  textExampleTranslate,
-  isShownTranslation,
-  wordCount,
-  totalWords,
-  isShownComplicatedButton,
-  image,
-  isShownAnswerButton,
-  isShownImageAssociation,
-  word,
-  wordTranslate,
-  transcription,
-  textMeaning,
-  textMeaningTranslate,
-  isShownTranscription,
-  isShownExampleSentence,
-  isShownMeaning,
-  onNextWord,
-  onPrevWord,
-  onChangeProgress,
-  onPlayAudio,
-  onChangeWordRate,
-  onChangeRepeated,
-  onStatsChanged,
-  onShowTip,
-  onChangeRemoved,
-  onChangeDifficulty,
-}) => (
-  <div className="learn-word-card-wrapper">
-    <LinearProgress
-      done={wordCount}
-      all={totalWords}/>
-    <div className="learn-word-card">
-      <div id="fuck" className="learn-word-card-info">
-        <StatusBar
-          progress={progress}
-          wordCount={wordCount}
-          totalWords={totalWords}
-          isShownComplicatedButton={isShownComplicatedButton}
-          onChangeRemoved={onChangeRemoved}
-          onChangeDifficulty={onChangeDifficulty}
-        />
-        <Word
-          progress={progress}
-          textExample={textExample}
-          textExampleTranslate={textExampleTranslate}
-          isShownTranslation={isShownTranslation}
-          onChangeProgress={onChangeProgress}
-          onPlayAudio={onPlayAudio}
-          onStatsChanged={onStatsChanged}
-        />
-        <div className="line learn-word-card-info__line"></div>
-        <WordExtraInfo
-          progress={progress}
-          word={word}
-          wordTranslate={wordTranslate}
-          transcription={transcription}
-          textMeaning={textMeaning}
-          textMeaningTranslate={textMeaningTranslate}
-          isShownTranscription={isShownTranscription}
-          isShownExampleSentence={isShownExampleSentence}
-          isShownMeaning={isShownMeaning}
-          onPlayAudio={onPlayAudio}
-        />
-        {progress.isGuessed && !progress.isDifficultChosen && (
-          <SpacingRepeating
-            isFirstPassDone={isFirstPassDone}
-            progress={progress}
-            currentWord={currentWord}
-            onChangeWordRate={onChangeWordRate}
-            onChangeRepeated={onChangeRepeated}
-            onChangeProgress={onChangeProgress}
-          />
-        )}
+import { showDifferenceInWords, resourceUrl } from '../../helpers';
+import { buttonsNames } from '../../helpers/constants';
+
+import questionBg from '../../../../../assets/images/question-bg.jpg';
+
+class WordCard extends React.Component {
+  state = {
+    value: '',
+  }
+
+  handleInput = ({ target: { value } }) => {
+    this.setState({ value });
+    const {
+      onChangeProgress,
+      progress: { difference },
+    } = this.props;
+    if (value && difference) {
+      onChangeProgress({ isShownWord: false });
+    }
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const currentWord = this.props.textExample.emphasis;
+    const inputWord = this.state.value;
+    if (currentWord !== inputWord) {
+      this.handleError(currentWord, inputWord);
+    } else {
+      this.handleSuccess();
+    }
+    this.setState({
+      value: '',
+    });
+  };
+
+  handleError = (currentWord, inputWord) => {
+    const { onChangeProgress, onStatsChanged } = this.props;
+    const difference = showDifferenceInWords(currentWord, inputWord);
+    onChangeProgress({ isShownWord: true, difference });
+    onStatsChanged(false);
+    setTimeout(() => {
+      onChangeProgress({ isWordSemiOpacity: true });
+    }, 2000);
+  };
+
+  handleSuccess = () => {
+    const { onChangeProgress, onPlayAudio, onStatsChanged } = this.props;
+    onChangeProgress({
+      isGuessed: true,
+      isShownWord: true,
+      difference: null,
+    });
+    onStatsChanged(true);
+    onPlayAudio();
+  };
+
+  render() {
+    const {
+      currentWord,
+      isFirstPassDone,
+      currentInput,
+      progress,
+      textExample,
+      textExampleTranslate,
+      isShownTranslation,
+      wordCount,
+      totalWords,
+      isShownComplicatedButton,
+      image,
+      isShownAnswerButton,
+      isShownImageAssociation,
+      word,
+      wordTranslate,
+      transcription,
+      textMeaning,
+      textMeaningTranslate,
+      isShownTranscription,
+      isShownExampleSentence,
+      isShownMeaning,
+      onNextWord,
+      onPrevWord,
+      onChangeProgress,
+      onPlayAudio,
+      onChangeWordRate,
+      onChangeRepeated,
+      onStatsChanged,
+      onShowTip,
+      onChangeRemoved,
+      onChangeDifficulty,
+    } = this.props;
+    return (
+      <div className="learn-word-card-wrapper">
+        <LinearProgress
+          done={wordCount}
+          all={totalWords}/>
+        <div className="learn-word-card">
+          <div id="fuck" className="learn-word-card-info">
+            <StatusBar
+              progress={progress}
+              wordCount={wordCount}
+              totalWords={totalWords}
+              isShownComplicatedButton={isShownComplicatedButton}
+              onChangeRemoved={onChangeRemoved}
+              onChangeDifficulty={onChangeDifficulty}
+            />
+            <Word
+              progress={progress}
+              textExample={textExample}
+              textExampleTranslate={textExampleTranslate}
+              isShownTranslation={isShownTranslation}
+              onChangeProgress={onChangeProgress}
+              onPlayAudio={onPlayAudio}
+              onStatsChanged={onStatsChanged}
+              handleSubmit={this.handleSubmit}
+              handleInput={this.handleInput}
+              value={this.state.value}
+            />
+            <div className="line learn-word-card-info__line"></div>
+            <WordExtraInfo
+              progress={progress}
+              word={word}
+              wordTranslate={wordTranslate}
+              transcription={transcription}
+              textMeaning={textMeaning}
+              textMeaningTranslate={textMeaningTranslate}
+              isShownTranscription={isShownTranscription}
+              isShownExampleSentence={isShownExampleSentence}
+              isShownMeaning={isShownMeaning}
+              onPlayAudio={onPlayAudio}
+            />
+            {progress.isGuessed && !progress.isDifficultChosen && (
+              <SpacingRepeating
+                isFirstPassDone={isFirstPassDone}
+                progress={progress}
+                currentWord={currentWord}
+                onChangeWordRate={onChangeWordRate}
+                onChangeRepeated={onChangeRepeated}
+                onChangeProgress={onChangeProgress}
+              />
+            )}
+          </div>
+          <div style={{
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundImage: `url(${isShownImageAssociation ? resourceUrl(image) : questionBg})`,
+          }} className="learn-word-card-control">
+            <SideBar
+              progress={progress}
+              currentInput={currentInput}
+              word={word}
+              isShownAnswerButton={isShownAnswerButton}
+              onNextWord={onNextWord}
+              onPrevWord={onPrevWord}
+              onShowTip={onShowTip}
+            />
+          </div>
+        </div>
+        <button className="learn-word-card-info__check-answer" disabled={!this.state.value} onClick={this.handleSubmit}>
+          {buttonsNames.CHECK_ANSWER}
+        </button>
       </div>
-      <div className="learn-word-card-control">
-        <SideBar
-          progress={progress}
-          currentInput={currentInput}
-          word={word}
-          image={image}
-          isShownAnswerButton={isShownAnswerButton}
-          isShownImageAssociation={isShownImageAssociation}
-          onNextWord={onNextWord}
-          onPrevWord={onPrevWord}
-          onShowTip={onShowTip}
-        />
-      </div>
-    </div>
-  </div>
-);
+    );
+  }
+}
 
 WordCard.propTypes = {
   currentWord: PropTypes.object,

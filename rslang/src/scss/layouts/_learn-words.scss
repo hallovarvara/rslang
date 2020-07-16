@@ -5,6 +5,14 @@
   padding-bottom: 90px;
   padding-left: 50px;
   @extend %padding;
+  @include media-laptop {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+  @include media-tablet {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 
 .lw-startview__wrapper {
@@ -168,29 +176,54 @@
   margin-top: 19px;
   cursor: pointer;
   @include background-image(url('../../assets/icons/question-icon-dark.svg'));
-}
-
-body .lw-title-container__description {
-  padding: 15px 20px;
-  @include font(3.1rem, 300, normal);
+  @include media-laptop {
+    width: 33px;
+    height: 33px;
+  }
+  @include media-tablet {
+    width: 30px;
+    height: 30px;
+  }
+  @include media-mobile {
+    display: none;
+  }
 }
 
 .lw-header {
+  margin-bottom: 50px;
   @include flex(row, space-between, center);
+  @include media-laptop {
+    @include flex(column, center, center);
+  }
 }
 
 .lw-title-container {
   @include flex(row, center, center);
+  @include media-laptop {
+    margin-bottom: 10px;
+  }
 }
 
 .lw-title-container__title {
   margin-right: 10px;
   margin-bottom: 0px;
-  @include font(9rem, 900, italic, $font-secondary, 100%);
+  @include font(6rem, 900, italic, $font-secondary, 100%);
+  @include media-laptop {
+    font-size: 7rem;
+  }
+  @include media-tablet {
+    font-size: 5.5rem;
+  }
+  @include media-mobile {
+    margin-right: 0;
+  }
 }
 
 .lw-filter-container {
   @include flex(row, center, center);
+  @include media-mobile {
+    flex-direction: column;
+  }
 }
 
 .lw-filter-container__autoplay {
@@ -200,12 +233,66 @@ body .lw-title-container__description {
   outline: none;
   cursor: pointer;
   @include flex(row, center, center);
-  @include font(3.1rem, 600, normal);
+  @include font(2.7rem, 600, normal);
+  @include media-laptop {
+    margin: 0 10px;
+    font-size: 2.5rem;
+  }
+  @include media-mobile {
+    margin: 0;
+  }
 }
 
 .lw-filter-container__select {
+  @include media-laptop {
+    margin: 0 10px;
+  }
+  @include media-mobile {
+    margin: 0;
+  }
   .select-input {
     color: rgba($color: $color-dark, $alpha: 0.6);
-    @include font(3.1rem, 600, normal);
+    @include font(2.7rem, 600, normal);
+    @include media-laptop {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+.lw-example-sentence-words-container {
+  display: flex;
+  flex-wrap: wrap;
+  @include media-mobile {
+    justify-content: center;
+  }
+  span {
+    margin-right: 6px;
+    @include media-tablet {
+      margin-right: 4px;
+    }
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.lw-card-info__example-sentence {
+  margin-bottom: 26px;
+}
+
+.lw-word-card-sentence-words-container {
+  display: flex;
+  flex-wrap: wrap;
+  @include media-mobile {
+    justify-content: center;
+  }
+  & > * {
+    margin-right: 8px;
+    @include media-laptop {
+      margin-right: 4px;
+    }
+    &:last-child {
+      margin: 0;
+    }
   }
 }

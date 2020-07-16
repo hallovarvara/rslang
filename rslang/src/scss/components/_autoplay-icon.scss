@@ -1,7 +1,24 @@
 .autoplay-icon {
   display: inline-block;
-  width: 40px;
-  height: 40px;
+  flex-shrink: 0;
+  width: 35px;
+  height: 35px;
+  background-color: transparent;
+  border: 0;
+  outline: none;
   cursor: pointer;
   @include background-image(url('../../assets/icons/icon-autoplay-on.svg'));
+  @extend %disabled;
+  @include media-laptop {
+    width: 28px;
+    height: 28px;
+  }
+  @include media-tablet {
+    width: 25px;
+    height: 25px;
+  }
+  @include media-mobile {
+    width: 23px;
+    height: 23px;
+  }
 }

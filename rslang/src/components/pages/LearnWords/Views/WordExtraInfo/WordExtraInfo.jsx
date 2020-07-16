@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hideWordStyles, showWordStyles } from '../../helpers/style-options';
+import { mapSentenceToSpanItems } from '../../helpers';
 
 const WordExtraInfo = ({
   progress,
@@ -31,14 +32,22 @@ const WordExtraInfo = ({
       {
         isGuessed && isShownMeaning
           && <p className="learn-word-card-info__explanation">
-          <span className="autoplay-icon"></span>{textMeaningTranslate}
+          <span className="autoplay-icon"></span><span>{textMeaningTranslate}</span>
         </p>
       }
       {
-        isShownExampleSentence && <p className="learn-word-card-info__example-sentence">
-          <span onClick={() => onPlayAudio('audioMeaning')} className="autoplay-icon"></span>
-          {begin}<span style={isGuessed ? showWordStyles : hideWordStyles}>{emphasis}</span>{end}
-        </p>
+        isShownExampleSentence && <div className="learn-word-card-info__example-sentence lw-card-info__example-sentence">
+          <button disabled={!isGuessed} onClick={() => onPlayAudio('audioMeaning')} className="autoplay-icon"></button>
+          <div className="lw-example-sentence-words-container">
+            {
+              mapSentenceToSpanItems(begin)
+            }
+            <span style={isGuessed ? showWordStyles : hideWordStyles}>{emphasis}</span>
+            {
+              mapSentenceToSpanItems(end)
+            }
+          </div>
+        </div>
       }
     </>
   );

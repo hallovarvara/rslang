@@ -1,3 +1,4 @@
+import React from 'react';
 import { RSLANG_SESSION_PROGRESS } from './constants';
 import { successColor, fewErrorsColor, manyErrorsColor } from './style-options';
 import { apiLinks } from '../../../../helpers/constants';
@@ -132,3 +133,7 @@ export const calculateNextWordCard = (words, current) => {
   }
   return result;
 };
+
+export const mapSentenceToSpanItems = (sentence) => (
+  sentence.split(' ').map((word, index) => <span key={index}>{word}</span>)
+);
