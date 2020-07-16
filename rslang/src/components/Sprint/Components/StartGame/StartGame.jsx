@@ -8,10 +8,10 @@ import { text, count } from '../../../../helpers/constants';
 import { generateStepperMarks } from '../../../../helpers/functions';
 import './StartGame.scss';
 
-const { defaultValue, groups } = count;
+const { groups } = count;
 
 const StartGame = ({
-  handleChangeUserWords, handleCurrentGroup, startGame, updateState, token,
+  handleChangeUserWords, handleCurrentGroup, startGame, updateState, token, currentGroup
 }) => {
   const onSubmitForm = (event) => {
     event.preventDefault();
@@ -29,6 +29,7 @@ const StartGame = ({
         onSubmitForm={onSubmitForm}
         token={token}
         startGame={startGame}
+        currentGroup={currentGroup}
       />
     </div>
 
@@ -36,8 +37,10 @@ const StartGame = ({
 };
 
 const StartGameUserForm = ({
-  handleChangeUserWords, handleCurrentGroup, onSubmitForm, token,
-}) => (
+  handleChangeUserWords, handleCurrentGroup, onSubmitForm, token, currentGroup,
+}) => {
+  console.log(currentGroup)
+  return (
     <div className={'sprint-start__container'}>
 
       <div className={'sprint-start__form-container'}>
@@ -53,8 +56,8 @@ const StartGameUserForm = ({
           : null
         }
         <Stepper
-          defaultValue={defaultValue}
-          onChangeCommitted={(event, value, ...args) => handleCurrentGroup(value - 1)}
+          defaultValue={currentGroup + 1}
+          onChangeCommitted={(event, value, ...args) => handleCurrentGroup(value - 1, ...args)}
           step={null}
           max={count.groups}
           marks={generateStepperMarks(groups)}
@@ -73,7 +76,8 @@ const StartGameUserForm = ({
 
 
     </div >
-  );
+  )
+};
 
 StartGame.propTypes = {
   startGame: PropTypes.func,
@@ -83,6 +87,7 @@ StartGame.propTypes = {
   onSubmitForm: PropTypes.func,
   updateState: PropTypes.func,
   token: PropTypes.string,
+  currentGroup: PropTypes.number,
 };
 
 StartGameUserForm.propTypes = {
@@ -92,6 +97,7 @@ StartGameUserForm.propTypes = {
   handleCurrentGroup: PropTypes.func,
   onSubmitForm: PropTypes.func,
   token: PropTypes.string,
+  currentGroup: PropTypes.number,
 };
 
 function mapStateToProps(state) {

@@ -259,7 +259,7 @@ class Sprint extends Component {
 
   render() {
     const {
-      words, activeAnswer, translateWords, isAnswerQuiz, counter,
+      words, activeAnswer, translateWords, isAnswerQuiz, counter, currentGroup,
       volume, score, timer, isFinished, mistake, complete, isStarted,
     } = this.state;
 
@@ -271,6 +271,7 @@ class Sprint extends Component {
         handleChangeUserWords={this.isChangeUserWords}
         handleCurrentGroup={this.handleCurrentGroup}
         updateState={this.updateState}
+        currentGroup={currentGroup}
       />;
     } else if (isStarted && isFinished) {
       page = <FinishGame
