@@ -7,6 +7,8 @@ import WordExtraInfo from '../WordExtraInfo';
 import SpacingRepeating from '../SpacingRepeating';
 import { initialProgressObject } from '../../helpers/settings';
 
+import LinearProgress from '../../../../../basicComponents/LinearProgress';
+
 const WordCard = ({
   currentWord,
   isFirstPassDone,
@@ -40,60 +42,66 @@ const WordCard = ({
   onChangeRemoved,
   onChangeDifficulty,
 }) => (
-  <div>
-    <div>
-      <StatusBar
-        progress={progress}
-        wordCount={wordCount}
-        totalWords={totalWords}
-        isShownComplicatedButton={isShownComplicatedButton}
-        onChangeRemoved={onChangeRemoved}
-        onChangeDifficulty={onChangeDifficulty}
-      />
-      <Word
-        progress={progress}
-        textExample={textExample}
-        textExampleTranslate={textExampleTranslate}
-        isShownTranslation={isShownTranslation}
-        onChangeProgress={onChangeProgress}
-        onPlayAudio={onPlayAudio}
-        onStatsChanged={onStatsChanged}
-      />
-      <WordExtraInfo
-        progress={progress}
-        word={word}
-        wordTranslate={wordTranslate}
-        transcription={transcription}
-        textMeaning={textMeaning}
-        textMeaningTranslate={textMeaningTranslate}
-        isShownTranscription={isShownTranscription}
-        isShownExampleSentence={isShownExampleSentence}
-        isShownMeaning={isShownMeaning}
-        onPlayAudio={onPlayAudio}
-      />
-      {progress.isGuessed && !progress.isDifficultChosen && (
-        <SpacingRepeating
-          isFirstPassDone={isFirstPassDone}
+  <div className="learn-word-card-wrapper">
+    <LinearProgress
+      done={wordCount}
+      all={totalWords}/>
+    <div className="learn-word-card">
+      <div id="fuck" className="learn-word-card-info">
+        <StatusBar
           progress={progress}
-          currentWord={currentWord}
-          onChangeWordRate={onChangeWordRate}
-          onChangeRepeated={onChangeRepeated}
-          onChangeProgress={onChangeProgress}
+          wordCount={wordCount}
+          totalWords={totalWords}
+          isShownComplicatedButton={isShownComplicatedButton}
+          onChangeRemoved={onChangeRemoved}
+          onChangeDifficulty={onChangeDifficulty}
         />
-      )}
-    </div>
-    <div>
-      <SideBar
-        progress={progress}
-        currentInput={currentInput}
-        word={word}
-        image={image}
-        isShownAnswerButton={isShownAnswerButton}
-        isShownImageAssociation={isShownImageAssociation}
-        onNextWord={onNextWord}
-        onPrevWord={onPrevWord}
-        onShowTip={onShowTip}
-      />
+        <Word
+          progress={progress}
+          textExample={textExample}
+          textExampleTranslate={textExampleTranslate}
+          isShownTranslation={isShownTranslation}
+          onChangeProgress={onChangeProgress}
+          onPlayAudio={onPlayAudio}
+          onStatsChanged={onStatsChanged}
+        />
+        <div className="line learn-word-card-info__line"></div>
+        <WordExtraInfo
+          progress={progress}
+          word={word}
+          wordTranslate={wordTranslate}
+          transcription={transcription}
+          textMeaning={textMeaning}
+          textMeaningTranslate={textMeaningTranslate}
+          isShownTranscription={isShownTranscription}
+          isShownExampleSentence={isShownExampleSentence}
+          isShownMeaning={isShownMeaning}
+          onPlayAudio={onPlayAudio}
+        />
+        {progress.isGuessed && !progress.isDifficultChosen && (
+          <SpacingRepeating
+            isFirstPassDone={isFirstPassDone}
+            progress={progress}
+            currentWord={currentWord}
+            onChangeWordRate={onChangeWordRate}
+            onChangeRepeated={onChangeRepeated}
+            onChangeProgress={onChangeProgress}
+          />
+        )}
+      </div>
+      <div className="learn-word-card-control">
+        <SideBar
+          progress={progress}
+          currentInput={currentInput}
+          word={word}
+          image={image}
+          isShownAnswerButton={isShownAnswerButton}
+          isShownImageAssociation={isShownImageAssociation}
+          onNextWord={onNextWord}
+          onPrevWord={onPrevWord}
+          onShowTip={onShowTip}
+        />
+      </div>
     </div>
   </div>
 );

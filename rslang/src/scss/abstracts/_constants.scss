@@ -6,8 +6,9 @@ $color-dark: #000;
 $color-light: #fff;
 
 /* Buttons */
-$btn-shadow: 0px 4px 6px rgba(130, 89, 217, 0.5), 0px 2px 1px rgba(130, 89, 217, 0.5), 0px 1px 0px rgba(0, 0, 0, 0.8);
-$btn-transition: all .5s ease;
+$btn-shadow: 0px 4px 6px rgba(130, 89, 217, 0.5),
+  0px 2px 1px rgba(130, 89, 217, 0.5), 0px 1px 0px rgba(0, 0, 0, 0.8);
+$btn-transition: all 0.5s ease;
 
 /* Games */
 $color-sprint-primary: #fcff79;

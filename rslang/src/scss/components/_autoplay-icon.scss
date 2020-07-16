@@ -1,0 +1,7 @@
+.autoplay-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  @include background-image(url('../../assets/icons/icon-autoplay-on.svg'));
+}

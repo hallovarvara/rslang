@@ -68,6 +68,7 @@ const pagesData = {
   learnWords: {
     title: 'Изучение слов',
     description: 'Расширяйте словарный запас, благодаря правилам интервального повторения',
+    rules: 'Впишите правильное слово в предложение',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },

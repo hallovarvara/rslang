@@ -1,4 +1,9 @@
+/* Start page*/
+
 .learn-words {
+  padding-right: 50px;
+  padding-bottom: 90px;
+  padding-left: 50px;
   @extend %padding;
 }
 
@@ -154,5 +159,53 @@
   }
   &:hover {
     box-shadow: $btn-shadow;
+  }
+}
+
+/* Card page*/
+
+.lw-question-icon {
+  margin-top: 19px;
+  cursor: pointer;
+  @include background-image(url('../../assets/icons/question-icon-dark.svg'));
+}
+
+body .lw-title-container__description {
+  padding: 15px 20px;
+  @include font(3.1rem, 300, normal);
+}
+
+.lw-header {
+  @include flex(row, space-between, center);
+}
+
+.lw-title-container {
+  @include flex(row, center, center);
+}
+
+.lw-title-container__title {
+  margin-right: 10px;
+  margin-bottom: 0px;
+  @include font(9rem, 900, italic, $font-secondary, 100%);
+}
+
+.lw-filter-container {
+  @include flex(row, center, center);
+}
+
+.lw-filter-container__autoplay {
+  margin: 0 40px 0 0;
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  @include flex(row, center, center);
+  @include font(3.1rem, 600, normal);
+}
+
+.lw-filter-container__select {
+  .select-input {
+    color: rgba($color: $color-dark, $alpha: 0.6);
+    @include font(3.1rem, 600, normal);
   }
 }

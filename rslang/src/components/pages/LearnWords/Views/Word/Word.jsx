@@ -44,7 +44,6 @@ class Word extends Component {
 
   handleError = (currentWord, inputWord) => {
     const { onChangeProgress, onStatsChanged } = this.props;
-    console.log(onStatsChanged);
     const difference = showDifferenceInWords(currentWord, inputWord);
     onChangeProgress({ isShownWord: true, difference });
     onStatsChanged(false);
@@ -55,7 +54,6 @@ class Word extends Component {
 
   handleSuccess = () => {
     const { onChangeProgress, onPlayAudio, onStatsChanged } = this.props;
-    console.log(onStatsChanged);
     onChangeProgress({
       isGuessed: true,
       isShownWord: true,
@@ -92,12 +90,12 @@ class Word extends Component {
       <span style={rightAnswerStyles}>{emphasis}</span>
     );
     return (
-      <div>
-        <div>
+      <>
+        <div className="learn-word-card-sentence">
           {isGuessed && (
-            <button onClick={() => onPlayAudio('audioExample')}>{buttonsNames.PLAY}</button>
+            <span className="autoplay-icon" onClick={() => onPlayAudio('audioExample')}></span>
           )}
-          <span>{begin}</span>
+          {begin}
           <div style={{ position: 'relative', display: 'inline' }}>
             {output}
             <form style={inputWrapper} onSubmit={this.handleSubmit}>
@@ -112,13 +110,13 @@ class Word extends Component {
               />
             </form>
           </div>
-          <span style={{ marginLeft: '10px' }}>{end}</span>
+          {end}
         </div>
-        <button disabled={!value} onClick={this.handleSubmit}>
+        <button className="learn-word-card-info__check-answer" disabled={!value} onClick={this.handleSubmit}>
           {buttonsNames.CHECK_ANSWER}
         </button>
-        {isGuessed && isShownTranslation && <p>{textExampleTranslate}</p>}
-      </div>
+        {isGuessed && isShownTranslation && <p className="learn-word-card-info__sentence-translation">{textExampleTranslate}</p>}
+      </>
     );
   }
 }
