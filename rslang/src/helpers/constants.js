@@ -69,6 +69,7 @@ const pagesData = {
     title: 'Изучение слов',
     description: 'Расширяйте словарный запас, благодаря правилам интервального повторения',
     rules: 'Впишите правильное слово в предложение',
+    rateDescription: 'Оцените, насколько легко было угадать слово:',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },

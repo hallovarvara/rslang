@@ -424,7 +424,16 @@
 
 .learn-word-repeating-container__description {
   margin-bottom: 15px;
-  @include font(3rem, 400, normal);
+  @include font(2.3rem, 400, normal);
+  @include media-laptop {
+    font-size: 2rem;
+  }
+  @include media-tablet {
+    font-size: 1.8rem;
+  }
+  @include media-mobile {
+    text-align: center;
+  }
 }
 
 .learn-word-repeating-buttons-container {

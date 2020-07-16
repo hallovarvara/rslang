@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { difficultLabels } from '../../helpers/constants';
-import { levelsOfDifficulty } from '../../../../../helpers/constants';
+import { levelsOfDifficulty, pagesData } from '../../../../../helpers/constants';
 
 const { HARD, NORMAL, EASY } = levelsOfDifficulty;
 const { HARD_LABEL, NORMAL_LABEL, EASY_LABEL } = difficultLabels;
@@ -31,7 +31,7 @@ const SpacingRepeating = (props) => {
     <>
       <div className="line learn-word-card-info__line"></div>
       <div className="learn-word-repeating-container">
-        <p className="learn-word-repeating-container__description"></p>
+        <p className="learn-word-repeating-container__description">{pagesData.learnWords.rateDescription}</p>
         <div className="learn-word-repeating-buttons-container">
           <button className="learn-word-repeating-buttons-container__button"
             onClick={() => handleChoseDifficulty(
