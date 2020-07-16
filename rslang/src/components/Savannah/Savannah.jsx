@@ -240,7 +240,7 @@ class Savannah extends Component {
   }
 
   gameStatus = (idWordPressed = 'default') => {
-    if (this.state.heartCount === 1 || this.state.counter === +this.state.totalQuestions) {
+    if (this.state.counter === +this.state.totalQuestions) {
       setTimeout(() => {
         this.handleClose();
       }, 800);
@@ -329,7 +329,7 @@ class Savannah extends Component {
     const {
       heartCount, volume, complete, mistake, translateWords, idWords, timer,
       answerState, activeQuestion, isStarted, isFinished, audio, totalAnswers,
-      totalQuestions,
+      totalQuestions
     } = this.state;
 
     let page;
@@ -373,6 +373,8 @@ class Savannah extends Component {
           onTimeOut={this.onTimeOut}
           onDefault={this.onDefault}
           updateState={this.updateState}
+          handleClose={this.handleClose}
+          heartCount={heartCount}
         />
       </div>;
     }

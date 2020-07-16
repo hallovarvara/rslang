@@ -19,6 +19,10 @@ class ActiveQuiz extends Component {
     if (this.props.timer === 6) {
       this.props.onDefault();
     }
+
+    if (this.props.heartCount === 0) {
+      this.props.handleClose();
+    }
   }
 
   componentWillUnmount() {
@@ -60,6 +64,8 @@ ActiveQuiz.propTypes = {
   timer: PropTypes.number,
   onDefault: PropTypes.func,
   onTimeOut: PropTypes.func,
+  heartCount: PropTypes.number,
+  handleClose: PropTypes.func,
 };
 
 ActiveQuiz.defaultProps = {
@@ -72,6 +78,8 @@ ActiveQuiz.defaultProps = {
   timer: 0,
   onDefault: () => { },
   onTimeOut: () => { },
+  heartCount: 0,
+  handleClose: () => { },
 };
 
 export default ActiveQuiz;
