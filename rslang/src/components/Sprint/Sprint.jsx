@@ -5,7 +5,6 @@ import StartGame from './Components/StartGame';
 import PlayGame from './Components/PlayGame';
 import FinishGame from './Components/FinishGame';
 import UserService from '../../helpers/userService';
-import Switcher from './Components/UI/switch';
 import Select from '../games/components/Select'
 
 import {
