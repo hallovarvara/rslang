@@ -5,15 +5,16 @@
   max-width: 600px;
   max-height: 400px;
   margin: 0 auto;
-  font-family: $font-secondary;
   font-weight: 500;
+  font-family: $font-secondary;
 }
+
 .sprint-play__header{
   display: flex;
   justify-content: space-between;
-  padding-bottom: 20px;
 }
-.sprint-play__point-wrapper{
+
+.sprint-play__point-wrapper {
   display: flex;
 }
 
