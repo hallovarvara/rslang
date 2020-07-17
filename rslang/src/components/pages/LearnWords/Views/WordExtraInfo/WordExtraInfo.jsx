@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hideWordStyles, showWordStyles } from '../../helpers/style-options';
+import { mapSentenceToSpanItems } from '../../helpers';
 
 const WordExtraInfo = ({
   progress,
@@ -17,32 +18,38 @@ const WordExtraInfo = ({
   const { begin, emphasis, end } = textMeaning;
   const { isGuessed } = progress;
   return (
-    <div>
-      <div>
+    <>
+      <div className="target-learn-word-container">
         {
-          isGuessed && <div>
-            {/* TODO: Please, replace buton text 'play' to an appropriate icon */}
-            <button onClick={() => onPlayAudio('audio')}>Play</button>
-            <p>{word}</p>
-          </div>
+          isGuessed && <>
+            <p className="target-learn-word-container__target-word">{word}</p>
+            <span className="target-learn-word-container__volume-icon" onClick={() => onPlayAudio('audio')}></span>
+          </>
         }
-        <p>{isGuessed && wordTranslate}</p>
-        {isGuessed && isShownTranscription && <p>{transcription}</p>}
+        {isGuessed && <p className="target-learn-word-container__target-word-translation">{wordTranslate}</p>}
+        {isGuessed && isShownTranscription && <p className="target-learn-word-container__transcription">{transcription}</p>}
       </div>
       {
-        isShownExampleSentence && <div>
-          {/* TODO: Please, replace buton text 'play' to an appropriate icon */}
-          {isGuessed && <button onClick={() => onPlayAudio('audioMeaning')}>Play</button>}
-          <span>{begin}</span>
-          <span style={isGuessed ? showWordStyles : hideWordStyles}>{emphasis}</span>
-          <span>{end}</span>
+        isGuessed && isShownMeaning
+          && <p className="learn-word-card-info__explanation">
+          <span className="autoplay-icon"></span><span>{textMeaningTranslate}</span>
+        </p>
+      }
+      {
+        isShownExampleSentence && <div className="learn-word-card-info__example-sentence lw-card-info__example-sentence">
+          <button disabled={!isGuessed} onClick={() => onPlayAudio('audioMeaning')} className="autoplay-icon"></button>
+          <div className="lw-example-sentence-words-container">
+            {
+              mapSentenceToSpanItems(begin)
+            }
+            <span style={isGuessed ? showWordStyles : hideWordStyles}>{emphasis}</span>
+            {
+              mapSentenceToSpanItems(end)
+            }
+          </div>
         </div>
       }
-      {isGuessed && isShownMeaning && <div>
-        {/* TODO: Please, replace buton text 'play' to an appropriate icon */}
-        <p>{textMeaningTranslate}</p>
-      </div>}
-    </div>
+    </>
   );
 };
 

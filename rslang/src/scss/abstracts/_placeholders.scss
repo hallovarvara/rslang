@@ -38,6 +38,13 @@
   }
 }
 
+%disabled {
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
 %promo-button {
   padding: 30px 110px;
 
@@ -61,6 +68,5 @@
 
   // liquid
   .MuiTouchRipple-root {
-
   }
 }
