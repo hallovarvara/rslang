@@ -90,12 +90,18 @@ const pagesData = {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: true, index: 6 },
+    user: { isVisible: false, index: 6 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: true, index: 6 },
+    guest: { isVisible: false, index: 6 },
+    user: { isVisible: false },
+  },
+  signOut: {
+    title: 'Выйти',
+    path: 'sign-in',
+    guest: { isVisible: false },
     user: { isVisible: false },
   },
   register: {

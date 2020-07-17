@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+const breakpoint = 1250;
+
 const SimpleMenu = ({
   menuTitle = 'Menu title',
   menuItems = ['Profile', 'My account', 'Logout'],
@@ -11,7 +13,9 @@ const SimpleMenu = ({
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+    if (window.innerWidth > breakpoint) {
+      setAnchorEl(event.currentTarget);
+    }
   };
 
   const handleClose = () => {
@@ -27,7 +31,7 @@ const SimpleMenu = ({
   };
 
   return (
-    <div>
+    <div className="hover-menu-list">
       <Button
         aria-controls="simple-menu"
         aria-haspopup="true"

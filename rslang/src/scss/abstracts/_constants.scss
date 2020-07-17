@@ -40,6 +40,7 @@ $mobile-width: 500px;
 $big-mobile-width: 600px;
 $tablet-width: 800px;
 $laptop-width: 1200px;
+$header-breakpoint: 1250px;
 
 /* English-puzzle game */
 $color-englishPuzzle-primary: #6663f5;
@@ -66,3 +67,4 @@ $header-height: 100px;
 
 /* Animation */
 $animation-time: 0.3s;
+$hamburger-transition: 0.3s; // It will be twice as large
