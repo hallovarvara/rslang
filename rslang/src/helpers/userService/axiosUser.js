@@ -9,6 +9,7 @@ export const getToken = async (props) => props?.token;
 
 export const axiosuser = axios.create({
   baseURL: apiLinks.base,
+  timeout: 1000,
   headers: {
     Authorization: `Bearer ${localStorage.getItem(localStorageItems.token) || getToken()}`,
     Accept: 'application/json',
