@@ -1,6 +1,7 @@
 import {
   // generateStatsTemplate,
-  generateSettingsTemplate,
+  // generateSettingsTemplate,
+  settingsTemplate,
 } from './dataModels';
 import { applicationThings } from '../constants';
 import {
@@ -114,7 +115,7 @@ export const saveLocalUserWord = (
 };
 
 export const checkForSettings = () => (
-  checkForLocalThing(localThings.SETTINGS, generateSettingsTemplate)
+  checkForLocalThing(localThings.SETTINGS, settingsTemplate)
 );
 
 export const saveLocalSettings = (settings) => {
@@ -127,6 +128,14 @@ export const clearStorageData = (storage) => {
   });
 };
 
+export const clearGamesStorageData = () => {
+  Object.values(gameSessionThings).forEach((el) => {
+    if (el !== gameSessionThings.learnWords) {
+      localStorage.removeItem(el);
+    }
+  });
+};
+
 export const clearLocalUserData = () => clearStorageData(localThings);
 
 export const getSessionData = (thingName) => (
@@ -134,7 +143,11 @@ export const getSessionData = (thingName) => (
 );
 
 export const clearSessionData = (thingName) => {
-  localStorage.removeItem(gameSessionThings[thingName]);
+  if (thingName !== applicationThings.LEARN_WORDS) {
+    clearGamesStorageData();
+  } else {
+    localStorage.removeItem(gameSessionThings[thingName]);
+  }
   clearStorageData(sessionThings);
 };
 
@@ -144,7 +157,9 @@ export const checkForNewUserWordsIds = () => (
     : JSON.parse(localStorage.getItem(sessionThings.NEW_WORDS))
 );
 
-export const saveNewUserWordId = (wordId) => {
+export const saveNewUserWordId = (wordObject) => {
+  const idTemplate = '_id';
+  const wordId = wordObject.id || wordObject[idTemplate];
   const words = checkForNewUserWordsIds();
   localStorage.setItem(sessionThings.NEW_WORDS, JSON.stringify([...words, wordId]));
 };
