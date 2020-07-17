@@ -4,14 +4,17 @@ import ResultItem from './ResultItem/ResultItem.jsx';
 
 import classes from './ResultList.module.scss';
 
-const ResultList = ({ result, resultTitle, status }) => {
+const ResultList = ({
+  result, resultTitle,
+  status, className,
+}) => {
   const {
     words, translate, total, audio,
   } = result;
   const cls = [classes.Total];
   cls.push(classes[status]);
   return (
-    <div className={classes.Wrapper}>
+    <div className={`${classes.Wrapper} ${className}`}>
       <div className={classes.Title}>
         {resultTitle}
         <span className={cls.join(' ')}>{total}</span>
@@ -27,7 +30,6 @@ const ResultList = ({ result, resultTitle, status }) => {
             audio={audio[key]}
           />
         ))}
-
       </div>
     </div>
   );
@@ -37,6 +39,7 @@ ResultList.propTypes = {
   result: PropTypes.object,
   resultTitle: PropTypes.string,
   status: PropTypes.string,
+  className: PropTypes.string,
 };
 
 ResultList.defaultProps = {
