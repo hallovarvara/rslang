@@ -16,7 +16,7 @@ class AudioCall extends React.Component {
       numberLevel: 0,
       numberPage: 0,
       countQuestions: 5,
-      countAnswers: 5,
+      countAnswers: 2,
       isStart: false,
     };
   }
@@ -33,14 +33,16 @@ class AudioCall extends React.Component {
     });
   }
 
-  setNumberLevel = (e) => {
-    const amountQuestions = e.target.value || e.target.defaultValue;
-    this.setState({ countQuestions: +amountQuestions });
+  getCountQuestions = (question) => {
+    this.setState({
+      countQuestions: question,
+    });
   }
 
-  setcountAnswers = (e) => {
-    const countAnswers = e.target.value || e.target.defaultValue;
-    this.setState({ countAnswers: +countAnswers });
+  getCountAnswers = (answer) => {
+    this.setState({
+      countAnswers: answer,
+    });
   }
 
   handleSubmitForm = async () => {
@@ -78,6 +80,8 @@ class AudioCall extends React.Component {
         data={data}
         getLevel={this.getLevel}
         getPage={this.getPage}
+        getCountAnswers={this.getCountAnswers}
+        getCountQuestions={this.getCountQuestions}
         numberPage={numberPage}
         numberLevel={numberLevel}
         handleClickNewGame={this.handleClickNewGame}

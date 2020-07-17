@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import {
-  TextField,
-  Button,
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import {
   text,
@@ -19,8 +16,10 @@ import Stepper from '../../../../basicComponents/Stepper';
 import { generateStepperMarks } from '../../../../helpers/functions';
 
 const StartGamePageView = ({
-  setNumberLevel,
-  setcountAnswers,
+  getCountAnswers,
+  getCountQuestions,
+  countAnswers,
+  countQuestions,
   handleSubmitForm,
   numberLevel,
   numberPage,
@@ -35,26 +34,29 @@ const StartGamePageView = ({
       audioCall: { instruction },
     },
   } = text;
-  const { groups, pages } = count;
+  const {
+    groups,
+    pages,
+    maxCountQuestions,
+    maxCountAnswers,
+    minCountQuestions,
+    minCountAnswers,
+  } = count;
   const { audiocall: { title } } = gamesData;
   const { questions, answers } = formLabel;
   const buttonStyle = classNames('button', 'button_big');
-  const stepperMarks = (new Array(groups).fill({}))
-    .map((obj, index) => ({
-      value: index + 1,
-      label: `${index + 1}`,
-    }));
   return (
     <div className="start-page">
       <h1 className="start-page__title">{title}</h1>
       <p className="start-page__description">{instruction}</p>
+        <form className="start__form" onSubmit={() => handleSubmitForm()}>
       <div className="audioCall-steppers-container">
         <Stepper
           defaultValue={numberLevel + 1}
           onChangeCommitted={(event, value, ...args) => getLevel(value - 1, ...args)}
           step={null}
           max={groups}
-          marks={stepperMarks}
+          marks={generateStepperMarks(groups)}
           className="audioCall-levels-stepper"
           label={chooseLevel}
           arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#F9C74F', '#F8961E', '#F3722C', '#F94144']}
@@ -71,30 +73,31 @@ const StartGamePageView = ({
           arrayOfColorsForTrack={(new Array(pages)).fill('#84D7C3')}
           stickyLabel={true}
         />
-      </div>
-      <form className="start__form" onSubmit={() => handleSubmitForm()}>
-        <TextField
-          required
-          className="start-page__input"
-          id="audiocall-start__questions"
-          type="number"
+        <Stepper
+          defaultValue={countQuestions}
+          onChangeCommitted={(event, value, ...args) => getCountQuestions(value, ...args)}
+          step={null}
+          min={minCountQuestions}
+          max={maxCountQuestions}
+          marks={generateStepperMarks(maxCountQuestions)}
+          className="audioCall-question-stepper"
           label={questions}
-          defaultValue="5"
-          inputProps={{ pattern: '[0-9]', min: '5', max: '12' }}
-          variant="filled"
-          onChange={setNumberLevel}
+          arrayOfColorsForTrack={(new Array(maxCountQuestions)).fill('#84D7C3')}
+          stickyLabel={true}
         />
-        <TextField
-          required
-          className="start-page__input"
-          id="audiocall-start__questions"
-          type="number"
+        <Stepper
+          defaultValue={countAnswers}
+          onChangeCommitted={(event, value, ...args) => getCountAnswers(value, ...args)}
+          step={null}
+          min={minCountAnswers}
+          max={maxCountAnswers}
+          marks={generateStepperMarks(maxCountAnswers)}
+          className="audioCall-answers-stepper"
           label={answers}
-          defaultValue="5"
-          inputProps={{ pattern: '[2-5]', min: '2', max: '5' }}
-          variant="filled"
-          onChange={setcountAnswers}
+          arrayOfColorsForTrack={(new Array(maxCountAnswers)).fill('#84D7C3')}
+          stickyLabel={true}
         />
+      </div>
         <Button
           className={buttonStyle}
           type="submit"
@@ -117,6 +120,10 @@ StartGamePageView.propTypes = {
   numberPage: PropTypes.number,
   getLevel: PropTypes.func,
   getPage: PropTypes.func,
+  getCountAnswers: PropTypes.func,
+  getCountQuestions: PropTypes.func,
+  countAnswers: PropTypes.number,
+  countQuestions: PropTypes.number,
 };
 
 export default StartGamePageView;

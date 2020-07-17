@@ -1,4 +1,6 @@
 .audioCall-levels-stepper,
+.audioCall-answers-stepper,
+.audioCall-question-stepper,
 .audioCall-pages-stepper {
   &.sticky-label .MuiSlider-thumb:before {
     position: absolute;
@@ -19,10 +21,10 @@
     color: $color-light;
   }
 
-  .MuiTypography-root {
+  & .MuiTypography-root {
     margin-bottom: 0px;
     color: $color-light;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-family: 'Inter', sans-serif;
     text-align: center;
   }
@@ -58,5 +60,6 @@
 }
 
 .audioCall-steppers-container {
+  font-size: 1.6rem;
   @include flex(column, center, center);
 }
