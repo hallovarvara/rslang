@@ -66,7 +66,10 @@ const pagesData = {
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
-    title: 'Учить слова',
+    title: 'Изучение слов',
+    description: 'Расширяйте английский лексикон с помощью встроенных правил повторения слов',
+    rules: 'Впишите правильное слово в предложение',
+    rateDescription: 'Оцените, насколько легко было угадать слово:',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },

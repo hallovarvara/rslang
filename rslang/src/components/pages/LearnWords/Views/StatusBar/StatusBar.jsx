@@ -29,26 +29,31 @@ const StatusBar = ({
   onChangeDifficulty,
   onChangeRemoved,
 }) => (
-  <div>
-    {/* //TODO: Here will be Material UI ProgressBar with 'totalWords' / 'wordCount' */}
-    <div>{`${wordCount} / ${totalWords}`}</div>
-    <div>
+  <div className="learn-word-card-general-info">
+    <p className="learn-word-card-general-info__all-done">{`${wordCount}/${totalWords}`}</p>
+    <div className="learn-word-status-settings">
       {isShownComplicatedButton
-          && <button
-          className={classNames({ active: isComplicated })}
+          && <div
+          className={classNames({
+            'learn-word-status-settings__complicated': true,
+            active: isComplicated,
+          })}
           onClick={
             () => onChangeDifficulty()
           } >
-            {COMPLICATED}
-          </button>
+            <span></span>{COMPLICATED}
+          </div>
       }
-        <button
-          className={classNames({ active: isRemoved })}
+        <div
+          className={classNames({
+            'learn-word-status-settings__remove': true,
+            active: isRemoved
+          })}
           onClick={
             () => onChangeRemoved()
           } >
-        {REMOVE}
-      </button>
+        <span></span>{REMOVE}
+      </div>
     </div>
   </div>
 );
