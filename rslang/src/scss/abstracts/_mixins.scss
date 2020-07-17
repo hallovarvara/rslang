@@ -57,6 +57,18 @@
   }
 }
 
+@mixin media-header-breakpoint {
+  @media (max-width: $header-breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
 @mixin button(
   $background-color: $color-primary-dark,
   $text-color: $color-dark
@@ -86,9 +98,5 @@
       $line-height: 100%,
       $spacing: 0.2rem
     );
-  }
-
-  // liquid
-  .MuiTouchRipple-root {
   }
 }

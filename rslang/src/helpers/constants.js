@@ -12,6 +12,7 @@ import Lesha from '../assets/images/team/alexei-osipov.jpg';
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
   base: 'https://kagafon-learn-words.herokuapp.com/',
+  // base: 'https://afternoon-falls-25894.herokuapp.com/',
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
@@ -90,12 +91,12 @@ const pagesData = {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: false, index: 6 },
+    user: { isVisible: false, index: 5 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: false, index: 6 },
+    guest: { isVisible: false, index: 4 },
     user: { isVisible: false },
   },
   signOut: {
@@ -113,14 +114,14 @@ const pagesData = {
   statistics: {
     title: 'Статистика',
     path: 'statistics',
-    guest: { isVisible: true, index: 4 },
+    guest: { isVisible: false },
     user: { isVisible: true, index: 4 },
   },
   vocabulary: {
     title: 'Словарь',
     path: 'vocabulary',
-    guest: { isVisible: true, index: 5 },
-    user: { isVisible: true, index: 5 },
+    guest: { isVisible: false },
+    user: { isVisible: false },
   },
 };
 

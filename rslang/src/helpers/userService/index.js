@@ -1,4 +1,18 @@
-import { axiosuser } from './axiosUser';
+import moment from 'moment';
+import { axiosuser, getToken } from './axiosUser';
+import { statsTemplate } from '../wordsService/statsModel';
+import {
+  localThings,
+  clearSessionData,
+} from '../wordsService/storageModel';
+import { settingsTemplate } from '../wordsService/dataModels';
+import {
+  getDayLocalUserWords,
+  saveSessionInfoToLocal,
+  prepareSessionInfoToServer,
+} from '../wordsService';
+import { getWordsByAmount } from '../wordsService/wordsApi';
+import { shufleWordsArray } from '../wordsService/wordsFilters';
 
 import {
   apiLinks,
@@ -109,9 +123,13 @@ export default class UserService {
   };
 
   getUserAllWords = async (userId) => {
-    const rawResponse = axiosuser.get(`users/${userId}/words?wordsPerPage=0`);
-    const content = await rawResponse;
-    return content.data;
+    try {
+      const rawResponse = axiosuser.get(`users/${userId}/words?wordsPerPage=0`);
+      const content = await rawResponse;
+      return content.data;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   getAllUserWordsArray = async (userId) => {
@@ -158,12 +176,10 @@ export default class UserService {
     try {
       const rawResponse = axiosuser.get(`users/${userId}/statistics`);
       const content = await rawResponse;
-      console.log(content.data)
       return content.data;
-    } catch (e) {
-      console.log(e)
+    } catch (error) {
+      console.error(error);
     }
-
   };
 
   createUserSettings = async ({ userId, option }) => {
@@ -181,12 +197,13 @@ export default class UserService {
   };
 
   getUserSettings = async (userId) => {
-    const rawResponse = axiosuser.get(`users/${userId}/settings`);
-    const content = await rawResponse;
-    Object.keys(content.data.optional).forEach((x) => {
-      content.data.optional[x] = JSON.parse(content.data.optional[x]);
-    });
-    return content.data;
+    try {
+      const rawResponse = axiosuser.get(`users/${userId}/settings`);
+      const content = await rawResponse;
+      return content.data;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   getUserWordsFilter = async ({ userId, token, filter }) => {
@@ -199,5 +216,178 @@ export default class UserService {
     const result = await fetch(url, { headers });
     const data = await result.json();
     return data[0];
+  }
+
+  getUserWordsNoRemovedStamp = async (userId) => {
+    const currentStamp = moment().valueOf();
+    const result = [];
+    const getAllWords = await this.getUserAllWords(userId);
+    if (getAllWords.length) {
+      getAllWords.forEach((wordCard) => {
+        if (!wordCard.optional.removed && wordCard.optional.stamp < currentStamp) {
+          result.push(wordCard.word);
+        }
+      });
+    }
+    return result;
+  }
+
+  // all basic structure of using servicesdescribed in
+  // https://github.com/hallovarvara/rslang/wiki/all-data-services
+  // begin of 1st step
+  isUserLogged = () => (
+    getToken() || localStorage.getItem(localStorageItems.token)
+  )
+
+  setNewStatistics = (userId, stats) => {
+    if (!stats.length) {
+      this.createUserStatistics(userId, statsTemplate);
+    }
+  }
+
+  setNewSettings = (userId, settings) => {
+    if (!settings.length) {
+      this.createUserSettings(userId, settingsTemplate);
+    }
+  }
+
+  firstEnterOfUser = async (errorHandler) => {
+    const userIsLogged = this.isUserLogged();
+    let stats;
+    let settings;
+    if (userIsLogged) {
+      try {
+        const userId = localStorage.getItem(localStorageItems.userId);
+        stats = await this.getUserStatistics(userId);
+        this.setNewStatistics(userId, stats);
+        settings = await this.getUserSettings(userId);
+        this.setNewSettings(userId, settings);
+        // TODO - make drop settings into redux store here
+      } catch (error) {
+        console.error(error);
+        // errorHandler(error);
+      }
+    } else {
+      if (!localStorage.getItem(localThings.STATISTICS)) {
+        localStorage.setItem(localThings.STATISTICS, JSON.stringify(statsTemplate));
+      }
+      if (!localStorage.getItem(localThings.SETTINGS)) {
+        localStorage.setItem(localThings.SETTINGS, JSON.stringify(settingsTemplate));
+      }
+      // TODO - make drop settings to redux store here
+    }
+  }
+
+  // begin of 2nd step
+  prepareWordsForGame = async (
+    thingName,
+    userGroup,
+    dayLimit,
+    isAllowedToGetUserWords = true,
+  ) => {
+    clearSessionData(thingName);
+    const userIsLogged = this.isUserLogged();
+    const userId = localStorage.getItem(localStorageItems.userId);
+    let userWords;
+    if (isAllowedToGetUserWords) {
+      userWords = !userIsLogged
+        ? getDayLocalUserWords(dayLimit)
+        : this.getUserWordsNoRemovedStamp(userId); // TODO: here will be filtered request to backend
+    }
+    const rest = dayLimit - userWords.length;
+    const words = await getWordsByAmount(userGroup, rest);
+    const grouped = isAllowedToGetUserWords
+      ? [...words, ...userWords]
+      : [...words];
+    return shufleWordsArray(grouped);
+  }
+
+  prepareToLearnWords = async (dayLimit, userGroup) => {
+    const userIsLogged = this.isUserLogged();
+    const userId = localStorage.getItem(localStorageItems.userId);
+    const userWords = await !userIsLogged
+      ? getDayLocalUserWords(dayLimit)
+      : this.getUserWordsNoRemovedStamp(userId);
+    const rest = dayLimit - userWords.length;
+    const words = await getWordsByAmount(userGroup, rest);
+    const grouped = userWords.length
+      ? [...words, ...userWords]
+      : [...words];
+    return shufleWordsArray(grouped);
+  }
+
+  updateUserStatistics = async (stats, userId, prevStats) => {
+    try {
+      const statsObject = {};
+      statsObject.learnedWords = prevStats.learnedWords;
+      statsObject.optional = prevStats.optional;
+      const option = {};
+      option.learnedWords = stats.learnedWords;
+      option.optional = stats.optional;
+      const data = {
+        userId,
+        option,
+      };
+      this.createUserStatistics(data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  recordNewWordsToUserWords = async (newWords, userId) => {
+    try {
+      newWords.forEach((newWord) => {
+        const difficulty = String(newWord.word.difficulty);
+        const { optional } = newWord.word;
+        const word = {
+          difficulty,
+          optional,
+        };
+        const data = {
+          userId,
+          wordId: newWord.wordId,
+          word,
+        };
+        this.createUserWord(data);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  updateUserWords = async (userWords, userId) => {
+    try {
+      userWords.forEach((userWord) => {
+        const difficulty = String(userWord.word.difficulty);
+        const { optional } = userWord.word;
+        const word = {
+          difficulty,
+          optional,
+        };
+        const data = {
+          userId,
+          wordId: userWord.wordId,
+          word,
+        };
+        this.updateUserWordById(data);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  handleEndOfGame = async (thingName) => {
+    const userIsLogged = this.isUserLogged();
+    if (!userIsLogged) {
+      saveSessionInfoToLocal(thingName);
+    } else {
+      const userId = localStorage.getItem(localStorageItems.userId);
+      const prevStats = await this.getUserStatistics(userId);
+      const { stats, newWords, userWords } = prepareSessionInfoToServer(thingName, prevStats);
+      this.updateUserStatistics(stats, userId, prevStats);
+      this.recordNewWordsToUserWords(newWords, userId);
+      this.updateUserWords(userWords, userId);
+      clearSessionData(thingName);
+    }
   }
 }
