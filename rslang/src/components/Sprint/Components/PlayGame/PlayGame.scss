@@ -1,40 +1,50 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+
 .sprint-play__container{
   max-width: 600px;
   max-height: 400px;
   margin: 0 auto;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
+  font-family: $font-secondary;
 }
+
 .sprint-play__header{
   display: flex;
   justify-content: space-between;
-  padding-bottom: 20px;
 }
-.sprint-play__point-wrapper{
+
+.sprint-play__point-wrapper {
   display: flex;
 }
-.sprint-play__point-score{
-  margin-left: 10px;
-  font-size: 2.4rem;
-  font-weight: 600;
-}
+
 .sprint-play__timer-wrapper{
   display: flex;
 }
-.sprint-play__timer{
-margin-left: 10px;
+
+.sprint-play__timer,
+.sprint-play__point-score {
+  height: fit-content;
+  margin-left: 10px;
+  margin-top: 1px;
+  @include font(
+    $size: 2.4rem,
+    $weight: $font-weight-semibold,
+    $family: $font-secondary,
+    $line-height: 90%
+  );
 }
-.sprint-play__volume{
+
+.sprint-play__volume {
   color: #000000;
  position: relative;
  bottom: 12px;
 }
-.sprint-play__board{
-  background-color: rgb(233, 233, 233);
+.sprint-play__board {
+  background-color: $color-light;
   margin: 0 auto;
   margin-bottom: 3vh;
   text-align: center;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
   border-radius: 5px;
 }
 .sprint-play__rangs{
