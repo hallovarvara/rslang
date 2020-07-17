@@ -12,10 +12,9 @@
 
 .about-us__desctiption {
   margin-bottom: 50px;
+  color: rgba($color: $color-dark, $alpha: 0.6);
 
   text-align: center;
-
-  color: rgba($color: $color-dark, $alpha: 0.6);
 
   @include font(
     $size: 3.2rem,

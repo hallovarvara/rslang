@@ -4,7 +4,7 @@
   padding: 10px;
   list-style-position: inside;
   @include flex(row, space-between, center);
-  @media (max-width: $tablet-width) {
+  @include media-tablet {
     flex-direction: column;
   }
 }

@@ -6,7 +6,11 @@ import {
   soundSuccess,
   soundError,
 } from '../../../../helpers/constants';
-import { handleGameRightAnswer, handleGameWrongAnswer, saveSessionInfoToLocal } from '../../../../helpers/wordsService';
+import { 
+  handleGameRightAnswer,
+  handleGameWrongAnswer,
+  saveSessionInfoToLocal,
+} from '../../../../helpers/wordsService';
 import { applicationThings } from '../../../../helpers/constants';
 
 class GamePage extends React.Component {
@@ -29,10 +33,8 @@ class GamePage extends React.Component {
 
   componentDidMount = () => {
     const { dataWords, countQuestions } = this.state;
-    console.log(countQuestions)
     const { level } = this.state;
     const questionList = generateQuestionsArray(dataWords, countQuestions);
-    console.log(dataWords, questionList, level)
     const answerArray = this.getAnswersArray(dataWords, questionList, level);
     this.setState({ questionList, answerArray });
   }

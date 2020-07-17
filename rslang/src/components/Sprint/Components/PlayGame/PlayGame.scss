@@ -1,7 +1,7 @@
 @import './src/scss/abstracts/constants';
 @import './src/scss/abstracts/mixins';
 
-.sprint-play__container{
+.sprint-play__container {
   max-width: 600px;
   max-height: 400px;
   margin: 0 auto;
@@ -9,7 +9,7 @@
   font-family: $font-secondary;
 }
 
-.sprint-play__header{
+.sprint-play__header {
   display: flex;
   justify-content: space-between;
 }
@@ -18,15 +18,15 @@
   display: flex;
 }
 
-.sprint-play__timer-wrapper{
+.sprint-play__timer-wrapper {
   display: flex;
 }
 
 .sprint-play__timer,
 .sprint-play__point-score {
   height: fit-content;
-  margin-left: 10px;
   margin-top: 1px;
+  margin-left: 10px;
   @include font(
     $size: 2.4rem,
     $weight: $font-weight-semibold,
@@ -36,15 +36,15 @@
 }
 
 .sprint-play__volume {
-  color: #000000;
   position: relative;
   bottom: 12px;
+  color: #000000;
 }
 .sprint-play__board {
-  background-color: $color-light;
   margin: 0 auto;
   margin-bottom: 3vh;
   text-align: center;
+  background-color: $color-light;
   border-radius: 5px;
 }
 .sprint-play__rangs {
@@ -53,11 +53,11 @@
   padding: 20px 0 80px;
 }
 .sprint-play__rang-item {
-  margin-left: 10px;
+  box-sizing: border-box;
   width: 30px;
   height: 30px;
+  margin-left: 10px;
   border-radius: 50%;
-  box-sizing: border-box;
 }
 .sprint-play__icons {
   position: relative;
@@ -71,11 +71,11 @@
   letter-spacing: 0em;
 }
 .sprint-play__translate {
+  padding-bottom: 80px;
+  color: #7c7c7c;
   font-size: 3rem;
   line-height: 1.43;
   letter-spacing: 0.01071em;
-  padding-bottom: 80px;
-  color: #7c7c7c;
 }
 .sprint-play__control {
   display: flex;

@@ -8,7 +8,6 @@
 .preview-settings__setting {
   min-width: 300px;
   margin-bottom: 15px;
-
   cursor: pointer;
 
   @include flex(row, flex-start, center);

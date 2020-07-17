@@ -5,17 +5,17 @@
   margin: 0 auto;
 }
 .titleName {
-  text-align: center;
   margin: 100px 0 30%;
+  text-align: center;
 }
 .form {
   display: flex;
   flex-direction: column;
 }
 .startExplanation {
-  display: block;
-  font-size: 1.5rem;
-  color: #505050;
   right: 10px;
+  display: block;
   padding-bottom: 100px;
+  color: #505050;
+  font-size: 1.5rem;
 }

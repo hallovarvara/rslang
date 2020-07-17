@@ -1,0 +1,5 @@
+.game-page__container {
+  padding: 40px;
+  @include flex(column, center, center);
+}
+  

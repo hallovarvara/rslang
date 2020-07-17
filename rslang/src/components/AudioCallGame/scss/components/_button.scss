@@ -16,17 +16,17 @@
   &_big {
     padding: 10px 30px;
     font-size: 2rem;
-    @media (max-width: $tablet-width) {
+    @include media-tablet {
       font-size: 2rem;
     }
-    @media (max-width: $mobile-width) {
+    @include media-mobile {
       font-size: 1.6rem;
     }
   }
   &_small {
     padding: 10px 20px;
     font-size: 1.4rem;
-    @media (max-width: $mobile-width) {
+    @include media-mobile {
       padding: 5px 10px;
       font-size: 1.2rem;
     }
