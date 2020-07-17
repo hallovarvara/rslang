@@ -10,12 +10,23 @@ import classes from './ActiveQuiz.module.scss';
 const Zoom = styled.div`animation: 2s ${keyframes`${zoomInLeft}`}`;
 
 class ActiveQuiz extends Component {
+
+  timerId = setInterval(() => {
+    this.props.onTimeOut();
+  }, 1000);
+
   componentDidUpdate() {
-    if (this.props.timer === 6) this.props.onDefault();
+    if (this.props.timer === 6) {
+      this.props.onDefault();
+    }
+
+    if (this.props.heartCount === 0) {
+      this.props.handleClose();
+    }
   }
 
-  componentDidMount() {
-    this.props.onTimeOut();
+  componentWillUnmount() {
+    clearInterval(this.timerId);
   }
 
   render() {
@@ -53,6 +64,8 @@ ActiveQuiz.propTypes = {
   timer: PropTypes.number,
   onDefault: PropTypes.func,
   onTimeOut: PropTypes.func,
+  heartCount: PropTypes.number,
+  handleClose: PropTypes.func,
 };
 
 ActiveQuiz.defaultProps = {
@@ -65,6 +78,8 @@ ActiveQuiz.defaultProps = {
   timer: 0,
   onDefault: () => { },
   onTimeOut: () => { },
+  heartCount: 0,
+  handleClose: () => { },
 };
 
 export default ActiveQuiz;
