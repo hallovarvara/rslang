@@ -49,11 +49,34 @@ const addLinksToHeader = (link, index) => {
 class HeaderView extends React.Component {
   state = {
     currentGame: null,
+    menu: false,
   }
 
   componentDidMount() {
     this.updateLogoAccordingToCurrentGame();
     window.addEventListener('hashchange', this.updateLogoAccordingToCurrentGame);
+  }
+
+  toggleMenu = () => {
+    this.setState((state) => ({
+      menu: !state.menu,
+    }));
+  }
+
+  closeMenu = (event) => {
+    if (!event.target.closest('.menu-hamburger')
+    && ((event.target.tagName === 'A' && event.target.closest('.navigation__item'))
+      || (!event.target.closest('.navigation-container')))) {
+      this.setState({ menu: false });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.menu) {
+      document.body.addEventListener('click', this.closeMenu);
+    } else {
+      document.body.removeEventListener('click', this.closeMenu);
+    }
   }
 
   updateLogoAccordingToCurrentGame = () => {
@@ -82,11 +105,27 @@ class HeaderView extends React.Component {
       logout: logoutUser,
     } = this.props;
 
-    const { currentGame } = this.state;
+    const { currentGame, menu } = this.state;
 
     const logoClasses = classNames({
       logo: true,
       [`logo_${currentGame}`]: Boolean(currentGame),
+    });
+
+    const menuHamburgerClasses = classNames({
+      'menu-hamburger': true,
+      active: menu,
+      [`menu-hamburger_${currentGame}`]: Boolean(currentGame),
+    });
+
+    const menuHamburgerLineClasses = classNames({
+      'menu-hamburger__line': true,
+      [`menu-hamburger_${currentGame}__line`]: Boolean(currentGame),
+    });
+
+    const navClasses = classNames({
+      'navigation-container': true,
+      [`navigation-container_${currentGame}`]: Boolean(currentGame),
     });
 
     return (
@@ -94,7 +133,10 @@ class HeaderView extends React.Component {
       <NavLink activeClassName="navigation__item_active" to={getPath()}>
         <Logo className={logoClasses} />
       </NavLink>
-      <nav>
+      <div onClick={this.toggleMenu} className={menuHamburgerClasses}>
+        <span className={menuHamburgerLineClasses}></span>
+      </div>
+      <nav className={navClasses}>
         <ul className="navigation">
           {
             links.map(addLinksToHeader)
