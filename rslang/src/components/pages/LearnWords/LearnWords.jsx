@@ -209,6 +209,7 @@ export default class LearnWords extends Component {
     wordObject.progress.isGuessed = true;
     wordObject.progress.isShownWord = true;
     wordObject.progress.isUsedTip = true;
+    wordObject.progress.difference = null;
     this.setState((state) => ({
       words: state.words.map((el) => (el.id === wordObject?.id ? wordObject : el)),
       statsMistakesCount: state.statsMistakesCount + 1,
