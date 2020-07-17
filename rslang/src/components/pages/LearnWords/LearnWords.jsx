@@ -5,7 +5,6 @@ import WordCard from './Views/WordCard';
 import StartView from './Views/StartView';
 import Preloader from '../../../basicComponents/Preloader';
 import ShortStats from './Views/ShortStats';
-import response from './helpers/response.json';
 import * as settings from './helpers/settings';
 import { wordBaseTemplate, initialState } from './helpers/constants';
 import {
@@ -20,12 +19,22 @@ import {
   updateUserWordRepeated,
   updateUserWordDifficulty,
   updateUserWordRemoved,
+  handleGameRightAnswer,
+  handleGameWrongAnswer,
+  prepareSessionInfoToServer,
+  saveSessionInfoToLocal,
 } from '../../../helpers/wordsService';
 import {
   localStorageItems,
   levelsOfDifficulty,
+  applicationThings,
 } from '../../../helpers/constants';
 import { clearSessionData } from '../../../helpers/wordsService/storageModel';
+import { statsTemplate, changeStats } from '../../../helpers/wordsService/statsModel';
+import UserService from '../../../helpers/userService';
+import { getWordsByAmount } from '../../../helpers/wordsService/wordsApi';
+
+const userservice = new UserService();
 
 export default class LearnWords extends Component {
   state = initialState;
@@ -45,9 +54,10 @@ export default class LearnWords extends Component {
   }
 
   componentDidMount() {
+    userservice.firstEnterOfUser();
     const learnSessionProgress = getSessionProgress();
-    const { isLogged, token, userId } = this.checkForLoggedUser();
     if (learnSessionProgress) {
+      const { isLogged, token, userId } = this.checkForLoggedUser();
       this.setState({
         totalWords: learnSessionProgress.length,
         words: learnSessionProgress,
@@ -67,15 +77,11 @@ export default class LearnWords extends Component {
     }));
   };
 
-  fakeApi = () => (
-    response
-  );
-
   getDataFromApi = () => {
     this.setState((state) => ({
       isFetching: !state.isFetching,
     }));
-    return this.fakeApi();
+    return getWordsByAmount(1, 10);
   };
 
   toggleAutoPlay = () => {
@@ -119,6 +125,7 @@ export default class LearnWords extends Component {
       } else if (!isSecondPastDone) {
         this.thirdRepeat();
       } else {
+        userservice.handleEndOfGame();
         this.setState({
           isShownShortStats: true,
         });
@@ -274,9 +281,12 @@ export default class LearnWords extends Component {
     ));
   }
 
-  handleStartNewLearning = () => {
+  handleStartNewLearning = async () => {
     clearSessionData();
-    const wordsFromApiResponse = this.getDataFromApi();
+    const wordsFromApiResponse = await userservice.prepareToLearnWords(
+      20,
+      1,
+    );
     const words = this.prepareSessionProgress(wordsFromApiResponse);
     const statsNewWordsCount = words.filter((el) => !el.userWord).length;
     setSessionProgress(words);
@@ -285,7 +295,7 @@ export default class LearnWords extends Component {
         words,
         statsNewWordsCount,
         totalWords: words.length,
-        isFetching: !state.isFetching,
+        isFetching: false,
         isStartLearning: !state.isStartLearning,
       }
     ));
@@ -396,6 +406,32 @@ export default class LearnWords extends Component {
                 onChangeProgress={this.handleChangeProgress}
                 onPlayAudio={this.playAudio}
               />
+              <button onClick={
+                () => this.setState({ isFirstPassDone: true })
+              }>Test</button>
+            <button onClick={
+              () => handleGameRightAnswer(applicationThings.SAVANNAH, currentWord)
+            }>game right</button>
+            <button onClick={
+              () => handleGameWrongAnswer(applicationThings.SAVANNAH, currentWord)
+            }>game wrong</button>
+            <button onClick={
+              () => {
+                const stats = JSON.parse(localStorage.rslangUserStatistics);
+                console.log(prepareSessionInfoToServer(applicationThings.LEARN_WORDS, stats));
+              }
+            }>prepare</button>
+            <button onClick={
+              () => saveSessionInfoToLocal(applicationThings.LEARN_WORDS)
+            }>save</button>
+            <button onClick={
+              () => console.log(changeStats(
+                applicationThings.SAVANNAH,
+                { games: 1, wrong: 4, right: 9 },
+                statsTemplate,
+              ))}>
+              update stats
+              </button>
             </>
           )}
       </div>
