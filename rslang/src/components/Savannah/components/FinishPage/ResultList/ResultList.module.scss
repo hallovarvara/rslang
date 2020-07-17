@@ -1,32 +1,35 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+
 .ResultList {
   display: block;
 }
-.mistakeTitle{
+
+.mistakeTitle {
   color: gray;
 }
-.Total{
-  padding: 0 10px;
+
+.Total {
   margin-left: 10px;
-  color: #ffffff;
+  padding: 0 10px;
+  color: $color-light;
   border-radius: 10px;
 }
 
-.error{
-  background: rgba(240, 87, 108, .7);
+.error {
+  background: rgba(240, 87, 108, 0.7);
 }
 
 .success {
-  background: rgba(161, 240, 69, .7);
+  background: rgba(161, 240, 69, 0.7);
 }
 
-.Title{
+.Title {
   margin: 0 0 10px 43px;
   color: rgb(82, 82, 82);
 }
 
-.Content{
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+.Content {
   padding: 4px 0;
+  @include flex(column, flex-start, flex-start);
 }

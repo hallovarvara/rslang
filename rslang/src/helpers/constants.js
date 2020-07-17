@@ -66,7 +66,10 @@ const pagesData = {
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
-    title: 'Учить слова',
+    title: 'Изучение слов',
+    description: 'Расширяйте английский лексикон с помощью встроенных правил повторения слов',
+    rules: 'Впишите правильное слово в предложение',
+    rateDescription: 'Оцените, насколько легко было угадать слово:',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
@@ -110,7 +113,7 @@ const pagesData = {
   vocabulary: {
     title: 'Словарь',
     path: 'vocabulary',
-    guest: { isVisible: true, index: 5 },
+    guest: { isVisible: false },
     user: { isVisible: true, index: 5 },
   },
 };
@@ -307,7 +310,7 @@ const text = {
     return: 'Назад',
     latestRusults: 'Последние результаты',
     currentResults: 'Текущие результаты',
-    notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
+    notEnoughWords: 'Сначала в игре появятся изучаемые слова, потом новые. Выберите сложность новых слов:',
 
     /* Unmess */
     unmess: {

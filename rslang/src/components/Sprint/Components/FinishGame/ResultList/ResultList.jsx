@@ -46,7 +46,7 @@ ResultList.defaultProps = {
     translate: [],
     audio: [],
   },
-  resultTitle: '',
+  resultTitle: {},
   status: '',
 };
 

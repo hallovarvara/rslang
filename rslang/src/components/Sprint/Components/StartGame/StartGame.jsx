@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Switcher from '../UI/switch';
 import StartGameForm from '../UI/StartGameForm';
 import Stepper from '../../../../basicComponents/Stepper';
 import { text, count } from '../../../../helpers/constants';
@@ -19,10 +18,8 @@ const StartGame = ({
     startGame();
   };
 
-
-
   return (
-    <div className={'sprint-start__container'}>
+    <div className="sprint-start__container">
       <StartGameUserForm
         handleChangeUserWords={handleChangeUserWords}
         handleCurrentGroup={handleCurrentGroup}
@@ -37,23 +34,18 @@ const StartGame = ({
 };
 
 const StartGameUserForm = ({
-  handleChangeUserWords, handleCurrentGroup, onSubmitForm, token, currentGroup,
+  handleCurrentGroup, onSubmitForm, token, currentGroup,
 }) => {
-  console.log(currentGroup)
   return (
     <div className={'sprint-start__container'}>
 
       <div className={'sprint-start__form-container'}>
-        {token
-          ? (<React.Fragment>
-            <span className={'sprint-start__explanation'}>
+        {token && (
+          <>
+            <p className="sprint-start__explanation">
               {text.ru.notEnoughWords}
-            </span>
-            <Switcher
-              handleChangeUserWords={handleChangeUserWords}
-            />
-          </React.Fragment>)
-          : null
+            </p>
+          </>)
         }
         <Stepper
           defaultValue={currentGroup + 1}
@@ -63,20 +55,17 @@ const StartGameUserForm = ({
           marks={generateStepperMarks(groups)}
           className="sprint-levels-stepper"
           label="Выберите уровень:"
-          arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#F9C74F', '#F8961E', '#F3722C', '#F94144']}
+          arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#fcff79', '#F8961E', '#F3722C', '#F94144']}
           stickyLabel={false}
         />
       </div>
 
       <StartGameForm
-        classNameForm={'sprint-start__form'}
         handleCurrentGroup={handleCurrentGroup}
         onSubmitForm={onSubmitForm}
       />
-
-
     </div >
-  )
+  );
 };
 
 StartGame.propTypes = {

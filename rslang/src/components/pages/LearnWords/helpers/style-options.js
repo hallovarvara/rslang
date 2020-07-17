@@ -1,7 +1,7 @@
-const hideColor = '#999999';
-export const successColor = '#2ab823';
-export const fewErrorsColor = '#f28029';
-export const manyErrorsColor = '#db4621';
+const hideColor = '#d9d9d9';
+export const successColor = '#00e5a1';
+export const fewErrorsColor = '#fff066';
+export const manyErrorsColor = '#ff7d95';
 
 export const hideWordStyles = {
   backgroundColor: hideColor,

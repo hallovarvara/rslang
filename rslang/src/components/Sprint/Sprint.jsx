@@ -5,6 +5,7 @@ import StartGame from './Components/StartGame';
 import PlayGame from './Components/PlayGame';
 import FinishGame from './Components/FinishGame';
 import UserService from '../../helpers/userService';
+import Switcher from './Components/UI/switch';
 
 import {
   text,
@@ -42,7 +43,7 @@ const initialState = {
   activeAnswer: '',
   activeCard: 0,
   isTrue: null,
-  isAnswerQuiz: 'default',
+  isAnswerQuiz: 0,
   audio: [],
   answerState: null,
   currentGroup: 0,
@@ -169,7 +170,7 @@ class Sprint extends Component {
 
   updateCounter = (mult = 1, win = 0) => {
     const multiplier = win && this.state.counter.win
-      && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
+    && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -200,7 +201,6 @@ class Sprint extends Component {
   }
 
   onClickHandler = (e) => {
-    console.log(initialState)
     let value;
     if (e.key === 'ArrowLeft') {
       value = false;
@@ -260,7 +260,7 @@ class Sprint extends Component {
   render() {
     const {
       words, activeAnswer, translateWords, isAnswerQuiz, counter, currentGroup,
-      volume, score, timer, isFinished, mistake, complete, isStarted,
+      volume, score, timer, isFinished, mistake, complete, isStarted, token,
     } = this.state;
 
     let page;
@@ -268,7 +268,6 @@ class Sprint extends Component {
       page = <StartGame
         isStarted={isStarted}
         startGame={() => this.setState({ isStarted: true })}
-        handleChangeUserWords={this.isChangeUserWords}
         handleCurrentGroup={this.handleCurrentGroup}
         updateState={this.updateState}
         currentGroup={currentGroup}
@@ -302,12 +301,18 @@ class Sprint extends Component {
     return (
       <div className={'sprint__wrapper'}>
         <div className={'sprint__container'}>
-          <h1>{gamesData.sprint.title}</h1>
+          <div className="sprint__title">
+            <h1>{gamesData.sprint.title}</h1>
+            {
+              this.props.token && (<Switcher
+                className="sprint-start__switcher"
+                handleChangeUserWords={this.isChangeUserWords}
+              />)
+            }
+          </div>
           {page}
-
         </div>
       </div>
-
     );
   }
 }

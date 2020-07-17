@@ -20,7 +20,7 @@ const Header = ({
           ? <VolumeUpIcon className={classes.Icon} style={{ fontSize: 20 }} />
           : <VolumeOffIcon className={classes.Icon} style={{ fontSize: 20 }} />}
       </IconButton>
-      <div>
+      <div className="savannah__gamelifes">
         {arrMistake.map((value, key) => <FavoriteBorderIcon key={key} style={{ fontSize: 20 }} />)}
         {arrComplete.map((value, key) => <FavoriteIcon key={key} style={{ fontSize: 20 }} />)}
       </div>

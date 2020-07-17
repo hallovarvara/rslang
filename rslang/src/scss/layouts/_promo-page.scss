@@ -10,6 +10,7 @@
 
 .promo-page__subtitle {
   max-width: 1040px;
+  margin: 0 auto;
   margin-bottom: 70px;
   text-transform: uppercase;
 
@@ -23,7 +24,7 @@
 
 .promo-page__start-button.MuiButton-root.btn {
   margin-bottom: 90px;
-  @extend %promo-button;
+  @include button();
 }
 
 .promo-page__features {
