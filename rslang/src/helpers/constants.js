@@ -6,12 +6,12 @@ import Varya from '../assets/images/team/varvara-deviaterikova.jpg';
 import Ksusha from '../assets/images/team/kseniya-yatskevich.jpeg';
 import Max from '../assets/images/team/maksym-kaspriv.jpg';
 import Artem from '../assets/images/team/artem-rimarchyk.jpeg';
-// import Dima from '../assets/images/team/dmitry-lebetsky.jpg'; // TODO add Dima's photo
+import Dima from '../assets/images/team/dmitry-lebetsky.jpg';
 import Lesha from '../assets/images/team/alexei-osipov.jpg';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
-  base: 'https://afternoon-falls-25894.herokuapp.com/',
+  base: 'https://kagafon-learn-words.herokuapp.com/',
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
@@ -66,7 +66,10 @@ const pagesData = {
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
-    title: 'Учить слова',
+    title: 'Изучение слов',
+    description: 'Расширяйте английский лексикон с помощью встроенных правил повторения слов',
+    rules: 'Впишите правильное слово в предложение',
+    rateDescription: 'Оцените, насколько легко было угадать слово:',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
@@ -81,18 +84,24 @@ const pagesData = {
     title: 'О проекте',
     path: '',
     guest: { isVisible: true, index: 0 },
-    user: { isVisible: true, index: 2 },
+    user: { isVisible: true, index: 3 },
   },
   settings: {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: true, index: 6 },
+    user: { isVisible: false, index: 6 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: true, index: 6 },
+    guest: { isVisible: false, index: 6 },
+    user: { isVisible: false },
+  },
+  signOut: {
+    title: 'Выйти',
+    path: 'sign-in',
+    guest: { isVisible: false },
     user: { isVisible: false },
   },
   register: {
@@ -169,7 +178,7 @@ const teamMembers = [
     name: 'Дмитрий',
     surname: 'Лебецкий',
     role: `Сделал игры ${gamesData.speakit.title} и ${gamesData.unmess.title} с уникальным дизайном, базовые компоненты и страницы, словарь. Верстал, стилизовал, структурировал код, помогал тимлиду и команде`,
-    // image: Dima,  // TODO add Dima's photo
+    image: Dima,
     linkedinUsername: 'dmitry-lebetsky',
   },
   {
@@ -223,7 +232,7 @@ const text = {
     firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
     incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
-    welcome: 'Добро пожаловать, {username} :)',
+    welcome: 'Привет, {username} :)',
 
     /* Play page */
     chooseGame: 'Выберите игру',
@@ -300,6 +309,9 @@ const text = {
     howManyWords: 'Сколько слов хотите угадать',
     chooseLevel: 'Выберите уровень сложности',
     choosePage: 'Выберите набор слов',
+    selectOptionsForUsedWord: ['изученные слова', 'новые слова'],
+    studiedByYou: 'изученные слова',
+    newByComplexity: 'новые слова',
     newGame: 'Новая игра',
     restart: 'Сначала',
     speakPlease: 'Нажмите и произносите слова',
@@ -308,11 +320,6 @@ const text = {
     latestRusults: 'Последние результаты',
     currentResults: 'Текущие результаты',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
-    selectOptionsForUsedWord: ['изученные слова', 'новые слова'],
-    studiedByYou: 'изученные слова',
-    newByComplexity: 'новые слова',
-    loginPleaseToUseThisFeature: 'Войдите в систему, чтобы воспользоваться этим функционалом',
-    backendCrashed: 'Извините, сервис временно недоступен',
 
     /* Unmess */
     unmess: {
@@ -333,6 +340,7 @@ const text = {
       dontKnow: 'Не знаю',
       startGame: 'Играть',
       newGame: 'Начать новую игру',
+      check: 'Проверить',
       learnWords: 'Изучать слова',
       learnEnglishWithUs: 'Учите английский с нами',
       startLearningWithUs: 'Начать учиться с нами',
