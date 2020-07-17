@@ -310,12 +310,14 @@ class Sprint extends Component {
         <div className={'sprint__container'}>
           <div className="sprint__title">
             <h1>{gamesData.sprint.title}</h1>
-            <Select
-              // className="sprint-start__switcher"
-              setUsingOfUserWords={this.isChangeUserWords}
-              useUserWords={this.state.checkedUserWords}
-              isUserLogged={this.props.token}
-            />
+            { this.props.token && (
+              <Select
+                className="sprint-start__select"
+                setUsingOfUserWords={this.isChangeUserWords}
+                useUserWords={this.state.checkedUserWords}
+                isUserLogged={this.props.token}
+              />)
+            }
           </div>
           {page}
         </div>
