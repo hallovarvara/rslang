@@ -9,6 +9,13 @@ import Artem from '../assets/images/team/artem-rimarchyk.jpeg';
 import Dima from '../assets/images/team/dmitry-lebetsky.jpg';
 import Lesha from '../assets/images/team/alexei-osipov.jpg';
 
+import SavannahIcon from '../assets/icons/icon-game-savannah.png';
+import SprintIcon from '../assets/icons/icon-game-sprint.png';
+import AudiocallIcon from '../assets/icons/icon-game-audiocall.png';
+import EnglishPuzzleIcon from '../assets/icons/icon-game-english-puzzle.png';
+import SpeakitIcon from '../assets/icons/icon-game-speakit.png';
+import UnmessIcon from '../assets/icons/icon-game-unmess.png';
+
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
   base: 'https://kagafon-learn-words.herokuapp.com/',
@@ -91,12 +98,12 @@ const pagesData = {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: false, index: 6 },
+    user: { isVisible: false, index: 5 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: false, index: 6 },
+    guest: { isVisible: false, index: 4 },
     user: { isVisible: false },
   },
   signOut: {
@@ -114,14 +121,14 @@ const pagesData = {
   statistics: {
     title: 'Статистика',
     path: 'statistics',
-    guest: { isVisible: true, index: 4 },
+    guest: { isVisible: false },
     user: { isVisible: true, index: 4 },
   },
   vocabulary: {
     title: 'Словарь',
     path: 'vocabulary',
-    guest: { isVisible: true, index: 5 },
-    user: { isVisible: true, index: 5 },
+    guest: { isVisible: false },
+    user: { isVisible: false },
   },
 };
 
@@ -130,33 +137,39 @@ const gamesData = {
     title: 'Аудиовызов',
     description: 'Прокачивайте восприятие языка на&nbsp;слух, а&nbsp;также увеличивайте свой словарный запас',
     path: 'audiocall',
+    icon: AudiocallIcon,
   },
   savannah: {
     title: 'Саванна',
     description: 'Угадывайте, как переводятся слова, и&nbsp;вместе с&nbsp;этим пополняйте лексикон',
     path: 'savannah',
+    icon: SavannahIcon,
   },
   sprint: {
     title: 'Спринт',
     description: 'Играйте на&nbsp;время, чтобы точно знать, как много слов вы&nbsp;можете перевести за&nbsp;минуту',
     path: 'sprint',
+    icon: SprintIcon,
   },
   englishPuzzle: {
     title: 'English Puzzle',
     description: 'Учитесь строить предложения и&nbsp;знакомьтесь с&nbsp;величайшими произведениями искусства',
     path: 'english-puzzle',
+    icon: EnglishPuzzleIcon,
   },
   speakit: {
     title: 'SpeakIt',
     description: 'Вырабатывайте правильное произношение слов вместе с&nbsp;нашей космической игрой',
     path: 'speakit',
     startPath: 'speakit/home',
+    icon: SpeakitIcon,
   },
   unmess: {
     title: 'Unmess',
     description: 'Соединяйте слова и&nbsp;их&nbsp;значения, расширяя запас слов и&nbsp;улучшая понимание смысла фраз',
     path: 'unmess',
     startPath: 'unmess/home',
+    icon: UnmessIcon,
   },
 };
 
@@ -311,6 +324,9 @@ const text = {
     howManyWords: 'Сколько слов хотите угадать',
     chooseLevel: 'Выберите уровень сложности',
     choosePage: 'Выберите набор слов',
+    selectOptionsForUsedWord: ['изученные слова', 'новые слова'],
+    studiedByYou: 'изученные слова',
+    newByComplexity: 'новые слова',
     newGame: 'Новая игра',
     restart: 'Сначала',
     speakPlease: 'Нажмите и произносите слова',

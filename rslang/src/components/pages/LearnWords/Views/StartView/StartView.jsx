@@ -12,7 +12,9 @@ const StartView = ({ onContinueLearning, onStartNewLearning, isContinued }) => (
       <span className="lw-icons-container__icon book"></span>
       <span className="lw-icons-container__icon hat"></span>
     </div>
-    <p className="lw-startview__wrapper__description">{ Parser(pagesData.learnWords.description) }</p>
+    <p className="lw-startview__wrapper__description">{
+      Parser(pagesData.learnWords.description)
+    }</p>
     {isContinued && (
         <h3 className="lw-startview-title">{labels.startLabel}</h3>
     )}

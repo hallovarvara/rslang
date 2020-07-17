@@ -139,15 +139,15 @@ export const updateLearnStats = (
   encodeMap = learnResultsEncodeMap,
   decodedTemplate = statsLearnObjTemplate,
 ) => (
-  updateStatsByThing(
-    thingName,
-    newResults,
-    statsObject,
-    decodeMap,
-    encodeMap,
-    decodedTemplate,
-  )
-);
+    updateStatsByThing(
+      thingName,
+      newResults,
+      statsObject,
+      decodeMap,
+      encodeMap,
+      decodedTemplate,
+    )
+  );
 
 export const updateGameStats = (
   thingName,
@@ -157,25 +157,25 @@ export const updateGameStats = (
   encodeMap = gameResultsEncodeMap,
   decodedTemplate = statsGameObjTemplate,
 ) => (
-  updateStatsByThing(
-    thingName,
-    newResults,
-    statsObject,
-    decodeMap,
-    encodeMap,
-    decodedTemplate,
-  )
-);
+    updateStatsByThing(
+      thingName,
+      newResults,
+      statsObject,
+      decodeMap,
+      encodeMap,
+      decodedTemplate,
+    )
+  );
 
 export const changeStats = (
   thingName,
   newResults,
   statsObject,
 ) => (
-  thingName === applicationThings.LEARN_WORDS
-    ? updateLearnStats(thingName, newResults, statsObject)
-    : updateGameStats(thingName, newResults, statsObject)
-);
+    thingName === applicationThings.LEARN_WORDS
+      ? updateLearnStats(thingName, newResults, statsObject)
+      : updateGameStats(thingName, newResults, statsObject)
+  );
 
 export const decodesStatsToGraph = (
   statsThingObject,
