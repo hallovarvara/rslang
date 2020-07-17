@@ -13,7 +13,8 @@
   }
 
   .makeStyles-root-1,
-  header.MuiAppBar-colorDefault {
+  header.MuiAppBar-colorDefault,
+  & > div {
     background-color: transparent;
   }
 
