@@ -117,7 +117,7 @@ PlayGame.propTypes = {
   onCLick: PropTypes.func,
   updateTimer: PropTypes.func,
   counterTotal: PropTypes.number,
-  isAnswerQuiz: PropTypes.string,
+  isAnswerQuiz: PropTypes.number,
 };
 
 export default PlayGame;

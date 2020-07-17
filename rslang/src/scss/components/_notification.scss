@@ -1,5 +1,28 @@
 .notification-root {
+  width: fit-content;
   .MuiSnackbarContent-message {
-    font-size: 2rem;
+    color: black;
+    @include font($line-height: 130%, $spacing: 0.02rem);
+  }
+
+  &.notification_success {
+    .MuiSnackbarContent-root,
+    .MuiPaper-root {
+      background-color: $color-success;
+    }
+  }
+
+  &.notification_error {
+    .MuiSnackbarContent-root,
+    .MuiPaper-root {
+      background-color: $color-error;
+    }
+  }
+
+  &.notification_warning {
+    .MuiSnackbarContent-root,
+    .MuiPaper-root {
+      background-color: $color-warning;
+    }
   }
 }

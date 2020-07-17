@@ -15,7 +15,6 @@
 }
 
 %padding {
-  padding: 0 50px 90px;
   padding-top: $header-height + 60px;
 }
 
@@ -36,5 +35,38 @@
       left: 105%;
       transition: left 0.7s, top 0.7s;
     }
+  }
+}
+
+%disabled {
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+%promo-button {
+  padding: 30px 110px;
+
+  &.btn-primary {
+    background-color: $color-primary-dark;
+  }
+  .MuiButton-label {
+    text-transform: uppercase;
+
+    text-shadow: 0px 4px 6px rgba($color-primary-dark, $alpha: 0.5),
+      0px 2px 1px rgba($color-primary-dark, $alpha: 0.5),
+      0px 1px 0px rgba($color-dark, $alpha: 0.8);
+
+    @include font(
+      $size: 3.4rem,
+      $weight: $font-weight-black,
+      $line-height: 100%,
+      $spacing: 0.08rem
+    );
+  }
+
+  // liquid
+  .MuiTouchRipple-root {
   }
 }

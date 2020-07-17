@@ -9,8 +9,8 @@ import {
   text,
 } from '../../../helpers/constants';
 
-// import feature1 from '../../../assets/images/promo/feature-comfort-safe.png';
-// TODO add to promo page with the other features
+import tmpFeatures from '../../../assets/images/promo/tmp-features.jpg';
+import tmpSpacingRepetition from '../../../assets/images/promo/tmp-spacing-repetition.jpg';
 
 const PromoPageView = () => (
   <div className="promo-page">
@@ -23,10 +23,16 @@ const PromoPageView = () => (
       </video>
       <Link to={ pagesData.learnWords.path }>
         <Button
-          className="demonstration-container__start-button"
+          className="promo-page__start-button"
           value={ text.ru.button.startLearningWithUs }
         />
       </Link>
+    </section>
+    <section className='promo-page__features'>
+      <img src={tmpFeatures} alt="Временная заглушка фич"/>
+    </section>
+    <section className='promo-page__spacing-repetition'>
+      <img src={tmpSpacingRepetition} alt="Временная заглушка интервального повторения"/>
     </section>
   </div>
 );

@@ -67,7 +67,10 @@ const pagesData = {
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
-    title: 'Учить слова',
+    title: 'Изучение слов',
+    description: 'Расширяйте английский лексикон с помощью встроенных правил повторения слов',
+    rules: 'Впишите правильное слово в предложение',
+    rateDescription: 'Оцените, насколько легко было угадать слово:',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
@@ -88,12 +91,18 @@ const pagesData = {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: true, index: 6 },
+    user: { isVisible: false, index: 6 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: true, index: 6 },
+    guest: { isVisible: false, index: 6 },
+    user: { isVisible: false },
+  },
+  signOut: {
+    title: 'Выйти',
+    path: 'sign-in',
+    guest: { isVisible: false },
     user: { isVisible: false },
   },
   register: {
@@ -224,7 +233,7 @@ const text = {
     firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
     incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
-    welcome: 'Добро пожаловать, {username} :)',
+    welcome: 'Привет, {username} :)',
 
     /* Play page */
     chooseGame: 'Выберите игру',

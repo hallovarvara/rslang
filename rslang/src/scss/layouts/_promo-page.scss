@@ -10,6 +10,7 @@
 
 .promo-page__subtitle {
   max-width: 1040px;
+  margin: 0 auto;
   margin-bottom: 70px;
   text-transform: uppercase;
 
@@ -17,6 +18,30 @@
     $size: 3.4rem,
     $weight: $font-weight-extralight,
     $line-height: 170%,
-    $spacing: 0.08rem,
+    $spacing: 0.08rem
   );
+}
+
+.promo-page__start-button.MuiButton-root.btn {
+  margin-bottom: 90px;
+  @extend %promo-button;
+}
+
+.promo-page__features {
+  background-color: $color-light;
+}
+
+.promo-page__spacing-repetition {
+  background-color: $color-primary;
+}
+
+// TODO change it with the real blocks
+.promo-page__features,
+.promo-page__spacing-repetition {
+  text-align: left;
+
+  & > img {
+    max-width: 100%;
+    height: auto;
+  }
 }
