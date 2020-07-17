@@ -131,11 +131,10 @@ export const calculateNextWordCard = (words, current) => {
   return result;
 };
 
-<<<<<<< HEAD
 export const mapSentenceToSpanItems = (sentence) => (
   sentence.split(' ').map((word, index) => <span key={index}>{word}</span>)
 );
-=======
+
 export const replaceElInArrayOfObject = (array, object) => {
   const indexOfObject = array.findIndex((wordObj) => (
     wordObj.id === object.id
@@ -147,4 +146,3 @@ export const replaceElInArrayOfObject = (array, object) => {
     ...array.slice(indexOfObject + 1),
   ].map((wordObj) => ({ ...wordObj }));
 };
->>>>>>> 7c7e90a04b6ba17b4951320ac99408b105bd6f7d
