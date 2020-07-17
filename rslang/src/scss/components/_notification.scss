@@ -1,4 +1,5 @@
 .notification-root {
+  width: fit-content;
   .MuiSnackbarContent-message {
     color: black;
     @include font($line-height: 130%, $spacing: 0.02rem);

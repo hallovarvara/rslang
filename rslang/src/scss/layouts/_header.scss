@@ -91,12 +91,10 @@
   }
 }
 
-.navigation__item.exit-icon {
+.navigation__item.navigation-icon {
   padding-top: 0;
-  @include media-header-breakpoint {
-    .MuiIconButton-root {
-      padding: 0;
-    }
+  .MuiIconButton-root {
+    padding: 0;
   }
   & * {
     color: inherit;

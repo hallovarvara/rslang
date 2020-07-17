@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import SettingsIcon from '@material-ui/icons/Settings';
 import IconButton from '@material-ui/core/IconButton';
 import { logout } from '../../redux/actions/auth';
 import MenuList from '../../basicComponents/MenuList';
@@ -104,6 +106,7 @@ class HeaderView extends React.Component {
       isUserLogged,
       logout: logoutUser,
     } = this.props;
+    console.log(links);
 
     const { currentGame, menu } = this.state;
 
@@ -142,17 +145,43 @@ class HeaderView extends React.Component {
             links.map(addLinksToHeader)
           }
           {
-            isUserLogged && <li className="navigation__item exit-icon">
-              <NavLink activeClassName="navigation__item_active" to="/">
+            !isUserLogged && <li className="navigation__item navigation-icon">
+              <NavLink activeClassName="navigation__item_active" to={getPath(pagesData.signIn.path)}>
                 <IconButton
                   onClick={logoutUser}>
-                  <ExitToAppIcon
+                  <MeetingRoomIcon
                     color="disabled"
                     style={{ fontSize: '3rem' }}
                   />
                 </IconButton>
-               </NavLink>
+              </NavLink>
             </li>
+          }
+          {
+            isUserLogged && <>
+              <li className="navigation__item navigation-icon">
+                <NavLink activeClassName="navigation__item_active" to={getPath(pagesData.settings.path)}>
+                  <IconButton
+                    onClick={logoutUser}>
+                    <SettingsIcon
+                      color="disabled"
+                      style={{ fontSize: '3rem' }}
+                    />
+                  </IconButton>
+                </NavLink>
+              </li>
+              <li className="navigation__item navigation-icon">
+                <NavLink exact activeClassName="navigation__item_active" to={getPath()}>
+                  <IconButton
+                    onClick={logoutUser}>
+                    <ExitToAppIcon
+                      color="disabled"
+                      style={{ fontSize: '3rem' }}
+                    />
+                  </IconButton>
+                </NavLink>
+              </li>
+            </>
           }
         </ul>
       </nav>
