@@ -319,7 +319,7 @@ const text = {
 
     /* audioCall */
     audioCall: {
-      instruction: 'Прослушайте слово и выберите правильный вариант',
+      instruction: 'Прослушайте слово и выберите его правильный перевод',
     },
 
     /* Speakit */
