@@ -4,8 +4,6 @@
 .audioCall-pages-stepper {
   &.sticky-label .MuiSlider-thumb:before {
     position: absolute;
-    top: 100%;
-    left: 50%;
     display: block;
     color: $color-light;
     font-size: 1.5rem;
@@ -62,4 +60,8 @@
 .audioCall-steppers-container {
   font-size: 1.6rem;
   @include flex(column, center, center);
+}
+
+.audioCall-levels-stepper {
+  margin-bottom: 20px;
 }
