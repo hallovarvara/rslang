@@ -77,7 +77,7 @@
   &.pencil {
     width: 120.71px;
     height: 130px;
-    background-image: url('../../assets/icons/icon-learn-words-Pencil.png');
+    background-image: url('../../assets/icons/icon-learn-words-1.svg');
     @include media-tablet {
       width: 100px;
       height: 107.7px;
@@ -85,7 +85,7 @@
   }
   &.book {
     width: 145.95px;
-    background-image: url('../../assets/icons/icon-learn-words-Book.png');
+    background-image: url('../../assets/icons/icon-learn-words-3.svg');
     @include media-tablet {
       width: 125px;
       height: 128.47px;
@@ -97,7 +97,7 @@
   }
   &.hat {
     width: 145.45px;
-    background-image: url('../../assets/icons/icon-learn-words-Hat.png');
+    background-image: url('../../assets/icons/icon-learn-words-2.svg');
     @include media-tablet {
       width: 125px;
       height: 128.91px;

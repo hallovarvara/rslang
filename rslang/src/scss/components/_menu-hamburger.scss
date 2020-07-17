@@ -1,0 +1,91 @@
+%hamburger-line {
+  position: absolute;
+  left: 50%;
+  display: inline-block;
+  width: 58%;
+  height: 3px;
+  border-radius: 3px;
+  transform: translateX(-50%);
+  content: '';
+}
+
+@mixin hamburger-colors($bgColor, $lineColor: $color-dark) {
+  background-color: $bgColor;
+  &:after,
+  &:before,
+  &__line {
+    background-color: $lineColor;
+  }
+}
+
+.menu-hamburger {
+  position: relative;
+  z-index: 1;
+  display: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  @include media-header-breakpoint {
+    display: inline-block;
+  }
+  &:before {
+    top: 30%;
+    transition: top $hamburger-transition ease $hamburger-transition,
+      transform $hamburger-transition ease 0s;
+    @extend %hamburger-line;
+  }
+  &:after {
+    bottom: 30%;
+    transition: bottom $hamburger-transition ease $hamburger-transition,
+      transform $hamburger-transition ease 0s;
+    @extend %hamburger-line;
+  }
+
+  &.active {
+    .menu-hamburger__line {
+      opacity: 0;
+    }
+    &:before {
+      top: calc(50% - 1.5px);
+      transform: translateX(-50%) rotate(45deg);
+      transition: top $hamburger-transition ease 0s,
+        transform $hamburger-transition ease $hamburger-transition;
+    }
+    &:after {
+      bottom: calc(50% - 1.5px);
+      transform: translateX(-50%) rotate(-45deg);
+      transition: bottom $hamburger-transition ease 0s,
+        transform $hamburger-transition ease $hamburger-transition;
+    }
+  }
+
+  /* COLORS */
+  & {
+    @include hamburger-colors($color-primary);
+  }
+  &_savannah {
+    @include hamburger-colors(complement($color-savannah-secondary));
+  }
+  &_sprint {
+    @include hamburger-colors($color-sprint-primary);
+  }
+  &_speakit {
+    @include hamburger-colors($color-light, #c128f6);
+  }
+  &_unmess {
+    @include hamburger-colors($color-light, #0c5c75);
+  }
+  &_english-puzzle {
+    @include hamburger-colors(#b38fff);
+  }
+  &_audiocall {
+    @include hamburger-colors($color-light, $color-audiocall-secondary);
+  }
+}
+
+.menu-hamburger__line {
+  top: calc(50% - 1.5px);
+  transition: opacity 0s ease $hamburger-transition;
+  @extend %hamburger-line;
+}
