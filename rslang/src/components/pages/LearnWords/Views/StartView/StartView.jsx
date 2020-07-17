@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Parser from 'html-react-parser';
 import { buttonsNames, labels } from '../../helpers/constants';
-import { pagesData } from '../../../../../helpers/constants';
+import {pagesData, text} from '../../../../../helpers/constants';
 
 const StartView = ({ onContinueLearning, onStartNewLearning, isContinued }) => (
   <div className="lw-startview__wrapper learn-words">
@@ -23,7 +23,11 @@ const StartView = ({ onContinueLearning, onStartNewLearning, isContinued }) => (
         </button>
       )}
       <button className="lw-startview__button-group__button start" onClick={() => onStartNewLearning()}>
-        {buttonsNames.NEW_LESSON}
+        {
+          isContinued
+            ? buttonsNames.NEW_LESSON
+            : text.ru.button.learnWords
+        }
       </button>
     </div>
   </div>
