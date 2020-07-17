@@ -200,7 +200,6 @@ class Sprint extends Component {
   }
 
   onClickHandler = (e) => {
-    console.log(initialState)
     let value;
     if (e.key === 'ArrowLeft') {
       value = false;
