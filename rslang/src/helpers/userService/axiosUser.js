@@ -5,7 +5,7 @@ import {
   localStorageItems,
 } from '../constants';
 
-export const getToken = (props) => props?.token;
+export const getToken = async (props) => props?.token;
 
 export const axiosuser = axios.create({
   baseURL: apiLinks.base,
