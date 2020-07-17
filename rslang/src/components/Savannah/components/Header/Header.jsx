@@ -5,12 +5,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-import CloseIcon from '@material-ui/icons/Close';
 
 import classes from './Header.module.scss';
 
 const Header = ({
-  volume, heartCount, handleVolume, mistakeTotal, handleClose,
+  volume, heartCount, handleVolume, mistakeTotal,
 }) => {
   const arrComplete = Array(heartCount).fill('');
   const arrMistake = Array(mistakeTotal).fill('');
@@ -21,14 +20,9 @@ const Header = ({
           ? <VolumeUpIcon className={classes.Icon} style={{ fontSize: 20 }} />
           : <VolumeOffIcon className={classes.Icon} style={{ fontSize: 20 }} />}
       </IconButton>
-      <div>
+      <div className="savannah__gamelifes">
         {arrMistake.map((value, key) => <FavoriteBorderIcon key={key} style={{ fontSize: 20 }} />)}
         {arrComplete.map((value, key) => <FavoriteIcon key={key} style={{ fontSize: 20 }} />)}
-        <IconButton
-          onClick={handleClose}
-          className={classes.CloseButton}>
-          <CloseIcon className={classes.Icon} style={{ fontSize: 20 }} />
-        </IconButton>
       </div>
     </div>
 
@@ -40,7 +34,6 @@ Header.propTypes = {
   heartCount: PropTypes.number,
   handleVolume: PropTypes.func,
   mistakeTotal: PropTypes.number,
-  handleClose: PropTypes.func,
 };
 
 Header.defaultProps = {
@@ -48,7 +41,6 @@ Header.defaultProps = {
   heartCount: 5,
   handleVolume: () => { },
   mistakeTotal: 0,
-  handleClose: () => { },
 };
 
 export default Header;

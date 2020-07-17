@@ -41,8 +41,8 @@ const initialState = {
   activeQuestion: '',
   activeAnswer: '',
   activeCard: 0,
-  isTrue: false,
-  isAnswerQuiz: 'default',
+  isTrue: null,
+  isAnswerQuiz: 0,
   audio: [],
   answerState: null,
   currentGroup: null,
@@ -79,7 +79,7 @@ class Sprint extends Component {
 
   status = questionStatus;
 
-  state = initialState
+  state = JSON.parse(JSON.stringify(initialState))
 
   resultTitle = {
     success: text.ru.answersCorrect,
@@ -120,7 +120,7 @@ class Sprint extends Component {
       const activeCard = getRandomNumber(0, allCards.length - 1);
       const activeQuestion = words[0];
       const wordObject = allCards[0];
-      const activeAnswer = translateWords[Math.round(Math.random())];
+      const activeAnswer = translateWords[activeCard];
       if (translateWords[0] === activeAnswer) {
         isTrue = true;
       }
@@ -154,8 +154,8 @@ class Sprint extends Component {
     const {
       words, translate, total, audio,
     } = this.state[value];
-    translate.push(this.state.translateWords[this.state.activeCard]);
-    audio.push(this.state.audio[this.state.activeCard]);
+    translate.push(this.state.translateWords[0]);
+    audio.push(this.state.audio[0]);
     words.push(this.state.activeQuestion);
     this.setState({
       [value]: {
@@ -169,7 +169,7 @@ class Sprint extends Component {
 
   updateCounter = (mult = 1, win = 0) => {
     const multiplier = win && this.state.counter.win
-      && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
+    && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -193,8 +193,9 @@ class Sprint extends Component {
     }, 1000);
     if (this.state.timer === 0) {
       clearTimeout(timerId);
-      this.setState({ isFinished: true });
+      this.setState({ isFinished: true, });
       saveSessionInfoToLocal(applicationThings.SPRINT);
+
     }
   }
 
@@ -238,9 +239,11 @@ class Sprint extends Component {
   }
 
   onReloadGame = () => {
-    const state = { ...initialState };
-    this.setState({ ...state });
-    this.updateState();
+    const state = JSON.parse(JSON.stringify(initialState))
+    this.setState({
+      ...state,
+    });
+
   }
 
   isChangeUserWords = () => {
@@ -299,7 +302,6 @@ class Sprint extends Component {
         <div className={'sprint__container'}>
           <h1>{gamesData.sprint.title}</h1>
           {page}
-
         </div>
       </div>
 
