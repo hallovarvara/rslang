@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import style from './AnswerView.module.scss';
 
 const AnswerView = ({
   answer,
@@ -12,10 +11,13 @@ const AnswerView = ({
   isFalseAnswer,
 }) => {
   const answerItem = classNames(
-    style.item,
-    { [style.right]: ((isRightAnswer || isFalseAnswer) && (answer.id || answer._id) === (question.id || question._id)) },
-    { [style.wrong]: isFalseAnswer && (answer.id || answer._id) === currentAnswerId },
-    { [style.disable]: isRightAnswer || isFalseAnswer },
+    'item',
+    {
+      right: ((isRightAnswer || isFalseAnswer)
+      && (answer.id || answer._id) === (question.id || question._id)),
+    },
+    { wrong: isFalseAnswer && (answer.id || answer._id) === currentAnswerId },
+    { disable: isRightAnswer || isFalseAnswer },
   );
   return (
   <li className={answerItem}

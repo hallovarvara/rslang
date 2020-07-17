@@ -1,5 +1,6 @@
 .audiocall-container {
-  min-height: calc(100vh - 110px);
+  min-height: 100vh;
+  padding: 40px;
   background: $color-audiocall-primary;
   background: linear-gradient(
     to bottom,

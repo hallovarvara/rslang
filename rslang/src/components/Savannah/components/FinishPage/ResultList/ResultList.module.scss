@@ -1,32 +1,31 @@
-.ResultList{
+.ResultList {
   display: block;
-  }
-  .mistakeTitle{
-    color: gray;
-  }
-  .Total{
-    color: #ffffff;
-    padding: 0 10px;
-    border-radius: 10px;
-    margin-left: 10px;
-  }
-  
-  .error{
-    background: rgba(240, 87, 108, .7);
-  }
-  
-  .success {
-    background: rgba(161, 240, 69, .7);
-  }
-  
-  .Title{
-    color: rgb(82, 82, 82);
-    margin: 0 0 10px 35px;
-  }
-  
-  .Content{
-    display: flex;
-    flex-direction: column;
-    padding: 4px 0;
-  }
-  
+}
+.mistakeTitle {
+  color: gray;
+}
+.Total {
+  color: #ffffff;
+  padding: 0 10px;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.error {
+  background: rgba(240, 87, 108, 0.7);
+}
+
+.success {
+  background: rgba(161, 240, 69, 0.7);
+}
+
+.Title {
+  color: rgb(82, 82, 82);
+  margin: 0 0 10px 35px;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}

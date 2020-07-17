@@ -1,0 +1,7 @@
+.iconButton {
+  background-color: $color-audiocall-text-dark;
+  font-size: 6rem;
+  & .volumeUpRounded {
+    font-size: 8rem;
+  }
+}

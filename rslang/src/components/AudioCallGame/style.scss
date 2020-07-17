@@ -18,6 +18,7 @@
 @import './scss/layouts/start-page';
 @import './scss/layouts/game-page';
 @import './scss/layouts/finish-page';
+@import './scss/layouts/answer-panel';
 
 // Components
 @import './scss/components/preloader';
@@ -26,8 +27,7 @@
 @import './scss/components/audio-icon';
 @import './scss/components/button';
 @import './scss/components/levels-stepper';
+@import './scss/components/answer';
 
 // Vendors
 @import './scss/vendors/normalize';
-
-// @include flex(column, center, center);

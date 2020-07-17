@@ -19,8 +19,6 @@ import Stepper from '../../../../basicComponents/Stepper';
 import { generateStepperMarks } from '../../../../helpers/functions';
 
 const StartGamePageView = ({
-  handleChooseLevel,
-  level,
   setNumberLevel,
   setcountAnswers,
   handleSubmitForm,
@@ -34,10 +32,11 @@ const StartGamePageView = ({
       chooseLevel,
       choosePage,
       button: { startGame },
+      audioCall: { instruction },
     },
   } = text;
   const { groups, pages } = count;
-  const { audiocall: { title, description } } = gamesData;
+  const { audiocall: { title } } = gamesData;
   const { questions, answers } = formLabel;
   const buttonStyle = classNames('button', 'button_big');
   const stepperMarks = (new Array(groups).fill({}))
@@ -48,7 +47,7 @@ const StartGamePageView = ({
   return (
     <div className="start-page">
       <h1 className="start-page__title">{title}</h1>
-      <p className="start-page__description">{description}</p>
+      <p className="start-page__description">{instruction}</p>
       <div className="audioCall-steppers-container">
         <Stepper
           defaultValue={numberLevel + 1}
@@ -100,7 +99,6 @@ const StartGamePageView = ({
           className={buttonStyle}
           type="submit"
           variant="contained"
-          // onClick={() => handleSubmitForm()}
         >
          {startGame}
         </Button>

@@ -9,7 +9,6 @@ const AudioCallView = ({
   setNumberLevel,
   setcountAnswers,
   handleSubmitForm,
-  // level, // TODO for API
   countAnswers,
   isStart,
   numberLevel,
@@ -34,7 +33,6 @@ const AudioCallView = ({
     />
       : <GamePage
       data={data}
-      // level={level}
       handleClickNewGame={handleClickNewGame}
       countAnswers={countAnswers}
       isStart={isStart}

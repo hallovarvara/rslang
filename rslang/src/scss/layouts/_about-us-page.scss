@@ -57,7 +57,7 @@
   @include font(
     $size: 4.6rem,
     $weight: $font-weight-black,
-    $family: $font-secondary,
+    $family: $font-secondary
   );
 }
 
@@ -79,10 +79,7 @@
   margin-right: 10px;
   color: rgba($color: $color-dark, $alpha: 0.4);
 
-  @include font(
-    $size: 2rem,
-    $weight: $font-weight-black
-  );
+  @include font($size: 2rem, $weight: $font-weight-black);
   @include flex(row, center, flex-end);
 }
 

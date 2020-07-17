@@ -1,37 +1,28 @@
-.finish-page {
-  padding: 60px;
-  @include flex(column, center, center);
-  .picture {
-    width: 30%;
-    margin: 20px auto;
-  }
+.finish-page__item {
+  display: flex;
+  align-items: center;
   .text {
     color: $color-light;
-    font-size: 1.6rem;
-    text-align: center;
-    span {
-      font-weight: bold;
-      font-style: italic;
-    }
+    font-size: 2.2rem;
   }
-  .button {
-    max-width: 300px;
-    margin: 30px;
-    padding: 10px 20px;
-    color: $color-active-light;
-    font-size: 2rem;
-    font-family: 'Inter', sans-serif;
-    background-color: $color-light;
-    border: 1px solid $color-light;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.7s ease;
+}
+.finish-page__container {
+  display: flex;
+  justify-content: space-around;
+  padding: 80px 40px;
+  @media (max-width: 720px) {
+    flex-direction: column;
   }
   .title {
-    margin: 40px 0;
     color: $color-light;
-    font-size: 2.2rem;
-    text-align: center;
+    font-size: 2.4rem;
+  }
+  .right {
+    margin-left: 10px;
+    padding: 0 10px;
+    color: $color-light;
+    background: $color-right-answer;
+    border-radius: 10px;
   }
   .wrong {
     margin-left: 10px;
@@ -40,4 +31,8 @@
     background: $color-wrong-answer;
     border-radius: 10px;
   }
+}
+
+body .button_center {
+  margin: 0 auto;
 }

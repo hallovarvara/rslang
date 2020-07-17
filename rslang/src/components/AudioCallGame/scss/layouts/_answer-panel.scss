@@ -1,0 +1,10 @@
+.answer__container {
+  width: 100%;
+  margin: 20px 0 70px;
+  padding: 10px;
+  list-style-position: inside;
+  @include flex(row, space-between, center);
+  @media (max-width: $tablet-width) {
+    flex-direction: column;
+  }
+}
