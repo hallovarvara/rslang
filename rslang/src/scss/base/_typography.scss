@@ -33,8 +33,7 @@ h4 {
 }
 
 p {
-  margin: 0 auto;
-
+  margin: 0;
   @include font(
     $size: 3rem,
     $weight: $font-weight-light,

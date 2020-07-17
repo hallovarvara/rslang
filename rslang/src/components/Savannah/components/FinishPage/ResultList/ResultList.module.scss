@@ -1,14 +1,19 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+
 .ResultList {
   display: block;
 }
+
 .mistakeTitle {
   color: gray;
 }
+
 .Total {
-  color: #ffffff;
-  padding: 0 10px;
-  border-radius: 10px;
   margin-left: 10px;
+  padding: 0 10px;
+  color: $color-light;
+  border-radius: 10px;
 }
 
 .error {
@@ -20,12 +25,11 @@
 }
 
 .Title {
+  margin: 0 0 10px 43px;
   color: rgb(82, 82, 82);
-  margin: 0 0 10px 35px;
 }
 
 .Content {
-  display: flex;
-  flex-direction: column;
   padding: 4px 0;
+  @include flex(column, flex-start, flex-start);
 }

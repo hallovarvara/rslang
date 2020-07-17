@@ -1,0 +1,21 @@
+.savannah__buttons {
+  margin-bottom: 50px;
+  text-align: center;
+
+  .savannah__button {
+    @extend %promo-button;
+  }
+}
+
+.savannah__results_guessed {
+  margin-left: 20px;
+}
+
+.savannah__results_unguessed {
+  margin-right: 20px;
+}
+
+.savannah__gamelifes {
+  margin-top: 5px;
+  height: fit-content;
+}

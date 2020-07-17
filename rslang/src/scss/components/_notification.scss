@@ -4,15 +4,24 @@
     @include font($line-height: 130%, $spacing: 0.02rem);
   }
 
-  .SnackbarItem-variantSuccess-20 {
-    background-color: $color-success;
+  &.notification_success {
+    .MuiSnackbarContent-root,
+    .MuiPaper-root {
+      background-color: $color-success;
+    }
   }
 
-  .SnackbarItem-variantError-21 {
-    background-color: $color-error;
+  &.notification_error {
+    .MuiSnackbarContent-root,
+    .MuiPaper-root {
+      background-color: $color-error;
+    }
   }
 
-  .SnackbarItem-variantWarning-23 {
-    background-color: $color-warning;
+  &.notification_warning {
+    .MuiSnackbarContent-root,
+    .MuiPaper-root {
+      background-color: $color-warning;
+    }
   }
 }
