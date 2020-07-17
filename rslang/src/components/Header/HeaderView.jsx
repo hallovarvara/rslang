@@ -106,7 +106,6 @@ class HeaderView extends React.Component {
       isUserLogged,
       logout: logoutUser,
     } = this.props;
-    console.log(links);
 
     const { currentGame, menu } = this.state;
 

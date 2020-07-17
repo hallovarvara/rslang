@@ -91,12 +91,12 @@ const pagesData = {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: false, index: 6 },
+    user: { isVisible: false, index: 5 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: false, index: 6 },
+    guest: { isVisible: false, index: 4 },
     user: { isVisible: false },
   },
   signOut: {
@@ -114,14 +114,14 @@ const pagesData = {
   statistics: {
     title: 'Статистика',
     path: 'statistics',
-    guest: { isVisible: true, index: 4 },
+    guest: { isVisible: false },
     user: { isVisible: true, index: 4 },
   },
   vocabulary: {
     title: 'Словарь',
     path: 'vocabulary',
-    guest: { isVisible: true, index: 5 },
-    user: { isVisible: true, index: 5 },
+    guest: { isVisible: false },
+    user: { isVisible: false },
   },
 };
 
@@ -310,6 +310,9 @@ const text = {
     howManyWords: 'Сколько слов хотите угадать',
     chooseLevel: 'Выберите уровень сложности',
     choosePage: 'Выберите набор слов',
+    selectOptionsForUsedWord: ['изученные слова', 'новые слова'],
+    studiedByYou: 'изученные слова',
+    newByComplexity: 'новые слова',
     newGame: 'Новая игра',
     restart: 'Сначала',
     speakPlease: 'Нажмите и произносите слова',

@@ -5,6 +5,8 @@ import StartGame from './Components/StartGame';
 import PlayGame from './Components/PlayGame';
 import FinishGame from './Components/FinishGame';
 import UserService from '../../helpers/userService';
+import Switcher from './Components/UI/switch';
+import Select from '../games/components/Select'
 
 import {
   text,
@@ -45,7 +47,7 @@ const initialState = {
   isAnswerQuiz: 0,
   audio: [],
   answerState: null,
-  currentGroup: null,
+  currentGroup: 0,
   counter: {
     total: 0,
     multiplier: 1,
@@ -169,7 +171,7 @@ class Sprint extends Component {
 
   updateCounter = (mult = 1, win = 0) => {
     const multiplier = win && this.state.counter.win
-    && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
+      && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -246,20 +248,26 @@ class Sprint extends Component {
 
   }
 
-  isChangeUserWords = () => {
-    this.setState(({ checkedUserWords }) => ({
-      checkedUserWords: !checkedUserWords,
-    }));
+  /*  isChangeUserWords = () => {
+     this.setState(({ checkedUserWords }) => ({
+       checkedUserWords: !checkedUserWords,
+     }));
+   } */
+
+  isChangeUserWords = (checkedUserWords) => {
+    this.setState({
+      checkedUserWords,
+    })
   }
 
-  handleCurrentGroup = (event) => {
-    this.setState({ currentGroup: event.target.value });
+  handleCurrentGroup = (value) => {
+    this.setState({ currentGroup: value });
   }
 
   render() {
     const {
-      words, activeAnswer, translateWords, isAnswerQuiz, counter,
-      volume, score, timer, isFinished, mistake, complete, isStarted,
+      words, activeAnswer, translateWords, isAnswerQuiz, counter, currentGroup,
+      volume, score, timer, isFinished, mistake, complete, isStarted, token,
     } = this.state;
 
     let page;
@@ -267,9 +275,9 @@ class Sprint extends Component {
       page = <StartGame
         isStarted={isStarted}
         startGame={() => this.setState({ isStarted: true })}
-        handleChangeUserWords={this.isChangeUserWords}
         handleCurrentGroup={this.handleCurrentGroup}
         updateState={this.updateState}
+        currentGroup={currentGroup}
       />;
     } else if (isStarted && isFinished) {
       page = <FinishGame
@@ -300,11 +308,20 @@ class Sprint extends Component {
     return (
       <div className={'sprint__wrapper'}>
         <div className={'sprint__container'}>
-          <h1>{gamesData.sprint.title}</h1>
+          <div className="sprint__title">
+            <h1>{gamesData.sprint.title}</h1>
+            { this.props.token && (
+              <Select
+                className="sprint-start__select"
+                setUsingOfUserWords={this.isChangeUserWords}
+                useUserWords={this.state.checkedUserWords}
+                isUserLogged={this.props.token}
+              />)
+            }
+          </div>
           {page}
         </div>
       </div>
-
     );
   }
 }

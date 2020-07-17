@@ -3,7 +3,7 @@
   text-align: center;
 
   .savannah__button {
-    @extend %promo-button;
+    @include button($color-savannah-secondary);
   }
 }
 
@@ -16,6 +16,6 @@
 }
 
 .savannah__gamelifes {
-  margin-top: 5px;
   height: fit-content;
+  margin-top: 5px;
 }

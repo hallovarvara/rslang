@@ -68,3 +68,35 @@
     @content;
   }
 }
+
+@mixin button(
+  $background-color: $color-primary-dark,
+  $text-color: $color-dark
+) {
+  padding: 25px 100px;
+
+  &.btn-primary,
+  & {
+    background-color: $background-color;
+  }
+
+  &:hover {
+    background-color: darken($background-color, 10%);
+  }
+
+  .MuiButton-label {
+    color: $text-color;
+    text-transform: uppercase;
+
+    text-shadow: 0px 4px 6px rgba($background-color, $alpha: 0.5),
+      0px 2px 1px rgba($background-color, $alpha: 0.5),
+      0px 1px 0px rgba($color-dark, $alpha: 0.8);
+
+    @include font(
+      $size: 3.2rem,
+      $weight: $font-weight-black,
+      $line-height: 100%,
+      $spacing: 0.2rem
+    );
+  }
+}
