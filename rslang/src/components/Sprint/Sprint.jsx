@@ -20,8 +20,6 @@ import {
 import {
   handleGameRightAnswer,
   handleGameWrongAnswer,
-  saveSessionInfoToLocal,
-  prepareSessionInfoToServer,
 } from '../../helpers/wordsService';
 
 import { getWordsByAmount } from '../../helpers/wordsService/wordsApi';
@@ -37,7 +35,7 @@ const initialState = {
   wordObject: {},
   checkedUserWords: false,
   allUserWords: [],
-  timer: 7,
+  timer: 60,
   score: 0,
   activeQuestion: '',
   activeAnswer: '',
@@ -73,7 +71,7 @@ const initialState = {
 };
 
 const userService = new UserService();
-const { getUserWordsNoRemoved, createUserWord } = userService;
+const { getUserWordsNoRemoved } = userService;
 
 class Sprint extends Component {
   basic = count.sprint.pointsMultiplier
@@ -195,25 +193,6 @@ class Sprint extends Component {
     if (this.state.timer === 0) {
       clearTimeout(timerId);
       this.setState({ isFinished: true });
-
-      /*       const result = prepareSessionInfoToServer(applicationThings.SPRINT);
-            console.log(result)
-      
-            const ter = { ...result.newWords[0].userWord }
-            delete ter.wordId
-      
-            const data = {
-              userId: this.props.userId,
-              wordId: result.newWords[0].id,
-              word: ter
-            }
-            console.log(data)
-            createUserWord(data) */
-
-
-      // console.log(result)
-      /* createUserWord */
-
     }
   }
 
