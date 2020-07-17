@@ -10,19 +10,13 @@
 @import '../../scss/base/base';
 @import '../../scss/base/typography';
 @import './scss/base/base';
-@import './scss/base/fonts';
-@import './scss/base/helpers';
 
 // Layouts
-@import './scss/layouts/flex-div-with-span';
 @import './scss/layouts/start-page';
-@import './scss/layouts/game-page';
 @import './scss/layouts/finish-page';
 @import './scss/layouts/answer-panel';
 
 // Components
-@import './scss/components/preloader';
-@import './scss/components/game-title';
 @import './scss/components/question';
 @import './scss/components/audio-icon';
 @import './scss/components/button';

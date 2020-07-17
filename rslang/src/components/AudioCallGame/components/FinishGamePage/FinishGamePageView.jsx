@@ -5,7 +5,6 @@ import { Button } from '@material-ui/core';
 
 import { text } from '../../../../helpers/constants';
 
-// import style from './FinishGamePageView.module.scss';
 import FinishGameItem from '../FinishGameItem';
 
 const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNewGame }) => {
@@ -21,21 +20,22 @@ const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNew
   return (
     <>
       <div className="finish-page__container">
-        <div>
-          <h2 className="title">
-            { text.ru.answersCorrect }
-            <span className="right">{rightAnswerArray.length}</span>
-          </h2>
-          {generateItemsWords(rightAnswerArray)}
+        <div className="finish-page__result">
+          <div>
+            <h2 className="title">
+              { text.ru.answersCorrect }
+              <span className="right">{rightAnswerArray.length}</span>
+            </h2>
+            {generateItemsWords(rightAnswerArray)}
+          </div>
+          <div>
+            <h2 className="title">
+            { text.ru.answersMistaken }
+              <span className="wrong">{errorAnswerArray.length}</span>
+            </h2>
+            {generateItemsWords(errorAnswerArray)}
+          </div>
         </div>
-        <div>
-          <h2 className="title">
-          { text.ru.answersMistaken }
-            <span className="wrong">{errorAnswerArray.length}</span>
-          </h2>
-          {generateItemsWords(errorAnswerArray)}
-        </div>
-      </div>
       <Button
         variant="contained"
         size="large"
@@ -44,6 +44,7 @@ const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNew
       >
         { text.ru.button.newGame }
       </Button>
+      </div>
     </>
   );
 };

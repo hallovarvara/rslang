@@ -1,21 +1,23 @@
 .finish-page__item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   .text {
+    margin: 0;
     color: $color-light;
     font-size: 2.2rem;
   }
 }
-.finish-page__container {
+.finish-page__result {
   display: flex;
   justify-content: space-around;
-  padding: 80px 40px;
+  padding: 100px 40px;
   @media (max-width: 720px) {
     flex-direction: column;
   }
   .title {
+    margin: 20px 0;
     color: $color-light;
-    font-size: 2.4rem;
+    font-size: 2.6rem;
   }
   .right {
     margin-left: 10px;
@@ -33,6 +35,11 @@
   }
 }
 
-body .button_center {
-  margin: 0 auto;
+.finish-page__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .button_center {
+    margin: 0 auto;
+  }
 }

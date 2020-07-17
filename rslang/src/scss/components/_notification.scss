@@ -1,10 +1,7 @@
 .notification-root {
   .MuiSnackbarContent-message {
     color: black;
-    @include font(
-      $line-height: 130%,
-      $spacing: 0.02rem
-    );
+    @include font($line-height: 130%, $spacing: 0.02rem);
   }
 
   .SnackbarItem-variantSuccess-20 {
