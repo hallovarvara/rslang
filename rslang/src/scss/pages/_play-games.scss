@@ -5,9 +5,8 @@
   @extend %padding;
 }
 
-.play-games__title {
-  padding-bottom: 60px;
-  font-size: 9rem;
+.play-games__subtitle {
+  @extend %subtitle;
 }
 
 .games-cards-container {

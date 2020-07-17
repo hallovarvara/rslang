@@ -11,7 +11,8 @@ const renderGames = (data, index) => <GameCard data={data} key={index} />;
 
 const PlayGamesPage = () => (
     <section className="play-games">
-      <h2 className="play-games__title">{ text.ru.chooseGame }</h2>
+      <h1 className="play-games__title">{text.ru.chooseGame}</h1>
+      <p className="play-games__subtitle">{text.ru.everyGameImprove}</p>
       <div className="games-cards-container">
         {
           Object.values(gamesData).map(renderGames)
