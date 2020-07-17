@@ -6,12 +6,12 @@ import Varya from '../assets/images/team/varvara-deviaterikova.jpg';
 import Ksusha from '../assets/images/team/kseniya-yatskevich.jpeg';
 import Max from '../assets/images/team/maksym-kaspriv.jpg';
 import Artem from '../assets/images/team/artem-rimarchyk.jpeg';
-import Dima from '../assets/images/team/dmitry-lebetsky.jpg';
+// import Dima from '../assets/images/team/dmitry-lebetsky.jpg'; // TODO add Dima's photo
 import Lesha from '../assets/images/team/alexei-osipov.jpg';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
-  base: 'https://kagafon-learn-words.herokuapp.com/',
+  base: 'https://afternoon-falls-25894.herokuapp.com/',
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
@@ -66,10 +66,7 @@ const pagesData = {
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
-    title: 'Изучение слов',
-    description: 'Расширяйте английский лексикон с помощью встроенных правил повторения слов',
-    rules: 'Впишите правильное слово в предложение',
-    rateDescription: 'Оцените, насколько легко было угадать слово:',
+    title: 'Учить слова',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
@@ -84,7 +81,7 @@ const pagesData = {
     title: 'О проекте',
     path: '',
     guest: { isVisible: true, index: 0 },
-    user: { isVisible: true, index: 3 },
+    user: { isVisible: true, index: 2 },
   },
   settings: {
     title: 'Настройки',
@@ -113,7 +110,7 @@ const pagesData = {
   vocabulary: {
     title: 'Словарь',
     path: 'vocabulary',
-    guest: { isVisible: false },
+    guest: { isVisible: true, index: 5 },
     user: { isVisible: true, index: 5 },
   },
 };
@@ -172,7 +169,7 @@ const teamMembers = [
     name: 'Дмитрий',
     surname: 'Лебецкий',
     role: `Сделал игры ${gamesData.speakit.title} и ${gamesData.unmess.title} с уникальным дизайном, базовые компоненты и страницы, словарь. Верстал, стилизовал, структурировал код, помогал тимлиду и команде`,
-    image: Dima,
+    // image: Dima,  // TODO add Dima's photo
     linkedinUsername: 'dmitry-lebetsky',
   },
   {
@@ -226,7 +223,7 @@ const text = {
     firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
     incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
-    welcome: 'Привет, {username} :)',
+    welcome: 'Добро пожаловать, {username} :)',
 
     /* Play page */
     chooseGame: 'Выберите игру',
@@ -310,7 +307,12 @@ const text = {
     return: 'Назад',
     latestRusults: 'Последние результаты',
     currentResults: 'Текущие результаты',
-    notEnoughWords: 'Сначала в игре появятся изучаемые слова, потом новые. Выберите сложность новых слов:',
+    notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
+    selectOptionsForUsedWord: ['изученные вами', 'новые по сложности'],
+    studiedByYou: 'изученные вами',
+    newByComplexity: 'новые по сложности',
+    loginPleaseToUseThisFeature: 'Войдите в систему, чтобы воспользоваться этим функционалом',
+    backendCrashed: 'Извините, сервис временно недоступен',
 
     /* Unmess */
     unmess: {
@@ -331,7 +333,6 @@ const text = {
       dontKnow: 'Не знаю',
       startGame: 'Играть',
       newGame: 'Начать новую игру',
-      check: 'Проверить',
       learnWords: 'Изучать слова',
       learnEnglishWithUs: 'Учите английский с нами',
       startLearningWithUs: 'Начать учиться с нами',
@@ -399,7 +400,6 @@ const count = {
     counterMultiplier: 2,
     pointsMultiplier: 10,
     correctAnswerOnce: 4,
-    defaultLevel: 0,
   },
 };
 

@@ -6,6 +6,7 @@ import PlayGame from './Components/PlayGame';
 import FinishGame from './Components/FinishGame';
 import UserService from '../../helpers/userService';
 import Switcher from './Components/UI/switch';
+import Select from '../games/components/Select'
 
 import {
   text,
@@ -170,7 +171,7 @@ class Sprint extends Component {
 
   updateCounter = (mult = 1, win = 0) => {
     const multiplier = win && this.state.counter.win
-    && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
+      && this.state.counter.win % count.sprint.correctAnswerOnce === 0 ? mult : 1;
     this.setState(({ counter }) => ({
       counter: {
         total: counter.total + 1,
@@ -247,10 +248,16 @@ class Sprint extends Component {
 
   }
 
-  isChangeUserWords = () => {
-    this.setState(({ checkedUserWords }) => ({
-      checkedUserWords: !checkedUserWords,
-    }));
+  /*  isChangeUserWords = () => {
+     this.setState(({ checkedUserWords }) => ({
+       checkedUserWords: !checkedUserWords,
+     }));
+   } */
+
+  isChangeUserWords = (checkedUserWords) => {
+    this.setState({
+      checkedUserWords,
+    })
   }
 
   handleCurrentGroup = (value) => {
@@ -303,12 +310,12 @@ class Sprint extends Component {
         <div className={'sprint__container'}>
           <div className="sprint__title">
             <h1>{gamesData.sprint.title}</h1>
-            {
-              this.props.token && (<Switcher
-                className="sprint-start__switcher"
-                handleChangeUserWords={this.isChangeUserWords}
-              />)
-            }
+            <Select
+              // className="sprint-start__switcher"
+              setUsingOfUserWords={this.isChangeUserWords}
+              useUserWords={this.state.checkedUserWords}
+              isUserLogged={this.props.token}
+            />
           </div>
           {page}
         </div>

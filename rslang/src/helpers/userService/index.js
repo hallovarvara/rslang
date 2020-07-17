@@ -155,12 +155,15 @@ export default class UserService {
   };
 
   getUserStatistics = async (userId) => {
-    const rawResponse = axiosuser.get(`users/${userId}/statistics`);
-    const content = await rawResponse;
-    Object.keys(content.data.optional).forEach((x) => {
-      content.data.optional[x] = JSON.parse(content.data.optional[x]);
-    });
-    return content.data;
+    try {
+      const rawResponse = axiosuser.get(`users/${userId}/statistics`);
+      const content = await rawResponse;
+      console.log(content.data)
+      return content.data;
+    } catch (e) {
+      console.log(e)
+    }
+
   };
 
   createUserSettings = async ({ userId, option }) => {
