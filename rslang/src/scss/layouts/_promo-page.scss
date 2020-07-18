@@ -1,3 +1,14 @@
+.promo-page {
+  position: relative;
+  overflow: hidden;
+  * {
+    z-index: 1;
+  }
+  section {
+    z-index: 0;
+  }
+}
+
 /* FIRST SECTION */
 .promo-presentation {
   padding-top: calc(#{$header-height} + 110px);
@@ -41,7 +52,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 1;
+  z-index: 2;
   width: 70%;
   height: 87%;
   object-fit: cover;
@@ -118,6 +129,11 @@
   position: relative;
   padding: 230px 140px 100px 140px;
   background-color: $color-secondary;
+  .dotted-line {
+    top: -27%;
+    left: -32%;
+    width: 247.5vw;
+  }
 }
 
 .promo-savannah-presentation-wrapper {
@@ -133,6 +149,7 @@
 
 .promo-savannah-presentation {
   width: 100%;
+  height: 315px;
   @include flex(row, space-evenly, flex-start);
 }
 
@@ -167,5 +184,172 @@
   margin-bottom: 80px;
   text-align: center;
   text-transform: uppercase;
-  @include font(3.4rem, 300, normal, $spacing: 0.06rem);
+  @include font(3.4rem, 100, normal, $spacing: 0.06rem);
+}
+
+/* FOURTH SECTION */
+.promo-repeating {
+  padding: 100px 90px 35px 90px;
+  color: $color-light;
+  background: url('../../assets/images/promo/promo-repeating-bg-image.png'),
+    $color-primary;
+  background-position: center;
+  background-size: cover;
+  @include flex(column, flex-start, center);
+}
+
+.promo-repeating__subtitle {
+  max-width: 1040px;
+  margin-bottom: 40px;
+  color: $color-light;
+  text-align: center;
+  text-transform: uppercase;
+  @include font(2.8rem, normal, normal, $spacing: 0.08rem, $line-height: 170%);
+}
+
+.promo-repeating__title {
+  max-width: 950px;
+  margin-bottom: 30px;
+  color: $color-light;
+  text-align: center;
+  @include font(6rem, 900, italic, $font-secondary, $line-height: 110%);
+}
+
+.promo-repeating__description {
+  max-width: 1160px;
+  margin-bottom: 80px;
+  color: $color-light;
+  text-align: center;
+  @include font(3.2rem, 600, $line-height: 160%);
+}
+
+.promo-repeating-factors-container {
+  width: 100%;
+  margin-bottom: 50px;
+  @include flex(column, flex-start, flex-start);
+}
+
+.factor-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(0deg, $color-light 50%, transparent 50%);
+  background-repeat: repeat-y;
+  background-position: left 42px top;
+  background-size: 4px 10px;
+  @include flex(row, space-between, flex-start);
+  &:last-child {
+    background: none;
+    .algorithm:last-child {
+      margin-bottom: 0;
+    }
+    .factor-container__dots {
+      display: none;
+    }
+  }
+}
+
+.factor-container__dots {
+  position: absolute;
+  top: 90px;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, $color-light 50%, transparent 50%);
+  background-repeat: repeat-y;
+  background-position: left 42px top;
+  background-size: 4px 10px;
+  &_rate {
+    height: 87%;
+  }
+  &_misprint {
+    height: 79%;
+  }
+}
+
+.factor-title-wrapper {
+  width: 552px;
+  @include flex(row, space-between, flex-start);
+}
+
+.factor-title-wrapper__order {
+  width: 85px;
+  height: 85px;
+  padding-top: 5px;
+  text-align: center;
+  background-color: $color-primary;
+  border-radius: 50%;
+  @include font(9.2rem, 400, normal, $font-secondary, $line-height: 60%);
+}
+
+.factor-title-wrapper__title {
+  max-width: 82.78%;
+  @include font(4.2rem, 500, italic, $font-secondary, $line-height: 130%);
+}
+
+.algorithms-container {
+  @include flex(column, flex-start, flex-start);
+}
+
+.algorithm {
+  max-width: 642px;
+  margin-bottom: 50px;
+  @include flex(row, space-between, center);
+  &:last-child {
+    margin-bottom: 150px;
+  }
+}
+
+.algorithm-main-info {
+  @include flex(column, flex-start, flex-start);
+}
+
+.algorithm__action {
+  max-width: 46.72%;
+  text-transform: lowercase;
+  @include font(2.5rem, 500, normal);
+}
+
+.algorithm-main-info__image {
+  height: auto;
+  &_easy {
+    width: 328px;
+  }
+  &_hard {
+    width: 328px;
+  }
+  &_misprint {
+    width: 298px;
+  }
+  &_mistake {
+    width: 278px;
+  }
+}
+
+.algorithm-main-info__subtitle {
+  text-transform: lowercase;
+  @include font(3.4rem, 500, italic, $font-secondary);
+}
+
+.algorithm-main-info__title {
+  text-transform: lowercase;
+  @include font(3.4rem, 900, italic, $font-secondary);
+}
+
+.liquid-button-container.promo-repeating__start-button {
+  margin-bottom: 35px;
+  .liquid:after {
+    background-color: darken($color-primary, 5%);
+  }
+}
+
+.github-link {
+  display: block;
+  text-transform: uppercase;
+  @include font(3.4rem, 300);
+  @include flex(row, center, center);
+}
+
+.github-link__icon {
+  margin-right: 10px;
 }

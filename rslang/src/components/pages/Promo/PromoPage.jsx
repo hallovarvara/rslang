@@ -2,7 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Parser from 'html-react-parser';
 
+import GameCard from '../../GameCard';
 import LiquidButton from '../../../basicComponents/LiquidButton';
+
+import { ReactComponent as Spot } from '../../../assets/icons/spot.svg';
+import { ReactComponent as DottedLineTop } from '../../../assets/icons/dotted-lines/line-top.svg';
+import { ReactComponent as DottedLineTwoSixths } from '../../../assets/icons/dotted-lines/line-two-sixths.svg';
+import { ReactComponent as DottedLineThreeSixths } from '../../../assets/icons/dotted-lines/line-three-sixths.svg';
+import { ReactComponent as DottedLineFourSixths } from '../../../assets/icons/dotted-lines/line-four-sixths.svg';
+import { ReactComponent as DottedLineFiveSixths } from '../../../assets/icons/dotted-lines/line-five-sixths.svg';
+import { ReactComponent as GithubIcon } from '../../../assets/icons/icon-github.svg';
 
 import {
   pagesData,
@@ -17,6 +26,8 @@ import {
 import graduateImg from '../../../assets/images/promo/promo-photo1.png';
 import busImage from '../../../assets/images/promo/promo-photo2.png';
 import lionImage from '../../../assets/images/promo/savannah-big-lion.svg';
+
+const renderGames = (data, index) => <GameCard data={data} key={index} />;
 
 const PromoPageView = ({
   history,
@@ -37,7 +48,6 @@ const PromoPageView = ({
         text={text.ru.button.startLearningWithUs}
         onClick={() => history.push(getPath(pagesData.learnWords.path))}
         className="promo-page__start-button"
-        value={ text.ru.button.startLearningWithUs }
       />
     </section>
     <section className='promo-features'>
@@ -71,7 +81,74 @@ const PromoPageView = ({
           text={text.ru.button.playRightNow} />
       </div>
       <p className="promo-page__subtitle">{text.ru.promo.chooseAnotherGame}</p>
+      <div className="games-cards-container">
+        {
+          Object
+            .values(gamesData)
+            .map((data, index) => (
+              data.title !== gamesData.savannah.title && renderGames(data, index)
+            ))
+        }
+      </div>
+      <DottedLineThreeSixths className="dotted-line" />
     </section>
+    <section className="promo-repeating">
+      <p className="promo-repeating__subtitle">{text.ru.spacingRepeatition.youStudyEffectively}</p>
+      <h2 className="promo-repeating__title">{text.ru.spacingRepeatition.title}</h2>
+      <p className="promo-repeating__description">{Parser(text.ru.spacingRepeatition.subtitle)}</p>
+      <div className="promo-repeating-factors-container">
+        {
+          text.ru.spacingRepeatition.factors.map((factor, index) => (
+            <div key={index} className="factor-container">
+              <div className="factor-title-wrapper">
+                <span className="factor-title-wrapper__order">{index + 1}</span>
+                <p className="factor-title-wrapper__title">{Parser(factor.title)}</p>
+              </div>
+              <div className="algorithms-container">
+                {
+                  factor.algorithm.map((algorithm, i) => (
+                    <div key={i} className="algorithm">
+                      <div className="algorithm-main-info">
+                        <img
+                          src={algorithm.image}
+                          alt={algorithm.alt}
+                          className={`algorithm-main-info__image algorithm-main-info__image_${algorithm.modificator}`}/>
+                        <p className="algorithm-main-info__subtitle">{Parser(algorithm.target)}</p>
+                        <p className="algorithm-main-info__title">{Parser(algorithm.result)}</p>
+                      </div>
+                      <p className="algorithm__action">{Parser(algorithm.action)}</p>
+                    </div>
+                  ))
+                }
+              </div>
+              <div className={`factor-container__dots factor-container__dots_${factor.className}`}></div>
+            </div>
+          ))
+        }
+      </div>
+      <LiquidButton
+        text={text.ru.button.startLearningWithUs}
+        onClick={() => history.push(getPath(pagesData.learnWords.path))}
+        className="promo-repeating__start-button"
+      />
+      <div className="github-link-container">
+        <a target="_blank"
+          rel="noopener noreferrer"
+          className="github-link"
+          href="https://github.com/hallovarvara/rslang">
+          <GithubIcon className="github-link__icon"/>Репозиторий проекта
+        </a>
+      </div>
+    </section>
+    <DottedLineTop className="dotted-line dotted-line_top"/>
+    <DottedLineTwoSixths className="dotted-line dotted-line_two-sixths" />
+    <DottedLineFourSixths className="dotted-line dotted-line_four-sixths" />
+    <DottedLineFiveSixths className="dotted-line dotted-line_five-sixths" />
+    <Spot className="spot spot_top"/>
+    <Spot className="spot spot_two-sixths"/>
+    <Spot className="spot spot_three-sixths" />
+    <Spot className="spot spot_four-sixths" />
+    <Spot className="spot spot_five-sixths" />
   </div>
 );
 

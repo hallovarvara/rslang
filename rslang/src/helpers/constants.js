@@ -18,6 +18,10 @@ import AudiocallIcon from '../assets/icons/icon-game-audiocall.png';
 import EnglishPuzzleIcon from '../assets/icons/icon-game-english-puzzle.png';
 import SpeakitIcon from '../assets/icons/icon-game-speakit.png';
 import UnmessIcon from '../assets/icons/icon-game-unmess.png';
+import spacingRepeatingEasy from '../assets/images/promo/spacing-repeating1-1.png';
+import spacingRepeatingHard from '../assets/images/promo/spacing-repeating1-2.png';
+import spacingRepeatingMisprint from '../assets/images/promo/spacing-repeating2-1.png';
+import spacingRepeatingMistake from '../assets/images/promo/spacing-repeating3-1.png';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
@@ -297,13 +301,20 @@ const text = {
               action: 'Пометка слова легким во&nbsp;время изучения слова',
               target: 'Прогресс изучения',
               result: 'Растет на&nbsp;треть',
+              image: spacingRepeatingEasy,
+              alt: 'easy',
+              modificator: 'easy',
             },
             {
               action: 'Пометка слова трудным во&nbsp;время изучения слова',
               target: 'Прогресс изучения',
               result: 'Уменьшается на&nbsp;пятую часть',
+              image: spacingRepeatingHard,
+              alt: 'hard',
+              modificator: 'hard',
             },
           ],
+          className: 'rate',
         },
         {
           title: 'Ошибались&nbsp;ли вы&nbsp;во&nbsp;время изучения слов',
@@ -311,7 +322,11 @@ const text = {
             action: 'Ошибка во&nbsp;время написания слова в&nbsp;процессе изучения',
             target: 'Слово',
             result: 'Повторится в&nbsp;текущей тренировке',
+            image: spacingRepeatingMisprint,
+            alt: 'misprint',
+            modificator: 'misprint',
           }],
+          className: 'misprint',
         },
         {
           title: 'Угадали&nbsp;ли вы&nbsp;слово во&nbsp;время игры',
@@ -319,7 +334,11 @@ const text = {
             action: 'Если не&nbsp;угадали слово в&nbsp;игре',
             target: 'Слово',
             result: 'Появится в&nbsp;предстоящей тренировке',
+            image: spacingRepeatingMistake,
+            alt: 'mistake',
+            modificator: 'mistake',
           }],
+          className: 'mistake',
         },
       ],
     },

@@ -27,6 +27,7 @@
   position: absolute;
   bottom: 100%;
   left: 0;
+  z-index: -1 !important;
   width: 100%;
   padding-top: 100%;
   background: transparent;
@@ -70,7 +71,6 @@
     }
   }
 }
-
 
 @keyframes animate {
   0% {
