@@ -1,9 +1,7 @@
-@import '../../../../scss/abstracts/constants';
-
 .item {
   margin: 10px auto;
   padding: 15px;
-  color: $color-audiocall-text-dark;
+  color: $color-light;
   font-size: 22px;
   line-height: 1;
   text-align: center;
@@ -18,11 +16,11 @@
   color: $color-audiocall-hover;
 }
 .right {
-  color: $color-audiocall-text-dark;
+  color: $color-light;
   background: $color-right-answer;
 }
 
 .wrong {
-  color: $color-audiocall-text-dark;
+  color: $color-light;
   background: $color-wrong-answer;
 }

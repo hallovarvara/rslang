@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './AnswerPanelView.module.scss';
 
 import Answer from '../Answer';
 
@@ -21,14 +20,14 @@ const AnswerPanelView = ({
           handleClickAnswer = {handleClickAnswer}
           question={question}
           answer={answer}
-          key={answer.id}
+          key={answer.id || answer._id}
           currentAnswerId={currentAnswerId}
         />
       ));
     } return null;
   };
   return (
-    <ol className={style.container}>
+    <ol className="answer__container">
       {generateAnswers()}
     </ol>
   );

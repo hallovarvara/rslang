@@ -4,9 +4,12 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-export default function Switcher({ handleChangeUserWords }) {
+export default function Switcher({ handleChangeUserWords, className }) {
   return (
-    <FormGroup row>
+    <FormGroup
+      row
+      className={className}
+    >
       <FormControlLabel
         control={<Switch
           onChange={handleChangeUserWords}
@@ -19,5 +22,6 @@ export default function Switcher({ handleChangeUserWords }) {
   );
 }
 Switcher.propTypes = {
-  handleChangeUserWords: PropTypes.string,
+  handleChangeUserWords: PropTypes.func,
+  className: PropTypes.string,
 };

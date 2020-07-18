@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Select, MenuItem } from '@material-ui/core';
 
 const mapSelectTitlesToItems = (title, index) => (
-    <MenuItem key={index} value={title} classes={{ root: 'menu-item' }}>{title}</MenuItem>
+  <MenuItem key={index} value={title} classes={{ root: 'menu-item' }}>{title}</MenuItem>
 );
 
 const selectClasses = {
@@ -18,28 +18,30 @@ const SelectView = ({
   menuPosition = { vertical: 'bottom', horizontal: 'center' },
   menuTransormOrigin = { vertical: 'top', horizontal: 'center' },
   disableScrollLock = true,
-  onChange = () => {},
+  onChange = () => { },
+  value = null,
 }) => (
-  <Select
-    className={`select-list ${className}`}
-    classes={selectClasses}
-    defaultValue={defaultValue}
-    onChange={onChange}
-    MenuProps={{
-      getContentAnchorEl: null,
-      anchorOrigin: menuPosition,
-      transformOrigin: menuTransormOrigin,
-      disableScrollLock,
-      PopoverClasses: {
-        root: 'select-popover-root',
-      },
-    }}
+    <Select
+      className={`select-list ${className}`}
+      classes={selectClasses}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      {...(value ? { value } : {})}
+      MenuProps={{
+        getContentAnchorEl: null,
+        anchorOrigin: menuPosition,
+        transformOrigin: menuTransormOrigin,
+        disableScrollLock,
+        PopoverClasses: {
+          root: 'select-popover-root',
+        },
+      }}
     >
-    {
-      selectTitles.map(mapSelectTitlesToItems)
-    }
-  </Select>
-);
+      {
+        selectTitles.map(mapSelectTitlesToItems)
+      }
+    </Select>
+  );
 
 SelectView.propTypes = {
   className: PropTypes.string,
@@ -49,6 +51,7 @@ SelectView.propTypes = {
   menuTransormOrigin: PropTypes.object,
   disableScrollLock: PropTypes.object,
   onChange: PropTypes.func,
+  value: PropTypes.string,
 };
 
 export default SelectView;

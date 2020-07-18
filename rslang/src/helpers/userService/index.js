@@ -240,14 +240,14 @@ export default class UserService {
   )
 
   setNewStatistics = (userId, stats) => {
-    if (!stats.length) {
-      this.createUserStatistics(userId, statsTemplate);
+    if (!stats) {
+      this.createUserStatistics({ userId, option: statsTemplate });
     }
   }
 
   setNewSettings = (userId, settings) => {
-    if (!settings.length) {
-      this.createUserSettings(userId, settingsTemplate);
+    if (!settings) {
+      this.createUserSettings({ userId, option: settingsTemplate });
     }
   }
 
