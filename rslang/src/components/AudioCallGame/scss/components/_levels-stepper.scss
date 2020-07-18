@@ -1,11 +1,11 @@
-.puzzle-levels-stepper,
-.puzzle-pages-stepper {
+.audioCall-levels-stepper,
+.audioCall-answers-stepper,
+.audioCall-question-stepper,
+.audioCall-pages-stepper {
   &.sticky-label .MuiSlider-thumb:before {
     position: absolute;
-    top: 100%;
-    left: 50%;
     display: block;
-    color: white;
+    color: $color-light;
     font-size: 1.5rem;
     transform: translate(-50%, 50%);
     content: var(--stickyLabelValue);
@@ -16,32 +16,32 @@
   }
 
   &.sticky-label .MuiSlider-mark {
-    color: white;
+    color: $color-light;
   }
 
-  .MuiTypography-root {
+  & .MuiTypography-root {
     margin-bottom: 0px;
     color: $color-light;
-    font-size: 2.2rem;
+    font-size: 1.4rem;
     font-family: 'Inter', sans-serif;
     text-align: center;
   }
 
   .MuiSlider-rail {
-    background-color: white;
+    background-color: $color-light;
     opacity: 1;
   }
 
   .MuiSlider-valueLabel {
-    color: black;
+    color: $color-dark;
   }
 
   .MuiSlider-mark {
-    color: black;
+    color: $color-dark;
   }
 
   .MuiSlider-markLabel {
-    color: white;
+    color: $color-light;
     font-size: 1.5rem;
   }
 
@@ -55,4 +55,13 @@
       box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.16);
     }
   }
+}
+
+.audioCall-steppers-container {
+  font-size: 1.6rem;
+  @include flex(column, center, center);
+}
+
+.audioCall-levels-stepper {
+  margin-bottom: 20px;
 }

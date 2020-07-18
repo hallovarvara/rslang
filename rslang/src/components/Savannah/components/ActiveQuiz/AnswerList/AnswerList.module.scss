@@ -1,18 +1,15 @@
-.words{
+.words {
   position: relative;
   top: 300px;
   display: flex;
   justify-content: space-between;
   max-width: 60%;
   margin: auto;
-  
 }
-.words span{
+.words span {
   padding: 10px;
   border-radius: 20px;
 }
-.words span:hover{
+.words span:hover {
   cursor: pointer;
-  
-
 }
