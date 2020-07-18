@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { 
+import {
   countPhrase,
   countLatestResult,
   localStorageItems,
@@ -113,21 +113,21 @@ class GamePage extends React.Component {
     } else {
       this.setState({
         isEnd: true,
-      }, this.updateLatestResult);          
+      }, this.updateLatestResult);
     }
   }
 
   updateLatestResult = () => {
     const { latestResults } = localStorageItems;
-    const { errorCount } = this.state; 
+    const { errorCount } = this.state;
     const result = {
       date: (new Date()).toLocaleString('ru', dateOptions),
       error: errorCount,
       right: countPhrase - errorCount,
     };
-    if(!localStorage.getItem(latestResults)) {
+    if (!localStorage.getItem(latestResults)) {
       localStorage.setItem(latestResults, JSON.stringify([]));
-    };
+    }
     this.latestResult = JSON.parse(localStorage.getItem(latestResults));
     this.latestResult.unshift(result);
     if (this.latestResult.length > countLatestResult) {
