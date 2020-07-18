@@ -12,7 +12,7 @@ import {
   getSessionProgress,
   setSessionProgress,
   checkSessionProgress,
-  playAudios,
+  audioplayer,
 } from './helpers';
 import {
   updateLearnWordsRate,
@@ -28,7 +28,6 @@ import {
   localStorageItems,
   levelsOfDifficulty,
   applicationThings,
-  // apiLinks,
 } from '../../../helpers/constants';
 import { clearSessionData } from '../../../helpers/wordsService/storageModel';
 import { statsTemplate, changeStats } from '../../../helpers/wordsService/statsModel';
@@ -88,15 +87,10 @@ export default class LearnWords extends Component {
   };
 
   toggleAutoPlay = () => {
+    audioplayer.stopAudios();
     this.setState((state) => ({
       isAutoPlay: !state.isAutoPlay,
     }));
-  }
-
-  toggleCategory = ({ target: { value } }) => {
-    this.setState({
-      category: value,
-    });
   }
 
   toggleCategory = ({ target: { value } }) => {
@@ -170,17 +164,18 @@ export default class LearnWords extends Component {
     });
   }
 
-  playAudio = (audioName) => {
+  playAudios = (audioName) => {
     const { wordCount, isAutoPlay, words } = this.state;
     if (audioName) {
-      playAudios(words[wordCount][audioName]);
+      audioplayer.playAudios(words[wordCount][audioName]);
     } else if (isAutoPlay) {
       const { audio, audioMeaning, audioExample } = words[wordCount];
-      playAudios([audio, audioMeaning, audioExample]);
+      audioplayer.playAudios([audio, audioMeaning, audioExample]);
     }
   }
 
   handleNextWord = () => {
+    audioplayer.stopAudios();
     this.setState((state) => (
       {
         wordCount: state.wordCount === state.words.length - 1 ? 0 : state.wordCount + 1,
@@ -189,6 +184,7 @@ export default class LearnWords extends Component {
   }
 
   handlePrevWord = () => {
+    audioplayer.stopAudios();
     this.setState((state) => (
       {
         wordCount: !state.wordCount ? state.words.length - 1 : state.wordCount - 1,
@@ -418,7 +414,7 @@ export default class LearnWords extends Component {
               onNextWord={this.handleNextWord}
               onPrevWord={this.handlePrevWord}
               onChangeProgress={this.handleChangeProgress}
-              onPlayAudio={this.playAudio}
+              onPlayAudio={this.playAudios}
             />
             <button onClick={() => this.setState({ isFirstPassDone: true })}>
               Test
