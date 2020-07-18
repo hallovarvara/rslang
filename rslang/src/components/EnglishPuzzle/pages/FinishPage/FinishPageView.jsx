@@ -10,9 +10,9 @@ const FinishPageView = ({
   paintingInfo,
   isBackground,
   backgroundUrl,
-  updateLatestResult,
+  handleShowStatistic,
 }) => {
-  const { ru: { button: { newGame }, answersMistaken } } = text;
+  const { ru: { button: { newGame, lastResults }, answersMistaken } } = text;
   const buttonStyle = classNames('button', 'button_big');
   return (
     <div className="finish-page">
@@ -41,9 +41,9 @@ const FinishPageView = ({
         className={buttonStyle}
         variant="contained"
         size="large"
-        // onClick={() => updateLatestResult(errorCount)}
+        onClick={() => handleShowStatistic()}
       >
-        Результаты прошлых игр
+        {lastResults}
       </Button>
     </div>
   );
@@ -55,6 +55,7 @@ FinishPageView.propTypes = {
   paintingInfo: PropTypes.object,
   isBackground: PropTypes.bool,
   backgroundUrl: PropTypes.string,
+  handleShowStatistic: PropTypes.func,
 };
 
 export default FinishPageView;

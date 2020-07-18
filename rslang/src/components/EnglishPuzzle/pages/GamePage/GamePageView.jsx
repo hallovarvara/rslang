@@ -7,6 +7,7 @@ import PhraseElements from '../../components/PhraseElements';
 import GameHelpers from '../../components/GameHelpers';
 import ButtonPanel from '../../components/ButtonPanel';
 import FinishPage from '../FinishPage';
+import StatisticPageView from '../StatisticPage/StatisticPageView';
 
 const GamePageView = ({
   handleClickNewGame,
@@ -37,6 +38,9 @@ const GamePageView = ({
   backgroundUrl,
   paintingInfo,
   updateLatestResult,
+  isStatisticShow,
+  statistic,
+  handleShowStatistic,
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
@@ -111,14 +115,22 @@ const GamePageView = ({
         handleClickCheck={handleClickCheck}
       />
     </div>)
-      : <FinishPage
+      : (isStatisticShow 
+        ? <StatisticPageView 
+            statistic={statistic}
+            handleShowStatistic={handleShowStatistic}
+            handleClickNewGame={handleClickNewGame}
+          />
+        : <FinishPage
           paintingInfo={paintingInfo}
           handleClickNewGame={handleClickNewGame}
           errorCount={errorCount}
           isBackground={isBackground}
           backgroundUrl={backgroundUrl}
-          updateLatestResult={updateLatestResult}
-        />
+          handleShowStatistic={handleShowStatistic}
+          // updateLatestResult={updateLatestResult}
+        />)
+      
   );
 };
 

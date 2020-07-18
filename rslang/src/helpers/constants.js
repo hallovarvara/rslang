@@ -365,6 +365,8 @@ const text = {
       learnEnglishWithUs: 'Учите английский с нами',
       startLearningWithUs: 'Начать учиться с нами',
       playRightNow: 'Сыграть прямо сейчас',
+      lastResults: 'Последние результаты',
+      currentResults: 'Текущие результаты',
     },
 
     noVideoSupport: 'Извините, ваш браузер не поддерживает встроенное видео',

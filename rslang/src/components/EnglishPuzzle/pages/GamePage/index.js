@@ -34,7 +34,8 @@ class GamePage extends React.Component {
       isContinue: false,
       isShow: false,
       isEnd: false,
-      statistic: [] || localStorage.getItem('rslangPuzzleLatestResults'),
+      isStatisticShow: false,
+      statistic: localStorage.getItem('rslangPuzzleLatestResults') || [],
     };
   }
 
@@ -146,6 +147,11 @@ class GamePage extends React.Component {
     this.setState({ isCheck: true });
   }
 
+  handleShowStatistic = () => {
+    const { isStatisticShow } = this.state;
+    this.setState({ isStatisticShow: !isStatisticShow });
+  }
+
   handleClickButtonDontKnow = () => {
     let { errorCount } = this.state;
     errorCount += 1;
@@ -172,10 +178,14 @@ class GamePage extends React.Component {
       isShow,
       isEnd,
       statistic,
+      isStatisticShow,
     } = this.state;
     console.log(statistic);
     return (
       <GamePageView
+        handleShowStatistic={this.handleShowStatistic}
+        statistic={statistic}
+        isStatisticShow={isStatisticShow}
         paintingInfo={this.paintingInfo}
         questionList={questionList}
         level={level}
