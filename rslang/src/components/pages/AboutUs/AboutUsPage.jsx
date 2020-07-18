@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Parser from 'html-react-parser';
 
 import {
   teamMembers,
@@ -16,19 +17,21 @@ const mapTeamMembersToItems = (member, index) => <TeamMember key={index} {...mem
 
 const AboutUsPage = () => (
   <div className="about-us-page">
-    <section className="about-us">
+    <div className="about-us__header">
       <h1>{pagesData.aboutUs.title}</h1>
-      <p className="about-us__desctiption">Привет! Мы рады представить продукт нашей совместной работы — приложение по изучению английского языка</p>
-    </section>
+      <p className="about-us__subtitle">
+        {Parser(pagesData.aboutUs.subtitle)}
+      </p>
+    </div>
     <section className="team-members">
       {
         teamMembers.map(mapTeamMembersToItems)
       }
     </section>
-    <Link to={ getPath(pagesData.learnWords.path) }>
+    <Link className="about-us__link-container" to={ getPath(pagesData.learnWords.path) }>
       <Button
-        className="demonstration-container__start-button"
-        value={ text.ru.button.learnEnglishWithUs }
+        className="team-members__button-learn"
+        value={ Parser(text.ru.button.startLearningWithUs) }
       />
     </Link>
   </div>

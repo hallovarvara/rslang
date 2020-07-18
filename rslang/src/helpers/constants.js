@@ -64,11 +64,13 @@ export const levelsOfDifficulty = {
 export const dateFormatTemplate = 'DD.MM.YYYY';
 
 const linkedinLink = 'https://www.linkedin.com/in/';
+const githubLink = 'https://github.com/';
 const promoVideoLink = 'https://www.w3schools.com/html/mov_bbb.mp4';
 
 const pagesData = {
   aboutUs: {
     title: 'Кто мы',
+    subtitle: 'Привет! Мы&nbsp;рады представить продукт нашей совместной работы&nbsp;&mdash; приложение по&nbsp;изучению английского языка',
     path: 'about-us',
     guest: { isVisible: true, index: 3 },
     user: { isVisible: true, index: 2 },
@@ -179,37 +181,42 @@ const teamMembers = [
   {
     name: 'Варвара',
     surname: 'Девятерикова',
-    role: 'Тимлид. Проектировала и оформляла, верстала, тестировала, стыковала команду и код. Настроила git, сделала доску задач и заполняла ее. Создала инструкции по Git и совместной работе, планировала, устраивала встречи и вела заметки по ним, помогала команде и презентовала проект',
+    role: 'Тимлид. Проектировала и&nbsp;оформляла, верстала, тестировала, стыковала команду и&nbsp;код. Настроила репозиторий в&nbsp;GitHub, сделала доску задач и&nbsp;заполняла&nbsp;ее. Создала инструкции по&nbsp;Git и&nbsp;совместной работе, планировала, устраивала встречи и&nbsp;вела заметки по&nbsp;ним, помогала команде, презентовала проект',
     image: Varya,
     linkedinUsername: 'hallovarvara',
+    githubUsername: 'hallovarvara',
   },
   {
     name: 'Максим',
     surname: 'Касприв',
-    role: 'Придумал, внедрил и презентовал алгоритм интервального повторения слов, реализовал изучение слов, настраиваемые сервисы для получения слов, модели данных для статистики, настроек и общую для проекта. Снял 2 обучающих видео, разобрался в устройстве бэкэнда и помогал команде',
+    role: 'Придумал, внедрил и&nbsp;презентовал алгоритм интервального повторения слов, реализовал изучение слов, сервисы для получения слов, модели данных: общую, для статистики и&nbsp;настроек. Снял 2&nbsp;обучающих видео, разобрался в&nbsp;устройстве бэкэнда и&nbsp;помогал команде',
     image: Max,
     linkedinUsername: 'maksym-kaspriv',
+    githubUsername: 'VestryOd',
   },
   {
     name: 'Дмитрий',
     surname: 'Лебецкий',
-    role: `Сделал игры ${gamesData.speakit.title} и ${gamesData.unmess.title} с уникальным дизайном, базовые компоненты и страницы, словарь. Верстал, стилизовал, структурировал код, помогал тимлиду и команде`,
+    role: `Сделал игры ${gamesData.speakit.title} и&nbsp;${gamesData.unmess.title} с&nbsp;уникальным дизайном, базовые компоненты и&nbsp;страницы, словарь. Верстал, стилизовал, структурировал код, активно брался за&nbsp;любые задачи в&nbsp;любых частях приложения, помогал тимлиду и&nbsp;команде`,
     image: Dima,
     linkedinUsername: 'dmitry-lebetsky',
+    githubUsername: 'DmitryLebetsky',
   },
   {
     name: 'Артем',
     surname: 'Римарчук',
-    role: `Сделал игры ${gamesData.sprint.title} и ${gamesData.savannah.title}, статистику, авторизацию, регистрацию. Разработал сервисы для получения слов в модулях приложения, фильтрации данных пользователя для бэкэнда и отправки данных на бэкэнд, активно исправлял ошибки приложения`,
+    role: `Сделал игры ${gamesData.sprint.title} и&nbsp;${gamesData.savannah.title}, статистику, авторизацию, регистрацию. Разработал сервисы для получения слов в&nbsp;модулях приложения, фильтрации данных пользователя для бэкэнда и&nbsp;отправки данных на&nbsp;бэкэнд, активно исправлял ошибки приложения`,
     image: Artem,
     linkedinUsername: 'artemrimarchyk',
+    githubUsername: 'Kejno',
   },
   {
     name: 'Ксения',
     surname: 'Яцкевич',
-    role: `Сделала игры ${gamesData.audiocall.title} и ${gamesData.englishPuzzle.title}, настраивала окружение проекта, устанавливала необходимый для работы инструментарий`,
+    role: `Сделала игры ${gamesData.audiocall.title} и&nbsp;${gamesData.englishPuzzle.title}, настраивала окружение проекта, устанавливала необходимый для работы инструментарий`,
     image: Ksusha,
     linkedinUsername: 'ksenia-yatskevich',
+    githubUsername: 'KseniyaYatskevich',
   },
   {
     name: 'Алексей',
@@ -217,6 +224,7 @@ const teamMembers = [
     role: 'Разработал базовую структуру страницы словаря',
     image: Lesha,
     linkedinUsername: '',
+    githubUsername: 'algoritmiks',
   },
 ];
 
@@ -372,7 +380,7 @@ const text = {
       check: 'Проверить',
       learnWords: 'Изучать слова',
       learnEnglishWithUs: 'Учите английский с нами',
-      startLearningWithUs: 'Начать учиться с нами',
+      startLearningWithUs: 'Начать учиться с&nbsp;нами',
       playRightNow: 'Сыграть прямо сейчас',
     },
 
@@ -445,6 +453,7 @@ export {
   apiLinks,
   promoVideoLink,
   linkedinLink,
+  githubLink,
   gamesData,
   teamMembers,
   audio,
