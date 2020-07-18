@@ -13,7 +13,7 @@ const StatisticPageView = ({
   const buttonStyle = classNames('button', 'button_big');
   return (
     <div className="statistic__container">
-    {  JSON.parse(statistic).map((day, index) => {
+    { JSON.parse(statistic).map((day, index) => {
       return (
         <div key={index} className="statistic__item">
           <h2 className="statistic__date">{day.date}</h2>

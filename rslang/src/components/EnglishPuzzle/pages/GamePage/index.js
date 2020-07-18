@@ -189,6 +189,7 @@ class GamePage extends React.Component {
       <GamePageView
         statistic={statistic}
         isStatisticShow={isStatisticShow}
+        handleShowStatistic={this.handleShowStatistic}
         paintingInfo={this.paintingInfo}
         questionList={questionList}
         level={level}
