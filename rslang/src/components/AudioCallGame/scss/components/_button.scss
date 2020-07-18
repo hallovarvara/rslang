@@ -4,7 +4,9 @@
   margin: 80px auto 0;
 }
 
-.audiocall-container .button {
+.audiocall-container .button,
+body .button,
+.button__container .button {
   margin: 0 20px;
   color: $color-button-text;
   font-family: 'Inter', sans-serif;
@@ -24,14 +26,12 @@
     }
   }
   &_small {
+    margin: 10px 20px;
     padding: 10px 20px;
     font-size: 1.4rem;
     @include media-mobile {
       padding: 5px 10px;
       font-size: 1.2rem;
     }
-  }
-  &_center {
-    margin: 0 auto;
   }
 }

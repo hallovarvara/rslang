@@ -80,7 +80,6 @@ class GamePage extends React.Component {
 
   handleShowStatistic = () => {
     const { isStatisticShow } = this.state;
-    console.log(8888)
     this.setState({ isStatisticShow: !isStatisticShow });
   }
 

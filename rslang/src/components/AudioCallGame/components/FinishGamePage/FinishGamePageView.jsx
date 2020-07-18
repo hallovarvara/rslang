@@ -16,7 +16,7 @@ const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNew
       />
     ))
   );
-  const buttonStyle = classNames('button', 'button_small', 'button_center');
+  const buttonStyle = classNames('button', 'button_small');
   return (
     <>
       <div className="finish-page__container">

@@ -4,10 +4,10 @@
 }
 
 .statistic__date {
-  color: $color-light;
-  text-align: center;
   margin: 10px;
+  color: $color-light;
   font-size: 4rem;
+  text-align: center;
 }
 
 .statistic__item {
@@ -17,8 +17,8 @@
     @include flex(row, space-between, flex-start);    
   }  
   &_title {
-    font-size: 2.6rem;
     color: $color-light;
+    font-size: 2.6rem;
   }
   &_text {
     color: $color-light;
@@ -34,7 +34,7 @@
     margin-left: 10px;
     padding: 0 10px;
     color: $color-light;
-    border-radius: 10px;
     background: $color-right-answer;
+    border-radius: 10px;
   }  
 }

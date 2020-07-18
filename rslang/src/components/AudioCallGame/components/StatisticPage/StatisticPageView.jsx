@@ -19,7 +19,7 @@ const StatisticPageView = ({
     ))
   );
   const { ru: { button: { newGame, currentResults } } } = text;
-  const buttonStyle = classNames('button', 'button_big');
+  const buttonStyle = classNames('button', 'button_small');
   return (
     <div className="statistic__container">
     {  JSON.parse(statistic).map((day, index) => {
