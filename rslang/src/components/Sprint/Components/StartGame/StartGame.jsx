@@ -5,7 +5,6 @@ import StartGameForm from '../UI/StartGameForm';
 import Stepper from '../../../../basicComponents/Stepper';
 import { text, count } from '../../../../helpers/constants';
 import { generateStepperMarks } from '../../../../helpers/functions';
-import Select from '../../../games/components/Select'
 import './StartGame.scss';
 
 const { groups } = count;
