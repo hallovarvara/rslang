@@ -81,6 +81,8 @@ const pagesData = {
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
+    chooseLevel: 'Сложность слов',
+    choosePage: 'Набор слов',
   },
   play: {
     title: 'Играть',
