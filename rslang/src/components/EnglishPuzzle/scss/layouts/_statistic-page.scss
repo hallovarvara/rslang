@@ -1,6 +1,11 @@
 .statistic__container {
   width: 60%;
   margin: 0 auto;
+
+  .button__container {
+    margin-bottom: 0;
+    padding: 0 0 60px;
+  }
 }
 
 .statistic__date {
@@ -14,8 +19,8 @@
   &_result {
     margin-bottom: 70px;
     border-bottom: 1px solid $color-light;
-    @include flex(row, space-between, center);    
-  }  
+    @include flex(row, space-between, center);
+  }
   &_text {
     color: $color-light;
   }
