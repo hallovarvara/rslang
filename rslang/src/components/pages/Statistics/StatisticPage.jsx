@@ -26,12 +26,12 @@ const StatisticsPage = () => (
 export default StatisticsPage;
 
 const DataToday = () => (
-  <div className={'statistics__wrapp'}>
-    <div className={'statistics__content'}>
+  <div className="statistics__wrapp">
+    <div className="statistics__content">
       {name.map((item, key) => (
-        <div className={'statistics__item'} key={key}>
-          <div className={'statistics__item-name'}>{`${item}:`}</div>
-          <div className={'statistics__item-total'}>{total[key]}</div>
+        <div className="statistics__item" key={key}>
+          <div className="statistics__item-name">{`${item}:`}</div>
+          <div className="statistics__item-total">{total[key]}</div>
         </div>
       ))}
     </div>

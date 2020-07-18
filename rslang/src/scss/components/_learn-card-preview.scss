@@ -454,24 +454,6 @@
 .learn-word-repeating-buttons-container__button {
   width: 32%;
   padding: 10px 0;
-  background-color: transparent;
-  border: 2px solid $color-dark;
-  outline: none;
-  cursor: pointer;
-  @include font(2.5rem, 400, normal, $font-secondary);
-  @include media-laptop {
-    padding: 10px 0;
-    font-size: 2rem;
-  }
-  @include media-tablet {
-    padding: 7px 0;
-    font-size: 1.8rem;
-  }
-  @include media-mobile {
-    width: 48%;
-    margin-bottom: calc(0.04 * (100vw - 30px));
-    &:last-child {
-      margin: 0 auto;
-    }
-  }
+
+  @include button-secondary($isWidthSet: true);
 }

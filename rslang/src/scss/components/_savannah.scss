@@ -3,7 +3,7 @@
   text-align: center;
 
   .savannah__button {
-    @extend %promo-button;
+    @include button($color-savannah-secondary);
   }
 }
 
