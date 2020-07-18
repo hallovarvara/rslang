@@ -82,7 +82,7 @@ export const playAudios = (audios) => {
     audio.play();
 
     audio.onended = () => {
-      if (index < audios.length) {
+      if (index < audios.length - 1) {
         setTimeout(() => {
           index += 1;
           audio.src = resourceUrl(audios[index]);
