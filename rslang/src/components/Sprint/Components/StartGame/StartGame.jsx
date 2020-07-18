@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Parser from 'html-react-parser';
 import { connect } from 'react-redux';
 import StartGameForm from '../UI/StartGameForm';
 import Stepper from '../../../../basicComponents/Stepper';
-import { text, count } from '../../../../helpers/constants';
+import {count, gamesData} from '../../../../helpers/constants';
 import { generateStepperMarks } from '../../../../helpers/functions';
 import './StartGame.scss';
 
@@ -43,7 +44,7 @@ const StartGameUserForm = ({
         {token && (
           <>
             <p className="sprint-start__explanation">
-              {text.ru.notEnoughWords}
+              {Parser(gamesData.sprint.description)}
             </p>
           </>)
         }

@@ -317,6 +317,26 @@ export default class LearnWords extends Component {
     }));
   }
 
+  setWordsRandomly = (wordsRandomly) => {
+    this.setState({
+      isWordsRandomly: wordsRandomly,
+    });
+  }
+
+  setUserLevel = (level) => {
+    this.setState({
+      userLevel: level,
+    });
+  }
+
+  setUserPage = (page) => {
+    this.setState({
+      userPage: page,
+    });
+  }
+
+  setUser
+
   render() {
     const {
       words,
@@ -331,6 +351,9 @@ export default class LearnWords extends Component {
       statsNewWordsCount,
       statsMistakesCount,
       statsRightAnswerSeries,
+      isWordsRandomly,
+      userPage,
+      userLevel,
     } = this.state;
     const {
       isShownComplicatedButton,
@@ -362,6 +385,12 @@ export default class LearnWords extends Component {
         onContinueLearning={this.handleContinueLearning}
         onStartNewLearning={this.handleStartNewLearning}
         isContinued={Boolean(words.length)}
+        setWordsRandomly={this.setWordsRandomly}
+        setUserLevel={this.setUserLevel}
+        setUserPage={this.setUserPage}
+        isWordsRandomly={isWordsRandomly}
+        userPage={userPage}
+        userLevel={userLevel}
       />
     ) : (
       <div className="learn-words">

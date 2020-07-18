@@ -1,6 +1,20 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+
 .sprint__finish-container {
   display: flex;
   justify-content: space-around;
   max-height: 76vh;
   overflow: auto;
+}
+
+.sprint__finish-wrapper {
+  @include flex($direction: column);
+};
+
+button.sprint__finish-button {
+  margin-top: 50px;
+  @include button(
+    $background-color: $color-sprint-secondary,
+  );
 }
