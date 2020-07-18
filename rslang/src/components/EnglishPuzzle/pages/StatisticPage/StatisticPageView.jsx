@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import classNames from 'classnames';
 import { text } from '../../../../helpers/constants';
 
-const StatisticPageView = ({ 
+const StatisticPageView = ({
   statistic,
   handleShowStatistic,
   handleClickNewGame,
@@ -13,8 +13,7 @@ const StatisticPageView = ({
   const buttonStyle = classNames('button', 'button_big');
   return (
     <div className="statistic__container">
-    { JSON.parse(statistic).map((day, index) => {
-      return (
+    { JSON.parse(statistic).map((day, index) => (
         <div key={index} className="statistic__item">
           <h2 className="statistic__date">{day.date}</h2>
           <div className="statistic__item_result">
@@ -22,7 +21,7 @@ const StatisticPageView = ({
             <p className="statistic__item_text">Верно: <span className="right">{day.right}</span></p>
           </div>
         </div>
-      )})
+    ))
     }
     <div className="button__container">
     <Button
@@ -43,13 +42,13 @@ const StatisticPageView = ({
       </Button>
     </div>
     </div>
-  );  
-}
+  );
+};
 
 StatisticPageView.propTypes = {
   statistic: PropTypes.string,
   handleShowStatistic: PropTypes.func,
   handleClickNewGame: PropTypes.func,
-}
+};
 
 export default StatisticPageView;
