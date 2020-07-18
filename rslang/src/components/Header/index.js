@@ -3,28 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { authSuccess } from '../../redux/actions/auth';
 import HeaderView from './HeaderView.jsx';
-import UserService from '../../helpers/userService'
 import {
   pagesData,
   localStorageItems,
 } from '../../helpers/constants';
 
-const userService = new UserService();
-const { createUserStatistics, getUserStatistics } = userService;
-const option = {
-  "learnedWords": 1,
-  "optional": {
-    "learnWords": { "": "" },
-    "savannah": { "": "" },
-    "sprint": { "": "" },
-    "audiocall": { "": "" },
-    "speakIt": { "": "" },
-    "puzzle": { "": "" },
-    "unmess": { "": "" },
-  }
-}
-
-const option1 = {}
 class Header extends React.Component {
   componentDidMount() {
     this.props.authSuccess(
@@ -32,15 +15,6 @@ class Header extends React.Component {
       localStorage.getItem(localStorageItems.userId),
       localStorage.getItem(localStorageItems.token),
     );
-    this.data = {
-      userId: localStorage.getItem(localStorageItems.userId),
-      option1,
-    };
-    /*   if (!getUserStatistics(localStorage.getItem(localStorageItems.userId))) {
-        createUserStatistics(this.data);
-      } */
-    getUserStatistics(localStorage.getItem(localStorageItems.userId))
-
   }
 
   getPagesLinks = () => Object.values(pagesData).reduce((links, item) => {
