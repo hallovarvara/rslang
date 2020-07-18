@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { countPhrase } from '../../constants';
-// import data from '../../mockData';
+import { 
+  countPhrase,
+  countLatestResult,
+  localStorageItems,
+} from '../../constants';
+import { dateOptions } from '../../../../helpers/constants';
 import { generateQuestionsArray, shuffle } from '../../helpers';
 import GamePageView from './GamePageView.jsx';
 
@@ -23,7 +27,7 @@ class GamePage extends React.Component {
     this.state = {
       level: 0,
       maxLevel: 10,
-      dataWords: data, // TODO use API
+      dataWords: data,
       questionList: [],
       phrasesArray: [],
       prevPhraseArray: [],
@@ -114,21 +118,22 @@ class GamePage extends React.Component {
   }
 
   updateLatestResult = () => {
+    const { latestResults } = localStorageItems;
     const { errorCount } = this.state; 
     const result = {
-      data: (new Date()).toLocaleString('ru', {
-        year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
-      }),
+      date: (new Date()).toLocaleString('ru', dateOptions),
       error: errorCount,
       right: countPhrase - errorCount,
     };
-    console.log(result, 88888);
-    if(!localStorage.getItem('rslangPuzzleLatestResults')) {
-      localStorage.setItem('rslangPuzzleLatestResults', JSON.stringify([]));
+    if(!localStorage.getItem(latestResults)) {
+      localStorage.setItem(latestResults, JSON.stringify([]));
     };
-    this.latestResult = JSON.parse(localStorage.getItem('rslangPuzzleLatestResults'));
-    this.latestResult.push(result);
-    localStorage.setItem('rslangPuzzleLatestResults', JSON.stringify(this.latestResult));
+    this.latestResult = JSON.parse(localStorage.getItem(latestResults));
+    this.latestResult.unshift(result);
+    if (this.latestResult.length > countLatestResult) {
+      this.latestResult = this.latestResult.slice(0, countLatestResult);
+    }
+    localStorage.setItem(latestResults, JSON.stringify(this.latestResult));
   }
 
   updateIsCheck = (check) => {
@@ -180,10 +185,8 @@ class GamePage extends React.Component {
       statistic,
       isStatisticShow,
     } = this.state;
-    console.log(statistic);
     return (
       <GamePageView
-        handleShowStatistic={this.handleShowStatistic}
         statistic={statistic}
         isStatisticShow={isStatisticShow}
         paintingInfo={this.paintingInfo}

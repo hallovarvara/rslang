@@ -29,22 +29,24 @@ const FinishPageView = ({
       <p className="title">{answersMistaken}
         <span className="wrong">{errorCount}</span>
       </p>
-      <Button
-        className={buttonStyle}
-        variant="contained"
-        size="large"
-        onClick={() => handleClickNewGame()}
-      >
-        {newGame}
-      </Button>
-      <Button
-        className={buttonStyle}
-        variant="contained"
-        size="large"
-        onClick={() => handleShowStatistic()}
-      >
-        {lastResults}
-      </Button>
+      <div className="button__container">
+        <Button
+          className={buttonStyle}
+          variant="contained"
+          size="large"
+          onClick={() => handleClickNewGame()}
+        >
+          {newGame}
+        </Button>
+        <Button
+          className={buttonStyle}
+          variant="contained"
+          size="large"
+          onClick={() => handleShowStatistic()}
+        >
+          {lastResults}
+        </Button>
+      </div>
     </div>
   );
 };

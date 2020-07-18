@@ -9,18 +9,19 @@ const StatisticPageView = ({
   handleShowStatistic,
   handleClickNewGame,
 }) => {
-  console.log(statistic, 9999)
   const { ru: { button: { newGame, currentResults } } } = text;
   const buttonStyle = classNames('button', 'button_big');
   return (
-    <>
+    <div className="statistic__container">
     {  JSON.parse(statistic).map((day, index) => {
       return (
-        <div key={index}>
-          <h3>{day.data}</h3>
-          <p>{day.error}</p>
+        <div key={index} className="statistic__item">
+          <h2 className="statistic__date">{day.date}</h2>
+          <div className="statistic__item_result">
+            <p className="statistic__item_text">Ошибок: <span className="wrong">{day.error}</span></p>
+            <p className="statistic__item_text">Верно: <span className="right">{day.right}</span></p>
+          </div>
         </div>
-
       )})
     }
     <div className="button__container">
@@ -41,12 +42,12 @@ const StatisticPageView = ({
         {currentResults}
       </Button>
     </div>
-    </>
+    </div>
   );  
 }
 
 StatisticPageView.propTypes = {
-  statistic: PropTypes.array,
+  statistic: PropTypes.string,
   handleShowStatistic: PropTypes.func,
   handleClickNewGame: PropTypes.func,
 }

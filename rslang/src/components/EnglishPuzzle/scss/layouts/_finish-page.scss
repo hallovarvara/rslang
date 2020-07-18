@@ -1,7 +1,7 @@
 .finish-page {
   @include flex(column, center, center);
   .picture {
-    width: 70%;
+    width: 20%;
     margin: 20px auto;
   }
   .text {
@@ -32,11 +32,20 @@
     font-size: 2.2rem;
     text-align: center;
   }
-  .wrong {
-    margin-left: 10px;
-    padding: 0 10px;
-    color: $color-light;
-    background: $color-wrong-answer;
-    border-radius: 10px;
-  }
+}
+
+.wrong, .right {
+  margin-left: 10px;
+  padding: 0 10px;
+  color: $color-light;
+  background: $color-wrong-answer;
+  border-radius: 10px;
+}
+
+.wrong {
+  background: $color-wrong-answer;
+}
+
+.right {
+  background: $color-right-answer;
 }

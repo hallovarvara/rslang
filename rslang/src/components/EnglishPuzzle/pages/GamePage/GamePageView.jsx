@@ -37,7 +37,6 @@ const GamePageView = ({
   isShow,
   backgroundUrl,
   paintingInfo,
-  updateLatestResult,
   isStatisticShow,
   statistic,
   handleShowStatistic,
@@ -128,9 +127,7 @@ const GamePageView = ({
           isBackground={isBackground}
           backgroundUrl={backgroundUrl}
           handleShowStatistic={handleShowStatistic}
-          // updateLatestResult={updateLatestResult}
-        />)
-      
+        />)      
   );
 };
 

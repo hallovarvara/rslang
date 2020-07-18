@@ -1,0 +1,22 @@
+.statistic__container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.statistic__date {
+  color: $color-light;
+  text-align: center;
+  margin: 10px;
+  font-size: 4rem;
+}
+
+.statistic__item {
+  &_result {
+    margin-bottom: 70px;
+    border-bottom: 1px solid $color-light;
+    @include flex(row, space-between, center);    
+  }  
+  &_text {
+    color: $color-light;
+  }
+}

@@ -2,6 +2,7 @@ export const pagesCount = 30;
 export const levelsCount = 6;
 export const heightRow = 40;
 export const countPhrase = 10;
+export const countLatestResult = 10;
 
 export const localStorageItems = {
     latestResults: 'rslangPuzzleLatestResults',
