@@ -1,6 +1,8 @@
 .finish-page__item {
   display: flex;
   align-items: flex-start;
+  margin-left: -8px;
+
   .text {
     margin: 0;
     color: $color-light;
@@ -10,7 +12,8 @@
 .finish-page__result {
   display: flex;
   justify-content: space-around;
-  padding: 100px 40px;
+  margin-bottom: 20px;
+
   @include media-tablet {
     flex-direction: column;
   }

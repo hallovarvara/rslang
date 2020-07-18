@@ -11,7 +11,7 @@ const FinishGameItemView = ({ word }) => {
       <IconButton aria-label="audio" onClick = {() => audioElement.play()}>
         <VolumeUpRounded fontSize="large"/>
       </IconButton>
-      <p className="text">{word.word}</p>
+      <p className="text">{word.word.toLowerCase()}</p>
     </div>
   );
 };

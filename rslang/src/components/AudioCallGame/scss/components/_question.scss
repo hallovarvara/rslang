@@ -1,6 +1,6 @@
 .question__container {
-  height: 250px;
-  margin: 40px;
+  height: 150px;
+  margin: 0 0 40px;
   @include flex(column, center, center);
   .picture {
     width: 150px;

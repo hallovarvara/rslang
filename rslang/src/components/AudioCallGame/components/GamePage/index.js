@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GamePageView from './GamePageView.jsx';
 import { shuffleArray, generateQuestionsArray, playAudio } from '../../../../helpers/functions';
+
 import {
   soundSuccess,
   soundError,
+  applicationThings,
 } from '../../../../helpers/constants';
-import { 
+
+import {
   handleGameRightAnswer,
   handleGameWrongAnswer,
-  saveSessionInfoToLocal,
 } from '../../../../helpers/wordsService';
-import { applicationThings } from '../../../../helpers/constants';
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -134,6 +135,7 @@ class GamePage extends React.Component {
       rightAnswerArray,
       errorAnswerArray,
     } = this.state;
+
     return (
       <GamePageView
         handleClickNewGame={this.handleClickNewGame}
@@ -156,6 +158,8 @@ GamePage.propTypes = {
   handleClickNewGame: PropTypes.func,
   numberLevel: PropTypes.number,
   countAnswers: PropTypes.number,
+  data: PropTypes.array,
+  countQuestion: PropTypes.number,
 };
 
 export default GamePage;

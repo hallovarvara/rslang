@@ -5,3 +5,13 @@
     font-size: 8rem;
   }
 }
+
+.audiocall-container {
+  button[aria-label='audio'] {
+    padding: 7px;
+
+    .MuiSvgIcon-root {
+      fill: $color-light;
+    }
+  }
+}
