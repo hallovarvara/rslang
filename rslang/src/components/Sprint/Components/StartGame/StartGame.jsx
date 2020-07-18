@@ -56,7 +56,7 @@ const StartGameUserForm = ({
           marks={generateStepperMarks(groups)}
           className="sprint-levels-stepper"
           label="Выберите уровень:"
-          arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#fcff79', '#F8961E', '#F3722C', '#F94144']}
+          arrayOfColorsForTrack={['#65BC0D', '#98CE00', '#FFF73B', '#F8961E', '#F3722C', '#F94144']}
           stickyLabel={false}
         />
       </div>
