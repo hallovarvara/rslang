@@ -51,7 +51,7 @@ export const userSettingsTemplate = {
 };
 
 const preloaderdefaultSettings = {
-  size: 150,
+  size: 100,
   color: '#843FDD',
 };
 
