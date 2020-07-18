@@ -13,7 +13,7 @@ const FinishPageView = ({
   handleShowStatistic,
 }) => {
   const { ru: { button: { newGame, lastResults }, answersMistaken } } = text;
-  const buttonStyle = classNames('button', 'button_big');
+  const buttonStyle = classNames('button', 'button_small');
   return (
     <div className="finish-page">
       {isBackground
