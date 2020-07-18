@@ -6,12 +6,14 @@
 }
 
 .play-games__subtitle {
+  margin: 0 20px;
+
   @extend %subtitle;
-  margin-bottom: 0;
 }
 
 .games-cards-container {
   flex-wrap: wrap;
   width: 100%;
+
   @include flex(row, center, center);
 }

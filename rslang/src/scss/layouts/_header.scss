@@ -24,7 +24,8 @@
     right: -350px;
     width: 350px;
     height: 100vh;
-    box-shadow: 0px 4px 40px rgba($color-dark, 0.1), 0px 2px 7px rgba($color-dark, 0.15);
+    box-shadow: 0px 4px 40px rgba($color-dark, 0.1),
+      0px 2px 7px rgba($color-dark, 0.15);
     transition: right calc(2 * #{$hamburger-transition});
 
     .MuiButton-root:hover {
@@ -54,10 +55,12 @@
       @include navigation-colors($color-light, $color-audiocall-secondary);
     }
   }
+
   @include media-laptop {
     right: -320px;
     width: 320px;
   }
+
   @include media-mobile {
     right: -100vw;
     width: 100vw;

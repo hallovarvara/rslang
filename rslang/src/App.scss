@@ -3,14 +3,12 @@
 @import './scss/abstracts/mixins';
 @import './scss/abstracts/placeholders';
 
-/* Vendors */
-@import './scss/vendor/normalize';
-
 /* Base */
+@import './scss/base/normalize';
 @import './scss/base/typography';
-@import './scss/base/base';
 @import './scss/base/helpers';
 @import './scss/base/fonts';
+@import './scss/base/base';
 
 /* Components */
 @import './scss/components/logo';

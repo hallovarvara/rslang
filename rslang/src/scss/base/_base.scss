@@ -12,3 +12,17 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+
+.App h1 {
+  @include media-mobile {
+    font-size: 5rem;
+  }
+
+  @include media-big-mobile {
+    font-size: 6.4rem;
+  }
+
+  @include media-tablet {
+    font-size: 7.8rem;
+  }
+}

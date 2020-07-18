@@ -250,7 +250,7 @@ const text = {
 
     /* Play page */
     chooseGame: 'Выберите игру',
-    everyGameImprove: 'Каждая игра улучшит отдельный набор знаний и умений',
+    everyGameImprove: 'Каждая игра улучшит отдельный набор знаний и&nbsp;умений',
 
     /* Vocabulary page */
     restoreForLearning: 'Вернуть к изучаемым',
