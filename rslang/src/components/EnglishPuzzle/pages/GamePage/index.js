@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import data from '../../mockData';
+import {
+  countPhrase,
+  countLatestResult,
+  localStorageItems,
+} from '../../constants';
+import { dateOptions } from '../../../../helpers/constants';
 import { generateQuestionsArray, shuffle } from '../../helpers';
 import GamePageView from './GamePageView.jsx';
 
@@ -22,7 +27,7 @@ class GamePage extends React.Component {
     this.state = {
       level: 0,
       maxLevel: 10,
-      dataWords: data, // TODO use API
+      dataWords: data,
       questionList: [],
       phrasesArray: [],
       prevPhraseArray: [],
@@ -33,6 +38,8 @@ class GamePage extends React.Component {
       isContinue: false,
       isShow: false,
       isEnd: false,
+      isStatisticShow: false,
+      statistic: localStorage.getItem('rslangPuzzleLatestResults') || [],
     };
   }
 
@@ -89,7 +96,7 @@ class GamePage extends React.Component {
     const prevPhrase = phrasesArray[level];
     prevPhraseArray.push(prevPhrase);
     level += 1;
-    if (level < 10) {
+    if (level < countPhrase) {
       const currentPhrase = phrasesArray[level];
       const answerItems = this.getItems(currentPhrase);
       const puzzleItems = shuffle(this.getItems(currentPhrase));
@@ -106,8 +113,27 @@ class GamePage extends React.Component {
     } else {
       this.setState({
         isEnd: true,
-      });
+      }, this.updateLatestResult);
     }
+  }
+
+  updateLatestResult = () => {
+    const { latestResults } = localStorageItems;
+    const { errorCount } = this.state;
+    const result = {
+      date: (new Date()).toLocaleString('ru', dateOptions),
+      error: errorCount,
+      right: countPhrase - errorCount,
+    };
+    if (!localStorage.getItem(latestResults)) {
+      localStorage.setItem(latestResults, JSON.stringify([]));
+    }
+    this.latestResult = JSON.parse(localStorage.getItem(latestResults));
+    this.latestResult.unshift(result);
+    if (this.latestResult.length > countLatestResult) {
+      this.latestResult = this.latestResult.slice(0, countLatestResult);
+    }
+    localStorage.setItem(latestResults, JSON.stringify(this.latestResult));
   }
 
   updateIsCheck = (check) => {
@@ -124,6 +150,11 @@ class GamePage extends React.Component {
 
   handleClickCheck = () => {
     this.setState({ isCheck: true });
+  }
+
+  handleShowStatistic = () => {
+    const { isStatisticShow } = this.state;
+    this.setState({ isStatisticShow: !isStatisticShow });
   }
 
   handleClickButtonDontKnow = () => {
@@ -151,9 +182,14 @@ class GamePage extends React.Component {
       isCheck,
       isShow,
       isEnd,
+      statistic,
+      isStatisticShow,
     } = this.state;
     return (
       <GamePageView
+        statistic={statistic}
+        isStatisticShow={isStatisticShow}
+        handleShowStatistic={this.handleShowStatistic}
         paintingInfo={this.paintingInfo}
         questionList={questionList}
         level={level}
@@ -181,6 +217,7 @@ class GamePage extends React.Component {
         handleClickNewGame={this.handleClickNewGame}
         isEnd={isEnd}
         backgroundUrl={this.backgroundUrl}
+        updateLatestResult={this.updateLatestResult}
       />
     );
   }
