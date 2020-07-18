@@ -52,7 +52,7 @@ class AudioCall extends React.Component {
     if (token) {
       data = await getUserWordsNoRemoved(userId);
     }
-    if (data.length < countQuestions && !data) {
+    if (data.length < countQuestions) {
       const addWords = await getWords(numberPage, numberLevel);
       data = data.concat(addWords).slice(0, countQuestions);
     }
