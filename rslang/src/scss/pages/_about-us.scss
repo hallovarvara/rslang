@@ -1,0 +1,145 @@
+.about-us-page {
+  padding-bottom: 60px;
+  @include flex(column, center, center);
+
+  p {
+    width: 100%;
+  }
+}
+
+.about-us__link-container {
+  margin: 40px 0 60px;
+  text-align: center;
+
+  @include media-tablet() {
+    margin: 30px 30px 30px;
+  }
+}
+
+.team-members__button-learn {
+  @include button($text-color: $color-light);
+
+  @include media-tablet() {
+    .MuiButton-label {
+      padding: 5px 0;
+      font-size: 2.4rem;
+      line-height: 150%;
+    }
+  }
+}
+
+.about-us__header {
+  width: 90%;
+  @include flex(column, center, center);
+  @extend %padding;
+
+  .about-us__subtitle {
+    @extend %subtitle;
+
+    @include media-big-mobile {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.team-members {
+  flex-wrap: wrap;
+  background-color: $color-secondary;
+  @include flex(row, center, flex-start);
+}
+
+.team-member {
+  @extend %card-2-in-row;
+
+  @include media-tablet {
+    margin: 30px 20px;
+  }
+}
+
+.team-member__photo {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 20px;
+  object-fit: cover;
+  border-radius: 500px;
+}
+
+.team-member__name {
+  margin: 0 auto;
+
+  @include font(
+    $size: 4.6rem,
+    $weight: $font-weight-black,
+    $family: $font-secondary,
+    $line-height: 110%
+  );
+}
+
+.team-member__role {
+  text-align: center;
+  margin: 15px 0 20px;
+
+  @include font(
+    $weight: $font-weight-light,
+    $line-height: 160%,
+    $spacing: 0.06
+  );
+
+  @include media-big-mobile {
+    font-size: 1.8rem;
+  }
+
+  @include media-mobile {
+    font-size: 1.6rem;
+  }
+}
+
+.team-member__links {
+  margin: 0 auto;
+  @include flex();
+
+  .team-member-link:not(:last-child) {
+    margin-right: 15px;
+  }
+}
+
+.team-member-link {
+  text-transform: uppercase;
+  @include font(2rem, 400, normal);
+  @include flex(row, center, flex-end);
+  @include transition($properties: opacity);
+
+  &:hover {
+    opacity: 0.4;
+  }
+}
+
+.team-member-link__text {
+  @include font(
+    $size: 2rem,
+    $weight: $font-weight-black,
+    $line-height: 140%
+  );
+  @include flex(row, center, flex-end);
+}
+
+.team-member-link__icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+}
+
+.team-member-link__icon_linkedin {
+  @include background-image(
+    url('../../assets/icons/icon-linkedin.svg'),
+    $size: contain
+  );
+}
+
+.team-member-link__icon_github {
+  @include background-image(
+    url('../../assets/icons/icon-github.svg'),
+    $size: contain
+  );
+}
