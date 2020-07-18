@@ -284,9 +284,11 @@ export default class LearnWords extends Component {
   handleStartNewLearning = async () => {
     this.togglePreloader();
     clearSessionData();
+    const { isWordsRandomly, userLevel } = this.state;
+    const group = isWordsRandomly ? null : userLevel;
     const wordsFromApiResponse = await userservice.prepareToLearnWords(
-      10,
-      1,
+      20,
+      group,
     );
     // const wordsFromApiResponse = await getWordsByAmount(1, 10);
     const words = await this.prepareSessionProgress(wordsFromApiResponse);

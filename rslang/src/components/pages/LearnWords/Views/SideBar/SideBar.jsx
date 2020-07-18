@@ -10,12 +10,14 @@ const SideBar = ({
   onNextWord,
   onPrevWord,
   onShowTip,
+  onPlayAudio,
 }) => (
   <>
     {isShownAnswerButton && (
       <button className="learn-word-card-control__show-answer-button"
         onClick={() => {
           onShowTip();
+          onPlayAudio();
         }
         }
         disabled={progress.isGuessed}
@@ -37,6 +39,7 @@ SideBar.propTypes = {
   onNextWord: PropTypes.func,
   onPrevWord: PropTypes.func,
   onShowTip: PropTypes.func,
+  onPlayAudio: PropTypes.func,
 };
 
 export default SideBar;

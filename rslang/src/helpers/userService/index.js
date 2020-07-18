@@ -18,9 +18,10 @@ import {
   apiLinks,
   text,
   localStorageItems,
+  count,
 } from '../constants';
 
-import { getTokenLifetimeInMs } from '../functions';
+import { getTokenLifetimeInMs, getRandomNumber } from '../functions';
 
 const getAuthHeader = () => ({
   headers: {
@@ -311,7 +312,8 @@ export default class UserService {
       ? getDayLocalUserWords(dayLimit)
       : await this.getUserWordsNoRemovedStamp(userId);
     const rest = dayLimit - userWords.length;
-    const words = await getWordsByAmount(userGroup, rest);
+    const group = userGroup || getRandomNumber(0, count.groups);
+    const words = await getWordsByAmount(group, rest);
     const grouped = userWords.length
       ? [...words, ...userWords]
       : [...words];
