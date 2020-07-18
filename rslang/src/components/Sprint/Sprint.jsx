@@ -5,7 +5,6 @@ import StartGame from './Components/StartGame';
 import PlayGame from './Components/PlayGame';
 import FinishGame from './Components/FinishGame';
 import UserService from '../../helpers/userService';
-import Switcher from './Components/UI/switch';
 import Select from '../games/components/Select'
 
 import {
@@ -267,7 +266,7 @@ class Sprint extends Component {
   render() {
     const {
       words, activeAnswer, translateWords, isAnswerQuiz, counter, currentGroup,
-      volume, score, timer, isFinished, mistake, complete, isStarted, token,
+      volume, score, timer, isFinished, mistake, complete, isStarted,
     } = this.state;
 
     let page;

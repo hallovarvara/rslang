@@ -27,14 +27,16 @@ export const removedTemplate = {
 };
 
 export const settingsTemplate = {
-  translation: true,
-  complicatedButton: true,
-  imageAssociatation: true,
-  meaning: true,
-  transcription: true,
-  showAnswerButton: true,
-  exampleSentence: true,
-  exampleSentenceTranslation: true,
+  optional: {
+    translation: true,
+    complicatedButton: true,
+    imageAssociatation: true,
+    meaning: true,
+    transcription: true,
+    showAnswerButton: true,
+    exampleSentence: true,
+    exampleSentenceTranslation: true,
+  },
 };
 
 export const userWordThings = {

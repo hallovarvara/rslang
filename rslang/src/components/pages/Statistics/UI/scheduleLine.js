@@ -32,7 +32,6 @@ const ScheduleStatistics = ({ data }) => (
         legendPosition: 'middle',
       }}
       enableGridX
-      gridXValues={'string'}
       lineWidth={2}
       pointSize={6}
       pointColor={{ from: 'color', modifiers: [] }}
