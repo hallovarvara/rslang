@@ -17,8 +17,12 @@
 }
 
 .team-members__button-learn {
-  @include button($text-color: $color-light);
+  &,
+  &.MuiButtonBase-root {
+    padding: 20px 50px;
+  }
 
+  @include button($text-color: $color-light);
   @include media-tablet() {
     .MuiButton-label {
       padding: 5px 0;
