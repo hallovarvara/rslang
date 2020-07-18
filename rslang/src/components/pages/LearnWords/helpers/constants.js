@@ -14,6 +14,9 @@ export const initialState = {
   statsNewWordsCount: 0,
   statsMistakesCount: 0,
   statsRightAnswerSeries: 0,
+  isWordsRandomly: false,
+  userPage: 0,
+  userLevel: 0,
 };
 
 export const buttonsNames = {

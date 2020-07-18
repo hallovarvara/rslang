@@ -8,6 +8,7 @@ import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import Button from '@material-ui/core/Button';
 import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
+import { text } from '../../../../helpers/constants';
 
 import './PlayGame.scss';
 
@@ -74,29 +75,27 @@ class PlayGame extends Component {
           </div>
           <div className={'sprint-play__word'}>{words[0]}</div>
 
-          <div className={'sprint-play__translate'}>{activeAnswer}</div>
+          <div className={'sprint-play__translate'}>
+            {`${text.ru.sprint.translatedAs} «${activeAnswer}»`}
+          </div>
 
         </div>
         <div className={'sprint-play__control'}>
           <Button
             variant="contained"
-            color="secondary"
-            size="large"
             onClick={onCLick}
             value={0}
-            style={{ width: 120, fontSize: '1.5rem' }}
+            className="sprint__button_wrong"
           >
-            НЕВЕРНО
+            {text.ru.button.wrong}
       </Button>
           <Button
             variant="contained"
-            color="primary"
-            size="large"
             onClick={onCLick}
             value={1}
-            style={{ width: 120, fontSize: '1.5rem' }}
+            className="sprint__button_right"
           >
-            ВЕРНО
+            {text.ru.button.right}
       </Button>
 
         </div>

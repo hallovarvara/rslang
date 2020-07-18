@@ -244,19 +244,12 @@ class Sprint extends Component {
     this.setState({
       ...state,
     });
-
   }
-
-  /*  isChangeUserWords = () => {
-     this.setState(({ checkedUserWords }) => ({
-       checkedUserWords: !checkedUserWords,
-     }));
-   } */
 
   isChangeUserWords = (checkedUserWords) => {
     this.setState({
       checkedUserWords,
-    })
+    });
   }
 
   handleCurrentGroup = (value) => {
