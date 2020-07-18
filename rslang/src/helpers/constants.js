@@ -51,7 +51,7 @@ export const userSettingsTemplate = {
 };
 
 const preloaderdefaultSettings = {
-  size: 150,
+  size: 100,
   color: '#843FDD',
 };
 
@@ -343,6 +343,11 @@ const text = {
       instruction: 'Схватите слово и отпустите над его значением',
     },
 
+    /* audioCall */
+    audioCall: {
+      instruction: 'Прослушайте слово и выберите его правильный перевод',
+    },
+
     /* Speakit */
     speakit: {
       instruction: ['Нажмите на слово, чтобы услышать его произношение.', 'Нажмите на кнопку и произнесите слово в микрофон.'],
@@ -371,8 +376,8 @@ const text = {
 const formLabel = {
   level: 'Уровень',
   chooseLevel: 'Выберите уровень',
-  questions: 'Сколько слов хотите отгадать? (5—12)',
-  answers: 'Сколько показывать вариантов ответов? (2—5)',
+  questions: 'Сколько слов хотите отгадать?',
+  answers: 'Сколько показывать вариантов ответов?',
 };
 
 const questionStatus = {
@@ -396,6 +401,10 @@ const count = {
   groups: 6,
   pages: 29,
   words: 19,
+  maxCountQuestions: 12,
+  minCountQuestions: 5,
+  maxCountAnswers: 5,
+  minCountAnswers: 2,
 
   /* Time */
   minInHour: 60,
@@ -405,11 +414,6 @@ const count = {
 
   /* Defaults */
   elementsPerPage: 10,
-
-  /* Game Audiocall */
-  audiocall: {
-    maxLevels: 12,
-  },
 
   /* Game Savannah */
   savannah: {

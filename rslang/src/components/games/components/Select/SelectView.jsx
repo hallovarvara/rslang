@@ -33,7 +33,7 @@ const SelectView = (props) => {
 
 SelectView.propTypes = {
   useUserWords: PropTypes.bool,
-  isUserLogged: PropTypes.bool,
+  isUserLogged: PropTypes.string,
   showNotifications: PropTypes.func,
   setUsingOfUserWords: PropTypes.func,
 };

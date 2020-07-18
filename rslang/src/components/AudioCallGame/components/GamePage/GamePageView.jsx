@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import style from './GamePageView.module.scss';
 
 import Question from '../Question';
 import AnswerPanel from '../AnswerPanel';
@@ -24,7 +23,7 @@ const GamePageView = ({
   return (
     question && answerArray
       ? (
-      <div className={style.container}>
+      <div className="game-page__container">
         <Question
           question = {question}
           isFalseAnswer = {isFalseAnswer}

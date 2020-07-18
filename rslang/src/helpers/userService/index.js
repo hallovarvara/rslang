@@ -252,7 +252,7 @@ export default class UserService {
   }
 
   firstEnterOfUser = async (errorHandler) => {
-    const userIsLogged = this.isUserLogged();
+    const userIsLogged = await this.isUserLogged();
     let stats;
     let settings;
     if (userIsLogged) {
@@ -286,34 +286,37 @@ export default class UserService {
     isAllowedToGetUserWords = true,
   ) => {
     clearSessionData(thingName);
-    const userIsLogged = this.isUserLogged();
+    const userIsLogged = await this.isUserLogged();
     const userId = localStorage.getItem(localStorageItems.userId);
     let userWords;
     if (isAllowedToGetUserWords) {
       userWords = !userIsLogged
         ? getDayLocalUserWords(dayLimit)
-        : this.getUserWordsNoRemovedStamp(userId); // TODO: here will be filtered request to backend
+        : await this.getUserWordsNoRemovedStamp(userId);
+      // TODO: here will be filtered request to backend
     }
     const rest = dayLimit - userWords.length;
     const words = await getWordsByAmount(userGroup, rest);
     const grouped = isAllowedToGetUserWords
       ? [...words, ...userWords]
       : [...words];
-    return shufleWordsArray(grouped);
+    const shufled = shufleWordsArray(grouped);
+    return shufled;
   }
 
   prepareToLearnWords = async (dayLimit, userGroup) => {
     const userIsLogged = this.isUserLogged();
     const userId = localStorage.getItem(localStorageItems.userId);
-    const userWords = await !userIsLogged
+    const userWords = !userIsLogged
       ? getDayLocalUserWords(dayLimit)
-      : this.getUserWordsNoRemovedStamp(userId);
+      : await this.getUserWordsNoRemovedStamp(userId);
     const rest = dayLimit - userWords.length;
     const words = await getWordsByAmount(userGroup, rest);
     const grouped = userWords.length
       ? [...words, ...userWords]
       : [...words];
-    return shufleWordsArray(grouped);
+    const shufled = shufleWordsArray(grouped);
+    return shufled;
   }
 
   updateUserStatistics = async (stats, userId, prevStats) => {

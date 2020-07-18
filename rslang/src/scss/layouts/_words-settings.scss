@@ -10,7 +10,7 @@
   @include font(
     $size: 3.2rem,
     $weight: $font-weight-black,
-    $family: $font-primary,
+    $family: $font-primary
   );
 }
 
@@ -31,6 +31,6 @@
   @include font(
     $size: 3.1rem,
     $weight: $font-weight-light,
-    $family: $font-primary,
+    $family: $font-primary
   );
 }
