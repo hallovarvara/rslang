@@ -49,7 +49,7 @@
 .sprint-play__rangs {
   display: flex;
   justify-content: center;
-  padding: 20px 0 80px;
+  padding: 20px 0 30px;
 }
 .sprint-play__rang-item {
   box-sizing: border-box;
@@ -64,13 +64,12 @@
   opacity: 0.5;
 }
 .sprint-play__word {
-  margin-bottom: 20px;
   font-size: 5.6rem;
   line-height: 1.334;
   letter-spacing: 0em;
 }
 .sprint-play__translate {
-  padding-bottom: 80px;
+  padding-bottom: 50px;
   color: #7c7c7c;
   font-size: 3rem;
   line-height: 1.43;
