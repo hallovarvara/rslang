@@ -343,7 +343,7 @@ const text = {
       instruction: 'Схватите слово и отпустите над его значением',
     },
 
-    /* audioCall */
+    /* Audiocall */
     audioCall: {
       instruction: 'Прослушайте слово и выберите его правильный перевод',
     },
@@ -356,10 +356,17 @@ const text = {
       noResults: 'У вас еще нет результатов :(',
     },
 
+    /* Sprint */
+    sprint: {
+      translatedAs: 'переводится как',
+    },
+
     /* Buttons */
     button: {
       next: 'Далее',
       dontKnow: 'Не знаю',
+      right: 'да',
+      wrong: 'нет',
       startGame: 'Играть',
       newGame: 'Начать новую игру',
       check: 'Проверить',

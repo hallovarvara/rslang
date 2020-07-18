@@ -133,3 +133,11 @@
     }
   }
 }
+
+@mixin set-button-background($color) {
+  background-color: $color;
+
+  &:hover {
+    background-color: darken($color, 10%);
+  }
+}
