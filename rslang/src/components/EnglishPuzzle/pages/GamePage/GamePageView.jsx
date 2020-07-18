@@ -36,6 +36,7 @@ const GamePageView = ({
   isShow,
   backgroundUrl,
   paintingInfo,
+  updateLatestResult,
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
@@ -116,6 +117,7 @@ const GamePageView = ({
           errorCount={errorCount}
           isBackground={isBackground}
           backgroundUrl={backgroundUrl}
+          updateLatestResult={updateLatestResult}
         />
   );
 };

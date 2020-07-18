@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { replaseUrlBackground, paintingObj } from './helpers';
+import { countPhrase } from './constants';
 import EnglishPuzzleView from './EnglishPuzzleView.jsx';
 import { getWords } from '../../helpers/wordsService/wordsApi';
 import UserService from '../../helpers/userService';
@@ -53,9 +54,9 @@ class EnglishPuzzle extends React.Component {
     if (token) {
       data = await getUserWordsNoRemoved(userId);
     }
-    if (data.length < 10) {
+    if (data.length < countPhrase || !data) {
       const addWords = await getWords(numberPage, numberLevel);
-      data = data.concat(addWords).slice(0, 10);
+      data = data.concat(addWords).slice(0, countPhrase);
     }
     this.setState({
       data,

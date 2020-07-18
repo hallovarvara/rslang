@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { countPhrase } from '../../constants';
 // import data from '../../mockData';
 import { generateQuestionsArray, shuffle } from '../../helpers';
 import GamePageView from './GamePageView.jsx';
@@ -33,6 +34,7 @@ class GamePage extends React.Component {
       isContinue: false,
       isShow: false,
       isEnd: false,
+      statistic: [] || localStorage.getItem('rslangPuzzleLatestResults'),
     };
   }
 
@@ -89,7 +91,7 @@ class GamePage extends React.Component {
     const prevPhrase = phrasesArray[level];
     prevPhraseArray.push(prevPhrase);
     level += 1;
-    if (level < 10) {
+    if (level < countPhrase) {
       const currentPhrase = phrasesArray[level];
       const answerItems = this.getItems(currentPhrase);
       const puzzleItems = shuffle(this.getItems(currentPhrase));
@@ -106,8 +108,26 @@ class GamePage extends React.Component {
     } else {
       this.setState({
         isEnd: true,
-      });
+      }, this.updateLatestResult);          
     }
+  }
+
+  updateLatestResult = () => {
+    const { errorCount } = this.state; 
+    const result = {
+      data: (new Date()).toLocaleString('ru', {
+        year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+      }),
+      error: errorCount,
+      right: countPhrase - errorCount,
+    };
+    console.log(result, 88888);
+    if(!localStorage.getItem('rslangPuzzleLatestResults')) {
+      localStorage.setItem('rslangPuzzleLatestResults', JSON.stringify([]));
+    };
+    this.latestResult = JSON.parse(localStorage.getItem('rslangPuzzleLatestResults'));
+    this.latestResult.push(result);
+    localStorage.setItem('rslangPuzzleLatestResults', JSON.stringify(this.latestResult));
   }
 
   updateIsCheck = (check) => {
@@ -151,7 +171,9 @@ class GamePage extends React.Component {
       isCheck,
       isShow,
       isEnd,
+      statistic,
     } = this.state;
+    console.log(statistic);
     return (
       <GamePageView
         paintingInfo={this.paintingInfo}
@@ -181,6 +203,7 @@ class GamePage extends React.Component {
         handleClickNewGame={this.handleClickNewGame}
         isEnd={isEnd}
         backgroundUrl={this.backgroundUrl}
+        updateLatestResult={this.updateLatestResult}
       />
     );
   }

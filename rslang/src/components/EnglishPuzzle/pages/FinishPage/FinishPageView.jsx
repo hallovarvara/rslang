@@ -10,6 +10,7 @@ const FinishPageView = ({
   paintingInfo,
   isBackground,
   backgroundUrl,
+  updateLatestResult,
 }) => {
   const { ru: { button: { newGame }, answersMistaken } } = text;
   const buttonStyle = classNames('button', 'button_big');
@@ -35,6 +36,14 @@ const FinishPageView = ({
         onClick={() => handleClickNewGame()}
       >
         {newGame}
+      </Button>
+      <Button
+        className={buttonStyle}
+        variant="contained"
+        size="large"
+        // onClick={() => updateLatestResult(errorCount)}
+      >
+        Результаты прошлых игр
       </Button>
     </div>
   );
