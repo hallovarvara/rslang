@@ -332,7 +332,6 @@ const text = {
     speakPlease: 'Нажмите и произносите слова',
     results: 'Результаты',
     return: 'Назад',
-    latestRusults: 'Последние результаты',
     currentResults: 'Текущие результаты',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
 
@@ -439,7 +438,7 @@ const dateOptions = {
   hour: '2-digit',
   minute: '2-digit',
   second: '2-digit',
-  hour12: false,  
+  hour12: false,
 }
 
 export {
