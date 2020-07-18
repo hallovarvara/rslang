@@ -9,6 +9,10 @@ import Artem from '../assets/images/team/artem-rimarchyk.jpeg';
 import Dima from '../assets/images/team/dmitry-lebetsky.jpg';
 import Lesha from '../assets/images/team/alexei-osipov.jpg';
 
+import comfortIcons from '../assets/images/promo/feature-comfort-safe.png';
+import freeIcons from '../assets/images/promo/feature-free.png';
+import funnyIcons from '../assets/images/promo/feature-funny-effectively.png';
+
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
   base: 'https://kagafon-learn-words.herokuapp.com/',
@@ -239,14 +243,20 @@ const text = {
         {
           title: 'Уютно и&nbsp;безопасно',
           description: 'Учитесь и&nbsp;играйте онлайн из&nbsp;любой точки мира со&nbsp;смартфона, планшета или компьютера',
+          image: comfortIcons,
+          className: 'comfort',
         },
         {
           title: 'Бесплатно',
           description: 'Уникальный алгоритм изучения слов и&nbsp;6&nbsp;игр, расширяющих словарный запас и&nbsp;умение быстро им&nbsp;воспользоваться',
+          image: freeIcons,
+          className: 'free',
         },
         {
           title: 'Весело и&nbsp;продуктивно',
           description: '7&nbsp;способов изучения слов в&nbsp;игровой форме и&nbsp;уникальный алгоритм интервального повторения',
+          image: funnyIcons,
+          className: 'funny',
         },
       ],
       chooseAnotherGame: 'или выберите другую игру',

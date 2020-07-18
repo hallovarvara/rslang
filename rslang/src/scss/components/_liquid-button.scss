@@ -1,0 +1,91 @@
+.liquid-button-container {
+  position: relative;
+  display: block;
+  width: auto;
+  padding: 20px 50px;
+  overflow: hidden;
+  text-transform: uppercase;
+  background: #2d1f38;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.liquid-button-container__text {
+  position: relative;
+  z-index: 1;
+  color: $color-light;
+  text-shadow: $btn-shadow;
+  @include font(3.4rem, 900, normal);
+}
+
+.liquid-button-container:hover .liquid {
+  bottom: 200%;
+}
+
+.liquid {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  padding-top: 100%;
+  background: transparent;
+  transition: $animation-time;
+
+  &:before,
+  &:after {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    transform: translate(-50%, -50%);
+    content: '';
+  }
+
+  &:before {
+    background: radial-gradient(68.36% 325.38% at 39.62% 31.64%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%), #8259D9;
+    border-radius: 40%;
+    animation: animate 10s linear infinite;
+  }
+
+  &:after {
+    background: $color-primary;
+    border-radius: 45%;
+    animation: animate 5s linear infinite;
+  }
+
+  &_calm {
+    &:before,
+    &:after {
+      transform: scaleY(0.35), translate(-50%, -50%);
+    }
+
+    &:before {
+      animation: animate-calm 10s linear infinite;
+    }
+
+    &:after {
+      animation: animate-calm 5s linear infinite;
+    }
+  }
+}
+
+
+@keyframes animate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes animate-calm {
+  0% {
+    transform: scaleY(0.35) translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: scaleY(0.35) translate(-50%, -50%) rotate(360deg);
+  }
+}

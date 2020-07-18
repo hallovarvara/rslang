@@ -1,46 +1,171 @@
-.promo-page {
-  text-align: center;
-  @extend %padding;
+/* FIRST SECTION */
+.promo-presentation {
+  padding-top: calc(#{$header-height} + 110px);
+  padding-bottom: 80px;
+  background-color: $color-secondary;
+  @include flex(column, flex-start, center);
+}
 
-  video {
-    width: 70%;
-    margin-bottom: 90px;
+.promo-presentation__title {
+  margin-bottom: 35px;
+  @include font(9rem, 900, normal, $font-secondary);
+}
+
+.promo-presentation__subtitle {
+  max-width: 1040px;
+  margin-bottom: 39px;
+  text-align: center;
+  text-transform: uppercase;
+  @include font(3.4rem, 300, normal, $line-height: 170%, $spacing: 2.72px);
+}
+
+.promo-presentation-media {
+  position: relative;
+  width: 100%;
+  height: 672px;
+  margin-bottom: 35px;
+  overflow: hidden;
+}
+
+.promo-presentation-media__graduate-image {
+  position: absolute;
+  top: 0;
+  left: -14%;
+  width: auto;
+  height: 73%;
+  object-position: -29% 0;
+  opacity: 0.3;
+}
+
+.promo-presentation-media__video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 70%;
+  height: 87%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+
+.promo-presentation-media__bus-image {
+  position: absolute;
+  right: -10%;
+  bottom: 0;
+  width: auto;
+  height: 74%;
+  opacity: 0.3;
+}
+
+/* SECOND SECTION */
+.promo-features {
+  padding: 100px 140px 330px 140px;
+  background-color: $color-light;
+}
+
+.promo-features-container {
+  width: 100%;
+  @include flex(column, flex-start, center);
+}
+
+.promo-feature {
+  margin-bottom: 60px;
+  @include flex(row, flex-start, flex-start);
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &_comfort {
+    align-self: flex-start;
+  }
+  &_free {
+    align-self: center;
+  }
+  &_funny {
+    align-self: flex-end;
+  }
+}
+
+.promo-feature__icons {
+  height: auto;
+  margin-right: 60px;
+  &_comfort {
+    width: 208px;
+  }
+  &_free {
+    width: 178px;
+  }
+  &_funny {
+    width: 201px;
+  }
+}
+
+.promo-feature-description {
+  max-width: 700px;
+}
+
+.promo-feature-description__title {
+  margin-bottom: 26px;
+  @include font(6rem, 900, italic, $font-secondary);
+}
+
+.promo-feature-description__subtitle {
+  text-transform: uppercase;
+  @include font(3rem, 300, normal, $line-height: 180%, $spacing: 2.72px);
+}
+
+/* THIRD SECRION */
+.promo-games {
+  position: relative;
+  padding: 230px 140px 100px 140px;
+  background-color: $color-secondary;
+}
+
+.promo-savannah-presentation-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1010px;
+  height: auto;
+  background: $color-primary;
+  transform: translateY(-63.4%);
+  @include flex(column, flex-start, center);
+}
+
+.promo-savannah-presentation {
+  width: 100%;
+  @include flex(row, space-evenly, flex-start);
+}
+
+.promo-savannah-description__icon {
+  width: 32.67%;
+  height: auto;
+  transform: translateY(-26.48%);
+}
+
+.promo-savannah-description {
+  max-width: 47.52%;
+  margin-top: 50px;
+}
+
+.promo-savannah-description__title {
+  @include font(6rem, normal, normal, $font-secondary);
+}
+
+.promo-savannah-description__subtitle {
+  color: #2d1f38;
+  @include font(3rem, 300, normal, $line-height: 160%);
+}
+
+.promo-savannah-presentation-wrapper__play-now-button {
+  width: 100%;
+  &.liquid-button-container {
+    background: radial-gradient(68.36% 325.38% at 39.62% 31.64%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), #2D1F38;
   }
 }
 
 .promo-page__subtitle {
-  max-width: 1040px;
-  margin-bottom: 70px;
+  margin-bottom: 80px;
+  text-align: center;
   text-transform: uppercase;
-
-  @include font(
-    $size: 3.4rem,
-    $weight: $font-weight-extralight,
-    $line-height: 170%,
-    $spacing: 0.08rem
-  );
-}
-
-.promo-page__start-button.MuiButton-root.btn {
-  margin-bottom: 90px;
-  @extend %promo-button;
-}
-
-.promo-page__features {
-  background-color: $color-light;
-}
-
-.promo-page__spacing-repetition {
-  background-color: $color-primary;
-}
-
-// TODO change it with the real blocks
-.promo-page__features,
-.promo-page__spacing-repetition {
-  text-align: left;
-
-  & > img {
-    max-width: 100%;
-    height: auto;
-  }
+  @include font(3.4rem, 300, normal, $spacing: 0.06rem);
 }
