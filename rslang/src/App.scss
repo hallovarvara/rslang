@@ -3,14 +3,12 @@
 @import './scss/abstracts/mixins';
 @import './scss/abstracts/placeholders';
 
-/* Vendors */
-@import './scss/vendor/normalize';
-
 /* Base */
+@import './scss/base/normalize';
 @import './scss/base/typography';
-@import './scss/base/base';
 @import './scss/base/helpers';
 @import './scss/base/fonts';
+@import './scss/base/base';
 
 /* Components */
 @import './scss/components/logo';
@@ -38,9 +36,8 @@
 /* Layouts */
 @import './scss/layouts/header';
 @import './scss/layouts/learn-words';
-@import './scss/layouts/play-games-page';
 @import './scss/layouts/settings-page';
-@import 'scss/layouts/statistics-page';
+@import './scss/layouts/statistics-page';
 @import './scss/layouts/words-settings';
 @import './scss/layouts/vocabulary-page';
 @import './scss/layouts/learn-card-preview-container';
@@ -53,3 +50,4 @@
 
 /* Pages */
 @import './scss/pages/sprint';
+@import './scss/pages/play-games';
