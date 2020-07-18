@@ -15,5 +15,5 @@
   flex-wrap: wrap;
   width: 100%;
 
-  @include flex(row, center, center);
+  @include flex(row, center, flex-start);
 }
