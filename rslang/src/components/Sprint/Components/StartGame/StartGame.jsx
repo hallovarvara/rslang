@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Parser from 'html-react-parser';
 import { connect } from 'react-redux';
 import StartGameForm from '../UI/StartGameForm';
 import Stepper from '../../../../basicComponents/Stepper';
-import { text, count } from '../../../../helpers/constants';
+import {count, gamesData} from '../../../../helpers/constants';
 import { generateStepperMarks } from '../../../../helpers/functions';
 import './StartGame.scss';
 
@@ -43,7 +44,7 @@ const StartGameUserForm = ({
         {token && (
           <>
             <p className="sprint-start__explanation">
-              {text.ru.notEnoughWords}
+              {Parser(gamesData.sprint.description)}
             </p>
           </>)
         }
@@ -55,7 +56,7 @@ const StartGameUserForm = ({
           marks={generateStepperMarks(groups)}
           className="sprint-levels-stepper"
           label="Выберите уровень:"
-          arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#fcff79', '#F8961E', '#F3722C', '#F94144']}
+          arrayOfColorsForTrack={['#65BC0D', '#98CE00', '#FFF73B', '#F8961E', '#F3722C', '#F94144']}
           stickyLabel={false}
         />
       </div>

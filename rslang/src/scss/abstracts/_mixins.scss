@@ -31,7 +31,8 @@
   transition: $properties $animation-time ease-in-out;
 }
 
-/* MEDIA */
+/* MEDIA
+  Media should be given from more to less */
 
 @mixin media-mobile {
   @media (max-width: $mobile-width) {
@@ -40,19 +41,19 @@
 }
 
 @mixin media-big-mobile {
-  @media (min-width: $mobile-width + 1px) and (max-width: $big-mobile-width) {
+  @media (max-width: $big-mobile-width) {
     @content;
   }
 }
 
 @mixin media-tablet {
-  @media (min-width: $big-mobile-width + 1px) and (max-width: $tablet-width) {
+  @media (max-width: $tablet-width) {
     @content;
   }
 }
 
 @mixin media-laptop {
-  @media (min-width: $tablet-width + 1px) and (max-width: $laptop-width) {
+  @media (max-width: $laptop-width) {
     @content;
   }
 }
@@ -95,7 +96,7 @@
     @include font(
       $size: 3.2rem,
       $weight: $font-weight-black,
-      $line-height: 100%,
+      $line-height: 120%,
       $spacing: 0.2rem
     );
   }
@@ -130,5 +131,13 @@
     &:last-child {
       margin: 0 auto;
     }
+  }
+}
+
+@mixin set-button-background($color) {
+  background-color: $color;
+
+  &:hover {
+    background-color: darken($color, 10%);
   }
 }

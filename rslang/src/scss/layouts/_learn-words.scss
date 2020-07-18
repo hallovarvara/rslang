@@ -18,6 +18,7 @@
 .lw-startview__wrapper {
   max-width: 1048px;
   margin: 0 auto;
+  overflow: hidden;
   @extend %padding;
   @include media-big-mobile {
     padding: 160px 20px 90px 20px;
@@ -42,6 +43,7 @@
 }
 
 .lw-startview__wrapper__description {
+  margin-bottom: 50px;
   @extend %subtitle;
 }
 
@@ -156,6 +158,59 @@
   }
   &:hover {
     box-shadow: $btn-shadow;
+  }
+}
+
+.lw-words-settings-container {
+  margin-bottom: 35px;
+  @include flex(column, flex-start, center);
+  & > * {
+    margin-bottom: 25px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.switch-container_lw {
+  width: 300px;
+  height: 43px;
+}
+
+.switch-container__slider_lw {
+  &:before {
+    width: 41px;
+    height: 41px;
+  }
+  &:after {
+    content: 'случайные слова';
+    @include font(1.3rem, 900);
+  }
+}
+
+.switch-container__input_lw:checked + .switch-container__slider_lw {
+  &:after {
+    content: 'случайные слова';
+  }
+}
+
+.stepper-container.lw-levels-stepper,
+.stepper-container.lw-pages-stepper {
+  .MuiTypography-root,
+  .MuiSlider-markLabel {
+    color: $color-dark;
+  }
+  .MuiSlider-rail {
+    background-color: rgba($color: $color-dark, $alpha: 0.26);
+  }
+}
+
+.stepper-container.lw-pages-stepper {
+  .MuiSlider-mark {
+    opacity: 0;
+  }
+  .MuiSlider-thumb:before {
+    color: $color-dark;
   }
 }
 

@@ -252,7 +252,7 @@ export default class UserService {
   }
 
   firstEnterOfUser = async (errorHandler) => {
-    const userIsLogged = this.isUserLogged();
+    const userIsLogged = await this.isUserLogged();
     let stats;
     let settings;
     if (userIsLogged) {
@@ -286,7 +286,7 @@ export default class UserService {
     isAllowedToGetUserWords = true,
   ) => {
     clearSessionData(thingName);
-    const userIsLogged = this.isUserLogged();
+    const userIsLogged = await this.isUserLogged();
     const userId = localStorage.getItem(localStorageItems.userId);
     let userWords;
     if (isAllowedToGetUserWords) {
@@ -305,7 +305,7 @@ export default class UserService {
   }
 
   prepareToLearnWords = async (dayLimit, userGroup) => {
-    const userIsLogged = this.isUserLogged();
+    const userIsLogged = await this.isUserLogged();
     const userId = localStorage.getItem(localStorageItems.userId);
     const userWords = !userIsLogged
       ? getDayLocalUserWords(dayLimit)

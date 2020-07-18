@@ -244,19 +244,12 @@ class Sprint extends Component {
     this.setState({
       ...state,
     });
-
   }
-
-  /*  isChangeUserWords = () => {
-     this.setState(({ checkedUserWords }) => ({
-       checkedUserWords: !checkedUserWords,
-     }));
-   } */
 
   isChangeUserWords = (checkedUserWords) => {
     this.setState({
       checkedUserWords,
-    })
+    });
   }
 
   handleCurrentGroup = (value) => {
@@ -305,8 +298,8 @@ class Sprint extends Component {
     }
 
     return (
-      <div className={'sprint__wrapper'}>
-        <div className={'sprint__container'}>
+      <div className="sprint__wrapper">
+        <div className="sprint__container">
           <div className="sprint__title">
             <h1>{gamesData.sprint.title}</h1>
             { this.props.token && (
@@ -320,6 +313,7 @@ class Sprint extends Component {
           </div>
           {page}
         </div>
+        <div className="sprint__background"></div>
       </div>
     );
   }
