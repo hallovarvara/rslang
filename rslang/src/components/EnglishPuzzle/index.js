@@ -54,7 +54,7 @@ class EnglishPuzzle extends React.Component {
     if (token) {
       data = await getUserWordsNoRemoved(userId);
     }
-    if (data.length < countPhrase || !data) {
+    if (data.length < countPhrase) {
       const addWords = await getWords(numberPage, numberLevel);
       data = data.concat(addWords).slice(0, countPhrase);
     }
