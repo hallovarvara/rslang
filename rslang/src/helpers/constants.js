@@ -374,6 +374,8 @@ const text = {
       learnEnglishWithUs: 'Учите английский с нами',
       startLearningWithUs: 'Начать учиться с нами',
       playRightNow: 'Сыграть прямо сейчас',
+      lastResults: 'Последние результаты',
+      currentResults: 'Текущие результаты',
     },
 
     noVideoSupport: 'Извините, ваш браузер не поддерживает встроенное видео',
@@ -439,6 +441,16 @@ const count = {
   },
 };
 
+const dateOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false,  
+}
+
 export {
   pagesData,
   vocabularySelectorOptions,
@@ -458,4 +470,5 @@ export {
   questionStatus,
   preloaderdefaultSettings,
   ratesScale,
+  dateOptions,
 };

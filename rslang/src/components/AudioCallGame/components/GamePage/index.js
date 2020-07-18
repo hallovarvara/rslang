@@ -7,12 +7,15 @@ import {
   soundSuccess,
   soundError,
   applicationThings,
+  dateOptions,
 } from '../../../../helpers/constants';
 
 import {
   handleGameRightAnswer,
   handleGameWrongAnswer,
 } from '../../../../helpers/wordsService';
+
+import { localStorageItems, countLatestResult } from '../../constants';
 
 class GamePage extends React.Component {
   constructor(props) {
@@ -29,6 +32,8 @@ class GamePage extends React.Component {
       rightAnswerArray: [],
       isRightAnswer: false,
       isFalseAnswer: false,
+      statistic: localStorage.getItem('rslangAudioCallLatestResults') || [],
+      isStatisticShow: false,
     };
   }
 
@@ -67,7 +72,16 @@ class GamePage extends React.Component {
         isFalseAnswer: false,
         answerArray,
       });
+    } 
+    if (level === countQuestions) {
+      this.updateLatestResult();
     }
+  }
+
+  handleShowStatistic = () => {
+    const { isStatisticShow } = this.state;
+    console.log(8888)
+    this.setState({ isStatisticShow: !isStatisticShow });
   }
 
   handleClickButton = (e) => {
@@ -124,6 +138,25 @@ class GamePage extends React.Component {
     }
   }
 
+  updateLatestResult = () => {
+    const { latestResults } = localStorageItems;
+    const { errorAnswerArray, rightAnswerArray } = this.state; 
+    const result = {
+      date: (new Date()).toLocaleString('ru', dateOptions),
+      error: errorAnswerArray,
+      right: rightAnswerArray,
+    };
+    if(!localStorage.getItem(latestResults)) {
+      localStorage.setItem(latestResults, JSON.stringify([]));
+    };
+    this.latestResult = JSON.parse(localStorage.getItem(latestResults));
+    this.latestResult.unshift(result);
+    if (this.latestResult.length > countLatestResult) {
+      this.latestResult = this.latestResult.slice(0, countLatestResult);
+    }
+    localStorage.setItem(latestResults, JSON.stringify(this.latestResult));
+  }
+
   render() {
     const {
       questionList,
@@ -134,10 +167,15 @@ class GamePage extends React.Component {
       answerArray,
       rightAnswerArray,
       errorAnswerArray,
+      statistic,
+      isStatisticShow,
     } = this.state;
 
     return (
       <GamePageView
+        isStatisticShow={isStatisticShow}
+        statistic={statistic}
+        handleShowStatistic={this.handleShowStatistic}
         handleClickNewGame={this.handleClickNewGame}
         answerArray={answerArray}
         handleClickAnswer = {this.handleClickAnswer}

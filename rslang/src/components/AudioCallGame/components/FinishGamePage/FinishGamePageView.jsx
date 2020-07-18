@@ -7,7 +7,7 @@ import { text } from '../../../../helpers/constants';
 
 import FinishGameItem from '../FinishGameItem';
 
-const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNewGame }) => {
+const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNewGame, handleShowStatistic }) => {
   const generateItemsWords = (array) => (
     array.length !== 0 && array.map((word) => (
       <FinishGameItem
@@ -36,14 +36,24 @@ const FinishGamePageView = ({ errorAnswerArray, rightAnswerArray, handleClickNew
             {generateItemsWords(errorAnswerArray)}
           </div>
         </div>
-      <Button
-        variant="contained"
-        size="large"
-        onClick={() => handleClickNewGame()}
-        className={buttonStyle}
-      >
-        { text.ru.button.newGame }
-      </Button>
+        <div className="button__container">
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => handleClickNewGame()}
+            className={buttonStyle}
+          >
+            { text.ru.button.newGame }
+          </Button>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => handleShowStatistic()}
+            className={buttonStyle}
+          >
+            { text.ru.button.lastResults }
+          </Button>
+        </div>
       </div>
     </>
   );
