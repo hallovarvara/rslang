@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  userSettingsTemplate,
+  // userSettingsTemplate,
   dateFormatTemplate,
 } from '../constants';
 
@@ -26,6 +26,19 @@ export const removedTemplate = {
   },
 };
 
+export const settingsTemplate = {
+  optional: {
+    translation: true,
+    complicatedButton: true,
+    imageAssociatation: true,
+    meaning: true,
+    transcription: true,
+    showAnswerButton: true,
+    exampleSentence: true,
+    exampleSentenceTranslation: true,
+  },
+};
+
 export const userWordThings = {
   DIFFICULTY: 'difficulty',
   OPTIONAL: 'optional',
@@ -36,13 +49,13 @@ export const userWordThings = {
   REPEATED: 'repeated',
 };
 
-export const generateSettingsTemplate = () => {
-  const settings = {};
-  Object.values(userSettingsTemplate).forEach((setting) => {
-    settings[setting] = true;
-  });
-  return settings;
-};
+// export const generateSettingsTemplate = () => {
+//   const settings = {};
+//   Object.values(userSettingsTemplate).forEach((setting) => {
+//     settings[setting] = true;
+//   });
+//   return settings;
+// };
 
 export const changeSettings = (userOption, wordObject) => {
   const settings = { ...wordObject };

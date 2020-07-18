@@ -26,8 +26,8 @@ export const buttonsNames = {
   SHOW_ANSWER: 'Показать ответ',
   PREV: 'пред.',
   NEXT: 'след.',
-  CONTINUE: ' Продолжить',
-  NEW_LESSON: 'Новый',
+  CONTINUE: 'Продолжить',
+  NEW_LESSON: 'Начать заново',
   CHECK_ANSWER: 'Проверить ответ',
   PLAY: 'Прослушать',
 };

@@ -56,6 +56,7 @@ const Main = ({ username, authFailed }) => (
     {
       Boolean(username)
       && <Notification
+        className="notification_success"
         variant="success"
         message={`${text.ru.welcome.replace('{username}', username)}`}/>
     }

@@ -1,3 +1,4 @@
+import React from 'react';
 import { RSLANG_SESSION_PROGRESS } from './constants';
 import { successColor, fewErrorsColor, manyErrorsColor } from './style-options';
 import { apiLinks } from '../../../../helpers/constants';
@@ -81,7 +82,7 @@ export const playAudios = (audios) => {
     audio.play();
 
     audio.onended = () => {
-      if (index < audios.length) {
+      if (index < audios.length - 1) {
         setTimeout(() => {
           index += 1;
           audio.src = resourceUrl(audios[index]);
@@ -129,6 +130,10 @@ export const calculateNextWordCard = (words, current) => {
   }
   return result;
 };
+
+export const mapSentenceToSpanItems = (sentence) => (
+  sentence.split(' ').map((word, index) => <span key={index}>{word}</span>)
+);
 
 export const replaceElInArrayOfObject = (array, object) => {
   const indexOfObject = array.findIndex((wordObj) => (

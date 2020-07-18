@@ -12,10 +12,17 @@ import Lesha from '../assets/images/team/alexei-osipov.jpg';
 import comfortIcons from '../assets/images/promo/feature-comfort-safe.png';
 import freeIcons from '../assets/images/promo/feature-free.png';
 import funnyIcons from '../assets/images/promo/feature-funny-effectively.png';
+import SavannahIcon from '../assets/icons/icon-game-savannah.png';
+import SprintIcon from '../assets/icons/icon-game-sprint.png';
+import AudiocallIcon from '../assets/icons/icon-game-audiocall.png';
+import EnglishPuzzleIcon from '../assets/icons/icon-game-english-puzzle.png';
+import SpeakitIcon from '../assets/icons/icon-game-speakit.png';
+import UnmessIcon from '../assets/icons/icon-game-unmess.png';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
   base: 'https://kagafon-learn-words.herokuapp.com/',
+  // base: 'https://afternoon-falls-25894.herokuapp.com/',
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
@@ -47,7 +54,7 @@ export const userSettingsTemplate = {
 };
 
 const preloaderdefaultSettings = {
-  size: 150,
+  size: 100,
   color: '#843FDD',
 };
 
@@ -70,7 +77,10 @@ const pagesData = {
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
-    title: 'Учить слова',
+    title: 'Изучение слов',
+    description: 'Расширяйте английский лексикон с помощью встроенных правил повторения слов',
+    rules: 'Впишите правильное слово в предложение',
+    rateDescription: 'Оцените, насколько легко было угадать слово:',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
@@ -91,12 +101,18 @@ const pagesData = {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: true, index: 6 },
+    user: { isVisible: false, index: 5 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: true, index: 6 },
+    guest: { isVisible: false, index: 4 },
+    user: { isVisible: false },
+  },
+  signOut: {
+    title: 'Выйти',
+    path: 'sign-in',
+    guest: { isVisible: false },
     user: { isVisible: false },
   },
   register: {
@@ -108,14 +124,14 @@ const pagesData = {
   statistics: {
     title: 'Статистика',
     path: 'statistics',
-    guest: { isVisible: true, index: 4 },
+    guest: { isVisible: false },
     user: { isVisible: true, index: 4 },
   },
   vocabulary: {
     title: 'Словарь',
     path: 'vocabulary',
-    guest: { isVisible: true, index: 5 },
-    user: { isVisible: true, index: 5 },
+    guest: { isVisible: false },
+    user: { isVisible: false },
   },
 };
 
@@ -124,33 +140,39 @@ const gamesData = {
     title: 'Аудиовызов',
     description: 'Прокачивайте восприятие языка на&nbsp;слух, а&nbsp;также увеличивайте свой словарный запас',
     path: 'audiocall',
+    icon: AudiocallIcon,
   },
   savannah: {
     title: 'Саванна',
     description: 'Угадывайте, как переводятся слова, и&nbsp;вместе с&nbsp;этим пополняйте лексикон',
     path: 'savannah',
+    icon: SavannahIcon,
   },
   sprint: {
     title: 'Спринт',
     description: 'Играйте на&nbsp;время, чтобы точно знать, как много слов вы&nbsp;можете перевести за&nbsp;минуту',
     path: 'sprint',
+    icon: SprintIcon,
   },
   englishPuzzle: {
     title: 'English Puzzle',
     description: 'Учитесь строить предложения и&nbsp;знакомьтесь с&nbsp;величайшими произведениями искусства',
     path: 'english-puzzle',
+    icon: EnglishPuzzleIcon,
   },
   speakit: {
     title: 'SpeakIt',
     description: 'Вырабатывайте правильное произношение слов вместе с&nbsp;нашей космической игрой',
     path: 'speakit',
     startPath: 'speakit/home',
+    icon: SpeakitIcon,
   },
   unmess: {
     title: 'Unmess',
     description: 'Соединяйте слова и&nbsp;их&nbsp;значения, расширяя запас слов и&nbsp;улучшая понимание смысла фраз',
     path: 'unmess',
     startPath: 'unmess/home',
+    icon: UnmessIcon,
   },
 };
 
@@ -231,6 +253,7 @@ const text = {
 
     /* Play page */
     chooseGame: 'Выберите игру',
+    everyGameImprove: 'Каждая игра улучшит отдельный набор знаний и&nbsp;умений',
 
     /* Vocabulary page */
     restoreForLearning: 'Вернуть к изучаемым',
@@ -310,6 +333,9 @@ const text = {
     howManyWords: 'Сколько слов хотите угадать',
     chooseLevel: 'Выберите уровень сложности',
     choosePage: 'Выберите набор слов',
+    selectOptionsForUsedWord: ['изученные слова', 'новые слова'],
+    studiedByYou: 'изученные слова',
+    newByComplexity: 'новые слова',
     newGame: 'Новая игра',
     restart: 'Сначала',
     speakPlease: 'Нажмите и произносите слова',
@@ -322,6 +348,11 @@ const text = {
     /* Unmess */
     unmess: {
       instruction: 'Схватите слово и отпустите над его значением',
+    },
+
+    /* audioCall */
+    audioCall: {
+      instruction: 'Прослушайте слово и выберите его правильный перевод',
     },
 
     /* Speakit */
@@ -352,8 +383,8 @@ const text = {
 const formLabel = {
   level: 'Уровень',
   chooseLevel: 'Выберите уровень',
-  questions: 'Сколько слов хотите отгадать? (5—12)',
-  answers: 'Сколько показывать вариантов ответов? (2—5)',
+  questions: 'Сколько слов хотите отгадать?',
+  answers: 'Сколько показывать вариантов ответов?',
 };
 
 const questionStatus = {
@@ -377,6 +408,10 @@ const count = {
   groups: 6,
   pages: 29,
   words: 19,
+  maxCountQuestions: 12,
+  minCountQuestions: 5,
+  maxCountAnswers: 5,
+  minCountAnswers: 2,
 
   /* Time */
   minInHour: 60,
@@ -386,11 +421,6 @@ const count = {
 
   /* Defaults */
   elementsPerPage: 10,
-
-  /* Game Audiocall */
-  audiocall: {
-    maxLevels: 12,
-  },
 
   /* Game Savannah */
   savannah: {

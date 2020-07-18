@@ -5,7 +5,6 @@ import WordCard from './Views/WordCard';
 import StartView from './Views/StartView';
 import Preloader from '../../../basicComponents/Preloader';
 import ShortStats from './Views/ShortStats';
-import response from './helpers/response.json';
 import * as settings from './helpers/settings';
 import { wordBaseTemplate, initialState } from './helpers/constants';
 import {
@@ -20,12 +19,23 @@ import {
   updateUserWordRepeated,
   updateUserWordDifficulty,
   updateUserWordRemoved,
+  handleGameRightAnswer,
+  handleGameWrongAnswer,
+  prepareSessionInfoToServer,
+  saveSessionInfoToLocal,
 } from '../../../helpers/wordsService';
 import {
   localStorageItems,
   levelsOfDifficulty,
+  applicationThings,
+  // apiLinks,
 } from '../../../helpers/constants';
 import { clearSessionData } from '../../../helpers/wordsService/storageModel';
+import { statsTemplate, changeStats } from '../../../helpers/wordsService/statsModel';
+import UserService from '../../../helpers/userService';
+import { getWordsByAmount } from '../../../helpers/wordsService/wordsApi';
+
+const userservice = new UserService();
 
 export default class LearnWords extends Component {
   state = initialState;
@@ -45,13 +55,16 @@ export default class LearnWords extends Component {
   }
 
   componentDidMount() {
+    userservice.firstEnterOfUser();
     const learnSessionProgress = getSessionProgress();
-    const { isLogged, token, userId } = this.checkForLoggedUser();
-    if (learnSessionProgress) {
+    if (learnSessionProgress.length) {
+      const { isLogged, token, userId } = this.checkForLoggedUser();
       this.setState({
         totalWords: learnSessionProgress.length,
         words: learnSessionProgress,
-        wordCount: learnSessionProgress.findIndex((el) => !el.progress.isDifficultChosen),
+        wordCount: learnSessionProgress.findIndex(
+          (el) => !el.progress.isDifficultChosen,
+        ),
         isLogged,
         token,
         userId,
@@ -67,15 +80,11 @@ export default class LearnWords extends Component {
     }));
   };
 
-  fakeApi = () => (
-    response
-  );
-
   getDataFromApi = () => {
     this.setState((state) => ({
       isFetching: !state.isFetching,
     }));
-    return this.fakeApi();
+    return getWordsByAmount(1, 10);
   };
 
   toggleAutoPlay = () => {
@@ -119,6 +128,7 @@ export default class LearnWords extends Component {
       } else if (!isSecondPastDone) {
         this.thirdRepeat();
       } else {
+        userservice.handleEndOfGame();
         this.setState({
           isShownShortStats: true,
         });
@@ -202,6 +212,7 @@ export default class LearnWords extends Component {
     wordObject.progress.isGuessed = true;
     wordObject.progress.isShownWord = true;
     wordObject.progress.isUsedTip = true;
+    wordObject.progress.difference = null;
     this.setState((state) => ({
       words: state.words.map((el) => (el.id === wordObject?.id ? wordObject : el)),
       statsMistakesCount: state.statsMistakesCount + 1,
@@ -274,26 +285,36 @@ export default class LearnWords extends Component {
     ));
   }
 
-  handleStartNewLearning = () => {
+  handleStartNewLearning = async () => {
+    this.togglePreloader();
     clearSessionData();
-    const wordsFromApiResponse = this.getDataFromApi();
-    const words = this.prepareSessionProgress(wordsFromApiResponse);
-    const statsNewWordsCount = words.filter((el) => !el.userWord).length;
-    setSessionProgress(words);
-    this.setState((state) => (
-      {
-        words,
-        statsNewWordsCount,
-        totalWords: words.length,
-        isFetching: !state.isFetching,
-        isStartLearning: !state.isStartLearning,
-      }
-    ));
+    const wordsFromApiResponse = await userservice.prepareToLearnWords(
+      10,
+      1,
+    );
+    // const wordsFromApiResponse = await getWordsByAmount(1, 10);
+    const words = await this.prepareSessionProgress(wordsFromApiResponse);
+    if (words[0]?.word) {
+      const statsNewWordsCount = words.filter((el) => !el.userWord).length;
+      setSessionProgress(words);
+      this.setState((state) => (
+        {
+          words,
+          statsNewWordsCount,
+          totalWords: words.length,
+          isStartLearning: !state.isStartLearning,
+        }
+      ));
+      setTimeout(() => {
+        this.togglePreloader();
+      }, 1500);
+    }
   }
 
-  handleEndOfCards = () => {
-    // TODO: maube here will be nice to add some info pop up
-    console.log('end of cards');
+  togglePreloader = () => {
+    this.setState((state) => ({
+      isFetching: !state.isFetching,
+    }));
   }
 
   render() {
@@ -311,6 +332,17 @@ export default class LearnWords extends Component {
       statsMistakesCount,
       statsRightAnswerSeries,
     } = this.state;
+    const {
+      isShownComplicatedButton,
+      isShownAnswerButton,
+      isShownImageAssociation,
+      isShownTranslation,
+      isShownTranscription,
+      isShownExampleSentence,
+      isShownMeaning,
+      categoriesSelect,
+    } = settings;
+    // const currentWord = words[wordCount && wordCount + 1] || wordBaseTemplate;
     const currentWord = words[wordCount] || wordBaseTemplate;
     const { progress } = currentWord;
     const {
@@ -323,16 +355,6 @@ export default class LearnWords extends Component {
       textMeaning,
       textMeaningTranslate,
     } = currentWord;
-    const {
-      isShownComplicatedButton,
-      isShownAnswerButton,
-      isShownImageAssociation,
-      isShownTranslation,
-      isShownTranscription,
-      isShownExampleSentence,
-      isShownMeaning,
-      categoriesSelect,
-    } = settings;
     const textExampleSentence = extractEmphasizedWord(textExample, 'b');
     const textMeaningSentence = extractEmphasizedWord(textMeaning, 'i');
     const output = !isStartLearning ? (
@@ -342,62 +364,114 @@ export default class LearnWords extends Component {
         isContinued={Boolean(words.length)}
       />
     ) : (
-      <div className='learn-words'>
+      <div className="learn-words">
         {isShownShortStats && !isFetching && (
           <ShortStats
             totalWords={totalWords}
-            mistakes={words.filter(
-              (el) => el.progress.thirdRepeat || el.progress.secondRepeat,
-            ).length}
+            mistakes={
+              words.filter(
+                (el) => el.progress.thirdRepeat || el.progress.secondRepeat,
+              ).length
+            }
             statsNewWordsCount={statsNewWordsCount}
             statsMistakesCount={statsMistakesCount}
             statsRightAnswerSeries={statsRightAnswerSeries}
           />
         )}
         {isFetching && <Preloader />}
-          {!isFetching && currentWord && (
-            <>
-              <Header
-                categoriesSelect={categoriesSelect}
-                onToggleAutoPlay={this.toggleAutoPlay}
-                onToggleCategory={this.toggleCategory}
-              />
-              <WordCard
-                onChangeRemoved={this.handleChangeRemoved}
-                onChangeDifficulty={this.handleChangeDifficulty}
-                onShowTip={this.handleShowTip}
-                onStatsChanged={this.handleStatsChanged}
-                onChangeRepeated={this.handleChangeRepeated}
-                onChangeWordRate={this.handleChangeWordRate}
-                isFirstPassDone={isFirstPassDone}
-                currentWord={currentWord}
-                isLogged={isLogged}
-                currentInput={currentInput}
-                progress={progress}
-                wordCount={wordCount + 1}
-                totalWords={totalWords}
-                textExample={textExampleSentence}
-                textExampleTranslate={textExampleTranslate}
-                image={image}
-                word={word}
-                wordTranslate={wordTranslate}
-                transcription={transcription}
-                textMeaning={textMeaningSentence}
-                textMeaningTranslate={textMeaningTranslate}
-                isShownComplicatedButton={isShownComplicatedButton}
-                isShownAnswerButton={isShownAnswerButton}
-                isShownImageAssociation={isShownImageAssociation}
-                isShownTranslation={isShownTranslation}
-                isShownTranscription={isShownTranscription}
-                isShownExampleSentence={isShownExampleSentence}
-                isShownMeaning={isShownMeaning}
-                onNextWord={this.handleNextWord}
-                onPrevWord={this.handlePrevWord}
-                onChangeProgress={this.handleChangeProgress}
-                onPlayAudio={this.playAudio}
-              />
-            </>
-          )}
+        {!isFetching && words.length && (
+          <>
+            <Header
+              categoriesSelect={categoriesSelect}
+              onToggleAutoPlay={this.toggleAutoPlay}
+              onToggleCategory={this.toggleCategory}
+            />
+            <WordCard
+              onChangeRemoved={this.handleChangeRemoved}
+              onChangeDifficulty={this.handleChangeDifficulty}
+              onShowTip={this.handleShowTip}
+              onStatsChanged={this.handleStatsChanged}
+              onChangeRepeated={this.handleChangeRepeated}
+              onChangeWordRate={this.handleChangeWordRate}
+              isFirstPassDone={isFirstPassDone}
+              currentWord={currentWord}
+              isLogged={isLogged}
+              currentInput={currentInput}
+              progress={progress}
+              wordCount={wordCount + 1}
+              totalWords={totalWords}
+              textExample={textExampleSentence}
+              textExampleTranslate={textExampleTranslate}
+              image={image}
+              word={word}
+              wordTranslate={wordTranslate}
+              transcription={transcription}
+              textMeaning={textMeaningSentence}
+              textMeaningTranslate={textMeaningTranslate}
+              isShownComplicatedButton={isShownComplicatedButton}
+              isShownAnswerButton={isShownAnswerButton}
+              isShownImageAssociation={isShownImageAssociation}
+              isShownTranslation={isShownTranslation}
+              isShownTranscription={isShownTranscription}
+              isShownExampleSentence={isShownExampleSentence}
+              isShownMeaning={isShownMeaning}
+              onNextWord={this.handleNextWord}
+              onPrevWord={this.handlePrevWord}
+              onChangeProgress={this.handleChangeProgress}
+              onPlayAudio={this.playAudio}
+            />
+            <button onClick={() => this.setState({ isFirstPassDone: true })}>
+              Test
+            </button>
+            <button
+              onClick={
+                () => handleGameRightAnswer(applicationThings.SAVANNAH, currentWord)
+              }
+            >
+              game right
+            </button>
+            <button
+              onClick={
+                () => handleGameWrongAnswer(applicationThings.SAVANNAH, currentWord)
+              }
+            >
+              game wrong
+            </button>
+            <button
+              onClick={() => {
+                const stats = JSON.parse(localStorage.rslangUserStatistics);
+                console.log(
+                  prepareSessionInfoToServer(
+                    applicationThings.LEARN_WORDS,
+                    stats,
+                  ),
+                );
+              }}
+            >
+              prepare
+            </button>
+            <button
+              onClick={
+                () => saveSessionInfoToLocal(applicationThings.LEARN_WORDS)
+              }
+            >
+              save
+            </button>
+            <button
+              onClick={
+                () => console.log(
+                  changeStats(
+                    applicationThings.SAVANNAH,
+                    { games: 1, wrong: 4, right: 9 },
+                    statsTemplate,
+                  ),
+                )
+              }
+            >
+              update stats
+            </button>
+          </>
+        )}
       </div>
     );
     return <>{output}</>;

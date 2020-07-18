@@ -4,13 +4,13 @@ import { applicationThings } from '../constants';
 export const statsTemplate = {
   learnedWords: 0,
   optional: {
-    learnWords: {},
-    savannah: {},
-    sprint: {},
-    audiocall: {},
-    speakIt: {},
-    puzzle: {},
-    unmess: {},
+    learnWords: { '': '' },
+    savannah: { '': '' },
+    sprint: { '': '' },
+    audiocall: { '': '' },
+    speakIt: { '': '' },
+    puzzle: { '': '' },
+    unmess: { '': '' },
   },
 };
 
@@ -93,7 +93,7 @@ export const getToday = () => {
 
 export const sumObjectsProperties = (object1, object2) => {
   let result = {};
-  if (object1 || object2) {
+  if (object1.length || object2.length) {
     Object.keys(object1).forEach((el) => {
       result[el] = object1[el] + object2[el];
     });
@@ -139,15 +139,15 @@ export const updateLearnStats = (
   encodeMap = learnResultsEncodeMap,
   decodedTemplate = statsLearnObjTemplate,
 ) => (
-  updateStatsByThing(
-    thingName,
-    newResults,
-    statsObject,
-    decodeMap,
-    encodeMap,
-    decodedTemplate,
-  )
-);
+    updateStatsByThing(
+      thingName,
+      newResults,
+      statsObject,
+      decodeMap,
+      encodeMap,
+      decodedTemplate,
+    )
+  );
 
 export const updateGameStats = (
   thingName,
@@ -157,25 +157,25 @@ export const updateGameStats = (
   encodeMap = gameResultsEncodeMap,
   decodedTemplate = statsGameObjTemplate,
 ) => (
-  updateStatsByThing(
-    thingName,
-    newResults,
-    statsObject,
-    decodeMap,
-    encodeMap,
-    decodedTemplate,
-  )
-);
+    updateStatsByThing(
+      thingName,
+      newResults,
+      statsObject,
+      decodeMap,
+      encodeMap,
+      decodedTemplate,
+    )
+  );
 
 export const changeStats = (
   thingName,
   newResults,
   statsObject,
 ) => (
-  thingName === applicationThings.LEARN_WORDS
-    ? updateLearnStats(thingName, newResults, statsObject)
-    : updateGameStats(thingName, newResults, statsObject)
-);
+    thingName === applicationThings.LEARN_WORDS
+      ? updateLearnStats(thingName, newResults, statsObject)
+      : updateGameStats(thingName, newResults, statsObject)
+  );
 
 export const decodesStatsToGraph = (
   statsThingObject,

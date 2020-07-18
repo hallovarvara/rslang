@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import style from './AnswerView.module.scss';
 
 const AnswerView = ({
   answer,
@@ -12,15 +11,18 @@ const AnswerView = ({
   isFalseAnswer,
 }) => {
   const answerItem = classNames(
-    style.item,
-    { [style.right]: ((isRightAnswer || isFalseAnswer) && answer.id === question.id) },
-    { [style.wrong]: isFalseAnswer && answer.id === currentAnswerId },
-    { [style.disable]: isRightAnswer || isFalseAnswer },
+    'item',
+    {
+      right: ((isRightAnswer || isFalseAnswer)
+      && (answer.id || answer._id) === (question.id || question._id)),
+    },
+    { wrong: isFalseAnswer && (answer.id || answer._id) === currentAnswerId },
+    { disable: isRightAnswer || isFalseAnswer },
   );
   return (
   <li className={answerItem}
-    key={answer.id}
-    onClick = {() => handleClickAnswer(answer.id)}
+    key={answer.id || answer._id}
+    onClick = {() => handleClickAnswer(answer.id || answer._id)}
   >{answer.wordTranslate}</li>
   );
 };

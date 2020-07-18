@@ -30,7 +30,7 @@ MyApp.propTypes = {
 
 export default function IntegrationNotistack(props) {
   const classes = {
-    root: 'notification-root',
+    root: `notification-root notification_${props.variant}`,
   };
 
   const {
@@ -59,4 +59,5 @@ IntegrationNotistack.propTypes = {
   afterClose: PropTypes.func,
   duration: PropTypes.number,
   position: PropTypes.object,
+  variant: PropTypes.string,
 };

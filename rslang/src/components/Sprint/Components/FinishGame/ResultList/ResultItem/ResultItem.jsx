@@ -18,7 +18,7 @@ const ResultItem = ({
         <VolumeDownIcon className={classes.VolumeDownIcon} style={{ fontSize: 20 }} />
       </IconButton>
       <span className={classes.Word}>{word}</span>
-      <span className={classes.Translate}>{`-${translate}`}</span>
+      <span className={classes.Translate}>{`${translate}`}</span>
     </div>);
 
 ResultItem.propTypes = {

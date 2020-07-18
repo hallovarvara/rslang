@@ -39,7 +39,7 @@ import {
 export const prepareWordObject = (wordObject) => {
   let newWordObject;
   if (!wordObject?.userWord) {
-    saveNewUserWordId(wordObject.id);
+    saveNewUserWordId(wordObject);
     newWordObject = createUserWord(wordObject);
   } else {
     newWordObject = { ...wordObject };
@@ -115,9 +115,10 @@ export const updateSettings = (settingOption) => {
 
 // ----------------------------------------------------------------------
 
-export const prepareUserWordsToServer = (arrayOfWords) => (
-  arrayOfWords.map((el) => ({ wordId: el.id, word: { ...el.userWord } }))
-);
+export const prepareUserWordsToServer = (arrayOfWords) => {
+  const idTemplate = '_id';
+  return arrayOfWords.map((el) => ({ wordId: el.id || el[idTemplate], word: { ...el.userWord } }));
+};
 
 export const getSettings = () => checkForSettings();
 

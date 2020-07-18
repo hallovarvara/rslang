@@ -1,0 +1,67 @@
+.audioCall-levels-stepper,
+.audioCall-answers-stepper,
+.audioCall-question-stepper,
+.audioCall-pages-stepper {
+  &.sticky-label .MuiSlider-thumb:before {
+    position: absolute;
+    display: block;
+    color: $color-light;
+    font-size: 1.5rem;
+    transform: translate(-50%, 50%);
+    content: var(--stickyLabelValue);
+  }
+
+  &.sticky-label .MuiSlider-markActive {
+    opacity: 0;
+  }
+
+  &.sticky-label .MuiSlider-mark {
+    color: $color-light;
+  }
+
+  & .MuiTypography-root {
+    margin-bottom: 0px;
+    color: $color-light;
+    font-size: 1.4rem;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+  }
+
+  .MuiSlider-rail {
+    background-color: $color-light;
+    opacity: 1;
+  }
+
+  .MuiSlider-valueLabel {
+    color: $color-dark;
+  }
+
+  .MuiSlider-mark {
+    color: $color-dark;
+  }
+
+  .MuiSlider-markLabel {
+    color: $color-light;
+    font-size: 1.5rem;
+  }
+
+  .PrivateValueLabel-circle-4 {
+    font-size: 1rem;
+  }
+
+  .MuiSlider-thumb {
+    &:hover,
+    &.MuiSlider-active {
+      box-shadow: 0px 0px 0px 8px rgba(255, 255, 255, 0.16);
+    }
+  }
+}
+
+.audioCall-steppers-container {
+  font-size: 1.6rem;
+  @include flex(column, center, center);
+}
+
+.audioCall-levels-stepper {
+  margin-bottom: 20px;
+}
