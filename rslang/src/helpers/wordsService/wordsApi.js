@@ -23,7 +23,8 @@ export const getWordsById = async (wordId) => {
   try {
     response = await axios.get(url);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
+    // TODO handle error
   }
   return response.data;
 };
@@ -34,7 +35,8 @@ export const getRandomWordByGroup = async (group) => {
   try {
     data = await getWords(randomPage, group);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
+    // TODO handle error
   }
   const randomKey = getRandomNumber(0, count.words);
   return data[randomKey];
@@ -47,7 +49,8 @@ export const getWordsByAmount = async (group, amountOfAnswers) => {
     const words = await Promise.all(result);
     return words;
   } catch (error) {
-    console.error(error);
+    // console.error(error);
+    // TODO handle error
   }
 };
 

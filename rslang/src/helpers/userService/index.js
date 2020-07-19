@@ -43,7 +43,7 @@ export default class UserService {
       });
       return rawResponse.json();
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       // TODO handle error for showing user
       return false;
     }
@@ -79,7 +79,7 @@ export default class UserService {
         ...getAuthHeader(),
       });
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       // TODO: implement errors' handler
     }
   }
@@ -93,7 +93,7 @@ export default class UserService {
         body: JSON.stringify(word),
       });
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       // TODO: implement errors' handler
     }
   };
@@ -113,7 +113,7 @@ export default class UserService {
         body: JSON.stringify(word),
       });
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       // TODO: implement errors' handler
     }
   };
@@ -128,7 +128,8 @@ export default class UserService {
       const content = await rawResponse;
       return content.data;
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+      // TODO handle error
     }
   };
 
@@ -167,7 +168,7 @@ export default class UserService {
         body: JSON.stringify(option),
       });
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       // TODO: implement errors' handler
     }
   };
@@ -178,7 +179,8 @@ export default class UserService {
       const content = await rawResponse;
       return content.data;
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+      // TODO handle error
     }
   };
 
@@ -191,7 +193,7 @@ export default class UserService {
         body: JSON.stringify(option),
       });
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       // TODO: implement errors' handler
     }
   };
@@ -202,7 +204,8 @@ export default class UserService {
       const content = await rawResponse;
       return content.data;
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+      // TODO handle error
     }
   };
 
@@ -239,7 +242,7 @@ export default class UserService {
     let token;
     try {
       token = await getToken();
-      console.log(token);
+      // console.log(token);
       if (!token) {
         token = localStorage.getItem(localStorageItems.token);
       }
@@ -274,8 +277,9 @@ export default class UserService {
         this.setNewSettings(userId, settings);
         // TODO - make drop settings into redux store here
       } catch (error) {
-        console.error(error);
+        // console.error(error);
         // errorHandler(error);
+        // TODO handle error
       }
     } else {
       if (!localStorage.getItem(localThings.STATISTICS)) {
@@ -344,6 +348,7 @@ export default class UserService {
       this.createUserStatistics(data);
     } catch (e) {
       console.log(e);
+      // TODO handle erorr
     }
   }
 
@@ -364,7 +369,8 @@ export default class UserService {
         this.createUserWord(data);
       });
     } catch (e) {
-      console.log(e);
+      // console.log(e);
+      // TODO handle error
     }
   }
 
@@ -385,7 +391,8 @@ export default class UserService {
         this.updateUserWordById(data);
       });
     } catch (e) {
-      console.log(e);
+      // console.log(e);
+      // TODO handle error
     }
   }
 
