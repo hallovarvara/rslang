@@ -18,8 +18,8 @@
 }
 
 .promo-presentation__title {
+  width: 98%;
   margin-bottom: 35px;
-  @include font(9rem, 900, normal, $font-secondary);
 }
 
 .promo-presentation__subtitle {
@@ -189,7 +189,7 @@
 
 /* FOURTH SECTION */
 .promo-repeating {
-  padding: 100px 90px 35px 90px;
+  padding: 100px 90px 60px 90px;
   color: $color-light;
   background: url('../../assets/images/promo/promo-repeating-bg-image.png'),
     $color-primary;
@@ -337,17 +337,30 @@
 }
 
 .liquid-button-container.promo-repeating__start-button {
-  margin-bottom: 35px;
+  margin-bottom: 60px;
   .liquid:after {
     background-color: darken($color-primary, 5%);
   }
 }
 
+.github-link-container {
+  @include flex;
+}
+
 .github-link {
   display: block;
-  text-transform: uppercase;
-  @include font(3.4rem, 300);
+  opacity: 0.4;
+
+  @include font(
+    $size: 2.2rem,
+    $weight: $font-weight-extralight
+  );
   @include flex(row, center, center);
+  @include transition($properties: opacity);
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .github-link__icon {
