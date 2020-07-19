@@ -264,7 +264,7 @@ export default class UserService {
         wordsPerDay: 20,
         optional: {
           userId,
-          option: settingsTemplate,
+          option: { ...settingsTemplate.optional },
         },
       });
     }
