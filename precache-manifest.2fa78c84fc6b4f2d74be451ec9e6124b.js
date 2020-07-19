@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b433b8b96404610bd73552e1d2c08f01",
+    "revision": "3edd85bc64035b7302d11d3ec85e2a56",
     "url": "/rslang/index.html"
   },
   {
-    "revision": "e2f28115eebcaea121a6",
-    "url": "/rslang/static/css/main.41bb6c34.chunk.css"
+    "revision": "e1649f528dc5bd245878",
+    "url": "/rslang/static/css/main.7bd83ece.chunk.css"
   },
   {
     "revision": "c4b2f3a1614bce6ae761",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rslang/static/js/2.a32fea3b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e2f28115eebcaea121a6",
-    "url": "/rslang/static/js/main.ec574fdc.chunk.js"
+    "revision": "e1649f528dc5bd245878",
+    "url": "/rslang/static/js/main.3bda5276.chunk.js"
   },
   {
     "revision": "bb4dc5ece55c4022ff2c",
