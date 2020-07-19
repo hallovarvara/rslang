@@ -1,9 +1,13 @@
 @import '../../../../../../scss/abstracts/constants';
 
 .VolumeDownIcon {
-  color: #000000;
+  color: $color-dark;
+}
+
+.Word {
+  font-weight: $font-weight-black;
 }
 
 .Translate {
-  color: rgba($color-dark, $alpha: 0.3);
+  color: rgba($color-dark, $alpha: 0.6);
 }

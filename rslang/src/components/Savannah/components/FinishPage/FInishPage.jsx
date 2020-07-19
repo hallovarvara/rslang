@@ -5,23 +5,18 @@ import ResultList from './ResultList/ResultList.jsx';
 import classes from './FinishPage.module.scss';
 
 import { text } from '../../../../helpers/constants';
+import LiquidButton from '../../../../basicComponents/LiquidButton';
 
 const FinishPage = ({
   complete, mistake, resultTitle, status, newStartGameHandle,
 }) => (
-    <div className={classes.FinishPage}>
+    <div className={`savannah__finish-game ${classes.FinishPage}`}>
       <div className='savannah__buttons'>
-        <Button
+        <LiquidButton
           className="savannah__button"
-          variant="contained"
-          color="primary"
           onClick={newStartGameHandle}
-          style={{
-            background: 'rgba(130, 115, 228, 1)',
-          }}
-        >
-          {text.ru.button.newGame}
-        </Button>
+          text={text.ru.button.newGame}
+        />
       </div>
       <div className={classes.finishWrapper}>
         <ResultList

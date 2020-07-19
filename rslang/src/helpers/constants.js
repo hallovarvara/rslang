@@ -364,8 +364,8 @@ const text = {
     levelsTitles: ['Первый', 'Второй', 'Третий', 'Четвертый', 'Пятый', 'Шестой'],
     answersCorrect: 'Угадано',
     answersMistaken: 'Не угадано',
-    howManyAnswers: 'Сколько показывать вариантов ответа',
-    howManyWords: 'Сколько слов хотите угадать',
+    howManyAnswers: 'Сколько вариантов ответа',
+    howManyWords: 'Сколько слов угадываем',
     chooseLevel: 'Выберите уровень сложности',
     choosePage: 'Выберите набор слов',
     selectOptionsForUsedWord: ['изученные слова', 'новые слова'],
@@ -428,7 +428,7 @@ const formLabel = {
   level: 'Уровень',
   chooseLevel: 'Выберите уровень',
   questions: 'Сколько слов хотите отгадать?',
-  answers: 'Сколько показывать вариантов ответов?',
+  answers: 'Сколько вариантов ответов',
 };
 
 const questionStatus = {

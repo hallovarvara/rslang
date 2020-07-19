@@ -65,7 +65,7 @@
     @include hamburger-colors($color-primary);
   }
   &_savannah {
-    @include hamburger-colors(complement($color-savannah-secondary));
+    @include hamburger-colors(darken($color-savannah-secondary, 10%));
   }
   &_sprint {
     @include hamburger-colors($color-sprint-primary);
