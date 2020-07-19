@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 import { withWordsService, withRecognitionService, withLocalStorageService } from '../hoc';
 import {
-  pagesCount, levelsCount,
   amountOfWordsOnOnePage, apiLinks,
 } from './helpers/constants';
 
@@ -17,7 +16,7 @@ import CurrentResultsPage from './components/pages/CurrentResults';
 import LatestResultsPage from './components/pages/LatestResults';
 
 import { playAudio } from '../../../helpers/functions';
-import { soundSuccess, text } from '../../../helpers/constants';
+import { soundSuccess, text, applicationThings } from '../../../helpers/constants';
 import UserService from '../../../helpers/userService';
 
 const shuffleArray = (words) => (
@@ -26,6 +25,8 @@ const shuffleArray = (words) => (
     .sort(() => Math.random() - 0.5)
     .map((wordObj) => ({ ...wordObj }))
 );
+
+const userService = new UserService();
 
 class App extends React.Component {
   state = {
@@ -38,7 +39,8 @@ class App extends React.Component {
     isGameInProcess: false,
     recognitionResults: null,
     isUserWon: false,
-    useUserWords: true,
+    useUserWords: false,
+    isUserLogged: false,
     notifications: [],
   }
 
@@ -49,37 +51,13 @@ class App extends React.Component {
   localStorageService = this.props.localStorageService;
 
   componentDidMount() {
-    this.userService = new UserService();
-    this.userId = this.props.userId;
-    this.setState({ useUserWords: Boolean(this.userId) });
-    const { wordsService } = this.props;
-    console.log(this.userId);
-
-    const requests = [wordsService.getAllWords(pagesCount, levelsCount)];
-    if (this.userId) {
-      console.log('heeey');
-      requests.push(this.userService.getUserWordsNoRemoved(this.userId));
-    }
-
-    Promise.all(requests)
-      .then(([allWords, userWords]) => {
-        this.allWords = allWords;
-        console.log('USER WORDS ', userWords);
-        this.userWords = shuffleArray(userWords || []);
-        const { currentLevel, currentPage } = this.state;
-        const currentWords = this.generateCurrentWords(currentLevel, currentPage);
-        console.log('CURRENT WORDS: ', currentWords);
+    userService.isUserLogged()
+      .then((result) => {
         this.setState({
+          isUserLogged: Boolean(result),
+          useUserWords: Boolean(result),
           loading: false,
-          currentWords,
         });
-      })
-      .catch((error) => {
-        console.log('BACKEND CRASHED ', error);
-        this.showNotifications([{
-          type: 'error',
-          message: text.ru.backendCrashed,
-        }]);
       });
     this.recognitionService.recognition.addEventListener('result', (event) => {
       this
@@ -90,15 +68,49 @@ class App extends React.Component {
     });
   }
 
-  setUsingOfUserWords = (useUserWords) => {
-    const currentWords = this.generateCurrentWords(
-      this.state.currentLevel,
-      this.state.currentPage,
+  generateWordsForGame = async () => {
+    this.setState({
+      loading: true,
+    });
+    const {
+      currentLevel,
+      currentPage,
       useUserWords,
-    );
+    } = this.state;
+
+    try {
+      userService.prepareWordsForGame(
+        applicationThings.UNMESS, currentLevel, currentPage, amountOfWordsOnOnePage, useUserWords,
+      ).then((result) => {
+        if (result && result.length) {
+          this.clearCurrentWords = result;
+          const currentWords = shuffleArray(result);
+          this.setState({
+            loading: false,
+            currentWords,
+          });
+        } else {
+          this.showNotifications([
+            {
+              type: 'error',
+              message: text.ru.backendCrashed,
+            },
+          ]);
+        }
+      });
+    } catch (error) {
+      this.showNotifications([
+        {
+          type: 'error',
+          message: text.ru.backendCrashed,
+        },
+      ]);
+    }
+  }
+
+  setUsingOfUserWords = (useUserWords) => {
     this.setState({
       useUserWords,
-      currentWords,
     });
   }
 
@@ -112,26 +124,15 @@ class App extends React.Component {
     this.recognitionService.recognition.abort();
   }
 
-  generateCurrentWords = (currentLevel, currentPage, useUserWords = this.state.useUserWords) => (
-    [
-      ...shuffleArray(useUserWords ? this.userWords : []),
-      ...shuffleArray(this.allWords[currentLevel][currentPage]),
-    ].slice(0, amountOfWordsOnOnePage)
-  )
-
   levelChanged = (level) => {
-    const currentWords = this.generateCurrentWords(level, this.state.currentPage);
     this.setState({
       currentLevel: level,
-      currentWords,
     });
   }
 
   pageChanged = (page) => {
-    const currentWords = this.generateCurrentWords(this.state.currentLevel, page);
     this.setState({
       currentPage: page,
-      currentWords,
     });
   }
 
@@ -240,6 +241,7 @@ class App extends React.Component {
       isGameInProcess,
       currentWords,
       useUserWords,
+      isUserLogged,
     } = this.state;
 
     return (
@@ -247,9 +249,10 @@ class App extends React.Component {
         <Switch>
           <Route path="/speakit/home" render={() => (
             <HomePage
+              generateWordsForGame={this.generateWordsForGame}
               setUsingOfUserWords={this.setUsingOfUserWords}
               showNotifications={this.showNotifications}
-              isUserLogged={Boolean(this.userId)}
+              isUserLogged={isUserLogged}
               useUserWords={useUserWords}
               loading={loading}
               currentLevel={currentLevel}
@@ -286,7 +289,6 @@ class App extends React.Component {
                 isGameInProcess={isGameInProcess}
                 currentLevel={currentLevel}
                 levelChanged={this.levelChanged}
-                loading={loading}
                 currentWords={currentWords}
                 currentActiveWords={currentActiveWords} />
             )} />
@@ -295,9 +297,9 @@ class App extends React.Component {
             render={() => (
               <LatestResultsPage
                 abortGame={this.abortGame}
-                loading={loading}
                 levelChanged={this.levelChanged}
-                currentLevel={currentLevel} />
+                currentLevel={currentLevel}
+                currentWords={currentWords} />
             )} />
             <Route render={() => <h2 style={{ paddingTop: '300px' }}>heeey</h2>} />
         </Switch>

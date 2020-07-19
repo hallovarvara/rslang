@@ -10,6 +10,7 @@ import NewGameIcon from '../../NewGameIcon';
 
 import { text, gamesData } from '../../../../../../helpers/constants';
 import { getPath } from '../../../../../../helpers/functions';
+import PreloaderContainer from '../../PreloaderContainer';
 
 class GamePage extends React.Component {
   componentDidMount() {
@@ -47,6 +48,10 @@ class GamePage extends React.Component {
     }
 
     if (loading) {
+      return <PreloaderContainer />;
+    }
+
+    if (!currentWords.length) {
       return <Redirect to={getPath(gamesData.speakit.startPath || gamesData.speakit.path)}/>;
     }
 

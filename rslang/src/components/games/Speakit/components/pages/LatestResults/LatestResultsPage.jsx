@@ -36,10 +36,11 @@ const LatestResultsPage = (props) => {
     localStorageService,
     levelChanged,
     currentLevel,
-    loading,
     abortGame,
+    currentWords,
   } = props;
-  if (loading) {
+
+  if (!currentWords.length) {
     return <Redirect to={getPath(gamesData.speakit.startPath || gamesData.speakit.path)}/>;
   }
 
@@ -78,6 +79,7 @@ LatestResultsPage.propTypes = {
   currentLevel: PropTypes.number,
   loading: PropTypes.bool,
   abortGame: PropTypes.func,
+  currentWords: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default withLocalStorageService()(LatestResultsPage);

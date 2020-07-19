@@ -27,6 +27,7 @@ class HomePage extends React.Component {
       isUserLogged,
       showNotifications,
       setUsingOfUserWords,
+      generateWordsForGame,
     } = this.props;
 
     return (
@@ -64,7 +65,7 @@ class HomePage extends React.Component {
                   stickyLabel={true}
                 />
             </div>
-            <StartButton />
+            <StartButton onClick={generateWordsForGame}/>
           </>
         }
       </div>
@@ -82,6 +83,7 @@ HomePage.propTypes = {
   isUserLogged: PropTypes.bool,
   showNotifications: PropTypes.func,
   setUsingOfUserWords: PropTypes.func,
+  generateWordsForGame: PropTypes.func,
 };
 
 export default HomePage;
