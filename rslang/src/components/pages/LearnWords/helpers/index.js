@@ -110,8 +110,10 @@ class AudioPlayer {
         if (index < this.tracks.length - 1) {
           setTimeout(() => {
             index += 1;
-            this.current.src = resourceUrl(this.tracks[index]);
-            this.current.play();
+            if (this.tracks[index]) {
+              this.current.src = resourceUrl(this.tracks[index]);
+              this.current.play();
+            }
           }, 300);
         }
       };

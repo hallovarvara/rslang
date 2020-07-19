@@ -4,9 +4,16 @@ import Header from './Views/Header';
 import WordCard from './Views/WordCard';
 import StartView from './Views/StartView';
 import Preloader from '../../../basicComponents/Preloader';
+import NoWordsFound from './Views/NoWordsFound';
 import ShortStats from './Views/ShortStats';
+import Notification from '../../../basicComponents/Notification';
 import * as settings from './helpers/settings';
-import { wordBaseTemplate, initialState } from './helpers/constants';
+import {
+  wordBaseTemplate,
+  initialState,
+  congratLearn,
+  congratAll,
+} from './helpers/constants';
 import {
   extractEmphasizedWord,
   getSessionProgress,
@@ -25,10 +32,12 @@ import {
   localStorageItems,
   levelsOfDifficulty,
   applicationThings,
+  count,
 } from '../../../helpers/constants';
 import { clearSessionData } from '../../../helpers/wordsService/storageModel';
 import UserService from '../../../helpers/userService';
 import { getWordsByAmount } from '../../../helpers/wordsService/wordsApi';
+import { getRandomNumber } from '../../../helpers/functions';
 
 const userservice = new UserService();
 
@@ -114,25 +123,21 @@ export default class LearnWords extends Component {
       isFirstPassDone,
       isSecondPastDone,
     } = this.state;
-    if (!checkSessionProgress(words) && totalWords) {
+    const check = checkSessionProgress(words);
+    if (!check && totalWords) {
       if (!isFirstPassDone) {
         console.log('second');
         this.secondRepeat();
       } else if (!isSecondPastDone) {
         console.log('third');
         this.thirdRepeat();
-      } else {
-        console.log('isShownShortStats');
-        this.setState((state) => ({
-          isShownShortStats: !state.isShownShortStats,
-        }));
+      } else if (!check && isFirstPassDone && isSecondPastDone) {
+        console.log('isShownShortStats', !check);
+        this.setState({
+          isShownShortStats: true,
+        });
         userservice.handleEndOfGame(applicationThings.LEARN_WORDS);
       }
-    } else {
-      this.setState((state) => ({
-        isShownShortStats: !state.isShownShortStats,
-      }));
-      userservice.handleEndOfGame(applicationThings.LEARN_WORDS);
     }
   }
 
@@ -316,13 +321,15 @@ export default class LearnWords extends Component {
   handleStartNewLearning = async () => {
     this.togglePreloader();
     clearSessionData();
-    const { isWordsRandomly, userLevel } = this.state;
-    const group = isWordsRandomly ? null : userLevel;
-    const wordsFromApiResponse = await userservice.prepareToLearnWords(
-      2,
+    const { isWordsRandomly, userLevel, userPage } = this.state;
+    const group = isWordsRandomly ? getRandomNumber(0, count.pages) : userLevel;
+    const wordsFromApiResponse = await userservice.prepareWordsForGame(
+      applicationThings.LEARN_WORDS,
       group,
+      userPage,
+      3,
+      true,
     );
-    // const wordsFromApiResponse = await getWordsByAmount(1, 10);
     const words = await this.prepareSessionProgress(wordsFromApiResponse);
     if (words[0]?.word) {
       const statsNewWordsCount = words.filter((el) => !el.userWord).length;
@@ -371,6 +378,7 @@ export default class LearnWords extends Component {
   render() {
     const {
       words,
+      wordCards,
       wordCount,
       totalWords,
       currentInput,
@@ -425,21 +433,29 @@ export default class LearnWords extends Component {
       />
     ) : (
       <div className="learn-words">
+        {isFirstPassDone && (
+          <Notification type="success" message={congratLearn} />
+        )}
+        {(!words || !words.length) && <NoWordsFound />}
         {isShownShortStats && !isFetching && (
-          <ShortStats
-            totalWords={totalWords}
-            mistakes={
-              words.filter(
-                (el) => el.progress.thirdRepeat || el.progress.secondRepeat,
-              ).length
-            }
-            statsNewWordsCount={statsNewWordsCount}
-            statsMistakesCount={statsMistakesCount}
-            statsRightAnswerSeries={statsRightAnswerSeries}
-          />
+          <>
+            <ShortStats
+              wordCards={wordCards}
+              totalWords={totalWords}
+              mistakes={
+                words.filter(
+                  (el) => el.progress.thirdRepeat || el.progress.secondRepeat,
+                ).length
+              }
+              statsNewWordsCount={statsNewWordsCount}
+              statsMistakesCount={statsMistakesCount}
+              statsRightAnswerSeries={statsRightAnswerSeries}
+            />
+            <Notification type="success" message={congratAll} />
+          </>
         )}
         {isFetching && <Preloader />}
-        {!isFetching && words.length && (
+        {!isFetching && !isShownShortStats && words.length && (
           <>
             <Header
               categoriesSelect={categoriesSelect}

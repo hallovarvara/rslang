@@ -11,63 +11,85 @@ import {
 } from '../../helpers';
 import CheckedSentense from '../CheckedSentence';
 
-const Word = (props) => {
-  const {
-    progress,
-    textExample,
-    textExampleTranslate,
-    isShownTranslation,
-    onPlayAudio,
-    value,
-    handleSubmit,
-    handleInput,
-  } = props;
-  const { begin, emphasis, end } = textExample;
-  const {
-    isGuessed,
-    isShownWord,
-    isWordSemiOpacity,
-    difference,
-  } = progress;
-  const wrongAnswerStyles = prepareWrongAnswerStyles(
-    isShownWord,
-    isWordSemiOpacity,
-  );
-  const rightAnswerStyles = prepareRightAnswerStyles(isGuessed);
-  const output = difference ? (
-    <CheckedSentense sentence={difference} styles={wrongAnswerStyles} />
-  ) : (
-    <span style={rightAnswerStyles}>{emphasis}</span>
-  );
-  return (
-    <>
-      <div className="learn-word-card-sentence">
-        {isGuessed && (
-          <span className="autoplay-icon" onClick={() => onPlayAudio('audioExample')}></span>
-        )}
-        <div className="lw-word-card-sentence-words-container">
-          {mapSentenceToSpanItems(begin)}
-          <div className="lw-form-container" style={{ position: 'relative', display: 'inline' }}>
-            {output}
-            <form style={inputWrapper} onSubmit={handleSubmit}>
-              <input
-                type="text"
-                style={inputField}
-                autoComplete="off"
-                autoFocus="on"
-                disabled={isGuessed}
-                onChange={handleInput}
-                value={value}
-              />
-            </form>
+class Word extends React.Component {
+  constructor(props) {
+    super(props);
+    this.textInput = React.createRef();
+  }
+
+  componentDidUpdate() {
+    this.textInput.current.focus();
+  }
+
+  render() {
+    const {
+      progress,
+      textExample,
+      textExampleTranslate,
+      isShownTranslation,
+      onPlayAudio,
+      value,
+      handleSubmit,
+      handleInput,
+    } = this.props;
+    const { begin, emphasis, end } = textExample;
+    const {
+      isGuessed,
+      isShownWord,
+      isWordSemiOpacity,
+      difference,
+    } = progress;
+    const wrongAnswerStyles = prepareWrongAnswerStyles(
+      isShownWord,
+      isWordSemiOpacity,
+    );
+    const rightAnswerStyles = prepareRightAnswerStyles(isGuessed);
+    const output = difference ? (
+      <CheckedSentense sentence={difference} styles={wrongAnswerStyles} />
+    ) : (
+      <span style={rightAnswerStyles}>{emphasis}</span>
+    );
+    return (
+      <>
+        <div className="learn-word-card-sentence">
+          {isGuessed && (
+            <span
+              className="autoplay-icon"
+              onClick={() => onPlayAudio('audioExample')}
+            ></span>
+          )}
+          <div className="lw-word-card-sentence-words-container">
+            {mapSentenceToSpanItems(begin)}
+            <div
+              className="lw-form-container"
+              style={{ position: 'relative', display: 'inline' }}
+            >
+              {output}
+              <form style={inputWrapper} onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  style={inputField}
+                  autoComplete="off"
+                  autoFocus="on"
+                  disabled={isGuessed}
+                  onChange={handleInput}
+                  value={value}
+                  ref={this.textInput}
+                />
+              </form>
+            </div>
+            {mapSentenceToSpanItems(end)}
           </div>
-          {mapSentenceToSpanItems(end)}
         </div>
-      </div>
-      {isGuessed && isShownTranslation && <p className="learn-word-card-info__sentence-translation">{textExampleTranslate}</p>}
-    </>
-  );
-};
+        {isGuessed && isShownTranslation && (
+          <p className="learn-word-card-info__sentence-translation">
+            {textExampleTranslate}
+          </p>
+        )}
+      </>
+    );
+  }
+}
 
 Word.propTypes = {
   progress: PropTypes.object,
