@@ -10,13 +10,15 @@ export const extractEmphasizedWord = (str, surroundingTag) => {
   const beginTag = `<${surroundingTag}>`;
   const endTag = `</${surroundingTag}>`;
 
-  sentence.begin = str.substring(0, str.indexOf(beginTag));
-  sentence.emphasis = str.substring(
-    str.indexOf(beginTag) + 3,
-    str.indexOf(endTag),
-  );
-  sentence.end = str.substring(str.indexOf(endTag) + 4);
-  return sentence;
+  if (str) {
+    sentence.begin = str.substring(0, str.indexOf(beginTag));
+    sentence.emphasis = str.substring(
+      str.indexOf(beginTag) + 3,
+      str.indexOf(endTag),
+    );
+    sentence.end = str.substring(str.indexOf(endTag) + 4);
+  }
+  return sentence || '';
 };
 
 export const showDifferenceInWords = (currentWord, inputWord) => {
@@ -47,7 +49,7 @@ export const setSessionProgress = (progress) => {
 
 export const updateSessionProgress = (wordObject) => {
   const words = JSON.parse(localStorage.getItem(RSLANG_SESSION_PROGRESS));
-  console.log(words);
+  // console.log(words);
   if (words) {
     const idTemplate = '_id';
     const updated = words.map(
@@ -59,7 +61,7 @@ export const updateSessionProgress = (wordObject) => {
 
 export const checkSessionProgress = (words) => {
   const result = words.find((el) => !el.progress.isGuessed);
-  console.log(result);
+  // console.log(result);
   return result;
 };
 
@@ -110,8 +112,10 @@ class AudioPlayer {
         if (index < this.tracks.length - 1) {
           setTimeout(() => {
             index += 1;
-            this.current.src = resourceUrl(this.tracks[index]);
-            this.current.play();
+            if (this.tracks[index]) {
+              this.current.src = resourceUrl(this.tracks[index]);
+              this.current.play();
+            }
           }, 300);
         }
       };

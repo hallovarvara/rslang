@@ -78,3 +78,6 @@ export const wordBaseTemplate = {
   wordTranslate: '',
   wordsPerExampleSentence: 0,
 };
+
+export const congratLearn = 'Поздравляем, Вы выучили лимит слов на день. Теперь можно повторить особо сложные слова';
+export const congratAll = 'Позравляем, Вы все повторили на сегодня';

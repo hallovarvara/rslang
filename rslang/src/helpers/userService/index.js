@@ -18,6 +18,7 @@ import {
   apiLinks,
   text,
   localStorageItems,
+  applicationThings,
 } from '../constants';
 
 import { getTokenLifetimeInMs } from '../functions';
@@ -306,7 +307,7 @@ export default class UserService {
     limit,
     isAllowedToGetUserWords = true,
   ) => {
-    clearSessionData(thingName);
+    if (thingName !== applicationThings.LEARN_WORDS) clearSessionData(thingName);
     const userIsLogged = await this.isUserLogged();
     const userId = localStorage.getItem(localStorageItems.userId);
     let userWords;
