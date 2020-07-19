@@ -50,3 +50,9 @@ export const getWordsByAmount = async (group, amountOfAnswers) => {
     console.error(error);
   }
 };
+
+export const getWordsByLevelAndPage = async (level, page) => {
+  let result = await getWords(page, level);
+  result = result || [];
+  return result;
+};

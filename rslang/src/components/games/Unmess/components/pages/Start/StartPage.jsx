@@ -25,6 +25,7 @@ const StartPage = (props) => {
     isUserLogged,
     showNotifications,
     setUsingOfUserWords,
+    generateWordsForGame,
   } = props;
 
   return (
@@ -64,7 +65,7 @@ const StartPage = (props) => {
                   stickyLabel={true}
                 />
             </div>
-              <Link to="/unmess/game"><StartButton /></Link>
+              <Link onClick={generateWordsForGame} to="/unmess/game"><StartButton /></Link>
             </>)
       }
     </div>
@@ -81,6 +82,7 @@ StartPage.propTypes = {
   isUserLogged: PropTypes.bool,
   showNotifications: PropTypes.func,
   setUsingOfUserWords: PropTypes.func,
+  generateWordsForGame: PropTypes.func,
 };
 
 export default StartPage;

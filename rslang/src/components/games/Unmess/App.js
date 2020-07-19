@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import './App.scss';
 
@@ -12,12 +11,9 @@ import GamePage from './components/pages/Game';
 import ResultsPage from './components/pages/Results';
 import LatestResultsPage from './components/pages/LatestResults';
 
-import { withWordsService } from '../hoc';
 import UserService from '../../../helpers/userService';
 
 import {
-  pagesCount,
-  levelsCount,
   wordsPerPage,
   localStorageItems,
 } from './helpers/contants';
@@ -25,23 +21,11 @@ import {
 import {
   soundSuccess,
   soundError,
+  applicationThings,
   text,
 } from '../../../helpers/constants';
 import { playAudio } from '../../../helpers/functions';
-
-// const getRandomWords = (words) => (
-//   words
-//     .sort(() => Math.random() - 0.5)
-//     .slice(0, wordsPerPage)
-//     .map((obj) => ({ ...obj, attempt: null, hideDefinition: true }))
-// );
-
-// const getShuffledWords = (words) => (
-//   words
-//     .slice()
-//     .sort(() => Math.random() - 0.5)
-//     .map((wordObj) => ({ ...wordObj }))
-// );
+import { handleGameRightAnswer, handleGameWrongAnswer } from '../../../helpers/wordsService';
 
 const shuffleArray = (words) => (
   words
@@ -62,6 +46,8 @@ const replaceElInArrayOfObject = (array, object, newProps) => {
   ].map((wordObj) => ({ ...wordObj }));
 };
 
+const userService = new UserService();
+
 class App extends React.Component {
   state = {
     currentLevel: 0,
@@ -69,92 +55,85 @@ class App extends React.Component {
     loading: true,
     currentWords: null,
     shuffledCurrentWords: null,
-    useUserWords: true,
+    useUserWords: false,
     notifications: [],
+    isUserLogged: false,
   }
 
   allWords = null;
 
   componentDidMount() {
-    this.userService = new UserService();
-    this.userId = this.props.userId;
-    this.setState({ useUserWords: Boolean(this.userId) });
-
-    console.log('USER ID ', this.userId);
-
     if (localStorage.getItem(localStorageItems.latestResults) === null) {
       localStorage.setItem(localStorageItems.latestResults, JSON.stringify([]));
     }
 
-    const { wordsService } = this.props;
-    const requests = [wordsService.getAllWords(pagesCount, levelsCount)];
-    if (this.userId) {
-      console.log('heeey');
-      requests.push(this.userService.getUserWordsNoRemoved(this.userId));
-    }
-    Promise.all(requests)
-      .then(([allWords, userWords]) => {
-        this.allWords = allWords;
-        console.log('USER WORDS ', userWords);
-        this.userWords = shuffleArray(userWords || []);
-        const { currentLevel, currentPage } = this.state;
-        const currentWords = this.generateCurrentWords(currentLevel, currentPage);
-        const shuffledCurrentWords = shuffleArray(currentWords);
-        console.log('CURRENT WORDS: ', currentWords);
-        console.log('SHUFFLED CURRENT WORDS: ', shuffledCurrentWords);
+    userService.isUserLogged()
+      .then((result) => {
         this.setState({
+          isUserLogged: Boolean(result),
+          useUserWords: Boolean(result),
           loading: false,
-          currentWords,
-          shuffledCurrentWords,
         });
-      })
-      .catch((error) => {
-        console.log('BACKEND CRASHED ', error);
-        this.showNotifications([{
-          type: 'error',
-          message: text.ru.backendCrashed,
-        }]);
       });
   }
 
   setUsingOfUserWords = (useUserWords) => {
-    const currentWords = this.generateCurrentWords(
-      this.state.currentLevel,
-      this.state.currentPage,
-      useUserWords,
-    );
-    const shuffledCurrentWords = shuffleArray(currentWords);
     this.setState({
       useUserWords,
-      currentWords,
-      shuffledCurrentWords,
     });
   }
 
-  generateCurrentWords = (currentLevel, currentPage, useUserWords = this.state.useUserWords) => (
-    [
-      ...shuffleArray(useUserWords ? this.userWords : []),
-      ...shuffleArray(this.allWords[currentLevel][currentPage]),
-    ].slice(0, wordsPerPage)
-  )
+  generateWordsForGame = async () => {
+    this.setState({
+      loading: true,
+    });
+    const {
+      currentLevel,
+      currentPage,
+      useUserWords,
+    } = this.state;
+
+    try {
+      userService.prepareWordsForGame(
+        applicationThings.UNMESS, currentLevel, currentPage, wordsPerPage, useUserWords,
+      ).then((result) => {
+        if (result && result.length) {
+          this.clearCurrentWords = result;
+          const currentWords = shuffleArray(result);
+          const shuffledCurrentWords = shuffleArray(currentWords);
+          this.setState({
+            loading: false,
+            currentWords,
+            shuffledCurrentWords,
+          });
+        } else {
+          this.showNotifications([
+            {
+              type: 'error',
+              message: text.ru.backendCrashed,
+            },
+          ]);
+        }
+      });
+    } catch (error) {
+      this.showNotifications([
+        {
+          type: 'error',
+          message: text.ru.backendCrashed,
+        },
+      ]);
+    }
+  }
 
   levelChanged = (level) => {
-    const currentWords = this.generateCurrentWords(level, this.state.currentPage);
-    const shuffledCurrentWords = shuffleArray(currentWords);
     this.setState({
       currentLevel: level,
-      currentWords,
-      shuffledCurrentWords,
     });
   }
 
   pageChanged = (page) => {
-    const currentWords = this.generateCurrentWords(this.state.currentLevel, page);
-    const shuffledCurrentWords = shuffleArray(currentWords);
     this.setState({
       currentPage: page,
-      currentWords,
-      shuffledCurrentWords,
     });
   }
 
@@ -180,6 +159,15 @@ class App extends React.Component {
       const isRightAttempt = droppedWordObj.id === dropTargetWordObj.id;
       const audio = isRightAttempt ? soundSuccess : soundError;
       playAudio(audio);
+
+      const clearWordObj = this.clearCurrentWords.find((wordObj) => (
+        wordObj.id === droppedWordObj.id
+      ));
+      if (isRightAttempt) {
+        handleGameRightAnswer(applicationThings.UNMESS, clearWordObj);
+      } else {
+        handleGameWrongAnswer(applicationThings.UNMESS, clearWordObj);
+      }
 
       const currentWords = replaceElInArrayOfObject(
         state.currentWords, droppedWordObj, {
@@ -214,6 +202,7 @@ class App extends React.Component {
       currentPage,
       shuffledCurrentWords,
       useUserWords,
+      isUserLogged,
     } = this.state;
 
     return (
@@ -221,9 +210,10 @@ class App extends React.Component {
         <Switch>
           <Route path="/unmess/home" render={() => (
             <StartPage
+              generateWordsForGame={this.generateWordsForGame}
               setUsingOfUserWords={this.setUsingOfUserWords}
               showNotifications={this.showNotifications}
-              isUserLogged={Boolean(this.userId)}
+              isUserLogged={isUserLogged}
               useUserWords={useUserWords}
               currentPage={currentPage}
               currentLevel={currentLevel}
@@ -234,6 +224,7 @@ class App extends React.Component {
           )} />
           <Route path="/unmess/game" render={({ history }) => (
             <GamePage
+              loading={loading}
               history={history}
               shuffledCurrentWords={shuffledCurrentWords}
               currentWords={currentWords}
@@ -274,11 +265,6 @@ class App extends React.Component {
 
 App.propTypes = {
   wordsService: PropTypes.object,
-  userId: PropTypes.string,
 };
 
-const mapStateToProps = (store) => ({
-  userId: store.auth.userId,
-});
-
-export default withWordsService()(connect(mapStateToProps)(App));
+export default App;
