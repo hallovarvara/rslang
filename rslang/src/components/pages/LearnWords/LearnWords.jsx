@@ -277,7 +277,7 @@ export default class LearnWords extends Component {
     const wordObject = { ...words[wordCount] };
     const updated = modifyingFunction(wordObject);
     // this.updateUserWordInState(updated);
-    console.log(updated);
+    // console.log(updated);
     if (updatedProgress) {
       const { initialProgressObject } = settings;
       progress = {
@@ -285,7 +285,7 @@ export default class LearnWords extends Component {
         ...updatedProgress,
       };
     }
-    console.log(progress);
+    // console.log(progress);
     this.updateUserWordInState({ ...updated, progress: { ...progress } });
   }
 

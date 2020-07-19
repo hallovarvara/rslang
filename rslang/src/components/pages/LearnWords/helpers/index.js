@@ -49,7 +49,7 @@ export const setSessionProgress = (progress) => {
 
 export const updateSessionProgress = (wordObject) => {
   const words = JSON.parse(localStorage.getItem(RSLANG_SESSION_PROGRESS));
-  console.log(words);
+  // console.log(words);
   if (words) {
     const idTemplate = '_id';
     const updated = words.map(
@@ -61,7 +61,7 @@ export const updateSessionProgress = (wordObject) => {
 
 export const checkSessionProgress = (words) => {
   const result = words.find((el) => !el.progress.isGuessed);
-  console.log(result);
+  // console.log(result);
   return result;
 };
 
