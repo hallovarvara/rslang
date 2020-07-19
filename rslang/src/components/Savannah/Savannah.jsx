@@ -334,7 +334,7 @@ class Savannah extends Component {
 
     let page;
     if (!isStarted) {
-      page = < StartPage
+      page = <StartPage
         onTotalQuizUpdate={this.onTotalQuizUpdate}
         onSubmitForm={this.onClickHandler}
         handleCurrentGroup={this.handleCurrentGroup}
@@ -380,9 +380,10 @@ class Savannah extends Component {
     }
 
     return (
-      <div className={classes.Savannah}>
+      <div className={`.savannah ${classes.Savannah}`}>
         <div className={classes.Container}>
           {page}
+          <div className="savannah__background"></div>
         </div>
       </div>
     );

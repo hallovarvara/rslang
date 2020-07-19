@@ -134,6 +134,30 @@
   }
 }
 
+@mixin color-button-liquid(
+  $color1: $color-primary,
+  $color2: darken($color1, 30%),
+  $color3: darken($color2, 40%),
+  $color-text: $color-light
+) {
+  background: $color3;
+
+  .liquid:after {
+    background: $color1;
+  }
+
+  .liquid:before {
+    background: $color2;
+  }
+
+  .liquid-button-container__text {
+    color: $color-text;
+    text-shadow: 0px 4px 6px rgba($color3, $alpha: 0.3),
+      0px 2px 1px rgba($color3, $alpha: 0.6),
+      0px 1px 0px rgba($color3, $alpha: 0.9);
+  }
+}
+
 @mixin set-button-background($color) {
   background-color: $color;
 
