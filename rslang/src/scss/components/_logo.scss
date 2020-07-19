@@ -7,7 +7,7 @@
 
 .logo_savannah {
   .logo__spot {
-    fill: complement($color-savannah-secondary);
+    fill: darken($color-savannah-secondary, 10%);
   }
 }
 

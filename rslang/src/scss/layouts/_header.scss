@@ -37,7 +37,7 @@
       @include navigation-colors($color-primary);
     }
     &_savannah {
-      @include navigation-colors(complement($color-savannah-secondary));
+      @include navigation-colors(darken($color-savannah-secondary, 10%));
     }
     &_sprint {
       @include navigation-colors($color-sprint-primary);
