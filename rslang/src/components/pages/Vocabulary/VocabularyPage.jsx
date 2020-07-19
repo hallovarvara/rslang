@@ -779,10 +779,6 @@ class VocabularyView extends React.Component {
       return <Preloader />;
     }
 
-    if (!filteredWords.lenght) {
-      return <NoWordsFound />;
-    }
-
     const cards = filteredWords
       .slice(amountOfWordsPerPage * (currentPage - 1), currentPage * amountOfWordsPerPage)
       .map((word) => <WordCard wordData={ word } key={ word._id || word.id } />);
@@ -791,7 +787,7 @@ class VocabularyView extends React.Component {
       <div className="vocabulary-page vocabulary-page-container">
         <div className="vocabulary-settings-container">
           <h1 className="vocabulary-settings-container__page-title">{pagesData.vocabulary.title}</h1>
-          <Select
+          {filteredWords.length && <Select
             className="vocabulary-selector"
             onChange={(event) => {
               const newSelectedOption = event.target.value;
@@ -822,14 +818,19 @@ class VocabularyView extends React.Component {
               }
             }}
             selectTitles={ selectorOptions.map((option) => option.title) } >
-          </Select>
+          </Select>}
         </div>
-        <div className="cards-container"> { cards } </div>
-        <Pagination
-          page={currentPage}
-          onChange={this.currentPageChanged}
-          className="vocabulary-page__pagination"
-          count={Math.ceil(filteredWords.length / amountOfWordsPerPage)}/>
+        {
+          filteredWords.length
+            ? <>
+            <div className="cards-container"> { cards } </div>
+            <Pagination
+            page={currentPage}
+            onChange={this.currentPageChanged}
+            className="vocabulary-page__pagination"
+            count={Math.ceil(filteredWords.length / amountOfWordsPerPage)}/>
+          </> : <NoWordsFound />
+        }
       </div>
     );
   }
