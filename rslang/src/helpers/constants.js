@@ -71,7 +71,6 @@ export const dateFormatTemplate = 'DD.MM.YYYY';
 
 const linkedinLink = 'https://www.linkedin.com/in/';
 const githubLink = 'https://github.com/';
-const promoVideoLink = 'https://www.w3schools.com/html/mov_bbb.mp4';
 const projectRepositoryLink = 'https://github.com/hallovarvara/rslang';
 
 const pagesData = {
@@ -403,6 +402,11 @@ const text = {
       translatedAs: 'переводится как',
     },
 
+    /* Settings page */
+    cantGetSettings: 'Не удалость получить настройки, попробуйте позже',
+    cantSaveSettings: 'Не удалось сохранить настройки, попробуйте позже',
+    settingsChangedSuccssfuly: 'Настройки успешно сохранены',
+
     /* Buttons */
     button: {
       next: 'Далее',
@@ -419,6 +423,7 @@ const text = {
       playRightNow: 'Сыграть прямо сейчас',
       lastResults: 'Последние результаты',
       currentResults: 'Текущие результаты',
+      save: 'Сохранить',
     },
 
     noVideoSupport: 'Извините, ваш браузер не поддерживает встроенное видео',
@@ -498,7 +503,6 @@ export {
   pagesData,
   vocabularySelectorOptions,
   apiLinks,
-  promoVideoLink,
   linkedinLink,
   githubLink,
   projectRepositoryLink,

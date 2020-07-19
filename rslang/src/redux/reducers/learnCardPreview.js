@@ -22,7 +22,13 @@ const reducer = (state = initialState, action) => {
         },
       };
       const currentSetting = newState.learnCardPreviewSettings[changedSetting];
-      newState.learnCardPreviewSettings[changedSetting] = !currentSetting;
+      let newSetting;
+      if (action.value !== undefined) {
+        newSetting = action.value;
+      } else {
+        newSetting = !currentSetting;
+      }
+      newState.learnCardPreviewSettings[changedSetting] = newSetting;
       return newState;
     default:
       return state;
