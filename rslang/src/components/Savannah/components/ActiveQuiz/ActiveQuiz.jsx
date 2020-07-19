@@ -34,7 +34,7 @@ class ActiveQuiz extends Component {
       guessedWords, translateWords, id, state, activeQuestion, keyPressed,
     } = this.props;
     return (
-      <div className={classes.ActiveQuiz}>
+      <div className={`savannah__active-game ${classes.ActiveQuiz}`}>
         <AnswerList
           guessedWords={guessedWords}
           translateWords={translateWords}
