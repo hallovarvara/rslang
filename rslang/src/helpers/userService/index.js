@@ -11,7 +11,7 @@ import {
   saveSessionInfoToLocal,
   prepareSessionInfoToServer,
 } from '../wordsService';
-import { getWordsByAmount } from '../wordsService/wordsApi';
+import { getWordsByAmount, getWordsByLevelAndPage } from '../wordsService/wordsApi';
 import { shufleWordsArray } from '../wordsService/wordsFilters';
 
 import {
@@ -222,7 +222,7 @@ export default class UserService {
     const currentStamp = moment().valueOf();
     const result = [];
     const getAllWords = await this.getUserAllWords(userId);
-    if (getAllWords.length) {
+    if (getAllWords && getAllWords.length) {
       getAllWords.forEach((wordCard) => {
         if (!wordCard.optional.removed && wordCard.optional.stamp < currentStamp) {
           result.push(wordCard.word);
@@ -235,9 +235,19 @@ export default class UserService {
   // all basic structure of using servicesdescribed in
   // https://github.com/hallovarvara/rslang/wiki/all-data-services
   // begin of 1st step
-  isUserLogged = () => (
-    getToken() || localStorage.getItem(localStorageItems.token)
-  )
+  isUserLogged = async () => {
+    let token;
+    try {
+      token = await getToken();
+      console.log(token);
+      if (!token) {
+        token = localStorage.getItem(localStorageItems.token);
+      }
+    } catch (error) {
+      token = localStorage.getItem(localStorageItems.token);
+    }
+    return token;
+  }
 
   setNewStatistics = (userId, stats) => {
     if (!stats) {
@@ -281,8 +291,9 @@ export default class UserService {
   // begin of 2nd step
   prepareWordsForGame = async (
     thingName,
-    userGroup,
-    dayLimit,
+    level,
+    page,
+    limit,
     isAllowedToGetUserWords = true,
   ) => {
     clearSessionData(thingName);
@@ -291,16 +302,15 @@ export default class UserService {
     let userWords;
     if (isAllowedToGetUserWords) {
       userWords = !userIsLogged
-        ? getDayLocalUserWords(dayLimit)
+        ? getDayLocalUserWords(limit)
         : await this.getUserWordsNoRemovedStamp(userId);
       // TODO: here will be filtered request to backend
     }
-    const rest = dayLimit - userWords.length;
-    const words = await getWordsByAmount(userGroup, rest);
+    const words = await getWordsByLevelAndPage(level, page);
     const grouped = isAllowedToGetUserWords
-      ? [...words, ...userWords]
+      ? [...userWords, ...shufleWordsArray(words)]
       : [...words];
-    const shufled = shufleWordsArray(grouped);
+    const shufled = shufleWordsArray(grouped).slice(0, limit);
     return shufled;
   }
 

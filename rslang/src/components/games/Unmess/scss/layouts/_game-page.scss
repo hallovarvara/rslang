@@ -9,7 +9,7 @@
 
 .unmess-game-container {
   .game-page {
-    min-height: calc(100vh - 110px);
+    min-height: calc(100vh - #{$header-height});
     padding: 35px 0px 20px 0px;
     @include flex(column, flex-start, center);
   }

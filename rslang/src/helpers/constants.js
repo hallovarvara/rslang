@@ -26,7 +26,6 @@ import spacingRepeatingMistake from '../assets/images/promo/spacing-repeating3-1
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
   base: 'https://kagafon-learn-words.herokuapp.com/',
-  // base: 'https://afternoon-falls-25894.herokuapp.com/',
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
@@ -378,6 +377,8 @@ const text = {
     return: 'Назад',
     currentResults: 'Текущие результаты',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
+    loginPleaseToUseThisFeature: 'Войдите в систему, чтобы воспользоваться этим функционалом',
+    backendCrashed: 'Извините, сервис временно недоступен',
 
     /* Unmess */
     unmess: {
@@ -491,7 +492,7 @@ const dateOptions = {
   minute: '2-digit',
   second: '2-digit',
   hour12: false,
-}
+};
 
 export {
   pagesData,

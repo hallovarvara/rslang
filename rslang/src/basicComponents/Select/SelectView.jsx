@@ -41,7 +41,7 @@ const SelectView = ({
         selectTitles.map(mapSelectTitlesToItems)
       }
     </Select>
-  );
+);
 
 SelectView.propTypes = {
   className: PropTypes.string,
