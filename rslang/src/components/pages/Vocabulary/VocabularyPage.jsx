@@ -12,6 +12,8 @@ import Preloader from '../../../basicComponents/Preloader';
 import Pagination from '../../../basicComponents/Pagination';
 import NoWordsFound from '../LearnWords/Views/NoWordsFound';
 
+import { text } from '../../../helpers/constants';
+
 import UserService from '../../../helpers/userService';
 
 const amountOfWordsPerPage = 5;
@@ -104,7 +106,7 @@ class VocabularyView extends React.Component {
             onChange={this.currentPageChanged}
             className="vocabulary-page__pagination"
             count={Math.ceil(filteredWords.length / amountOfWordsPerPage)}/>
-          </> : <NoWordsFound />
+          </> : <NoWordsFound note={text.ru.noWordsInVocabulary} />
         }
       </div>
     );
