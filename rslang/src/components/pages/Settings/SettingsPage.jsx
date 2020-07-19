@@ -128,7 +128,7 @@ class SettingsPage extends React.Component {
             this.state.notifications.map((notification, index) => (
               <Notification
                 key={index}
-                type={notification.type}
+                variant={notification.type}
                 message={notification.message}/>
             ))
           }
