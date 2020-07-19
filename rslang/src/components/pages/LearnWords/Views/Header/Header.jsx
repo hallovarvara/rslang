@@ -29,9 +29,10 @@ const Header = ({
     </div>
     <div className="lw-filter-container">
       <button
-        className={classNames('lw-filter-container__autoplay', {
-          isAutoPlay: 'active',
-        })}
+          className={classNames({
+            'lw-filter-container__autoplay': true,
+            active: isAutoPlay,
+          })}
         onClick={() => onToggleAutoPlay()}
       >
         <span className="autoplay-icon"></span>

@@ -169,9 +169,14 @@ export const calculateNextWordCard = (words, current) => {
   return result;
 };
 
-export const mapSentenceToSpanItems = (sentence) => (
-  sentence.split(' ').map((word, index) => <span key={index}>{word}</span>)
-);
+export const mapSentenceToSpanItems = (sentence) => {
+  let result;
+  const temp = (<span ></span>);
+  if (sentence) {
+    result = sentence.split(' ').map((word, index) => <span key={index}>{word}</span>) || temp;
+  }
+  return result;
+};
 
 export const replaceElInArrayOfObject = (array, object) => {
   const indexOfObject = array.findIndex((wordObj) => (
