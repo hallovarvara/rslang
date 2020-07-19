@@ -10,13 +10,15 @@ export const extractEmphasizedWord = (str, surroundingTag) => {
   const beginTag = `<${surroundingTag}>`;
   const endTag = `</${surroundingTag}>`;
 
-  sentence.begin = str.substring(0, str.indexOf(beginTag));
-  sentence.emphasis = str.substring(
-    str.indexOf(beginTag) + 3,
-    str.indexOf(endTag),
-  );
-  sentence.end = str.substring(str.indexOf(endTag) + 4);
-  return sentence;
+  if (str) {
+    sentence.begin = str.substring(0, str.indexOf(beginTag));
+    sentence.emphasis = str.substring(
+      str.indexOf(beginTag) + 3,
+      str.indexOf(endTag),
+    );
+    sentence.end = str.substring(str.indexOf(endTag) + 4);
+  }
+  return sentence || '';
 };
 
 export const showDifferenceInWords = (currentWord, inputWord) => {
