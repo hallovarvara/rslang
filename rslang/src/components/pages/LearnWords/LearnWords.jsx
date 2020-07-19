@@ -101,26 +101,31 @@ export default class LearnWords extends Component {
   }
 
   toggleCategory = ({ target: { value } }) => {
-    // let filtered;
-    // const { words } = this.state;
-    // switch (value) {
-    //   case 'новые':
-    //     filtered = words.filter((el) => !el?.userWord);
-    //     break;
-    //   case 'повторяемые':
-    //     filtered = words.filter((el) => el?.userWord);
-    //     break;
-    //   case 'сложные':
-    //     filtered = words.filter((el) => el?.userWord?.difficulty);
-    //     break;
-    //   default:
-    //     filtered = { ...words };
-    //     break;
-    // }
-    // console.log(filtered, words, value);
-    this.setState({
+    this.setState((state) => ({
       category: value,
-    });
+      // filtered: this.filterWords(state.words, state.category),
+      // wordCount: state.filtered.length,
+    }));
+  }
+
+  filterWords = (words, category) => {
+    let filtered;
+    const wordsArray = { ...words };
+    switch (category) {
+      case 'новые':
+        filtered = wordsArray.filter((el) => !el?.userWord);
+        break;
+      case 'повторяемые':
+        filtered = wordsArray.filter((el) => el?.userWord?.optional?.length);
+        break;
+      case 'сложные':
+        filtered = wordsArray.filter((el) => el?.userWord?.difficulty);
+        break;
+      default:
+        filtered = { ...wordsArray };
+        break;
+    }
+    return { ...filtered };
   }
 
   checkForLoggedUser = () => {
@@ -276,8 +281,6 @@ export default class LearnWords extends Component {
     const { words, wordCount } = this.state;
     const wordObject = { ...words[wordCount] };
     const updated = modifyingFunction(wordObject);
-    // this.updateUserWordInState(updated);
-    // console.log(updated);
     if (updatedProgress) {
       const { initialProgressObject } = settings;
       progress = {
@@ -285,8 +288,10 @@ export default class LearnWords extends Component {
         ...updatedProgress,
       };
     }
-    // console.log(progress);
-    this.updateUserWordInState({ ...updated, progress: { ...progress } });
+    const result = progress
+      ? { ...updated, progress: { ...progress } }
+      : { ...updated };
+    this.updateUserWordInState({ ...result });
   }
 
   handleChangeRepeated = (updatedProgress) => {
@@ -331,7 +336,7 @@ export default class LearnWords extends Component {
     this.togglePreloader();
     clearSessionData();
     const { isWordsRandomly, userLevel, userPage } = this.state;
-    const group = isWordsRandomly ? getRandomNumber(0, count.pages) : userLevel;
+    const group = isWordsRandomly ? getRandomNumber(0, count.groups) : userLevel;
     const wordsFromApiResponse = await userservice.prepareWordsForGame(
       applicationThings.LEARN_WORDS,
       group,
@@ -401,7 +406,9 @@ export default class LearnWords extends Component {
       userPage,
       userLevel,
       isAutoPlay,
+      // filtered,
     } = this.state;
+    // console.log(filtered);
     const {
       isShownComplicatedButton,
       isShownAnswerButton,
@@ -469,42 +476,45 @@ export default class LearnWords extends Component {
               onToggleCategory={this.toggleCategory}
               isAutoPlay={isAutoPlay}
             />
-            {(words || words.length)
-              && (<WordCard
-                onChangeRemoved={this.handleChangeRemoved}
-                onChangeDifficulty={this.handleChangeDifficulty}
-                onShowTip={this.handleShowTip}
-                onStatsChanged={this.handleStatsChanged}
-                onChangeRepeated={this.handleChangeRepeated}
-                onChangeWordRate={this.handleChangeWordRate}
-                isFirstPassDone={isFirstPassDone}
-                currentWord={currentWord}
-                isLogged={isLogged}
-                currentInput={currentInput}
-                progress={progress}
-                wordCount={wordCount + 1}
-                totalWords={totalWords}
-                textExample={textExampleSentence}
-                textExampleTranslate={textExampleTranslate}
-                image={image}
-                word={word}
-                wordTranslate={wordTranslate}
-                transcription={transcription}
-                textMeaning={textMeaningSentence}
-                textMeaningTranslate={textMeaningTranslate}
-                isShownComplicatedButton={isShownComplicatedButton}
-                isShownAnswerButton={isShownAnswerButton}
-                isShownImageAssociation={isShownImageAssociation}
-                isShownTranslation={isShownTranslation}
-                isShownTranscription={isShownTranscription}
-                isShownExampleSentence={isShownExampleSentence}
-                isShownMeaning={isShownMeaning}
-                onNextWord={this.handleNextWord}
-                onPrevWord={this.handlePrevWord}
-                onChangeProgress={this.handleChangeProgress}
-                onPlayAudio={this.playAudios}
-              />)
-            }
+              {!words.length
+                ? <NoWordsFound />
+                : (
+                  <WordCard
+                    onChangeRemoved={this.handleChangeRemoved}
+                    onChangeDifficulty={this.handleChangeDifficulty}
+                    onShowTip={this.handleShowTip}
+                    onStatsChanged={this.handleStatsChanged}
+                    onChangeRepeated={this.handleChangeRepeated}
+                    onChangeWordRate={this.handleChangeWordRate}
+                    isFirstPassDone={isFirstPassDone}
+                    currentWord={currentWord}
+                    isLogged={isLogged}
+                    currentInput={currentInput}
+                    progress={progress}
+                    wordCount={wordCount + 1}
+                    totalWords={totalWords}
+                    textExample={textExampleSentence}
+                    textExampleTranslate={textExampleTranslate}
+                    image={image}
+                    word={word}
+                    wordTranslate={wordTranslate}
+                    transcription={transcription}
+                    textMeaning={textMeaningSentence}
+                    textMeaningTranslate={textMeaningTranslate}
+                    isShownComplicatedButton={isShownComplicatedButton}
+                    isShownAnswerButton={isShownAnswerButton}
+                    isShownImageAssociation={isShownImageAssociation}
+                    isShownTranslation={isShownTranslation}
+                    isShownTranscription={isShownTranscription}
+                    isShownExampleSentence={isShownExampleSentence}
+                    isShownMeaning={isShownMeaning}
+                    onNextWord={this.handleNextWord}
+                    onPrevWord={this.handlePrevWord}
+                    onChangeProgress={this.handleChangeProgress}
+                    onPlayAudio={this.playAudios}
+                  />
+                )
+              }
           </>
         )}
       </div>
