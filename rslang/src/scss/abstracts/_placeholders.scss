@@ -52,7 +52,7 @@
   @include font(
     $size: 3.2rem,
     $weight: $font-weight-light,
-    $line-height: 140%
+    $line-height: 150%
   );
 
   @include media-tablet {
