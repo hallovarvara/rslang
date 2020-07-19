@@ -163,6 +163,7 @@ class WordCard extends React.Component {
               onNextWord={onNextWord}
               onPrevWord={onPrevWord}
               onShowTip={onShowTip}
+              onPlayAudio={onPlayAudio}
             />
           </div>
         </div>

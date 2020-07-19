@@ -99,6 +99,7 @@ export const updateUserWordRepeated = (wordObject) => {
 export const updateStats = (statsOption, optionData) => {
   const stats = checkForStatistics();
   const newStats = changeStats(statsOption, optionData, stats);
+  console.log(stats, newStats);
   saveLocalStatistics(newStats);
 };
 
@@ -182,6 +183,7 @@ export const saveGameResults = (thingName) => {
   if (thingName === applicationThings.LEARN_WORDS) {
     const sessionWords = checkForUserWords(sessionThings, storageThingNames.LEARNING);
     results = calculateLearnWordsResults(sessionWords);
+    console.log(results);
   } else {
     results = getSessionData(thingName);
   }

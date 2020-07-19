@@ -329,3 +329,36 @@
     margin: 0 auto;
   }
 }
+
+/* Short stats page*/
+
+.lw-short-stats__wrapper {
+  display: flex;
+  flex-direction: column;
+  & > * {
+    margin: 30px auto;
+  }
+}
+
+.lw-stats__data {
+  width: 100%;
+  max-width: 800px;
+}
+
+.lw-stats__item {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  & > p {
+    @extend %subtitle;
+  }
+}
+
+.lw-stats__label-text {
+  margin-bottom: 10px;
+  opacity: 0.6;
+}
+
+.lw-stats__value {
+  font-weight: $font-weight-black;
+}

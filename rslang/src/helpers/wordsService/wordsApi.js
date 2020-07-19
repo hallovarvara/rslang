@@ -42,6 +42,19 @@ export const getRandomWordByGroup = async (group) => {
   return data[randomKey];
 };
 
+export const getRandomWord = async () => {
+  let data;
+  const randomPage = getRandomNumber(0, count.pages);
+  const group = getRandomNumber(0, count.groups);
+  try {
+    data = await getWords(randomPage, group);
+  } catch (error) {
+    console.error(error);
+  }
+  const randomKey = getRandomNumber(0, count.words);
+  return data[randomKey];
+};
+
 export const getWordsByAmount = async (group, amountOfAnswers) => {
   try {
     const result = Array(amountOfAnswers).fill(0)

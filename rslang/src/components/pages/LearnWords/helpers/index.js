@@ -45,7 +45,23 @@ export const setSessionProgress = (progress) => {
   localStorage.setItem(RSLANG_SESSION_PROGRESS, JSON.stringify(progress));
 };
 
-export const checkSessionProgress = (words) => words.find((el) => !el.progress.isGuessed);
+export const updateSessionProgress = (wordObject) => {
+  const words = JSON.parse(localStorage.getItem(RSLANG_SESSION_PROGRESS));
+  console.log(words);
+  if (words) {
+    const idTemplate = '_id';
+    const updated = words.map(
+      (el) => (el.id === wordObject?.id || el.id === wordObject[idTemplate] ? wordObject : el),
+    );
+    localStorage.setItem(RSLANG_SESSION_PROGRESS, JSON.stringify(updated));
+  }
+};
+
+export const checkSessionProgress = (words) => {
+  const result = words.find((el) => !el.progress.isGuessed);
+  console.log(result);
+  return result;
+};
 
 export const clearSessionProgress = () => {
   localStorage.removeItem(RSLANG_SESSION_PROGRESS);
@@ -74,22 +90,27 @@ export const prepareWrongAnswerStyles = (isShownWord, isWordSemiOpacity) => {
 class AudioPlayer {
   constructor() {
     this.current = new Audio();
+    this.tracks = null;
   }
 
   playAudios = (audios) => {
     if (!Array.isArray(audios)) {
       this.current.src = resourceUrl(audios);
       this.current.play();
+      this.current.onended = () => {
+        this.current.src = null;
+      };
     } else {
+      this.tracks = [...audios];
       let index = 0;
-      this.current.src = resourceUrl(audios[index]);
+      this.current.src = resourceUrl(this.tracks[index]);
       this.current.play();
 
       this.current.onended = () => {
-        if (index < audios.length - 1) {
+        if (index < this.tracks.length - 1) {
           setTimeout(() => {
             index += 1;
-            this.current.src = resourceUrl(audios[index]);
+            this.current.src = resourceUrl(this.tracks[index]);
             this.current.play();
           }, 300);
         }
@@ -99,6 +120,8 @@ class AudioPlayer {
 
   stopAudios = () => {
     this.current.pause();
+    this.current.src = null;
+    this.tracks = null;
   }
 }
 
