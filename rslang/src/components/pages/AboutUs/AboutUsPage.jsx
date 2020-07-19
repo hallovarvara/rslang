@@ -14,9 +14,7 @@ import TeamMember from '../../TeamMember';
 import LiquidButton from '../../../basicComponents/LiquidButton';
 import { ReactComponent as Spot } from '../../../assets/icons/spot.svg';
 import { ReactComponent as DottedLineTop } from '../../../assets/icons/dotted-lines/line-top.svg';
-import {ReactComponent as DottedLineFiveSixths} from "../../../assets/icons/dotted-lines/line-five-sixths.svg";
-import {ReactComponent as DottedLineTwoSixths} from "../../../assets/icons/dotted-lines/line-two-sixths.svg";
-import {ReactComponent as DottedLineFourSixths} from "../../../assets/icons/dotted-lines/line-four-sixths.svg";
+import { ReactComponent as DottedLineFourSixths } from '../../../assets/icons/dotted-lines/line-four-sixths.svg';
 
 const mapTeamMembersToItems = (member, index) => <TeamMember key={index} {...member} />;
 

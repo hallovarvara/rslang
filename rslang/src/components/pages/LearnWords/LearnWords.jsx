@@ -33,7 +33,6 @@ import { clearSessionData } from '../../../helpers/wordsService/storageModel';
 import { statsTemplate, changeStats } from '../../../helpers/wordsService/statsModel';
 import UserService from '../../../helpers/userService';
 import { getWordsByAmount } from '../../../helpers/wordsService/wordsApi';
-import NoWordsFound from "./Views/NoWordsFound";
 
 const userservice = new UserService();
 

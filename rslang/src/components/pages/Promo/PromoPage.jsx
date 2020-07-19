@@ -46,7 +46,7 @@ const PromoPageView = ({
         <img src={busImage} alt="bus" className="promo-presentation-media__bus-image"/>
       </div>
       <LiquidButton
-        text={text.ru.button.startLearningWithUs}
+        text={Parser(text.ru.button.startLearningWithUs)}
         onClick={() => history.push(getPath(pagesData.learnWords.path))}
         className="promo-page__start-button"
       />

@@ -1,18 +1,17 @@
 import React from 'react';
 import Parser from 'html-react-parser';
 
+import { Link } from 'react-router-dom';
 import {
   gamesData, pagesData,
   text,
 } from '../../../helpers/constants';
 
 import GameCard from '../../GameCard';
-import {Link} from "react-router-dom";
-import {ReactComponent as DottedLineTop} from '../../../assets/icons/dotted-lines/line-top.svg';
-import {ReactComponent as DottedLineFourSixths} from '../../../assets/icons/dotted-lines/line-four-sixths.svg';
-import {ReactComponent as Spot} from '../../../assets/icons/spot.svg';
-import {getPath} from "../../../helpers/functions";
-import LiquidButton from "../../../basicComponents/LiquidButton";
+import { ReactComponent as DottedLineTop } from '../../../assets/icons/dotted-lines/line-top.svg';
+import { ReactComponent as Spot } from '../../../assets/icons/spot.svg';
+import { getPath } from '../../../helpers/functions';
+import LiquidButton from '../../../basicComponents/LiquidButton';
 
 const renderGames = (data, index) => <GameCard data={data} key={index} />;
 
