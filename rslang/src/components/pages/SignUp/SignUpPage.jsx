@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Input from '../../../basicComponents/Input';
-import Button from '../../../basicComponents/Button';
 import UserService from '../../../helpers/userService';
 import { text, pagesData } from '../../../helpers/constants';
+
+import LiquidButton from '../../../basicComponents/LiquidButton';
+import { ReactComponent as Spot } from '../../../assets/icons/spot.svg';
 
 const userService = new UserService();
 
@@ -116,12 +118,11 @@ class SignUpPage extends Component {
             className="sign-up-form__repeat-password"
             onChange={this.onChangeRepeatPass}
             type="password" />
-
-          <Button
-            value={ pagesData.register.title }
+          <LiquidButton
+            text={pagesData.register.title}
             className="sign-up-form__button"
-            disabled={!this.isFormValid()} />
-
+            disabled={!this.isFormValid()}
+          />
         </form>
         <p className="sign-up-page-additional-info">
           { text.ru.alreadyRegistered } <Link
@@ -130,6 +131,7 @@ class SignUpPage extends Component {
           {pagesData.signIn.title}
         </Link>
         </p>
+        <Spot className="spot"/>
       </section>
     );
   }
