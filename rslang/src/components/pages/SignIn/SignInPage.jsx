@@ -9,6 +9,7 @@ import {
   pagesData,
   text,
 } from '../../../helpers/constants';
+
 import LiquidButton from '../../../basicComponents/LiquidButton';
 import { ReactComponent as Spot } from '../../../assets/icons/spot.svg';
 
