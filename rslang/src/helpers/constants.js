@@ -138,7 +138,7 @@ const pagesData = {
     title: 'Словарь',
     path: 'vocabulary',
     guest: { isVisible: false },
-    user: { isVisible: false },
+    user: { isVisible: true, index: 6 },
   },
 };
 
