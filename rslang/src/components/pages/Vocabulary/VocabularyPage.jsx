@@ -10,6 +10,7 @@ import Select from '../../../basicComponents/Select';
 // import { getWords } from '../../../helpers/wordsService';
 import Preloader from '../../../basicComponents/Preloader';
 import Pagination from '../../../basicComponents/Pagination';
+import NoWordsFound from '../LearnWords/Views/NoWordsFound';
 
 import UserService from '../../../helpers/userService';
 
@@ -776,6 +777,10 @@ class VocabularyView extends React.Component {
 
     if (loading) {
       return <Preloader />;
+    }
+
+    if (!filteredWords.lenght) {
+      return <NoWordsFound />;
     }
 
     const cards = filteredWords

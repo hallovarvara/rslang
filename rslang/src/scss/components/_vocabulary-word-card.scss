@@ -1,6 +1,7 @@
 .vocabulary-page {
   .cards-container {
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     cursor: default;
     @include flex(column, center, center);
   }
