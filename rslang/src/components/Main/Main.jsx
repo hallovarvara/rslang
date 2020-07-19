@@ -41,7 +41,8 @@ const Main = ({ username, authFailed }) => (
       <Route path={getPath(settings.path)} component={SettingsPage} />
       <Route path={getPath(statistics.path)} component={StatisticPage} />
       <Route path={getPath(aboutUs.path)} component={AboutUsPage} />
-      <Route exact path={getPath() || getPath(promo.path)} render={({ history }) => <PromoPage history={history}/>} />
+      <Route exact path={getPath() || getPath(promo.path)}
+        render={({ history }) => <PromoPage history={history}/>} />
       <Route path={getPath(play.path)} component={PlayGamesPage} />
       <Route path={getPath(vocabulary.path)} component={VocabularyPage} />
       <Route path={getPath(signIn.path)} component={SignInPage} />

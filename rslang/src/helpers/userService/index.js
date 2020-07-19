@@ -184,13 +184,13 @@ export default class UserService {
     }
   };
 
-  createUserSettings = async ({ userId, option }) => {
+  createUserSettings = async (object) => {
     try {
-      await fetch(`${apiLinks.base}users/${userId}/settings`, {
+      await fetch(`${apiLinks.base}users/${object.optional.userId}/settings`, {
         method: 'PUT',
         withCredentials: true,
         ...getAuthHeader(),
-        body: JSON.stringify(option),
+        body: JSON.stringify(object),
       });
     } catch (e) {
       // console.error(e);
