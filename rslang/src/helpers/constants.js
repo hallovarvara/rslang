@@ -237,15 +237,15 @@ const teamMembers = [
 const vocabularySelectorOptions = [
   {
     title: 'изучаемые',
-    field: null,
+    fieldPath: null,
   },
   {
     title: 'сложные',
-    field: 'isComplicated',
+    fieldPath: 'difficulty',
   },
   {
     title: 'удаленные',
-    field: 'isRemoved',
+    fieldPath: 'optional removed',
   },
 ];
 
