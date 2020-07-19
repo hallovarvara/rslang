@@ -305,7 +305,7 @@ export default class UserService {
   }
 
   prepareToLearnWords = async (dayLimit, userGroup) => {
-    const userIsLogged = this.isUserLogged();
+    const userIsLogged = await this.isUserLogged();
     const userId = localStorage.getItem(localStorageItems.userId);
     const userWords = !userIsLogged
       ? getDayLocalUserWords(dayLimit)

@@ -71,27 +71,38 @@ export const prepareWrongAnswerStyles = (isShownWord, isWordSemiOpacity) => {
   return styles;
 };
 
-export const playAudios = (audios) => {
-  const audio = new Audio();
-  if (!Array.isArray(audios)) {
-    audio.src = resourceUrl(audios);
-    audio.play();
-  } else {
-    let index = 0;
-    audio.src = resourceUrl(audios[index]);
-    audio.play();
-
-    audio.onended = () => {
-      if (index < audios.length - 1) {
-        setTimeout(() => {
-          index += 1;
-          audio.src = resourceUrl(audios[index]);
-          audio.play();
-        }, 300);
-      }
-    };
+class AudioPlayer {
+  constructor() {
+    this.current = new Audio();
   }
-};
+
+  playAudios = (audios) => {
+    if (!Array.isArray(audios)) {
+      this.current.src = resourceUrl(audios);
+      this.current.play();
+    } else {
+      let index = 0;
+      this.current.src = resourceUrl(audios[index]);
+      this.current.play();
+
+      this.current.onended = () => {
+        if (index < audios.length - 1) {
+          setTimeout(() => {
+            index += 1;
+            this.current.src = resourceUrl(audios[index]);
+            this.current.play();
+          }, 300);
+        }
+      };
+    }
+  }
+
+  stopAudios = () => {
+    this.current.pause();
+  }
+}
+
+export const audioplayer = new AudioPlayer();
 
 export const calculatePrevWordCard = (words, current) => {
   let result;

@@ -4,7 +4,7 @@
   width: 80%;
   max-width: 800px;
   height: 400px;
-  margin: 20px auto;
+  margin: 0 auto;
   background: rgba($color-light, $alpha: 0.4);
   @include flex(column, flex-start, center);
 }

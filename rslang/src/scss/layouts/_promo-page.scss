@@ -1,7 +1,7 @@
 .promo-page {
   position: relative;
   overflow: hidden;
-  * {
+  *:not(.liquid-button-container__text) {
     z-index: 1;
   }
   section {

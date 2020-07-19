@@ -18,6 +18,7 @@ import {
   gamesData,
   promoVideoLink,
   text,
+  projectRepositoryLink,
 } from '../../../helpers/constants';
 import {
   getPath,
@@ -127,7 +128,7 @@ const PromoPageView = ({
         }
       </div>
       <LiquidButton
-        text={text.ru.button.startLearningWithUs}
+        text={Parser(text.ru.button.startLearningWithUs)}
         onClick={() => history.push(getPath(pagesData.learnWords.path))}
         className="promo-repeating__start-button"
       />
@@ -135,8 +136,8 @@ const PromoPageView = ({
         <a target="_blank"
           rel="noopener noreferrer"
           className="github-link"
-          href="https://github.com/hallovarvara/rslang">
-          <GithubIcon className="github-link__icon"/>Репозиторий проекта
+          href={projectRepositoryLink}>
+          <GithubIcon className="github-link__icon"/>{text.ru.projectRepository}
         </a>
       </div>
     </section>

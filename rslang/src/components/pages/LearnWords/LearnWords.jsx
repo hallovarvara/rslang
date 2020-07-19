@@ -12,7 +12,7 @@ import {
   getSessionProgress,
   setSessionProgress,
   checkSessionProgress,
-  playAudios,
+  audioplayer,
 } from './helpers';
 import {
   updateLearnWordsRate,
@@ -28,12 +28,12 @@ import {
   localStorageItems,
   levelsOfDifficulty,
   applicationThings,
-  // apiLinks,
 } from '../../../helpers/constants';
 import { clearSessionData } from '../../../helpers/wordsService/storageModel';
 import { statsTemplate, changeStats } from '../../../helpers/wordsService/statsModel';
 import UserService from '../../../helpers/userService';
 import { getWordsByAmount } from '../../../helpers/wordsService/wordsApi';
+import NoWordsFound from "./Views/NoWordsFound";
 
 const userservice = new UserService();
 
@@ -88,15 +88,10 @@ export default class LearnWords extends Component {
   };
 
   toggleAutoPlay = () => {
+    audioplayer.stopAudios();
     this.setState((state) => ({
       isAutoPlay: !state.isAutoPlay,
     }));
-  }
-
-  toggleCategory = ({ target: { value } }) => {
-    this.setState({
-      category: value,
-    });
   }
 
   toggleCategory = ({ target: { value } }) => {
@@ -170,17 +165,18 @@ export default class LearnWords extends Component {
     });
   }
 
-  playAudio = (audioName) => {
+  playAudios = (audioName) => {
     const { wordCount, isAutoPlay, words } = this.state;
     if (audioName) {
-      playAudios(words[wordCount][audioName]);
+      audioplayer.playAudios(words[wordCount][audioName]);
     } else if (isAutoPlay) {
       const { audio, audioMeaning, audioExample } = words[wordCount];
-      playAudios([audio, audioMeaning, audioExample]);
+      audioplayer.playAudios([audio, audioMeaning, audioExample]);
     }
   }
 
   handleNextWord = () => {
+    audioplayer.stopAudios();
     this.setState((state) => (
       {
         wordCount: state.wordCount === state.words.length - 1 ? 0 : state.wordCount + 1,
@@ -189,6 +185,7 @@ export default class LearnWords extends Component {
   }
 
   handlePrevWord = () => {
+    audioplayer.stopAudios();
     this.setState((state) => (
       {
         wordCount: !state.wordCount ? state.words.length - 1 : state.wordCount - 1,
@@ -317,6 +314,26 @@ export default class LearnWords extends Component {
     }));
   }
 
+  setWordsRandomly = (wordsRandomly) => {
+    this.setState({
+      isWordsRandomly: wordsRandomly,
+    });
+  }
+
+  setUserLevel = (level) => {
+    this.setState({
+      userLevel: level,
+    });
+  }
+
+  setUserPage = (page) => {
+    this.setState({
+      userPage: page,
+    });
+  }
+
+  setUser
+
   render() {
     const {
       words,
@@ -331,6 +348,9 @@ export default class LearnWords extends Component {
       statsNewWordsCount,
       statsMistakesCount,
       statsRightAnswerSeries,
+      isWordsRandomly,
+      userPage,
+      userLevel,
     } = this.state;
     const {
       isShownComplicatedButton,
@@ -362,6 +382,12 @@ export default class LearnWords extends Component {
         onContinueLearning={this.handleContinueLearning}
         onStartNewLearning={this.handleStartNewLearning}
         isContinued={Boolean(words.length)}
+        setWordsRandomly={this.setWordsRandomly}
+        setUserLevel={this.setUserLevel}
+        setUserPage={this.setUserPage}
+        isWordsRandomly={isWordsRandomly}
+        userPage={userPage}
+        userLevel={userLevel}
       />
     ) : (
       <div className="learn-words">
@@ -418,7 +444,7 @@ export default class LearnWords extends Component {
               onNextWord={this.handleNextWord}
               onPrevWord={this.handlePrevWord}
               onChangeProgress={this.handleChangeProgress}
-              onPlayAudio={this.playAudio}
+              onPlayAudio={this.playAudios}
             />
             <button onClick={() => this.setState({ isFirstPassDone: true })}>
               Test

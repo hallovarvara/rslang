@@ -6,19 +6,15 @@
 @import '../../scss/base/base';
 @import '../../scss/base/typography';
 @import './scss/base/base';
-@import './scss/base/helpers';
 
 // Layouts
-@import './scss/layouts/flex-div-with-span';
 @import './scss/layouts/start-page';
 @import './scss/layouts/game-page';
 @import './scss/layouts/finish-page';
+@import './scss/layouts/statistic-page';
 
 // Components
-@import './scss/components/preloader';
-@import './scss/components/game-title';
 @import './scss/components/question';
-@import './scss/components/audio-icon';
 @import './scss/components/button';
 @import './scss/components/levels-stepper';
 @import './scss/components/puzzle';
@@ -26,5 +22,3 @@
 
 // Vendors
 @import './scss/vendors/normalize';
-
-// @include flex(column, center, center);

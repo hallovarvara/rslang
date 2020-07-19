@@ -35,6 +35,7 @@
 @import './scss/components/popover';
 @import './scss/components/spot';
 @import './scss/components/dotted-line';
+@import './scss/components/switch';
 
 /* Layouts */
 @import './scss/layouts/header';
@@ -48,9 +49,9 @@
 @import './scss/layouts/promo-page';
 @import './scss/layouts/sign-in-page';
 @import './scss/layouts/sign-up-page';
-@import './scss/layouts/about-us-page';
 @import './scss/layouts/vocabulary-page';
 
 /* Pages */
 @import './scss/pages/sprint';
 @import './scss/pages/play-games';
+@import './scss/pages/about-us';

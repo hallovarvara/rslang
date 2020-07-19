@@ -54,6 +54,7 @@ class DiscreteSlider extends React.Component {
       min = 0,
       onChangeCommitted = null,
       stickyLabel,
+      disabled = false,
     } = this.props;
     const {
       defaultValue = marks[0].value,
@@ -80,6 +81,7 @@ class DiscreteSlider extends React.Component {
 
     const stepperContainerClasses = classNames({
       'stepper-container': true,
+      'stepper-container_disabled': disabled,
       [className]: true,
       'sticky-label': stickyLabel,
     });
@@ -128,6 +130,7 @@ DiscreteSlider.propTypes = {
   arrayOfColorsForTrack: PropTypes.arrayOf(PropTypes.string),
   onChangeCommitted: PropTypes.func,
   stickyLabel: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 export default DiscreteSlider;

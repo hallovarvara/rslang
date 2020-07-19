@@ -2,8 +2,8 @@
 @import './src/scss/abstracts/mixins';
 
 .sprint-play__container {
+  padding-bottom: 80px;
   max-width: 600px;
-  max-height: 400px;
   margin: 0 auto;
   font-weight: 500;
   font-family: $font-secondary;
@@ -42,15 +42,14 @@
 }
 .sprint-play__board {
   margin: 0 auto;
-  margin-bottom: 3vh;
   text-align: center;
   background-color: $color-light;
-  border-radius: 5px;
+  border-radius: 0;
 }
 .sprint-play__rangs {
   display: flex;
   justify-content: center;
-  padding: 20px 0 80px;
+  padding: 20px 0 30px;
 }
 .sprint-play__rang-item {
   box-sizing: border-box;
@@ -65,13 +64,12 @@
   opacity: 0.5;
 }
 .sprint-play__word {
-  margin-bottom: 20px;
   font-size: 5.6rem;
   line-height: 1.334;
   letter-spacing: 0em;
 }
 .sprint-play__translate {
-  padding-bottom: 80px;
+  padding-bottom: 50px;
   color: #7c7c7c;
   font-size: 3rem;
   line-height: 1.43;
@@ -82,12 +80,26 @@
   justify-content: center;
 
   button {
-    &:first-child {
-      margin-right: 10px;
+    width: 50%;
+    margin: 0;
+    padding: 20px 40px;
+    color: $color-light;
+    border-radius: 0;
+    box-shadow: none;
+
+    @include font(
+      $size: 3.2rem,
+      $weight: $font-weight-black,
+      $line-height: 100%,
+      $spacing: 0.2rem
+    );
+
+    &.sprint__button_wrong {
+      @include set-button-background($color-error);
     }
 
-    &:last-child {
-      margin-left: 10px;
+    &.sprint__button_right {
+      @include set-button-background($color-success);
     }
   }
 }

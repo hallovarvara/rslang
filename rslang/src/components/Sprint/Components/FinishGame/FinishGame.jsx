@@ -4,9 +4,10 @@ import Button from '@material-ui/core/Button';
 import ResultList from './ResultList/ResultList.jsx';
 import { text } from '../../../../helpers/constants';
 
-import './FinishGame.scss'
+import './FinishGame.scss';
 
-export default function FinishGame({ complete, mistake, resultTitle, status, onReloadGame,
+export default function FinishGame({
+  complete, mistake, resultTitle, status, onReloadGame,
 }) {
   return (
     <div className={'sprint__finish-wrapper'}>
@@ -22,21 +23,13 @@ export default function FinishGame({ complete, mistake, resultTitle, status, onR
           status={status.success}
         />
       </div>
-      <div style={{ textAlign: 'center' }}>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          onClick={onReloadGame}
-          style={{
-            background: 'rgba(130, 115, 228, 1)',
-            position: 'absolute',
-            bottom: 50,
-          }}
-        >
-          {text.ru.button.newGame}
-        </Button>
-      </div>
+      <Button
+        className="sprint__finish-button"
+        variant="contained"
+        onClick={onReloadGame}
+      >
+        {text.ru.button.newGame}
+      </Button>
 
     </div>
   );
@@ -48,6 +41,6 @@ FinishGame.propTypes = {
   mistake: PropTypes.object,
   audioPlay: PropTypes.func,
   onReloadGame: PropTypes.func,
-  resultTitle: PropTypes.string,
+  resultTitle: PropTypes.object,
   status: PropTypes.object,
 };

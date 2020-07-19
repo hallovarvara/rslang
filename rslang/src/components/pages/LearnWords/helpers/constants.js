@@ -4,9 +4,6 @@ export const initialState = {
   isAutoPlay: true,
   words: [],
   isLogged: false,
-  token: '',
-  userId: '',
-  audio: null,
   isFetching: false,
   category: 'all',
   isFirstPassDone: false,
@@ -17,6 +14,9 @@ export const initialState = {
   statsNewWordsCount: 0,
   statsMistakesCount: 0,
   statsRightAnswerSeries: 0,
+  isWordsRandomly: false,
+  userPage: 0,
+  userLevel: 0,
 };
 
 export const buttonsNames = {

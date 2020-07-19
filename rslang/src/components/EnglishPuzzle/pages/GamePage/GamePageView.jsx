@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getWidthWord, getBackgroundPosition } from '../../helpers';
-import { heightRow }from '../../constants';
+import { heightRow } from '../../constants';
 import Question from '../../components/Question';
 import PhraseElements from '../../components/PhraseElements';
 import GameHelpers from '../../components/GameHelpers';
 import ButtonPanel from '../../components/ButtonPanel';
 import FinishPage from '../FinishPage';
+import StatisticPageView from '../StatisticPage';
 
 const GamePageView = ({
   handleClickNewGame,
@@ -36,6 +37,9 @@ const GamePageView = ({
   isShow,
   backgroundUrl,
   paintingInfo,
+  isStatisticShow,
+  statistic,
+  handleShowStatistic,
 }) => {
   const question = questionList[level];
   const phrase = phrasesArray[level];
@@ -52,6 +56,7 @@ const GamePageView = ({
   );
 
   return (
+    // eslint-disable-next-line no-nested-ternary
     question && phrase && !isEnd
       ? (<div>
       <GameHelpers
@@ -110,13 +115,20 @@ const GamePageView = ({
         handleClickCheck={handleClickCheck}
       />
     </div>)
-      : <FinishPage
+      : (isStatisticShow
+        ? <StatisticPageView
+            statistic={statistic}
+            handleShowStatistic={handleShowStatistic}
+            handleClickNewGame={handleClickNewGame}
+          />
+        : <FinishPage
           paintingInfo={paintingInfo}
           handleClickNewGame={handleClickNewGame}
           errorCount={errorCount}
           isBackground={isBackground}
           backgroundUrl={backgroundUrl}
-        />
+          handleShowStatistic={handleShowStatistic}
+        />)
   );
 };
 
@@ -148,6 +160,9 @@ GamePageView.propTypes = {
   handleClickNewGame: PropTypes.func,
   backgroundUrl: PropTypes.string,
   paintingInfo: PropTypes.object,
+  isStatisticShow: PropTypes.bool,
+  statistic: PropTypes.string,
+  handleShowStatistic: PropTypes.func,
 };
 
 export default GamePageView;

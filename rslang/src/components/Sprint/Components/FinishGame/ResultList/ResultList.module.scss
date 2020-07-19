@@ -1,3 +1,5 @@
+@import './src/scss/abstracts/constants';
+
 .ResultList {
   display: block;
 }
@@ -7,21 +9,30 @@
 .Total {
   margin-left: 10px;
   padding: 0 10px;
-  color: #ffffff;
+  color: $color-light;
   border-radius: 10px;
 }
 
 .error {
-  background: rgba(240, 87, 108, 0.7);
+  background: $color-error;
 }
 
 .success {
-  background: rgba(161, 240, 69, 0.7);
+  background: $color-success;
+}
+
+.error,
+.success {
+  padding: 0 10px;
+  font-weight: $font-weight-black;
+  font-size: 2rem;
+  border-radius: 500px;
 }
 
 .Title {
   margin: 0 0 10px 35px;
-  color: rgb(82, 82, 82);
+  color: $color-dark;
+  font-weight: $font-weight-extralight;
 }
 
 .Content {
