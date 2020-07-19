@@ -260,7 +260,13 @@ export default class UserService {
 
   setNewSettings = (userId, settings) => {
     if (!settings) {
-      this.createUserSettings({ userId, option: settingsTemplate });
+      this.createUserSettings({
+        wordsPerDay: 20,
+        optional: {
+          userId,
+          option: settingsTemplate,
+        },
+      });
     }
   }
 
