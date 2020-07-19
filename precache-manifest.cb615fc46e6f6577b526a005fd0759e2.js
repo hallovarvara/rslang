@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e1604c929c68a2ba822f8d14fadc79b0",
+    "revision": "b5707d49e79ab6713df0920e1ba24d03",
     "url": "/rslang/index.html"
   },
   {
-    "revision": "ddf4e745af35232ce8ea",
-    "url": "/rslang/static/css/main.d5e41c9e.chunk.css"
+    "revision": "27171430a4a26357c12d",
+    "url": "/rslang/static/css/main.e0a034ca.chunk.css"
   },
   {
-    "revision": "0f6c4931d721966d6290",
-    "url": "/rslang/static/js/2.39c04799.chunk.js"
+    "revision": "471d6054d8c65dbd83a5",
+    "url": "/rslang/static/js/2.b31f61fc.chunk.js"
   },
   {
     "revision": "5e9b6f5c16b720e8a86875f97734673e",
-    "url": "/rslang/static/js/2.39c04799.chunk.js.LICENSE.txt"
+    "url": "/rslang/static/js/2.b31f61fc.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ddf4e745af35232ce8ea",
-    "url": "/rslang/static/js/main.0b813135.chunk.js"
+    "revision": "27171430a4a26357c12d",
+    "url": "/rslang/static/js/main.0e3c2915.chunk.js"
   },
   {
     "revision": "bb4dc5ece55c4022ff2c",
@@ -80,8 +80,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rslang/static/media/finish.889fedc6.mp3"
   },
   {
-    "revision": "9ddf9bf7a11dcbacc77d8a0b0e37326c",
-    "url": "/rslang/static/media/hove_page_background1.9ddf9bf7.jpg"
+    "revision": "06a70a3036a960ee90b565c8e1213ebc",
+    "url": "/rslang/static/media/hove_page_background1.06a70a30.jpg"
   },
   {
     "revision": "7069b5c6afad945833752f4bfd5d4375",
@@ -106,6 +106,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "5d3a1eb9e23fc4afb88ad38c3dd4ef86",
     "url": "/rslang/static/media/icon-learn-words-3.5d3a1eb9.svg"
+  },
+  {
+    "revision": "eee1316cc10039512e9e23022ca6b69b",
+    "url": "/rslang/static/media/icon-learn-words-select-error.eee1316c.svg"
   },
   {
     "revision": "ed7043790ae3a6d5ffb4a6a8f799117d",
@@ -208,8 +212,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/rslang/static/media/star.acf8de6b.svg"
   },
   {
-    "revision": "fd35c247ac4f514c01383f26da5df31a",
-    "url": "/rslang/static/media/start-page-background.fd35c247.jpg"
+    "revision": "b4ba0d728d7de279d02d7a893d660d77",
+    "url": "/rslang/static/media/start-page-background.b4ba0d72.jpg"
   },
   {
     "revision": "3f4effb517f7164e466f04e4f2535c2f",
