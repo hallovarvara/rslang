@@ -3,13 +3,14 @@ import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Input from '../../../basicComponents/Input';
-import Button from '../../../basicComponents/Button';
 import { auth } from '../../../redux/actions/auth';
 
 import {
   pagesData,
   text,
 } from '../../../helpers/constants';
+import LiquidButton from '../../../basicComponents/LiquidButton';
+import { ReactComponent as Spot } from '../../../assets/icons/spot.svg';
 
 const initialState = {
   email: '',
@@ -70,7 +71,10 @@ class SignInPage extends Component {
             className="sign-in-form__password"
             onChange={this.onChangePass}
           />
-          <Button value={ pagesData.signIn.title } className="sign-in-form__button" />
+          <LiquidButton
+            text={pagesData.signIn.title}
+            className="sign-in-form__button"
+          />
         </form>
         <p className="sign-in-page-additional-info">
           { text.ru.firstTimeOrForgotPassword } <Link
@@ -80,6 +84,7 @@ class SignInPage extends Component {
           { pagesData.register.title }
         </Link>
         </p>
+        <Spot className="spot"/>
       </section>
     );
   }

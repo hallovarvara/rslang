@@ -1,0 +1,52 @@
+@import '../abstracts/constants';
+@import '../abstracts/mixins';
+
+.sign-in-page,
+.sign-up-page {
+  min-height: 100vh;
+  @include flex(column, flex-start, center);
+  @extend %padding;
+}
+
+.sign-in-form {
+  z-index: 3;
+  margin-bottom: 30px;
+  @include flex(column, center, center);
+}
+
+.sign-in-form__email {
+  margin-bottom: 30px;
+}
+
+.sign-in-form__password {
+  margin-bottom: 60px;
+}
+
+.sign-in-form__button {
+  width: 100%;
+  height: 100px;
+  @include font(4rem, 500, normal);
+}
+
+.sign-in-page-additional-info {
+  padding: 0 20px;
+  text-align: center;
+  @include font(
+      $size: 2.2rem,
+      $weight: $font-weight-regular
+  );
+}
+
+.sign-in-page-additional-info,
+.sign-in-page-additional-info__sign-up-link {
+  color: rgba($color-dark, $alpha: 0.4);
+}
+
+.sign-in-page-additional-info__sign-up-link {
+  border-bottom: 1px solid rgba($color-dark, $alpha: 0.2);
+  @include transition(color);
+
+  &:hover {
+    color: $color-dark;
+  }
+}
