@@ -3,7 +3,9 @@
 
 .sign-in-page,
 .sign-up-page {
+  position: relative;
   min-height: 100vh;
+  overflow: hidden;
   @include flex(column, flex-start, center);
   @extend %padding;
 }
