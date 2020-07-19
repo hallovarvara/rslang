@@ -353,7 +353,6 @@ export default class UserService {
       };
       this.createUserStatistics(data);
     } catch (e) {
-      console.log(e);
       // TODO handle erorr
     }
   }

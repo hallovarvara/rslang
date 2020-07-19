@@ -23,13 +23,11 @@ const reducer = (state = initialState, action) => {
       };
       const currentSetting = newState.learnCardPreviewSettings[changedSetting];
       let newSetting;
-      console.log(action);
       if (action.value !== undefined) {
         newSetting = action.value;
       } else {
         newSetting = !currentSetting;
       }
-      console.log(newSetting);
       newState.learnCardPreviewSettings[changedSetting] = newSetting;
       return newState;
     default:
