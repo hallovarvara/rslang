@@ -32,7 +32,7 @@ const WordExtraInfo = ({
       {
         isGuessed && isShownMeaning
           && <p className="learn-word-card-info__explanation">
-          <span className="autoplay-icon"></span><span>{textMeaningTranslate}</span>
+          <span>{textMeaningTranslate}</span>
         </p>
       }
       {

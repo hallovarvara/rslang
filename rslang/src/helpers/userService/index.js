@@ -238,6 +238,7 @@ export default class UserService {
   // begin of 1st step
   isUserLogged = () => (
     getToken() || localStorage.getItem(localStorageItems.token)
+    // localStorage.getItem(localStorageItems.token)
   )
 
   setNewStatistics = (userId, stats) => {
@@ -382,10 +383,12 @@ export default class UserService {
   }
 
   handleEndOfGame = async (thingName) => {
-    const userIsLogged = this.isUserLogged();
+    const userIsLogged = await this.isUserLogged();
     if (!userIsLogged) {
+      console.log('local');
       saveSessionInfoToLocal(thingName);
     } else {
+      console.log('back');
       const userId = localStorage.getItem(localStorageItems.userId);
       const prevStats = await this.getUserStatistics(userId);
       const { stats, newWords, userWords } = prepareSessionInfoToServer(thingName, prevStats);

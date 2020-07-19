@@ -12,7 +12,7 @@ const handleChoseDifficulty = (
   isFirstPassDone,
 ) => {
   if (isFirstPassDone) {
-    onChangeRepeated();
+    onChangeRepeated({ isDifficultChosen: true });
   } else {
     onChangeWordRate(level, { isDifficultChosen: true });
   }

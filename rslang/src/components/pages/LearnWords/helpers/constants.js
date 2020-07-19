@@ -1,4 +1,5 @@
 export const initialState = {
+  wordCards: 0,
   wordCount: 0,
   totalWords: 0,
   isAutoPlay: true,
