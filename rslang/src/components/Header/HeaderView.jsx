@@ -146,8 +146,7 @@ class HeaderView extends React.Component {
           {
             !isUserLogged && <li className="navigation__item navigation-icon">
               <NavLink activeClassName="navigation__item_active" to={getPath(pagesData.signIn.path)}>
-                <IconButton
-                  onClick={logoutUser}>
+                <IconButton>
                   <MeetingRoomIcon
                     color="disabled"
                     style={{ fontSize: '3rem' }}
@@ -160,8 +159,7 @@ class HeaderView extends React.Component {
             isUserLogged && <>
               <li className="navigation__item navigation-icon">
                 <NavLink activeClassName="navigation__item_active" to={getPath(pagesData.settings.path)}>
-                  <IconButton
-                    onClick={logoutUser}>
+                  <IconButton>
                     <SettingsIcon
                       color="disabled"
                       style={{ fontSize: '3rem' }}

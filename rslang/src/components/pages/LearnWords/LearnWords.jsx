@@ -406,9 +406,9 @@ export default class LearnWords extends Component {
       userPage,
       userLevel,
       isAutoPlay,
-      filtered,
+      // filtered,
     } = this.state;
-    console.log(filtered);
+    // console.log(filtered);
     const {
       isShownComplicatedButton,
       isShownAnswerButton,

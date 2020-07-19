@@ -8,3 +8,11 @@
   margin-bottom: 50px;
   font-size: 9rem;
 }
+
+.settings-page__save-button {
+  .liquid {
+    &:after {
+      background-color: darken($color-primary, 5%);
+    }
+  }
+}

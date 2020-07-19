@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 
 const SliderView = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(30);
+  const [value, setValue] = React.useState(20);
 
   const handleSliderChange = (event, newValue) => {
     setValue(newValue);
