@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Select, MenuItem } from '@material-ui/core';
 
 const mapSelectTitlesToItems = (title, index) => (
-    <MenuItem key={index} value={title} classes={{ root: 'menu-item' }}>{title}</MenuItem>
+  <MenuItem key={index} value={title} classes={{ root: 'menu-item' }}>{title}</MenuItem>
 );
 
 const selectClasses = {
@@ -18,7 +18,7 @@ const SelectView = ({
   menuPosition = { vertical: 'bottom', horizontal: 'center' },
   menuTransormOrigin = { vertical: 'top', horizontal: 'center' },
   disableScrollLock = true,
-  onChange = () => {},
+  onChange = () => { },
   value = null,
 }) => (
     <Select
@@ -36,7 +36,7 @@ const SelectView = ({
           root: 'select-popover-root',
         },
       }}
-      >
+    >
       {
         selectTitles.map(mapSelectTitlesToItems)
       }

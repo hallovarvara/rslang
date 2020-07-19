@@ -38,7 +38,7 @@ const countQuestionsSets = (questionsNumber) => (
 
 const generateQuestionsArray = (
   data,
-  amountLevels = count.audiocall.maxLevels,
+  amountLevels = count.audiocall.countQuestionss,
 ) => (
   shuffleArray(data).slice(0, amountLevels)
 );

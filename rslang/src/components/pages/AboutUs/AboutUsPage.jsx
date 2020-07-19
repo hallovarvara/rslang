@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Parser from 'html-react-parser';
 
 import {
   teamMembers,
@@ -10,27 +11,38 @@ import {
 import { getPath } from '../../../helpers/functions';
 
 import TeamMember from '../../TeamMember';
-import Button from '../../../basicComponents/Button';
+import LiquidButton from '../../../basicComponents/LiquidButton';
+import { ReactComponent as Spot } from '../../../assets/icons/spot.svg';
+import { ReactComponent as DottedLineTop } from '../../../assets/icons/dotted-lines/line-top.svg';
+import {ReactComponent as DottedLineFiveSixths} from "../../../assets/icons/dotted-lines/line-five-sixths.svg";
+import {ReactComponent as DottedLineTwoSixths} from "../../../assets/icons/dotted-lines/line-two-sixths.svg";
+import {ReactComponent as DottedLineFourSixths} from "../../../assets/icons/dotted-lines/line-four-sixths.svg";
 
 const mapTeamMembersToItems = (member, index) => <TeamMember key={index} {...member} />;
 
 const AboutUsPage = () => (
   <div className="about-us-page">
-    <section className="about-us">
+    <div className="about-us__header">
       <h1>{pagesData.aboutUs.title}</h1>
-      <p className="about-us__desctiption">Привет! Мы рады представить продукт нашей совместной работы — приложение по изучению английского языка</p>
-    </section>
+      <p className="about-us__subtitle">
+        {Parser(pagesData.aboutUs.subtitle)}
+      </p>
+    </div>
     <section className="team-members">
       {
         teamMembers.map(mapTeamMembersToItems)
       }
     </section>
-    <Link to={ getPath(pagesData.learnWords.path) }>
-      <Button
-        className="demonstration-container__start-button"
-        value={ text.ru.button.learnEnglishWithUs }
+    <Link className="about-us__link-container" to={ getPath(pagesData.learnWords.path) }>
+      <LiquidButton
+        text={Parser(text.ru.button.startLearningWithUs)}
       />
     </Link>
+    <DottedLineTop className="dotted-line"/>
+    <DottedLineFourSixths className="dotted-line dotted-line_four-sixths" />
+    <Spot className="spot spot_top"/>
+    <Spot className="spot spot_two-sixths"/>
+    <Spot className="spot spot_four-sixths"/>
   </div>
 );
 

@@ -12,7 +12,6 @@
 // Components
 @import './scss/components/preloader';
 @import './scss/components/game-title';
-@import './scss/components/question-icon';
 @import './scss/components/audio-icon';
 
 // Layouts
@@ -20,6 +19,7 @@
 @import './scss/layouts/start-page';
 @import './scss/layouts/game-page';
 @import './scss/layouts/results-page';
+@import './scss/layouts/full-preloader';
 
 // Vendors
 @import './scss/vendors/normalize';

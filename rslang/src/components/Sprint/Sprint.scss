@@ -5,7 +5,7 @@
 .sprint__wrapper {
   flex-grow: 1;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   font-size: 24px;
   background: linear-gradient(
     $color-sprint-secondary 0%,
@@ -13,4 +13,17 @@
   );
 
   @extend %padding;
+
+  .sprint__container {
+    position: relative;
+    z-index: 3;
+  }
+
+  .sprint__background {
+    @extend %fill-container;
+
+    @include background-image(
+      $url: url('../../assets/images/sprint-bg.jpg')
+    );
+  }
 }

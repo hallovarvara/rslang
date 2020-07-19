@@ -3,6 +3,13 @@ body .stepper-root {
 }
 
 .stepper-container {
+  text-align: center;
+
+  &_disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
   &.sticky-label .MuiSlider-thumb:before {
     position: absolute;
     top: 100%;

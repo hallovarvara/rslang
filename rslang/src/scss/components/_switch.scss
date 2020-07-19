@@ -1,0 +1,64 @@
+.switch-container {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 36px;
+}
+
+.switch-container__input {
+  display: none;
+}
+
+.switch-container__slider {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba($color: $color-dark, $alpha: 0.2);
+  border-radius: 27px;
+  cursor: pointer;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.switch-container__slider:before {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  left: 1px;
+  width: 32px;
+  height: 34px;
+  background-color: white;
+  border-radius: 50%;
+  transition: left 0.4s, transform 0.4s;
+  content: '';
+}
+
+.switch-container__input:checked + .switch-container__slider {
+  background-color: $color-success;
+}
+
+.switch-container__input:focus + .switch-container__slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+.switch-container__input:checked + .switch-container__slider:before {
+  left: calc(100% - 1px);
+  transform: translateX(-100%);
+}
+
+.switch-container__slider:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  color: white;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%);
+  content: 'OFF';
+  @include font(1rem, 900);
+}
+.switch-container__input:checked + .switch-container__slider:after {
+  content: 'ON';
+}

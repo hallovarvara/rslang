@@ -1,6 +1,6 @@
 [
   {
-    "id": "5e9f5ee35eb9e72bc21b0080",
+    "_id": "5e9f5ee35eb9e72bc21b0080",
     "group": 5,
     "page": 2,
     "word": "abnormal",
@@ -27,7 +27,7 @@
     }
   },
   {
-    "id": "5e9f5ee35eb9e72bc21b0081",
+    "_id": "5e9f5ee35eb9e72bc21b0081",
     "group": 5,
     "page": 2,
     "word": "absent",
@@ -41,7 +41,17 @@
     "textExampleTranslate": "Я вчера отсутствовал в школе, потому что я отправился в путешествие с моим отцом",
     "textMeaningTranslate": "Если кто-то или что-то отсутствует, они отсутствуют или не там, где они должны быть",
     "wordTranslate": "отсутствует",
-    "wordsPerExampleSentence": 15
+    "wordsPerExampleSentence": 15,
+    "userWord": {
+      "difficulty": false,
+      "optional": {
+        "next": "15.08.2020",
+        "rate": 2,
+        "removed": false,
+        "repeated": 2,
+        "wordId": "5e9f5ee35eb9e72bc21b0081"
+      }
+    }
   },
   {
     "id": "5e9f5ee35eb9e72bc21b0082",

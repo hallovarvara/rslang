@@ -1,0 +1,40 @@
+.dotted-line {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  z-index: 0 !important;
+  width: 130vw;
+  height: auto;
+  opacity: 1;
+  pointer-events: none;
+  &_top {
+    top: -4%;
+    left: 7%;
+    width: 130vw;
+  }
+  &_two-sixths {
+    top: 8%;
+    left: -32%;
+    width: 170.7vw;
+  }
+  &_three-sixths {
+    top: 32%;
+    left: -30%;
+    width: 247.5vw;
+  }
+  &_four-sixths {
+    top: 61%;
+    left: -12%;
+    width: 130.2vw;
+  }
+  &_five-sixths {
+    top: 77%;
+    left: -31%;
+    width: 171.86vw;
+  }
+  &_bottom {
+    top: 82%;
+    left: -37%;
+    width: 110.62vw;
+  }
+}

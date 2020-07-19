@@ -4,6 +4,14 @@ $color-primary-dark: #843fdd;
 $color-secondary: #e0fff8;
 $color-dark: #000;
 $color-light: #fff;
+$color-success: #00e5a1;
+$color-error: #ff7d95;
+$color-warning: #fff066;
+
+/* Buttons */
+$btn-shadow: 0px 4px 6px rgba(130, 89, 217, 0.5),
+  0px 2px 1px rgba(130, 89, 217, 0.5), 0px 1px 0px rgba(0, 0, 0, 0.8);
+$btn-transition: all 0.5s ease;
 
 /* Games */
 $color-sprint-primary: #fcff79;
@@ -19,6 +27,7 @@ $color-audiocall-text-dark: #1a1919;
 $color-audiocall-text-light: #ffffff;
 $color-right-answer: #a1f045b3;
 $color-wrong-answer: #f0576cb3;
+$color-button-text: #4082a2;
 
 /* Unmess game */
 $color-active-light: #4082a2;
@@ -31,6 +40,7 @@ $mobile-width: 500px;
 $big-mobile-width: 600px;
 $tablet-width: 800px;
 $laptop-width: 1200px;
+$header-breakpoint: 1250px;
 
 /* English-puzzle game */
 $color-englishPuzzle-primary: #6663f5;
@@ -57,3 +67,8 @@ $header-height: 100px;
 
 /* Animation */
 $animation-time: 0.3s;
+
+/* Buttons */
+$btn-shadow: 0px 4px 6px rgba(130, 89, 217, 0.5),
+  0px 2px 1px rgba(130, 89, 217, 0.5), 0px 1px 0px rgba(0, 0, 0, 0.8);
+$hamburger-transition: 0.3s; // It will be twice as large

@@ -18,21 +18,41 @@ export const getWords = async (page, group) => {
 };
 
 export const getWordsById = async (wordId) => {
+  let response;
   const url = `${apiLinks.base}words/${wordId}`;
-  const response = await axios.get(url);
+  try {
+    response = await axios.get(url);
+  } catch (error) {
+    console.error(error);
+  }
   return response.data;
 };
 
 export const getRandomWordByGroup = async (group) => {
+  let data;
   const randomPage = getRandomNumber(0, count.pages);
-  const data = await getWords(randomPage, group);
+  try {
+    data = await getWords(randomPage, group);
+  } catch (error) {
+    console.error(error);
+  }
   const randomKey = getRandomNumber(0, count.words);
   return data[randomKey];
 };
 
 export const getWordsByAmount = async (group, amountOfAnswers) => {
-  const result = Array(amountOfAnswers).fill(0)
-    .map(() => getRandomWordByGroup(group));
-  const words = await Promise.all(result);
-  return words;
+  try {
+    const result = Array(amountOfAnswers).fill(0)
+      .map(() => getRandomWordByGroup(group));
+    const words = await Promise.all(result);
+    return words;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getWordsByLevelAndPage = async (level, page) => {
+  let result = await getWords(page, level);
+  result = result || [];
+  return result;
 };

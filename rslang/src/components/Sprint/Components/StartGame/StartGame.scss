@@ -1,30 +1,55 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+@import './src/scss/abstracts/placeholders';
+
 .sprint-start__container{
-  width: 400px;
-  height: 400px;
   margin: 0 auto;
   text-align: center;
+}
 
-}
 .sprint-start__timer{
-  font-size: 50px;
   padding-top: 50%;
+  font-size: 50px;
 }
-.sprint-start__explanation{
+
+.sprint-start__explanation {
   display: block;
-  font-size: 1.5rem;
-  color: #505050;
-  right: 10px;
-  padding-bottom: 100px;
+  max-width: 700px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  color: $color-dark;
+  @include font(
+    $size: 2.6rem,
+    $weight: $font-weight-light,
+    $line-height: 150%,
+    $spacing: 0.02
+  );
 }
 
 .sprint-start__form-container{
   display: flex;
   flex-direction: column;
-  max-width: 400px;
   margin: 0 auto;
 }
 
-.sprint-start__form{
-  display: flex;
-  flex-direction: column;
+button.sprint-start__button {
+  margin-top: 50px;
+  @include button(
+    $background-color: $color-sprint-secondary,
+  );
+}
+
+.sprint-levels-stepper {
+  .MuiTypography-root,
+  .MuiSlider-mark {
+    @extend %hide;
+  }
+
+  .MuiSlider-rail {
+    background-color: $color-dark;
+  }
+
+  .MuiSlider-markLabel {
+    color: $color-dark;
+  }
 }

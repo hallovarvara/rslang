@@ -41,7 +41,7 @@ const Main = ({ username, authFailed }) => (
       <Route path={getPath(settings.path)} component={SettingsPage} />
       <Route path={getPath(statistics.path)} component={StatisticPage} />
       <Route path={getPath(aboutUs.path)} component={AboutUsPage} />
-      <Route exact path={getPath() || getPath(promo.path)} component={PromoPage} />
+      <Route exact path={getPath() || getPath(promo.path)} render={({ history }) => <PromoPage history={history}/>} />
       <Route path={getPath(play.path)} component={PlayGamesPage} />
       <Route path={getPath(vocabulary.path)} component={VocabularyPage} />
       <Route path={getPath(signIn.path)} component={SignInPage} />
@@ -56,18 +56,15 @@ const Main = ({ username, authFailed }) => (
     {
       Boolean(username)
       && <Notification
+        className="notification_success"
         variant="success"
-        message={`${text.ru.welcome.replace('{username}', username)}`}
-        duration={5000}
-        position={{ vertical: 'top', horizontal: 'center' }}/>
+        message={`${text.ru.welcome.replace('{username}', username)}`}/>
     }
     {
       authFailed
       && <Notification
         variant="error"
-        message={`${text.ru.incorrectLoginData}`}
-        duration={5000}
-        position={{ vertical: 'top', horizontal: 'center' }}/>
+        message={`${text.ru.incorrectLoginData}`}/>
     }
   </main>
 );

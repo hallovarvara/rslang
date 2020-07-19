@@ -1,0 +1,17 @@
+.iconButton {
+  font-size: 6rem;
+  background-color: $color-audiocall-text-dark;
+  & .volumeUpRounded {
+    font-size: 8rem;
+  }
+}
+
+.audiocall-container {
+  button[aria-label='audio'] {
+    padding: 7px;
+
+    .MuiSvgIcon-root {
+      fill: $color-light;
+    }
+  }
+}
