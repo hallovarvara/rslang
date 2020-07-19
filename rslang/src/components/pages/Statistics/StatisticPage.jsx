@@ -13,23 +13,14 @@ class StatisticsPage extends React.Component {
   state = {
     loading: true,
     todayStatisticTitles: ['Карточек завершено', 'Правильные ответы', 'Новые слова', 'Слова на повторение', 'Самая длинная серия правильных ответов'],
-    todayStatisticValues: [],
-  }
-
-  componentDidMount() {
-    console.log(getStatistics());
+    todayStatisticValues: ['59', '75%', '46', '4', '12'],
   }
 
   render() {
     const {
-      loading,
       todayStatisticTitles,
       todayStatisticValues,
     } = this.state;
-
-    if (loading) {
-      return <Preloader />;
-    }
 
     const DataToday = () => (
       <div className="statistics__wrapp">
@@ -52,7 +43,7 @@ class StatisticsPage extends React.Component {
           ScheduleStatistics={<ScheduleStatistics data={data} />}
         />
       </div >
-    )
+    );
   }
 }
 
