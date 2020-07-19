@@ -235,7 +235,18 @@ const teamMembers = [
 ];
 
 const vocabularySelectorOptions = [
-  'изучаемые', 'сложные', 'удаленные',
+  {
+    title: 'изучаемые',
+    fieldPath: null,
+  },
+  {
+    title: 'сложные',
+    fieldPath: 'difficulty',
+  },
+  {
+    title: 'удаленные',
+    fieldPath: 'optional removed',
+  },
 ];
 
 /* Games */
@@ -257,6 +268,9 @@ const text = {
 
     /* Learn Words */
     noWordsFound: 'Вы&nbsp;выучили недостаточно слов, чтобы появились повторяемые. Изучайте новые слова, проходите игры и&nbsp;попробуйте выбрать эту категорию слов позже',
+
+    /* Vocabulary */
+    noWordsInVocabulary: 'В&nbsp;словаре нет слов. Изучайте новые слова, проходите игры и&nbsp;попробуйте зайти сюда позже',
 
     /* Sign In, Register */
     nickname: 'Логин',
