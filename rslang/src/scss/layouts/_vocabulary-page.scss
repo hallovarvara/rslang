@@ -7,3 +7,7 @@
   margin-bottom: 50px;
   @include flex(row, space-between, center);
 }
+
+.vocabulary-page__pagination {
+  @include flex(row, center, center);
+}

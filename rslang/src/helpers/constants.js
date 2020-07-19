@@ -235,7 +235,18 @@ const teamMembers = [
 ];
 
 const vocabularySelectorOptions = [
-  'изучаемые', 'сложные', 'удаленные',
+  {
+    title: 'изучаемые',
+    field: null,
+  },
+  {
+    title: 'сложные',
+    field: 'isComplicated',
+  },
+  {
+    title: 'удаленные',
+    field: 'isRemoved',
+  },
 ];
 
 /* Games */
