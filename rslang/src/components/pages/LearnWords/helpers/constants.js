@@ -1,3 +1,5 @@
+import * as settings from './settings';
+
 export const initialState = {
   wordCards: 0,
   wordCount: 0,
@@ -19,6 +21,15 @@ export const initialState = {
   isWordsRandomly: false,
   userPage: 0,
   userLevel: 0,
+  userSettings: {
+    isShownComplicatedButton: settings.isShownComplicatedButton,
+    isShownAnswerButton: settings.isShownAnswerButton,
+    isShownImageAssociation: settings.isShownImageAssociation,
+    isShownTranslation: settings.isShownTranslation,
+    isShownTranscription: settings.isShownTranscription,
+    isShownExampleSentence: settings.isShownExampleSentence,
+    isShownMeaning: settings.isShownMeaning,
+  }
 };
 
 export const buttonsNames = {
@@ -45,7 +56,7 @@ export const labels = {
 };
 
 export const RSLANG = 'rslang';
-export const RSLANG_SESSION_PROGRESS = 'rslangSessionLearningWords';
+export const RSLANG_SESSION_PROGRESS = 'backupSesLW';
 
 export const difficultLabels = {
   HARD_LABEL: {

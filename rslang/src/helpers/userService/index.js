@@ -205,6 +205,14 @@ export default class UserService {
       const content = await rawResponse;
       return content.data;
     } catch (error) {
+      return {
+        optional: {
+          wordsPerDay: 20,
+          option: {
+            ...settingsTemplate.optional,
+          }
+        }
+      }
       // console.error(error);
       // TODO handle error
     }
@@ -278,8 +286,8 @@ export default class UserService {
     if (userIsLogged) {
       try {
         const userId = localStorage.getItem(localStorageItems.userId);
-        stats = await this.getUserStatistics(userId);
-        this.setNewStatistics(userId, stats);
+        // stats = await this.getUserStatistics(userId);
+        // this.setNewStatistics(userId, stats);
         settings = await this.getUserSettings(userId);
         this.setNewSettings(userId, settings);
         // TODO - make drop settings into redux store here
@@ -292,9 +300,9 @@ export default class UserService {
       if (!localStorage.getItem(localThings.STATISTICS)) {
         localStorage.setItem(localThings.STATISTICS, JSON.stringify(statsTemplate));
       }
-      if (!localStorage.getItem(localThings.SETTINGS)) {
-        localStorage.setItem(localThings.SETTINGS, JSON.stringify(settingsTemplate));
-      }
+      // if (!localStorage.getItem(localThings.SETTINGS)) {
+      //   localStorage.setItem(localThings.SETTINGS, JSON.stringify(settingsTemplate));
+      // }
       // TODO - make drop settings to redux store here
     }
   }
@@ -308,29 +316,30 @@ export default class UserService {
     isAllowedToGetUserWords = true,
   ) => {
     if (thingName !== applicationThings.LEARN_WORDS) clearSessionData(thingName);
-    const userIsLogged = await this.isUserLogged();
-    const userId = localStorage.getItem(localStorageItems.userId);
+    // const userIsLogged = await this.isUserLogged();
+    // const userId = localStorage.getItem(localStorageItems.userId);
     let userWords;
     if (isAllowedToGetUserWords) {
-      userWords = !userIsLogged
-        ? getDayLocalUserWords(limit)
-        : await this.getUserWordsNoRemovedStamp(userId);
+      userWords = getDayLocalUserWords(limit);
+      // : await this.getUserWordsNoRemovedStamp(userId);
       // TODO: here will be filtered request to backend
     }
     const words = await getWordsByLevelAndPage(level, page);
+    const wordsWithoutDuplicates = words.filter((wordObj) => (
+      userWords.every((userWord) => userWord.id !== wordObj.id)
+    ))
     const grouped = isAllowedToGetUserWords
-      ? [...userWords, ...shufleWordsArray(words)]
+      ? [...userWords, ...shufleWordsArray(wordsWithoutDuplicates)]
       : [...words];
     const shufled = shufleWordsArray(grouped).slice(0, limit);
     return shufled;
   }
 
   prepareToLearnWords = async (dayLimit, userGroup) => {
-    const userIsLogged = await this.isUserLogged();
-    const userId = localStorage.getItem(localStorageItems.userId);
-    const userWords = !userIsLogged
-      ? getDayLocalUserWords(dayLimit)
-      : await this.getUserWordsNoRemovedStamp(userId);
+    // const userIsLogged = await this.isUserLogged();
+    // const userId = localStorage.getItem(localStorageItems.userId);
+    const userWords = getDayLocalUserWords(dayLimit);
+    // : await this.getUserWordsNoRemovedStamp(userId);
     const rest = dayLimit - userWords.length;
     const words = await getWordsByAmount(userGroup, rest);
     const grouped = userWords.length
@@ -403,17 +412,6 @@ export default class UserService {
   }
 
   handleEndOfGame = async (thingName) => {
-    const userIsLogged = this.isUserLogged();
-    if (!userIsLogged) {
-      saveSessionInfoToLocal(thingName);
-    } else {
-      const userId = localStorage.getItem(localStorageItems.userId);
-      const prevStats = await this.getUserStatistics(userId);
-      const { stats, newWords, userWords } = prepareSessionInfoToServer(thingName, prevStats);
-      this.updateUserStatistics(stats, userId, prevStats);
-      this.recordNewWordsToUserWords(newWords, userId);
-      this.updateUserWords(userWords, userId);
-      clearSessionData(thingName);
-    }
+    saveSessionInfoToLocal(thingName);
   }
 }

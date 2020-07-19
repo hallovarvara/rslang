@@ -34,6 +34,8 @@ import {
   changeSessionStatsObject,
   changeStats,
   statsThingNames,
+  decodesStatsToGraph,
+  learnResultsDecodeMap,
 } from './statsModel';
 
 export const prepareWordObject = (wordObject) => {
@@ -79,7 +81,6 @@ export const updateUserWordDifficulty = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { difficulty } = current.userWord;
   current.userWord.difficulty = !difficulty;
-  console.log('updateUserWordDifficulty', current);
   return { ...current };
 };
 
@@ -87,7 +88,6 @@ export const updateUserWordRemoved = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { removed } = current.userWord.optional;
   current.userWord.optional.removed = !removed;
-  console.log('updateUserWordRemoved', current);
   return { ...current };
 };
 
@@ -101,7 +101,6 @@ export const updateUserWordRepeated = (wordObject) => {
 export const updateStats = (statsOption, optionData) => {
   const stats = checkForStatistics();
   const newStats = changeStats(statsOption, optionData, stats);
-  console.log(stats, newStats);
   saveLocalStatistics(newStats);
 };
 
@@ -148,6 +147,11 @@ export const getComplicatedWords = (dayLimit) => {
   return filterByThing(userWords, userWordThings.DIFFICULTY, dayLimit);
 };
 
+export const getRemoveddWords = (dayLimit) => {
+  const userWords = getWords();
+  return filterByThing(userWords, userWordThings.REMOVED, dayLimit);
+};
+
 export const saveDataToSessionStats = (thingName, keyName, keyValue = 1) => {
   const current = checkForSessionThing(thingName);
   const updated = changeSessionStatsObject(current, keyName, keyValue);
@@ -185,7 +189,6 @@ export const saveGameResults = (thingName) => {
   if (thingName === applicationThings.LEARN_WORDS) {
     const sessionWords = checkForUserWords(sessionThings, storageThingNames.LEARNING);
     results = calculateLearnWordsResults(sessionWords);
-    console.log(results);
   } else {
     results = getSessionData(thingName);
   }
@@ -251,4 +254,13 @@ export const prepareSessionInfoToServer = (thingName, statsObject) => {
     newWords: prepareUserWordsToServer(newWords),
     userWords: prepareUserWordsToServer(userWords),
   };
+};
+
+export const prepareStatsToGraph = (
+  thingName = applicationThings.LEARN_WORDS,
+  decodeMapArray = learnResultsDecodeMap,
+) => {
+  const stats = JSON.parse(localStorage.getItem(localThings.STATISTICS));
+  const statsThing = { ...stats.optional[thingName] };
+  return decodesStatsToGraph(statsThing, decodeMapArray);
 };

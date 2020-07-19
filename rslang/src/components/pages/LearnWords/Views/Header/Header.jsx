@@ -41,7 +41,7 @@ const Header = ({
       <Select
         onChange={(event) => onToggleCategory(event)}
         className="lw-filter-container__select"
-        selectTitles={categoriesSelect}
+        selectTitles={categoriesSelect.map((selectObj) => selectObj.title)}
       />
     </div>
   </div>

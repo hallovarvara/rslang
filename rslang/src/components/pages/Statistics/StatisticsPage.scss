@@ -40,3 +40,7 @@
   padding: 25px 0;
   border-bottom: 1px solid #cecece;
 }
+
+.statistics-no-words-container {
+  padding-top: calc(#{$header-height} + 100px);
+}

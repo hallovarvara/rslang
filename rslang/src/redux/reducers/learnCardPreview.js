@@ -1,4 +1,5 @@
 const initialState = {
+  wordsPerDay: 20,
   learnCardPreviewSettings: {
     translation: true,
     complicatedButton: true,
@@ -32,6 +33,19 @@ const reducer = (state = initialState, action) => {
       return newState;
     default:
       return state;
+    case 'OVERWRITE_SETTINGS':
+      return {
+        ...state,
+        wordsPerDay: action.payload.wordsPerDay,
+        learnCardPreviewSettings: {
+          ...action.payload.previewSettings,
+        },
+      }
+    case 'WORDS_PER_DAY_CHANGED':
+      return {
+        ...state,
+        wordsPerDay: action.payload,
+      }
   }
 };
 

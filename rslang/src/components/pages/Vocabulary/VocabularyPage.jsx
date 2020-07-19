@@ -13,6 +13,9 @@ import Pagination from '../../../basicComponents/Pagination';
 import NoWordsFound from '../LearnWords/Views/NoWordsFound';
 
 import { text } from '../../../helpers/constants';
+import {
+  localThings
+} from '../../../helpers/wordsService/storageModel';
 
 import UserService from '../../../helpers/userService';
 
@@ -28,15 +31,13 @@ class VocabularyView extends React.Component {
   }
 
   componentDidMount() {
-    this.userId = localStorage.getItem(localStorageItems.userId);
-    userService.getUserAllWords(this.userId)
-      .then((result) => {
-        this.vocabularyWords = result || [];
-        this.setState({
-          filteredWords: this.vocabularyWords.map((obj) => obj.word),
-          loading: false,
-        });
-      });
+    this.vocabularyWords = JSON.parse(localStorage.getItem(localThings.WORDS) || '[]');
+    setTimeout(() => {
+      this.setState({
+        loading: false,
+        filteredWords: this.vocabularyWords,
+      })
+    }, 1500)
   }
 
   currentPageChanged = (event, page) => {
@@ -73,7 +74,7 @@ class VocabularyView extends React.Component {
               )).fieldPath;
               if (newFilterPath === null) {
                 this.setState({
-                  filteredWords: this.vocabularyWords.map((obj) => obj.word),
+                  filteredWords: this.vocabularyWords,
                   currentPage: 1,
                 });
               } else {
@@ -89,7 +90,7 @@ class VocabularyView extends React.Component {
                   return JSON.parse(result);
                 });
                 this.setState({
-                  filteredWords: newFilteredWords.map((obj) => obj.word),
+                  filteredWords: newFilteredWords,
                   currentPage: 1,
                 });
               }

@@ -21,12 +21,15 @@ import {
   updateSessionProgress,
   checkSessionProgress,
   audioplayer,
+  checkForFirstPassDone,
+  checkForSecondPassDone,
 } from './helpers';
 import {
   updateLearnWordsRate,
   updateUserWordRepeated,
   updateUserWordDifficulty,
   updateUserWordRemoved,
+  prepareStatsToGraph,
 } from '../../../helpers/wordsService';
 import {
   localStorageItems,
@@ -59,7 +62,6 @@ export default class LearnWords extends Component {
   }
 
   componentDidMount() {
-    userservice.firstEnterOfUser();
     const learnSessionProgress = getSessionProgress();
     if (learnSessionProgress.length) {
       const { isLogged, token, userId } = this.checkForLoggedUser();
@@ -146,7 +148,9 @@ export default class LearnWords extends Component {
       isSecondPastDone,
     } = this.state;
     const check = checkSessionProgress(words);
-    if (!check && totalWords) {
+    const isWordsForSecond = checkForSecondPassDone(words);
+    const isWordsForThird = checkForSecondPassDone(words);
+    if (!check && (isWordsForSecond || isWordsForThird)) {
       if (!isFirstPassDone) {
         this.secondRepeat();
       } else if (!isSecondPastDone) {
@@ -157,6 +161,11 @@ export default class LearnWords extends Component {
         });
         userservice.handleEndOfGame(applicationThings.LEARN_WORDS);
       }
+    } else if (!check && !isWordsForSecond && !isWordsForThird) {
+      this.setState({
+        isShownShortStats: true,
+      });
+      userservice.handleEndOfGame(applicationThings.LEARN_WORDS);
     }
   }
 
@@ -337,11 +346,12 @@ export default class LearnWords extends Component {
     clearSessionData();
     const { isWordsRandomly, userLevel, userPage } = this.state;
     const group = isWordsRandomly ? getRandomNumber(0, count.groups) : userLevel;
+    const userSettings = await userservice.getUserSettings(localStorage.getItem(localStorageItems.userId));
     const wordsFromApiResponse = await userservice.prepareWordsForGame(
       applicationThings.LEARN_WORDS,
       group,
       userPage,
-      20,
+      userSettings.wordsPerDay,
       true,
     );
     const words = await this.prepareSessionProgress(wordsFromApiResponse);
@@ -355,6 +365,15 @@ export default class LearnWords extends Component {
           statsNewWordsCount,
           totalWords: words.length,
           isStartLearning: !state.isStartLearning,
+          userSettings: {
+            isShownComplicatedButton: userSettings.optional.option.complicatedButton,
+            isShownAnswerButton: userSettings.optional.option.showAnswerButton,
+            isShownImageAssociation: userSettings.optional.option.imageAssociatation,
+            isShownTranslation: userSettings.optional.option.translation,
+            isShownTranscription: userSettings.optional.option.transcription,
+            isShownExampleSentence: userSettings.optional.option.exampleSentence,
+            isShownMeaning: userSettings.optional.option.meaning,
+          }
         }
       ));
       setTimeout(() => {
@@ -406,6 +425,7 @@ export default class LearnWords extends Component {
       userPage,
       userLevel,
       isAutoPlay,
+      userSettings,
       // filtered,
     } = this.state;
     // console.log(filtered);
@@ -417,6 +437,8 @@ export default class LearnWords extends Component {
       isShownTranscription,
       isShownExampleSentence,
       isShownMeaning,
+    } = userSettings;
+    const {
       categoriesSelect,
     } = settings;
     const currentWord = words[wordCount] || wordBaseTemplate;

@@ -241,11 +241,11 @@ const vocabularySelectorOptions = [
   },
   {
     title: 'сложные',
-    fieldPath: 'difficulty',
+    fieldPath: 'userWord difficulty',
   },
   {
     title: 'удаленные',
-    fieldPath: 'optional removed',
+    fieldPath: 'userWord optional removed',
   },
 ];
 
@@ -289,6 +289,16 @@ const text = {
 
     /* Vocabulary page */
     restoreForLearning: 'Вернуть к изучаемым',
+
+    /* Statistics page */
+    noStats: 'Статистики пока нет. Займитесь изучением слов и возвращайтесь сюда позже',
+    statsTitles: {
+      learned: 'Выученные',
+      inScope: 'Изучаемые',
+      semiLearned: 'Изученные наполовину',
+      complicated: 'Сложные',
+      removed: 'Удалённые',
+    },
 
     /* Promo */
     promo: {

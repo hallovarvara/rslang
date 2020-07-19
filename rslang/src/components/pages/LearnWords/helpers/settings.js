@@ -7,7 +7,18 @@ export const isShownExampleSentence = true;
 export const isShownMeaning = true;
 
 export const categoriesSelect = [
-  'все', 'новые', 'повторяемые', 'сложные',
+  {
+    title: 'все',
+  },
+  {
+    title: 'новые',
+  },
+  {
+    title: 'повторяемые',
+  },
+  {
+    title: 'сложные',
+  },
 ];
 
 export const baseUrl = 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/';

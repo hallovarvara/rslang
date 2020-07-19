@@ -1,22 +1,47 @@
 import React from 'react';
 import './App.scss';
-import { HashRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 
 import Header from './components/Header';
 import Main from './components/Main';
+import UserService from './helpers/userService';
+import { localStorageItems } from './helpers/constants';
+import { overwriteSettings } from './redux/actions';
+import { localThings } from './helpers/wordsService/storageModel';
 
-import store from './redux/store';
+const userService = new UserService();
 
-const App = () => (
-  <Provider store={store}>
-    <Router>
-      <div className="App">
-        <Header />
-        <Main />
-      </div>
-    </Router>
-  </Provider>
-);
+class App extends React.Component {
+  componentDidMount() {
+    userService.firstEnterOfUser();
 
-export default App;
+    if (localStorage.getItem(localThings.WORDS) === null) {
+      localStorage.setItem(localThings.WORDS, JSON.stringify([]));
+    }
+
+    userService.getUserSettings(localStorage.getItem(localStorageItems.userId))
+      .then((result) => {
+        this.props.overwriteSettings({
+          wordsPerDay: result.wordsPerDay,
+          previewSettings: result.optional.option,
+        });
+      })
+      .catch(() => {
+        console.log('can\'t get settings');
+      })
+  }
+  render() {
+    return (
+    <div className="App">
+      <Header />
+      <Main />
+    </div>
+  )
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  overwriteSettings: (settings) => dispatch(overwriteSettings(settings)),
+});
+
+export default connect(null, mapDispatchToProps)(App);

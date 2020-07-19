@@ -8,7 +8,10 @@ import Checkbox from '../../../basicComponents/Checkbox';
 import LiquidButton from '../../../basicComponents/LiquidButton';
 import Notification from '../../../basicComponents/Notification';
 
-import { learnCardPreviewSettingsChanged } from '../../../redux/actions';
+import {
+  learnCardPreviewSettingsChanged,
+  wordsPerDayChanged,
+} from '../../../redux/actions';
 
 import { pagesData, localStorageItems, text } from '../../../helpers/constants';
 import UserService from '../../../helpers/userService';
@@ -22,20 +25,10 @@ class SettingsPage extends React.Component {
 
   componentDidMount() {
     this.userId = localStorage.getItem(localStorageItems.userId);
-    try {
-      userService.getUserSettings(this.userId)
-        .then((result) => Promise
-          .all(Object
-            .entries(result.optional.option)
-            .map(([key, value]) => this.props.settingChanged(key, value))));
-    } catch (error) {
-      this.setState({
-        notifications: [{
-          type: 'error',
-          message: text.ru.cantGetSettings,
-        }],
-      });
-    }
+  }
+
+  updateNewWordsSettings = (newSetting) => {
+    this.props.wordsPerDayChanged(newSetting);
   }
 
   render() {
@@ -60,7 +53,10 @@ class SettingsPage extends React.Component {
           </div>
           <div className="new-words-per-day-settings">
             <p className="new-words-per-day-settings__title">Новых</p>
-            <Slider />
+            <Slider
+              onInputChange={this.updateNewWordsSettings}
+              onSliderChange={this.updateNewWordsSettings}
+              value={this.props.wordsPerDay}/>
           </div>
         </div>
         <div className="learn-card-preview">
@@ -97,7 +93,7 @@ class SettingsPage extends React.Component {
             onClick={() => {
               try {
                 userService.createUserSettings({
-                  wordsPerDay: 20,
+                  wordsPerDay: this.props.wordsPerDay,
                   optional: {
                     userId: this.userId,
                     option: {
@@ -127,6 +123,9 @@ class SettingsPage extends React.Component {
           {
             this.state.notifications.map((notification, index) => (
               <Notification
+                afterClose={() => this.setState({
+                  notifications: [],
+                })}
                 key={index}
                 variant={notification.type}
                 message={notification.message}/>
@@ -147,6 +146,7 @@ const mapStateToProps = (store) => (
   {
     userId: store.auth.userId,
     previewSettings: store.learnCardPreview.learnCardPreviewSettings,
+    wordsPerDay: store.learnCardPreview.wordsPerDay,
   }
 );
 
@@ -157,6 +157,11 @@ const mapDispatchToProps = (dispatch) => (
         learnCardPreviewSettingsChanged(previewSettingName, value),
       );
     },
+    wordsPerDayChanged: (newWordsPerDay) => {
+      dispatch(
+        wordsPerDayChanged(newWordsPerDay),
+      )
+    }
   }
 );
 

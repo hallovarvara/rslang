@@ -4,13 +4,13 @@ import { applicationThings } from '../constants';
 export const statsTemplate = {
   learnedWords: 0,
   optional: {
-    learnWords: { '': '' },
-    savannah: { '': '' },
-    sprint: { '': '' },
-    audiocall: { '': '' },
-    speakIt: { '': '' },
-    puzzle: { '': '' },
-    unmess: { '': '' },
+    learnWords: {},
+    savannah: {},
+    sprint: {},
+    audiocall: {},
+    speakIt: {},
+    puzzle: {},
+    unmess: {},
   },
 };
 
@@ -93,15 +93,14 @@ export const getToday = () => {
 
 export const sumObjectsProperties = (object1, object2) => {
   let result = {};
-  if (object1?.length || object2?.length) {
+  if (object1 || object2) {
     Object.keys(object1).forEach((el) => {
       result[el] = object1[el] + object2[el];
     });
   } else {
     result = { ...object1 };
   }
-  console.log(result);
-  return result || { ...statsGameObjTemplate };
+  return result || { ...object1 };
 };
 
 export const updateStatsByThing = (
@@ -116,9 +115,7 @@ export const updateStatsByThing = (
   let decodedCurrent = decodedTemplate;
   const { year, month, day } = getToday();
   const updatedStats = { ...statsObject };
-  console.log(updatedStats);
   const thingStats = updatedStats.optional[thingName];
-  console.log(thingStats);
   const yearKey = thingStats[year] ? thingStats[year] : {};
   const monthKey = yearKey[month] ? yearKey[month] : {};
   if (monthKey[day]) {
@@ -126,9 +123,7 @@ export const updateStatsByThing = (
     decodedCurrent = decodeStatsFromString(dayKey, decodeMap);
   }
   const updated = sumObjectsProperties(decodedCurrent, newResults);
-  console.log(updated);
   const ecodedCurrent = encodeStatsToString(updated, encodeMap);
-  console.log(ecodedCurrent);
   monthKey[day] = ecodedCurrent;
   yearKey[month] = monthKey;
   thingStats[year] = yearKey;

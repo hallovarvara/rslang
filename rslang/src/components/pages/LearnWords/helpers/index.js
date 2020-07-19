@@ -189,3 +189,11 @@ export const replaceElInArrayOfObject = (array, object) => {
     ...array.slice(indexOfObject + 1),
   ].map((wordObj) => ({ ...wordObj }));
 };
+
+export const checkForFirstPassDone = (arrayOfWords) => (
+  arrayOfWords.find((el) => el?.progress?.secondRepeat)
+);
+
+export const checkForSecondPassDone = (arrayOfWords) => (
+  arrayOfWords.find((el) => el?.progress?.thirdRepeat)
+);

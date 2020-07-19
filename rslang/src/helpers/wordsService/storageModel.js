@@ -1,6 +1,4 @@
 import {
-  // generateStatsTemplate,
-  // generateSettingsTemplate,
   settingsTemplate,
 } from './dataModels';
 import { applicationThings } from '../constants';
@@ -19,25 +17,25 @@ export const storageThingNames = {
 };
 
 export const localThings = {
-  STATISTICS: 'rslangUserStatistics',
-  WORDS: 'rslangUserWords',
-  SETTINGS: 'rslangUserSettings',
+  STATISTICS: 'backupUsSt',
+  WORDS: 'backupUsWrd',
+  SETTINGS: 'backupUsSet',
 };
 
 export const sessionThings = {
-  LEARNING: 'rslangSessionLearningWords',
-  WORDS: 'rslangSessionWords',
-  NEW_WORDS: 'rslangNewWords',
+  LEARNING: 'backupSesLW',
+  WORDS: 'backupSesWords',
+  NEW_WORDS: 'backupNewWrd',
 };
 
 export const gameSessionThings = {
-  learnWords: 'rslangLearnWordsSession',
-  savannah: 'rslangSavannahSession',
-  sprint: 'rslangSprintSession',
-  audiocall: 'rslangAudiocallSession',
-  speakIt: 'rslangSpeakItSession',
-  puzzle: 'rslangPuzzleSession',
-  unmess: 'rslangUnmessSession',
+  learnWords: 'backupLWSes',
+  savannah: 'backupSavSes',
+  sprint: 'backupSprSes',
+  audiocall: 'backupAucSes',
+  speakIt: 'backupSpkSes',
+  puzzle: 'backupPzlSes',
+  unmess: 'backupUnmSes',
 };
 
 export const checkForLocalThing = (thingName, template) => (
