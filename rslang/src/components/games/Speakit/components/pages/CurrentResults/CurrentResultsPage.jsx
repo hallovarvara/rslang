@@ -10,7 +10,6 @@ import { getPath } from '../../../../../../helpers/functions';
 
 const CurrentResultsPage = (props) => {
   const {
-    loading,
     levelChanged,
     currentLevel,
     currentActiveWords,
@@ -19,7 +18,7 @@ const CurrentResultsPage = (props) => {
     abortGame,
   } = props;
 
-  if (loading) {
+  if (!currentWords.length) {
     return <Redirect to={getPath(gamesData.speakit.startPath || gamesData.speakit.path)} />;
   }
 
@@ -56,7 +55,7 @@ const CurrentResultsPage = (props) => {
             <Link className="link-in-button" to="/speakit/home">{text.ru.newGame}</Link>
           </div>
           <div className="results-buttons-container__latest-results">
-            <Link to="/speakit/latest-results" className="link-in-button">{text.ru.latestRusults}</Link>
+            <Link to="/speakit/latest-results" className="link-in-button">{text.ru.button.lastResults}</Link>
           </div>
         </div>
       </div>
@@ -65,7 +64,6 @@ const CurrentResultsPage = (props) => {
 };
 
 CurrentResultsPage.propTypes = {
-  loading: PropTypes.bool,
   levelChanged: PropTypes.func,
   currentLevel: PropTypes.number,
   currentActiveWords: PropTypes.arrayOf(PropTypes.object),

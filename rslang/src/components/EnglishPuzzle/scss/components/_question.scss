@@ -1,7 +1,6 @@
 .question__container {
   width: 80%;
-  margin: 25px auto 0;
-  padding: 10px;
+  margin: 0 auto;
   @include flex(column, center, center);
   & .icon {
     font-size: 3rem;

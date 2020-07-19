@@ -5,7 +5,7 @@ const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
 };
 const localStorageItems = {
-  latestResults: 'latestResults',
+  latestResults: 'speakit-latest-results',
 };
 const maxLatestResultsCount = 10;
 

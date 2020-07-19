@@ -1,12 +1,17 @@
 import React from 'react';
 import Parser from 'html-react-parser';
 
+import { Link } from 'react-router-dom';
 import {
-  gamesData,
+  gamesData, pagesData,
   text,
 } from '../../../helpers/constants';
 
 import GameCard from '../../GameCard';
+import { ReactComponent as DottedLineTop } from '../../../assets/icons/dotted-lines/line-top.svg';
+import { ReactComponent as Spot } from '../../../assets/icons/spot.svg';
+import { getPath } from '../../../helpers/functions';
+import LiquidButton from '../../../basicComponents/LiquidButton';
 
 const renderGames = (data, index) => <GameCard data={data} key={index} />;
 
@@ -21,6 +26,15 @@ const PlayGamesPage = () => (
           Object.values(gamesData).map(renderGames)
         }
       </div>
+      <Link to={ getPath(pagesData.learnWords.path) }>
+        <LiquidButton
+          className="margin-top-50"
+          text={Parser(text.ru.button.getToLearnWords)}
+        />
+      </Link>
+      <DottedLineTop className="dotted-line dotted-line_top"/>
+      <Spot className="spot spot_two-sixths"/>
+      <Spot className="spot spot_three-sixths" />
     </section>
 );
 

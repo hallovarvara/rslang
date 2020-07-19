@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 100vh;
+    min-height: calc(100vh - #{$header-height});
     margin: 0 auto;
     padding: 50px 15px 50px 15px;
     overflow-x: hidden;
@@ -105,8 +105,9 @@
   }
 }
 
-.speakit-game-container .speakit-steppers-container {
+.speakit-game-container .speakit-settings-container {
   margin-bottom: 30px;
+  @include flex(column, center, center);
   & > * {
     margin-bottom: 15px;
     &:last-child {

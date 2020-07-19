@@ -130,35 +130,8 @@
   }
 }
 
-.lw-startview__button-group__button {
-  width: 426px;
-  height: 94px;
-  margin: 0 15px;
-  color: $color-light;
-  text-transform: uppercase;
-  text-shadow: $btn-shadow;
-  border: 0;
-  outline: none;
-  cursor: pointer;
-  transition: $btn-transition;
-  @include background-image(url('../../assets/images/button-bg.png'));
-  @include font(3.4rem, 900, normal);
-  @include media-laptop {
-    width: 320px;
-    height: 70px;
-    font-size: 2.7rem;
-  }
-  @include media-tablet {
-    margin: 0 0 15px 0;
-  }
-  @include media-mobile {
-    width: 300px;
-    height: 65.63px;
-    font-size: 2.5rem;
-  }
-  &:hover {
-    box-shadow: $btn-shadow;
-  }
+.lw-startview__button {
+  margin: 10px;
 }
 
 .lw-words-settings-container {
@@ -339,5 +312,20 @@
     &:last-child {
       margin: 0;
     }
+  }
+}
+
+.lw-no-words-found {
+  text-align: center;
+
+  img {
+    margin-bottom: 30px;
+  }
+
+  p {
+    @extend %subtitle;
+
+    width: 90%;
+    margin: 0 auto;
   }
 }

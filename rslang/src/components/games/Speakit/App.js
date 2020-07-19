@@ -2,19 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './App.scss';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { withWordsService, withRecognitionService, withLocalStorageService } from '../hoc';
 import {
-  pagesCount, levelsCount,
   amountOfWordsOnOnePage, apiLinks,
 } from './helpers/constants';
+
+import Notification from '../../../basicComponents/Notification';
 import HomePage from './components/pages/Home';
 import GamePage from './components/pages/Game';
 import CurrentResultsPage from './components/pages/CurrentResults';
 import LatestResultsPage from './components/pages/LatestResults';
 
 import { playAudio } from '../../../helpers/functions';
-import { soundSuccess } from '../../../helpers/constants';
+import { soundSuccess, text, applicationThings } from '../../../helpers/constants';
+import UserService from '../../../helpers/userService';
+
+const shuffleArray = (words) => (
+  words
+    .slice()
+    .sort(() => Math.random() - 0.5)
+    .map((wordObj) => ({ ...wordObj }))
+);
+
+const userService = new UserService();
 
 class App extends React.Component {
   state = {
@@ -27,6 +39,9 @@ class App extends React.Component {
     isGameInProcess: false,
     recognitionResults: null,
     isUserWon: false,
+    useUserWords: false,
+    isUserLogged: false,
+    notifications: [],
   }
 
   allWords = null
@@ -36,16 +51,13 @@ class App extends React.Component {
   localStorageService = this.props.localStorageService;
 
   componentDidMount() {
-    const { wordsService } = this.props;
-    wordsService.getAllWords(pagesCount, levelsCount)
-      .then((allWords) => {
-        this.allWords = allWords;
-        this.setState((state) => ({
+    userService.isUserLogged()
+      .then((result) => {
+        this.setState({
+          isUserLogged: Boolean(result),
+          useUserWords: Boolean(result),
           loading: false,
-          currentWords: this.generateCurrentWords(
-            state.currentLevel, state.currentPage,
-          ),
-        }));
+        });
       });
     this.recognitionService.recognition.addEventListener('result', (event) => {
       this
@@ -53,6 +65,52 @@ class App extends React.Component {
         .onRecognitionResults(
           event, this.recognitionResultsChanged.bind(this),
         );
+    });
+  }
+
+  generateWordsForGame = async () => {
+    this.setState({
+      loading: true,
+    });
+    const {
+      currentLevel,
+      currentPage,
+      useUserWords,
+    } = this.state;
+
+    try {
+      userService.prepareWordsForGame(
+        applicationThings.UNMESS, currentLevel, currentPage, amountOfWordsOnOnePage, useUserWords,
+      ).then((result) => {
+        if (result && result.length) {
+          this.clearCurrentWords = result;
+          const currentWords = shuffleArray(result);
+          this.setState({
+            loading: false,
+            currentWords,
+          });
+        } else {
+          this.showNotifications([
+            {
+              type: 'error',
+              message: text.ru.backendCrashed,
+            },
+          ]);
+        }
+      });
+    } catch (error) {
+      this.showNotifications([
+        {
+          type: 'error',
+          message: text.ru.backendCrashed,
+        },
+      ]);
+    }
+  }
+
+  setUsingOfUserWords = (useUserWords) => {
+    this.setState({
+      useUserWords,
     });
   }
 
@@ -66,27 +124,22 @@ class App extends React.Component {
     this.recognitionService.recognition.abort();
   }
 
-  generateCurrentWords = (level, page) => this.allWords[level][page]
-    .slice(0)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, amountOfWordsOnOnePage)
-
   levelChanged = (level) => {
-    this.setState((state) => ({
+    this.setState({
       currentLevel: level,
-      currentWords: this.generateCurrentWords(
-        level, state.currentPage,
-      ),
-    }));
+    });
   }
 
   pageChanged = (page) => {
-    this.setState((state) => ({
+    this.setState({
       currentPage: page,
-      currentWords: this.generateCurrentWords(
-        state.currentLevel, page,
-      ),
-    }));
+    });
+  }
+
+  showNotifications = (notifications) => {
+    this.setState({
+      notifications,
+    });
   }
 
   currentActiveWordsChanged = (wordObj, isClicked) => {
@@ -187,6 +240,8 @@ class App extends React.Component {
       currentActiveWords,
       isGameInProcess,
       currentWords,
+      useUserWords,
+      isUserLogged,
     } = this.state;
 
     return (
@@ -194,6 +249,11 @@ class App extends React.Component {
         <Switch>
           <Route path="/speakit/home" render={() => (
             <HomePage
+              generateWordsForGame={this.generateWordsForGame}
+              setUsingOfUserWords={this.setUsingOfUserWords}
+              showNotifications={this.showNotifications}
+              isUserLogged={isUserLogged}
+              useUserWords={useUserWords}
               loading={loading}
               currentLevel={currentLevel}
               currentPage={currentPage}
@@ -229,7 +289,6 @@ class App extends React.Component {
                 isGameInProcess={isGameInProcess}
                 currentLevel={currentLevel}
                 levelChanged={this.levelChanged}
-                loading={loading}
                 currentWords={currentWords}
                 currentActiveWords={currentActiveWords} />
             )} />
@@ -238,12 +297,22 @@ class App extends React.Component {
             render={() => (
               <LatestResultsPage
                 abortGame={this.abortGame}
-                loading={loading}
                 levelChanged={this.levelChanged}
-                currentLevel={currentLevel} />
+                currentLevel={currentLevel}
+                currentWords={currentWords} />
             )} />
             <Route render={() => <h2 style={{ paddingTop: '300px' }}>heeey</h2>} />
         </Switch>
+        {
+          this.state.notifications.map((notif, index) => (
+            <Notification
+              key={index}
+              variant={notif.type}
+              message={notif.message}
+              afterClose={() => this.showNotifications([])}
+            />
+          ))
+        }
       </div>
     );
   }
@@ -254,6 +323,17 @@ App.propTypes = {
   recognitionService: PropTypes.object,
   localStorageService: PropTypes.object,
   history: PropTypes.object,
+  userId: PropTypes.string,
 };
 
-export default withLocalStorageService()(withRecognitionService()(withWordsService()(App)));
+const mapStateToProps = (store) => ({
+  userId: store.auth.userId,
+});
+
+export default withLocalStorageService()(
+  withRecognitionService()(
+    withWordsService()(
+      connect(mapStateToProps)(App),
+    ),
+  ),
+);
