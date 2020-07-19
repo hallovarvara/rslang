@@ -787,7 +787,7 @@ class VocabularyView extends React.Component {
       <div className="vocabulary-page vocabulary-page-container">
         <div className="vocabulary-settings-container">
           <h1 className="vocabulary-settings-container__page-title">{pagesData.vocabulary.title}</h1>
-          {filteredWords.length && <Select
+          <Select
             className="vocabulary-selector"
             onChange={(event) => {
               const newSelectedOption = event.target.value;
@@ -818,7 +818,7 @@ class VocabularyView extends React.Component {
               }
             }}
             selectTitles={ selectorOptions.map((option) => option.title) } >
-          </Select>}
+          </Select>
         </div>
         {
           filteredWords.length
