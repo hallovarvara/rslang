@@ -11,6 +11,7 @@ import {
   extractEmphasizedWord,
   getSessionProgress,
   setSessionProgress,
+  updateSessionProgress,
   checkSessionProgress,
   audioplayer,
 } from './helpers';
@@ -19,10 +20,6 @@ import {
   updateUserWordRepeated,
   updateUserWordDifficulty,
   updateUserWordRemoved,
-  handleGameRightAnswer,
-  handleGameWrongAnswer,
-  prepareSessionInfoToServer,
-  saveSessionInfoToLocal,
 } from '../../../helpers/wordsService';
 import {
   localStorageItems,
@@ -30,7 +27,6 @@ import {
   applicationThings,
 } from '../../../helpers/constants';
 import { clearSessionData } from '../../../helpers/wordsService/storageModel';
-import { statsTemplate, changeStats } from '../../../helpers/wordsService/statsModel';
 import UserService from '../../../helpers/userService';
 import { getWordsByAmount } from '../../../helpers/wordsService/wordsApi';
 
@@ -59,11 +55,13 @@ export default class LearnWords extends Component {
     if (learnSessionProgress.length) {
       const { isLogged, token, userId } = this.checkForLoggedUser();
       this.setState({
+        wordCards: learnSessionProgress.length,
         totalWords: learnSessionProgress.length,
         words: learnSessionProgress,
-        wordCount: learnSessionProgress.findIndex(
-          (el) => !el.progress.isDifficultChosen,
-        ),
+        wordCount:
+          learnSessionProgress.findIndex(
+            (el) => !el.progress.isDifficultChosen,
+          ) + 1,
         isLogged,
         token,
         userId,
@@ -118,30 +116,50 @@ export default class LearnWords extends Component {
     } = this.state;
     if (!checkSessionProgress(words) && totalWords) {
       if (!isFirstPassDone) {
+        console.log('second');
         this.secondRepeat();
       } else if (!isSecondPastDone) {
+        console.log('third');
         this.thirdRepeat();
       } else {
-        userservice.handleEndOfGame();
-        this.setState({
-          isShownShortStats: true,
-        });
+        console.log('isShownShortStats');
+        this.setState((state) => ({
+          isShownShortStats: !state.isShownShortStats,
+        }));
+        userservice.handleEndOfGame(applicationThings.LEARN_WORDS);
       }
+    } else {
+      this.setState((state) => ({
+        isShownShortStats: !state.isShownShortStats,
+      }));
+      userservice.handleEndOfGame(applicationThings.LEARN_WORDS);
     }
   }
 
   secondRepeat = () => {
     const { initialProgressObject } = settings;
     const words = getSessionProgress();
+    console.log(words);
     const secondSet = words.filter(
-      (el) => el.progress.secondRepeat && !el.userWord.optional.removed,
+      (el) => {
+        console.log(el);
+        return el?.progress?.secondRepeat && !el?.userWord?.optional?.removed;
+      },
     );
-    const updated = secondSet.map((el) => ({ ...el, progress: { ...initialProgressObject } }));
+    const updated = secondSet.map((el) => {
+      const { secondRepeat, thirdRepeat } = el.progress;
+      const updatedProgress = {
+        ...initialProgressObject,
+        secondRepeat,
+        thirdRepeat,
+      };
+      return { ...el, progress: { ...updatedProgress } };
+    });
     this.setState({
       words: updated,
       totalWords: updated.length,
       wordCount: 0,
-      guessedCount: 0,
+      // guessedCount: 0,
       isFirstPassDone: true,
     });
   }
@@ -149,18 +167,24 @@ export default class LearnWords extends Component {
   thirdRepeat = () => {
     const { initialProgressObject } = settings;
     const words = getSessionProgress();
-    const secondSet = words.filter(
-      (el) => el.progress.thirdRepeat && !el.userWord.optional.removed,
+    console.log(words);
+    const thirdSet = words.filter(
+      (el) => {
+        console.log(el);
+        return el?.progress?.thirdRepeat && !el?.userWord?.optional?.removed;
+      },
     );
-    const updated = secondSet.map((el) => ({
+    const updated = thirdSet.map((el) => ({
       ...el,
       progress: { ...initialProgressObject },
     }));
+    console.log(updated);
     this.setState({
       words: updated,
       totalWords: updated.length,
       wordCount: 0,
-      guessedCount: 0,
+      // guessedCount: 0,
+      isSecondPastDone: true,
     });
   }
 
@@ -196,8 +220,7 @@ export default class LearnWords extends Component {
     this.setState((state) => ({
       words: state.words.map((el) => (el.id === wordObject?.id ? wordObject : el)),
     }));
-    const { words } = this.state;
-    setSessionProgress(words);
+    if (wordObject) updateSessionProgress(wordObject);
     this.checkForEndOfGame();
   }
 
@@ -236,15 +259,24 @@ export default class LearnWords extends Component {
     this.updateUserWordInState({ ...updated, progress: { ...progress } });
   }
 
-  handleChangeInWord = (modifyingFunction) => {
+  handleChangeInWord = (modifyingFunction, updatedProgress) => {
+    let progress;
     const { words, wordCount } = this.state;
     const wordObject = { ...words[wordCount] };
     const updated = modifyingFunction(wordObject);
-    this.updateUserWordInState(updated);
+    // this.updateUserWordInState(updated);
+    if (updatedProgress) {
+      const { initialProgressObject } = settings;
+      progress = {
+        ...(wordObject?.progress || initialProgressObject),
+        ...updatedProgress,
+      };
+    }
+    this.updateUserWordInState({ ...updated, progress: { ...progress } });
   }
 
-  handleChangeRepeated = () => {
-    this.handleChangeInWord(updateUserWordRepeated);
+  handleChangeRepeated = (updatedProgress) => {
+    this.handleChangeInWord(updateUserWordRepeated, updatedProgress);
   }
 
   handleChangeDifficulty = () => {
@@ -273,20 +305,22 @@ export default class LearnWords extends Component {
 
   handleContinueLearning = () => {
     const words = getSessionProgress();
-    this.setState((state) => (
-      {
-        words,
-        isStartLearning: !state.isStartLearning,
-      }
-    ));
+    this.setState((state) => ({
+      words,
+      wordCards: words.length,
+      totalWords: words.length,
+      isStartLearning: !state.isStartLearning,
+    }));
   }
 
   handleStartNewLearning = async () => {
     this.togglePreloader();
     clearSessionData();
+    const { isWordsRandomly, userLevel } = this.state;
+    const group = isWordsRandomly ? null : userLevel;
     const wordsFromApiResponse = await userservice.prepareToLearnWords(
-      10,
-      1,
+      2,
+      group,
     );
     // const wordsFromApiResponse = await getWordsByAmount(1, 10);
     const words = await this.prepareSessionProgress(wordsFromApiResponse);
@@ -296,6 +330,7 @@ export default class LearnWords extends Component {
       this.setState((state) => (
         {
           words,
+          wordCards: words.length,
           statsNewWordsCount,
           totalWords: words.length,
           isStartLearning: !state.isStartLearning,
@@ -331,7 +366,7 @@ export default class LearnWords extends Component {
     });
   }
 
-  setUser
+  // setUser
 
   render() {
     const {
@@ -445,56 +480,6 @@ export default class LearnWords extends Component {
               onChangeProgress={this.handleChangeProgress}
               onPlayAudio={this.playAudios}
             />
-            <button onClick={() => this.setState({ isFirstPassDone: true })}>
-              Test
-            </button>
-            <button
-              onClick={
-                () => handleGameRightAnswer(applicationThings.SAVANNAH, currentWord)
-              }
-            >
-              game right
-            </button>
-            <button
-              onClick={
-                () => handleGameWrongAnswer(applicationThings.SAVANNAH, currentWord)
-              }
-            >
-              game wrong
-            </button>
-            <button
-              onClick={() => {
-                const stats = JSON.parse(localStorage.rslangUserStatistics);
-                console.log(
-                  prepareSessionInfoToServer(
-                    applicationThings.LEARN_WORDS,
-                    stats,
-                  ),
-                );
-              }}
-            >
-              prepare
-            </button>
-            <button
-              onClick={
-                () => saveSessionInfoToLocal(applicationThings.LEARN_WORDS)
-              }
-            >
-              save
-            </button>
-            <button
-              onClick={
-                () => console.log(
-                  changeStats(
-                    applicationThings.SAVANNAH,
-                    { games: 1, wrong: 4, right: 9 },
-                    statsTemplate,
-                  ),
-                )
-              }
-            >
-              update stats
-            </button>
           </>
         )}
       </div>

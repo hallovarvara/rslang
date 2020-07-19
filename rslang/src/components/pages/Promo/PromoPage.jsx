@@ -16,7 +16,6 @@ import { ReactComponent as GithubIcon } from '../../../assets/icons/icon-github.
 import {
   pagesData,
   gamesData,
-  promoVideoLink,
   text,
   projectRepositoryLink,
 } from '../../../helpers/constants';
@@ -39,10 +38,10 @@ const PromoPageView = ({
       <p className="promo-presentation__subtitle">{ text.ru.promo.subtitle }</p>
       <div className="promo-presentation-media">
         <img src={graduateImg} alt="graduate" className="promo-presentation-media__graduate-image"/>
-        <video controls className="promo-presentation-media__video">
-          <source src={ promoVideoLink }/>
-          { text.ru.noVideoSupport }
-        </video>
+        <iframe width="560" className="promo-presentation-media__video" height="315" src="https://www.youtube.com/embed/G9DnY6ZSFzI" frameBorder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen>
+        </iframe>
         <img src={busImage} alt="bus" className="promo-presentation-media__bus-image"/>
       </div>
       <LiquidButton

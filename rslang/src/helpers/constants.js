@@ -71,7 +71,6 @@ export const dateFormatTemplate = 'DD.MM.YYYY';
 
 const linkedinLink = 'https://www.linkedin.com/in/';
 const githubLink = 'https://github.com/';
-const promoVideoLink = 'https://www.w3schools.com/html/mov_bbb.mp4';
 const projectRepositoryLink = 'https://github.com/hallovarvara/rslang';
 
 const pagesData = {
@@ -503,7 +502,6 @@ export {
   pagesData,
   vocabularySelectorOptions,
   apiLinks,
-  promoVideoLink,
   linkedinLink,
   githubLink,
   projectRepositoryLink,
