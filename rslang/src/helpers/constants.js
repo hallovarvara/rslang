@@ -9,12 +9,19 @@ import Artem from '../assets/images/team/artem-rimarchyk.jpeg';
 import Dima from '../assets/images/team/dmitry-lebetsky.jpg';
 import Lesha from '../assets/images/team/alexei-osipov.jpg';
 
+import comfortIcons from '../assets/images/promo/feature-comfort-safe.png';
+import freeIcons from '../assets/images/promo/feature-free.png';
+import funnyIcons from '../assets/images/promo/feature-funny-effectively.png';
 import SavannahIcon from '../assets/icons/icon-game-savannah.png';
 import SprintIcon from '../assets/icons/icon-game-sprint.png';
 import AudiocallIcon from '../assets/icons/icon-game-audiocall.png';
 import EnglishPuzzleIcon from '../assets/icons/icon-game-english-puzzle.png';
 import SpeakitIcon from '../assets/icons/icon-game-speakit.png';
 import UnmessIcon from '../assets/icons/icon-game-unmess.png';
+import spacingRepeatingEasy from '../assets/images/promo/spacing-repeating1-1.png';
+import spacingRepeatingHard from '../assets/images/promo/spacing-repeating1-2.png';
+import spacingRepeatingMisprint from '../assets/images/promo/spacing-repeating2-1.png';
+import spacingRepeatingMistake from '../assets/images/promo/spacing-repeating3-1.png';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
@@ -66,6 +73,7 @@ export const dateFormatTemplate = 'DD.MM.YYYY';
 const linkedinLink = 'https://www.linkedin.com/in/';
 const githubLink = 'https://github.com/';
 const promoVideoLink = 'https://www.w3schools.com/html/mov_bbb.mp4';
+const projectRepositoryLink = 'https://github.com/hallovarvara/rslang';
 
 const pagesData = {
   aboutUs: {
@@ -247,6 +255,11 @@ const text = {
       description: 'Привет! Мы рады представить продукт нашей совместной работы — приложение по изучению английского языка',
     },
 
+    projectRepository: 'Репозиторий проекта',
+
+    /* Learn Words */
+    noWordsFound: 'Вы&nbsp;выучили недостаточно слов, чтобы появились повторяемые. Изучайте новые слова, проходите игры и&nbsp;попробуйте выбрать эту категорию слов позже',
+
     /* Sign In, Register */
     nickname: 'Логин',
     email: 'Емейл',
@@ -273,14 +286,20 @@ const text = {
         {
           title: 'Уютно и&nbsp;безопасно',
           description: 'Учитесь и&nbsp;играйте онлайн из&nbsp;любой точки мира со&nbsp;смартфона, планшета или компьютера',
+          image: comfortIcons,
+          className: 'comfort',
         },
         {
           title: 'Бесплатно',
           description: 'Уникальный алгоритм изучения слов и&nbsp;6&nbsp;игр, расширяющих словарный запас и&nbsp;умение быстро им&nbsp;воспользоваться',
+          image: freeIcons,
+          className: 'free',
         },
         {
           title: 'Весело и&nbsp;продуктивно',
           description: '7&nbsp;способов изучения слов в&nbsp;игровой форме и&nbsp;уникальный алгоритм интервального повторения',
+          image: funnyIcons,
+          className: 'funny',
         },
       ],
       chooseAnotherGame: 'или выберите другую игру',
@@ -298,13 +317,20 @@ const text = {
               action: 'Пометка слова легким во&nbsp;время изучения слова',
               target: 'Прогресс изучения',
               result: 'Растет на&nbsp;треть',
+              image: spacingRepeatingEasy,
+              alt: 'easy',
+              modificator: 'easy',
             },
             {
               action: 'Пометка слова трудным во&nbsp;время изучения слова',
               target: 'Прогресс изучения',
               result: 'Уменьшается на&nbsp;пятую часть',
+              image: spacingRepeatingHard,
+              alt: 'hard',
+              modificator: 'hard',
             },
           ],
+          className: 'rate',
         },
         {
           title: 'Ошибались&nbsp;ли вы&nbsp;во&nbsp;время изучения слов',
@@ -312,7 +338,11 @@ const text = {
             action: 'Ошибка во&nbsp;время написания слова в&nbsp;процессе изучения',
             target: 'Слово',
             result: 'Повторится в&nbsp;текущей тренировке',
+            image: spacingRepeatingMisprint,
+            alt: 'misprint',
+            modificator: 'misprint',
           }],
+          className: 'misprint',
         },
         {
           title: 'Угадали&nbsp;ли вы&nbsp;слово во&nbsp;время игры',
@@ -320,7 +350,11 @@ const text = {
             action: 'Если не&nbsp;угадали слово в&nbsp;игре',
             target: 'Слово',
             result: 'Появится в&nbsp;предстоящей тренировке',
+            image: spacingRepeatingMistake,
+            alt: 'mistake',
+            modificator: 'mistake',
           }],
+          className: 'mistake',
         },
       ],
     },
@@ -380,6 +414,7 @@ const text = {
       learnWords: 'Изучать слова',
       learnEnglishWithUs: 'Учите английский с нами',
       startLearningWithUs: 'Начать учиться с&nbsp;нами',
+      getToLearnWords: 'Заняться изучением слов',
       playRightNow: 'Сыграть прямо сейчас',
       lastResults: 'Последние результаты',
       currentResults: 'Текущие результаты',
@@ -465,6 +500,7 @@ export {
   promoVideoLink,
   linkedinLink,
   githubLink,
+  projectRepositoryLink,
   gamesData,
   teamMembers,
   audio,

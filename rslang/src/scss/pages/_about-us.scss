@@ -1,5 +1,7 @@
 .about-us-page {
+  position: relative;
   padding-bottom: 60px;
+  overflow: hidden;
   @include flex(column, center, center);
 
   p {
@@ -8,27 +10,12 @@
 }
 
 .about-us__link-container {
+  z-index: 2;
   margin: 40px 0 60px;
   text-align: center;
 
   @include media-tablet() {
     margin: 30px 30px 30px;
-  }
-}
-
-.team-members__button-learn {
-  &,
-  &.MuiButtonBase-root {
-    padding: 20px 50px;
-  }
-
-  @include button($text-color: $color-light);
-  @include media-tablet() {
-    .MuiButton-label {
-      padding: 5px 0;
-      font-size: 2.4rem;
-      line-height: 150%;
-    }
   }
 }
 
@@ -47,8 +34,8 @@
 }
 
 .team-members {
+  z-index: 1;
   flex-wrap: wrap;
-  background-color: $color-secondary;
   @include flex(row, center, flex-start);
 }
 

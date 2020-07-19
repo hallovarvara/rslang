@@ -11,7 +11,12 @@ import {
 import { getPath } from '../../../helpers/functions';
 
 import TeamMember from '../../TeamMember';
-import Button from '../../../basicComponents/Button';
+import LiquidButton from '../../../basicComponents/LiquidButton';
+import { ReactComponent as Spot } from '../../../assets/icons/spot.svg';
+import { ReactComponent as DottedLineTop } from '../../../assets/icons/dotted-lines/line-top.svg';
+import {ReactComponent as DottedLineFiveSixths} from "../../../assets/icons/dotted-lines/line-five-sixths.svg";
+import {ReactComponent as DottedLineTwoSixths} from "../../../assets/icons/dotted-lines/line-two-sixths.svg";
+import {ReactComponent as DottedLineFourSixths} from "../../../assets/icons/dotted-lines/line-four-sixths.svg";
 
 const mapTeamMembersToItems = (member, index) => <TeamMember key={index} {...member} />;
 
@@ -29,11 +34,15 @@ const AboutUsPage = () => (
       }
     </section>
     <Link className="about-us__link-container" to={ getPath(pagesData.learnWords.path) }>
-      <Button
-        className="team-members__button-learn"
-        value={ Parser(text.ru.button.startLearningWithUs) }
+      <LiquidButton
+        text={Parser(text.ru.button.startLearningWithUs)}
       />
     </Link>
+    <DottedLineTop className="dotted-line"/>
+    <DottedLineFourSixths className="dotted-line dotted-line_four-sixths" />
+    <Spot className="spot spot_top"/>
+    <Spot className="spot spot_two-sixths"/>
+    <Spot className="spot spot_four-sixths"/>
   </div>
 );
 
