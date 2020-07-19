@@ -1,4 +1,28 @@
 .vocabulary-page {
+  height: 100%;
+
+  .vocabulary-settings-container {
+    @include flex();
+
+    h1.vocabulary-settings-container__page-title {
+      width: fit-content;
+      margin: 0;
+      color: $color-light;
+    }
+
+    .vocabulary-selector {
+      margin-top: 18px;
+      margin-left: 20px;
+    }
+  }
+
+  .lw-no-words-found {
+    padding-bottom: 140px;
+    p {
+      color: $color-light;
+    }
+  }
+
   .cards-container {
     width: 80%;
     margin: 0 auto;

@@ -4,6 +4,7 @@ export const initialState = {
   totalWords: 0,
   isAutoPlay: true,
   words: [],
+  filtered: [],
   isLogged: false,
   isFetching: false,
   category: 'all',
