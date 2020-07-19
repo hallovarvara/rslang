@@ -405,6 +405,7 @@ const text = {
     /* Settings page */
     cantGetSettings: 'Не удалость получить настройки, попробуйте позже',
     cantSaveSettings: 'Не удалось сохранить настройки, попробуйте позже',
+    settingsChangedSuccssfuly: 'Настройки успешно сохранены',
 
     /* Buttons */
     button: {

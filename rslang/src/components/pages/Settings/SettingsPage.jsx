@@ -105,6 +105,12 @@ class SettingsPage extends React.Component {
                     },
                   },
                 });
+                this.setState({
+                  notifications: [{
+                    type: 'success',
+                    message: text.ru.settingsChangedSuccssfuly,
+                  }],
+                });
               } catch (error) {
                 this.setState({
                   notifications: [
