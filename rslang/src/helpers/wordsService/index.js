@@ -79,6 +79,7 @@ export const updateUserWordDifficulty = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { difficulty } = current.userWord;
   current.userWord.difficulty = !difficulty;
+  console.log('updateUserWordDifficulty', current);
   return { ...current };
 };
 
@@ -86,6 +87,7 @@ export const updateUserWordRemoved = (wordObject) => {
   const current = prepareWordObject(wordObject);
   const { removed } = current.userWord.optional;
   current.userWord.optional.removed = !removed;
+  console.log('updateUserWordRemoved', current);
   return { ...current };
 };
 

@@ -22,12 +22,12 @@ const { COMPLICATED, REMOVE } = buttonsNames;
 const StatusBar = ({
   progress: { isRemoved, isComplicated },
   // onChangeProgress,
-  // currentWord,
   wordCount,
   totalWords,
   isShownComplicatedButton,
   onChangeDifficulty,
   onChangeRemoved,
+  // currentWord,
 }) => (
   <div className="learn-word-card-general-info">
     <p className="learn-word-card-general-info__all-done">{`${wordCount}/${totalWords}`}</p>
@@ -47,7 +47,7 @@ const StatusBar = ({
         <div
           className={classNames({
             'learn-word-status-settings__remove': true,
-            active: isRemoved
+            active: isRemoved,
           })}
           onClick={
             () => onChangeRemoved()
