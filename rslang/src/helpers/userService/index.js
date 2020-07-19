@@ -184,13 +184,13 @@ export default class UserService {
     }
   };
 
-  createUserSettings = async ({ userId, option }) => {
+  createUserSettings = async (object) => {
     try {
-      await fetch(`${apiLinks.base}users/${userId}/settings`, {
+      await fetch(`${apiLinks.base}users/${object.optional.userId}/settings`, {
         method: 'PUT',
         withCredentials: true,
         ...getAuthHeader(),
-        body: JSON.stringify(option),
+        body: JSON.stringify(object),
       });
     } catch (e) {
       // console.error(e);
@@ -260,7 +260,13 @@ export default class UserService {
 
   setNewSettings = (userId, settings) => {
     if (!settings) {
-      this.createUserSettings({ userId, option: settingsTemplate });
+      this.createUserSettings({
+        wordsPerDay: 20,
+        optional: {
+          userId,
+          option: { ...settingsTemplate.optional },
+        },
+      });
     }
   }
 
@@ -347,7 +353,6 @@ export default class UserService {
       };
       this.createUserStatistics(data);
     } catch (e) {
-      console.log(e);
       // TODO handle erorr
     }
   }

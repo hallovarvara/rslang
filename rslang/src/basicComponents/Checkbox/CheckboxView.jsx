@@ -11,7 +11,7 @@ const CheckboxView = ({ checked = false, onChange, className = '' }) => {
   return (
     <input
       onChange={onChange}
-      defaultChecked={checked}
+      checked={checked}
       className={classes}
       type="checkbox"/>
   );
