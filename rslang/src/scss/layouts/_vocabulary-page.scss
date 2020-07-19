@@ -33,7 +33,7 @@
 
   .vocabulary-settings-container {
     margin-bottom: 50px;
-    @include flex(row, space-between, center);
+    @include flex(row, center, center);
 
     @include media-big-mobile {
       flex-direction: column;
