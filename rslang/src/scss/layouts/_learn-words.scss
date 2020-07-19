@@ -259,6 +259,9 @@
   @include media-mobile {
     margin: 0;
   }
+  &.active {
+    color: $color-success;
+  }
 }
 
 .lw-filter-container__select {

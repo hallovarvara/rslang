@@ -171,6 +171,9 @@
   @include media-mobile {
     margin: 0 5px;
   }
+  &.active {
+    color: $color-success;
+  }
 }
 
 .learn-word-status-settings__complicated {
