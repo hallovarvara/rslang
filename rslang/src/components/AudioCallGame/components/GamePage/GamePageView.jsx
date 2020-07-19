@@ -5,6 +5,7 @@ import Question from '../Question';
 import AnswerPanel from '../AnswerPanel';
 import Button from '../Button';
 import FinishGamePage from '../FinishGamePage';
+import StatisticPage from '../StatisticPage';
 
 const GamePageView = ({
   questionsList,
@@ -18,6 +19,9 @@ const GamePageView = ({
   handleClickNewGame,
   handleClickAnswer,
   currentAnswerId,
+  statistic,
+  isStatisticShow,
+  handleShowStatistic,
 }) => {
   const question = questionsList[level];
   return (
@@ -44,11 +48,21 @@ const GamePageView = ({
         />
       </div>
       )
-      : <FinishGamePage
-        handleClickNewGame={handleClickNewGame}
-        rightAnswerArray={rightAnswerArray}
-        errorAnswerArray={errorAnswerArray}
-      />
+      : (isStatisticShow 
+        ? <StatisticPage 
+          handleClickNewGame={handleClickNewGame}
+          rightAnswerArray={rightAnswerArray}
+          errorAnswerArray={errorAnswerArray}
+          handleShowStatistic={handleShowStatistic}
+          statistic={statistic}
+          />         
+        : <FinishGamePage
+          handleClickNewGame={handleClickNewGame}
+          rightAnswerArray={rightAnswerArray}
+          errorAnswerArray={errorAnswerArray}
+          handleShowStatistic={handleShowStatistic}
+        />
+      )
   );
 };
 

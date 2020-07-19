@@ -4,16 +4,16 @@ import { Switch, Route } from 'react-router-dom';
 
 import './App.scss';
 
+import Notification from '../../../basicComponents/Notification';
+
 import StartPage from './components/pages/Start';
 import GamePage from './components/pages/Game';
 import ResultsPage from './components/pages/Results';
 import LatestResultsPage from './components/pages/LatestResults';
 
-import { withWordsService } from '../hoc';
+import UserService from '../../../helpers/userService';
 
 import {
-  pagesCount,
-  levelsCount,
   wordsPerPage,
   localStorageItems,
 } from './helpers/contants';
@@ -21,21 +21,17 @@ import {
 import {
   soundSuccess,
   soundError,
+  applicationThings,
+  text,
 } from '../../../helpers/constants';
 import { playAudio } from '../../../helpers/functions';
+import { handleGameRightAnswer, handleGameWrongAnswer } from '../../../helpers/wordsService';
 
-const getRandomWords = (words) => (
-  words
-    .sort(() => Math.random() - 0.5)
-    .slice(0, wordsPerPage)
-    .map((obj) => ({ ...obj, attempt: null, hideDefinition: true }))
-);
-
-const getShuffledWords = (words) => (
+const shuffleArray = (words) => (
   words
     .slice()
     .sort(() => Math.random() - 0.5)
-    .map((wordObj) => ({ ...wordObj }))
+    .map((wordObj) => ({ ...wordObj, attempt: null, hideDefinition: true }))
 );
 
 const replaceElInArrayOfObject = (array, object, newProps) => {
@@ -50,6 +46,8 @@ const replaceElInArrayOfObject = (array, object, newProps) => {
   ].map((wordObj) => ({ ...wordObj }));
 };
 
+const userService = new UserService();
+
 class App extends React.Component {
   state = {
     currentLevel: 0,
@@ -57,6 +55,9 @@ class App extends React.Component {
     loading: true,
     currentWords: null,
     shuffledCurrentWords: null,
+    useUserWords: false,
+    notifications: [],
+    isUserLogged: false,
   }
 
   allWords = null;
@@ -66,38 +67,73 @@ class App extends React.Component {
       localStorage.setItem(localStorageItems.latestResults, JSON.stringify([]));
     }
 
-    const { wordsService } = this.props;
-    wordsService.getAllWords(pagesCount, levelsCount)
+    userService.isUserLogged()
       .then((result) => {
-        this.allWords = result;
-        const { currentLevel, currentPage } = this.state;
-        const currentWords = getRandomWords(this.allWords[currentLevel][currentPage]);
-        const shuffledCurrentWords = getShuffledWords(currentWords);
         this.setState({
+          isUserLogged: Boolean(result),
+          useUserWords: Boolean(result),
           loading: false,
-          currentWords,
-          shuffledCurrentWords,
         });
       });
   }
 
+  setUsingOfUserWords = (useUserWords) => {
+    this.setState({
+      useUserWords,
+    });
+  }
+
+  generateWordsForGame = async () => {
+    this.setState({
+      loading: true,
+    });
+    const {
+      currentLevel,
+      currentPage,
+      useUserWords,
+    } = this.state;
+
+    try {
+      userService.prepareWordsForGame(
+        applicationThings.UNMESS, currentLevel, currentPage, wordsPerPage, useUserWords,
+      ).then((result) => {
+        if (result && result.length) {
+          this.clearCurrentWords = result;
+          const currentWords = shuffleArray(result);
+          const shuffledCurrentWords = shuffleArray(currentWords);
+          this.setState({
+            loading: false,
+            currentWords,
+            shuffledCurrentWords,
+          });
+        } else {
+          this.showNotifications([
+            {
+              type: 'error',
+              message: text.ru.backendCrashed,
+            },
+          ]);
+        }
+      });
+    } catch (error) {
+      this.showNotifications([
+        {
+          type: 'error',
+          message: text.ru.backendCrashed,
+        },
+      ]);
+    }
+  }
+
   levelChanged = (level) => {
-    const currentWords = getRandomWords(this.allWords[level][this.state.currentPage]);
-    const shuffledCurrentWords = getShuffledWords(currentWords);
     this.setState({
       currentLevel: level,
-      currentWords,
-      shuffledCurrentWords,
     });
   }
 
   pageChanged = (page) => {
-    const currentWords = getRandomWords(this.allWords[this.state.currentLevel][page]);
-    const shuffledCurrentWords = getShuffledWords(currentWords);
     this.setState({
       currentPage: page,
-      currentWords,
-      shuffledCurrentWords,
     });
   }
 
@@ -124,6 +160,15 @@ class App extends React.Component {
       const audio = isRightAttempt ? soundSuccess : soundError;
       playAudio(audio);
 
+      const clearWordObj = this.clearCurrentWords.find((wordObj) => (
+        wordObj.id === droppedWordObj.id
+      ));
+      if (isRightAttempt) {
+        handleGameRightAnswer(applicationThings.UNMESS, clearWordObj);
+      } else {
+        handleGameWrongAnswer(applicationThings.UNMESS, clearWordObj);
+      }
+
       const currentWords = replaceElInArrayOfObject(
         state.currentWords, droppedWordObj, {
           attempt: isRightAttempt, hideDefinition: !isRightAttempt,
@@ -143,6 +188,12 @@ class App extends React.Component {
     });
   }
 
+  showNotifications = (notifications) => {
+    this.setState({
+      notifications,
+    });
+  }
+
   render() {
     const {
       loading,
@@ -150,6 +201,8 @@ class App extends React.Component {
       currentLevel,
       currentPage,
       shuffledCurrentWords,
+      useUserWords,
+      isUserLogged,
     } = this.state;
 
     return (
@@ -157,6 +210,11 @@ class App extends React.Component {
         <Switch>
           <Route path="/unmess/home" render={() => (
             <StartPage
+              generateWordsForGame={this.generateWordsForGame}
+              setUsingOfUserWords={this.setUsingOfUserWords}
+              showNotifications={this.showNotifications}
+              isUserLogged={isUserLogged}
+              useUserWords={useUserWords}
               currentPage={currentPage}
               currentLevel={currentLevel}
               loading={loading}
@@ -166,6 +224,7 @@ class App extends React.Component {
           )} />
           <Route path="/unmess/game" render={({ history }) => (
             <GamePage
+              loading={loading}
               history={history}
               shuffledCurrentWords={shuffledCurrentWords}
               currentWords={currentWords}
@@ -189,6 +248,16 @@ class App extends React.Component {
               currentWords={currentWords} />
           )} />
         </Switch>
+        {
+          this.state.notifications.map((notif, index) => (
+            <Notification
+              key={index}
+              variant={notif.type}
+              message={notif.message}
+              afterClose={() => this.showNotifications([])}
+            />
+          ))
+        }
       </div>
     );
   }
@@ -198,4 +267,4 @@ App.propTypes = {
   wordsService: PropTypes.object,
 };
 
-export default withWordsService()(App);
+export default App;

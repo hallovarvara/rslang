@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import StartButton from '../../StartButton';
 import Preloader from '../../Preloader';
 import Stepper from '../../../../../../basicComponents/Stepper';
+import Select from '../../../../components/Select';
 
 import {
   levelsCount,
@@ -20,6 +21,11 @@ const StartPage = (props) => {
     pageChanged,
     currentLevel,
     currentPage,
+    useUserWords,
+    isUserLogged,
+    showNotifications,
+    setUsingOfUserWords,
+    generateWordsForGame,
   } = props;
 
   return (
@@ -30,7 +36,12 @@ const StartPage = (props) => {
         loading
           ? <Preloader />
           : (<>
-            <div className="unmess-steppers-container">
+            <div className="unmess-settings-container">
+              <Select
+                setUsingOfUserWords={setUsingOfUserWords}
+                showNotifications={showNotifications}
+                useUserWords={useUserWords}
+                isUserLogged={isUserLogged}/>
               <Stepper
                   defaultValue={currentLevel + 1}
                   onChangeCommitted={(event, value, ...args) => levelChanged(value - 1, ...args)}
@@ -54,7 +65,7 @@ const StartPage = (props) => {
                   stickyLabel={true}
                 />
             </div>
-              <Link to="/unmess/game"><StartButton /></Link>
+              <Link onClick={generateWordsForGame} to="/unmess/game"><StartButton /></Link>
             </>)
       }
     </div>
@@ -67,6 +78,11 @@ StartPage.propTypes = {
   pageChanged: PropTypes.func,
   currentLevel: PropTypes.number,
   currentPage: PropTypes.number,
+  useUserWords: PropTypes.bool,
+  isUserLogged: PropTypes.bool,
+  showNotifications: PropTypes.func,
+  setUsingOfUserWords: PropTypes.func,
+  generateWordsForGame: PropTypes.func,
 };
 
 export default StartPage;

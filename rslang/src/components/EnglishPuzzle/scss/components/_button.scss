@@ -1,10 +1,13 @@
 .button__container {
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin: 80px auto 0;
+  margin: 60px auto 30px;
 }
 
-.container .button {
+body .button,
+body .button,
+.button__container .button {
   margin: 0 20px;
   color: $color-button-text;
   font-family: 'Inter', sans-serif;
@@ -16,19 +19,21 @@
   &_big {
     padding: 10px 30px;
     font-size: 2rem;
-    @media (max-width: 740px) {
+    @include media-tablet {
       font-size: 2rem;
     }
-    @media (max-width: 520px) {
+    @include media-mobile {
       font-size: 1.6rem;
     }
   }
   &_small {
+    margin: 10px 20px;
     padding: 10px 20px;
     font-size: 1.4rem;
-    @media (max-width: 520px) {
+    @include media-mobile {
       padding: 5px 10px;
       font-size: 1.2rem;
     }
   }
 }
+

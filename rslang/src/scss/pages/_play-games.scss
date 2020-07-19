@@ -1,8 +1,11 @@
 .play-games {
+  position: relative;
+  overflow: hidden;
   background-color: $color-secondary;
   @include flex(column, center, center);
 
   @extend %padding;
+  padding-bottom: 90px;
 }
 
 .play-games__subtitle {
@@ -12,8 +15,9 @@
 }
 
 .games-cards-container {
+  z-index: 2;
   flex-wrap: wrap;
   width: 100%;
 
-  @include flex(row, center, center);
+  @include flex(row, center, flex-start);
 }

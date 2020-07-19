@@ -7,6 +7,7 @@ import { generateStepperMarks } from '../../../../../helpers/functions';
 
 import Switch from '../../../../../basicComponents/Switch';
 import Stepper from '../../../../../basicComponents/Stepper';
+import LiquidButton from "../../../../../basicComponents/LiquidButton";
 
 const StartView = ({
   onContinueLearning,
@@ -64,17 +65,21 @@ const StartView = ({
     )}
     <div className="lw-startview__button-group">
       {isContinued && (
-        <button className="lw-startview__button-group__button continue" onClick={() => onContinueLearning()}>
-          {buttonsNames.CONTINUE}
-        </button>
+        <LiquidButton
+          className="lw-startview__button"
+          onClick={() => onContinueLearning()}
+          text={buttonsNames.CONTINUE}
+        />
       )}
-      <button className="lw-startview__button-group__button start" onClick={() => onStartNewLearning()}>
-        {
+      <LiquidButton
+        className="lw-startview__button"
+        onClick={() => onStartNewLearning()}
+        text={
           isContinued
             ? buttonsNames.NEW_LESSON
             : text.ru.button.learnWords
         }
-      </button>
+      />
     </div>
   </div>
 );

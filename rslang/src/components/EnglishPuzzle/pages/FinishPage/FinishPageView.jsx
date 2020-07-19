@@ -10,9 +10,10 @@ const FinishPageView = ({
   paintingInfo,
   isBackground,
   backgroundUrl,
+  handleShowStatistic,
 }) => {
-  const { ru: { button: { newGame }, answersMistaken } } = text;
-  const buttonStyle = classNames('button', 'button_big');
+  const { ru: { button: { newGame, lastResults }, answersMistaken } } = text;
+  const buttonStyle = classNames('button', 'button_small');
   return (
     <div className="finish-page">
       {isBackground
@@ -28,14 +29,24 @@ const FinishPageView = ({
       <p className="title">{answersMistaken}
         <span className="wrong">{errorCount}</span>
       </p>
-      <Button
-        className={buttonStyle}
-        variant="contained"
-        size="large"
-        onClick={() => handleClickNewGame()}
-      >
-        {newGame}
-      </Button>
+      <div className="button__container">
+        <Button
+          className={buttonStyle}
+          variant="contained"
+          size="large"
+          onClick={() => handleClickNewGame()}
+        >
+          {newGame}
+        </Button>
+        <Button
+          className={buttonStyle}
+          variant="contained"
+          size="large"
+          onClick={() => handleShowStatistic()}
+        >
+          {lastResults}
+        </Button>
+      </div>
     </div>
   );
 };
@@ -46,6 +57,7 @@ FinishPageView.propTypes = {
   paintingInfo: PropTypes.object,
   isBackground: PropTypes.bool,
   backgroundUrl: PropTypes.string,
+  handleShowStatistic: PropTypes.func,
 };
 
 export default FinishPageView;

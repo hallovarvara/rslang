@@ -26,12 +26,14 @@
 @import './scss/components/menu-list';
 @import './scss/components/notification';
 @import './scss/components/preloader';
+@import './scss/components/liquid-button';
 @import './scss/components/menu-hamburger';
 @import './scss/components/hover-menu-list';
-@import './scss/components/savannah';
 @import './scss/components/question-icon';
 @import './scss/components/autoplay-icon';
 @import './scss/components/popover';
+@import './scss/components/spot';
+@import './scss/components/dotted-line';
 @import './scss/components/switch';
 
 /* Layouts */
@@ -46,9 +48,10 @@
 @import './scss/layouts/promo-page';
 @import './scss/layouts/sign-in-page';
 @import './scss/layouts/sign-up-page';
-@import './scss/layouts/about-us-page';
 @import './scss/layouts/vocabulary-page';
 
 /* Pages */
 @import './scss/pages/sprint';
+@import './scss/pages/savannah';
 @import './scss/pages/play-games';
+@import './scss/pages/about-us';

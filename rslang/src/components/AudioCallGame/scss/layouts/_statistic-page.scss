@@ -1,0 +1,40 @@
+.statistic__container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.statistic__date {
+  margin: 10px;
+  color: $color-light;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.statistic__item {
+  &_result {
+    margin-bottom: 70px;
+    border-bottom: 1px solid $color-light;
+    @include flex(row, space-between, flex-start);    
+  }  
+  &_title {
+    color: $color-light;
+    font-size: 2.6rem;
+  }
+  &_text {
+    color: $color-light;
+  }
+  .wrong {
+    margin-left: 10px;
+    padding: 0 10px;
+    color: $color-light;
+    background: $color-wrong-answer;
+    border-radius: 10px;
+  }
+  .right {
+    margin-left: 10px;
+    padding: 0 10px;
+    color: $color-light;
+    background: $color-right-answer;
+    border-radius: 10px;
+  }  
+}

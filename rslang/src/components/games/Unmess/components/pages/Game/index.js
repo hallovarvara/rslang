@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import GamePageView from './GamePage.jsx';
 import { localStorageItems } from '../../../helpers/contants';
+import FullPreloader from '../../FullPreloader';
 
 import {
   getPath,
@@ -12,7 +13,11 @@ import {
 import {
   gamesData,
   soundFinish,
+  applicationThings,
 } from '../../../../../../helpers/constants';
+import UserService from '../../../../../../helpers/userService';
+
+const userService = new UserService();
 
 class GamePage extends React.Component {
   currentDraggedWord = null;
@@ -217,12 +222,17 @@ class GamePage extends React.Component {
     const {
       currentWords,
       shuffledCurrentWords,
+      loading,
     } = this.props;
 
     const untouchedWords = [];
     const untouchedDefinitions = [];
     const guessedWords = [];
     const wrongWords = [];
+
+    if (loading) {
+      return <FullPreloader />;
+    }
 
     if (currentWords === null) {
       return <Redirect to={getPath(gamesData.unmess.startPath)} />;
@@ -259,6 +269,7 @@ class GamePage extends React.Component {
         localStorageItems.latestResults,
         JSON.stringify(currentLatestResults.slice(0, 10)),
       );
+      userService.handleEndOfGame(applicationThings.UNMESS);
 
       setTimeout(() => {
         this.props.history.push('/unmess/results');
@@ -291,6 +302,7 @@ GamePage.propTypes = {
   shuffledCurrentWords: PropTypes.arrayOf(PropTypes.object),
   currentWords: PropTypes.arrayOf(PropTypes.object),
   history: PropTypes.object,
+  loading: PropTypes.bool,
 };
 
 export default GamePage;

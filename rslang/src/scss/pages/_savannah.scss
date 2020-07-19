@@ -1,0 +1,81 @@
+.savannah__subtitle {
+  text-align: center;
+
+  @extend %subtitle;
+}
+
+.savannah__form-fields {
+  margin-bottom: 60px;
+  @include flex($align-items: flex-end, $justify-content: space-between);
+
+  & > div {
+    width: calc((100% - 60px) / 3);
+  }
+
+  label,
+  label.savannah__select-label {
+    position: relative;
+    top: 0;
+    font-size: 3rem;
+    line-height: 140%;
+  }
+
+  .MuiSelect-root,
+  .MuiInputBase-input{
+    font-size: 3rem;
+  }
+
+  .MuiFilledInput-root {
+    background: none;
+  }
+}
+
+.savannah {
+  .MuiList-root li.MuiListItem-button {
+    font-size: 3rem;
+  }
+}
+
+.savannah__buttons {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.savannah__button {
+  margin: 0 auto;
+  @include color-button-liquid($color-savannah-secondary);
+}
+
+.savannah__start-game .savannah__button {
+  padding-left: 90px;
+  padding-right: 90px;
+}
+
+.savannah__results_guessed {
+  margin-left: 20px;
+}
+
+.savannah__results_unguessed {
+  margin-right: 20px;
+}
+
+.savannah__gamelifes {
+  height: fit-content;
+  margin-top: 3px;
+}
+
+.savannah__background {
+  opacity: 0.3;
+  @extend %fill-container;
+
+  @include background-image(
+    $url: url('../../assets/images/savannah-bg.svg')
+  );
+}
+
+.savannah__start-game,
+.savannah__finish-game,
+.savannah__active-game {
+  position: relative;
+  z-index: 2;
+}

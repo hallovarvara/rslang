@@ -1,6 +1,6 @@
 .header {
   position: fixed;
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   height: $header-height;
   padding: 20px 30px;
@@ -37,7 +37,7 @@
       @include navigation-colors($color-primary);
     }
     &_savannah {
-      @include navigation-colors(complement($color-savannah-secondary));
+      @include navigation-colors(darken($color-savannah-secondary, 10%));
     }
     &_sprint {
       @include navigation-colors($color-sprint-primary);

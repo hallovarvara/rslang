@@ -1,28 +1,5 @@
 .game-card {
-  position: relative;
-  max-width: 550px;
-  margin: 40px 30px;
-  text-align: center;
-
-  @include flex(column, flex-start, flex-start);
-
-  @include media-laptop {
-    max-width: 380px;
-  }
-
-  @include media-tablet {
-    max-width: 340px;
-    margin: 20px;
-  }
-
-  @include media-big-mobile {
-    max-width: 300px;
-  }
-
-  @include media-mobile {
-    max-width: 360px;
-    margin: 10px;
-  }
+  @extend %card-2-in-row;
 }
 
 .game-card > * {

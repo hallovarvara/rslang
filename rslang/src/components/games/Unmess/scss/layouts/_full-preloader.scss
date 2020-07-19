@@ -1,0 +1,5 @@
+.unmess-full-preloader {
+  width: 100vw;
+  height: calc(100vh - #{$header-height});
+  @include flex(row, center, center);
+}

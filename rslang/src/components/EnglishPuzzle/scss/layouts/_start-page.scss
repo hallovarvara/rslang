@@ -2,7 +2,6 @@
   .start-page {
     width: 100%;
     margin: 0 auto;
-    padding: 30px 0px;
     @include flex(column, center, center);
   }
 
@@ -23,7 +22,7 @@
   }
 
   .start-page__description {
-    margin: 20px 0 40px;
+    margin: 20px 40px 40px;
     color: $color-light;
     font-size: 3rem;
     line-height: 1.5;
@@ -33,13 +32,17 @@
     }
   }
 
-  button {
+  button,
+  button.MuiButtonBase-root {
+    padding: 10px 40px;
+
     &:not(:first-child) {
       margin-left: 20px;
     }
 
     .MuiButton-label {
       font-size: 2.2rem;
+      line-height: 120%;
       text-transform: initial;
     }
   }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Preloader from '../../Preloader';
 import StartButton from '../../StartButton';
 import Stepper from '../../../../../../basicComponents/Stepper';
+import Select from '../../../../components/Select';
 
 import { text } from '../../../../../../helpers/constants';
 
@@ -22,6 +23,11 @@ class HomePage extends React.Component {
       currentPage,
       levelChanged,
       pageChanged,
+      useUserWords,
+      isUserLogged,
+      showNotifications,
+      setUsingOfUserWords,
+      generateWordsForGame,
     } = this.props;
 
     return (
@@ -30,7 +36,12 @@ class HomePage extends React.Component {
         <p className="home-page-container__description">{text.ru.speakit.instruction[0]}<br></br>{text.ru.speakit.instruction[1]}</p>
         {loading ? <Preloader />
           : <>
-            <div className="speakit-steppers-container">
+            <div className="speakit-settings-container">
+              <Select
+                setUsingOfUserWords={setUsingOfUserWords}
+                showNotifications={showNotifications}
+                useUserWords={useUserWords}
+                isUserLogged={isUserLogged}/>
               <Stepper
                   defaultValue={currentLevel + 1}
                   onChangeCommitted={(event, value, ...args) => levelChanged(value - 1, ...args)}
@@ -54,7 +65,7 @@ class HomePage extends React.Component {
                   stickyLabel={true}
                 />
             </div>
-            <StartButton />
+            <StartButton onClick={generateWordsForGame}/>
           </>
         }
       </div>
@@ -68,6 +79,11 @@ HomePage.propTypes = {
   currentPage: PropTypes.number,
   levelChanged: PropTypes.func,
   pageChanged: PropTypes.func,
+  useUserWords: PropTypes.bool,
+  isUserLogged: PropTypes.bool,
+  showNotifications: PropTypes.func,
+  setUsingOfUserWords: PropTypes.func,
+  generateWordsForGame: PropTypes.func,
 };
 
 export default HomePage;
