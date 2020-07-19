@@ -1,0 +1,23 @@
+.question__container {
+  height: 150px;
+  margin: 0 0 40px;
+  @include flex(column, center, center);
+  .picture {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  .hidden {
+    display: none;
+  }
+  .description {
+    line-height: 1;
+    @include flex(row, space-between, center);
+  }
+}
+
+.word {
+  color: $color-light;
+  font-size: 2.4rem;
+}

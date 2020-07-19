@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  TextField,
-  Button,
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import {
   text,
@@ -16,65 +11,99 @@ import {
   gamesData,
 } from '../../../../helpers/constants';
 
-import style from './StartGamePageView.module.scss';
+import Stepper from '../../../../basicComponents/Stepper';
+
+import { generateStepperMarks } from '../../../../helpers/functions';
 
 const StartGamePageView = ({
-  handleChooseLevel,
-  level,
-  setNumberLevel,
-  setNumberAnswers,
+  getCountAnswers,
+  getCountQuestions,
+  countAnswers,
+  countQuestions,
   handleSubmitForm,
+  numberLevel,
+  numberPage,
+  getLevel,
+  getPage,
 }) => {
-  const options = [];
-  for (let numberLevel = 0; numberLevel <= count.groups; numberLevel += 1) {
-    options.push(<option value={numberLevel} key={numberLevel}>{`${formLabel.level} ${numberLevel}`}</option>);
-  }
+  const {
+    ru: {
+      chooseLevel,
+      choosePage,
+      button: { startGame },
+      audioCall: { instruction },
+    },
+  } = text;
+  const {
+    groups,
+    pages,
+    maxCountQuestions,
+    maxCountAnswers,
+    minCountQuestions,
+    minCountAnswers,
+  } = count;
+  const { audiocall: { title } } = gamesData;
+  const { questions, answers } = formLabel;
+  const buttonStyle = classNames('button', 'button_big');
   return (
-    <div className={style.container}>
-      <h1 className={style.title}>{gamesData.audiocall.title}</h1>
-      <p className={style.text}>Тренировка улучшает восприятие английского на слух</p>
-      <form className={style.form} onSubmit={handleSubmitForm}>
-        <FormControl variant="outlined">
-          <InputLabel htmlFor="outlined-level-native-simple">{formLabel.chooseLevel}</InputLabel>
-          <Select
-            native
-            value={level || 0}
-            onChange={handleChooseLevel}
-            label={formLabel.chooseLevel}
-            inputProps={{
-              name: 'level',
-              id: 'outlined-level-native-simple',
-            }}
-          >
-            {options}
-          </Select>
-        </FormControl>
-        <TextField
-          required
-          className={style.input}
-          id="audiocall-start__questions"
-          type="number"
-          label={formLabel.questions}
-          defaultValue="5"
-          inputProps={{ pattern: '[0-9]', min: '5', max: '12' }}
-          variant="filled"
-          onChange={setNumberLevel}
+    <div className="start-page">
+      <h1 className="start-page__title">{title}</h1>
+      <p className="start-page__description">{instruction}</p>
+        <form className="start__form" onSubmit={() => handleSubmitForm()}>
+      <div className="audioCall-steppers-container">
+        <Stepper
+          defaultValue={numberLevel + 1}
+          onChangeCommitted={(event, value, ...args) => getLevel(value - 1, ...args)}
+          step={null}
+          max={groups}
+          marks={generateStepperMarks(groups)}
+          className="audioCall-levels-stepper"
+          label={chooseLevel}
+          arrayOfColorsForTrack={['#7CCBB3', '#90BE6D', '#F9C74F', '#F8961E', '#F3722C', '#F94144']}
+          stickyLabel={false}
         />
-        <TextField
-          required
-          id="audiocall-start__questions"
-          type="number"
-          label={formLabel.answers}
-          defaultValue="5"
-          inputProps={{ pattern: '[2-5]', min: '2', max: '5' }}
-          variant="filled"
-          onChange={setNumberAnswers}
+        <Stepper
+          defaultValue={numberPage + 1}
+          onChangeCommitted={(event, value, ...args) => getPage(value - 1, ...args)}
+          step={null}
+          max={pages}
+          marks={generateStepperMarks(pages)}
+          className="audioCall-pages-stepper"
+          label={choosePage}
+          arrayOfColorsForTrack={(new Array(pages)).fill('#84D7C3')}
+          stickyLabel={true}
         />
+        <Stepper
+          defaultValue={countQuestions}
+          onChangeCommitted={(event, value, ...args) => getCountQuestions(value, ...args)}
+          step={null}
+          min={minCountQuestions}
+          max={maxCountQuestions}
+          marks={generateStepperMarks(maxCountQuestions)}
+          className="audioCall-question-stepper"
+          label={questions}
+          arrayOfColorsForTrack={(new Array(maxCountQuestions)).fill('#84D7C3')}
+          stickyLabel={true}
+        />
+        <Stepper
+          defaultValue={countAnswers}
+          onChangeCommitted={(event, value, ...args) => getCountAnswers(value, ...args)}
+          step={null}
+          min={minCountAnswers}
+          max={maxCountAnswers}
+          marks={generateStepperMarks(maxCountAnswers)}
+          className="audioCall-answers-stepper"
+          label={answers}
+          arrayOfColorsForTrack={(new Array(maxCountAnswers)).fill('#84D7C3')}
+          stickyLabel={true}
+        />
+      </div>
         <Button
+          className={buttonStyle}
           type="submit"
           variant="contained"
         >
-         { text.ru.button.startGame }
+         {startGame}
         </Button>
       </form>
     </div>
@@ -85,8 +114,16 @@ StartGamePageView.propTypes = {
   handleChooseLevel: PropTypes.func,
   level: PropTypes.number,
   setNumberLevel: PropTypes.func,
-  setNumberAnswers: PropTypes.func,
+  setcountAnswers: PropTypes.func,
   handleSubmitForm: PropTypes.func,
+  numberLevel: PropTypes.number,
+  numberPage: PropTypes.number,
+  getLevel: PropTypes.func,
+  getPage: PropTypes.func,
+  getCountAnswers: PropTypes.func,
+  getCountQuestions: PropTypes.func,
+  countAnswers: PropTypes.number,
+  countQuestions: PropTypes.number,
 };
 
 export default StartGamePageView;

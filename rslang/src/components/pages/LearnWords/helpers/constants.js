@@ -3,11 +3,7 @@ export const initialState = {
   totalWords: 0,
   isAutoPlay: true,
   words: [],
-  progress: [],
   isLogged: false,
-  token: '',
-  userId: '',
-  audio: null,
   isFetching: false,
   category: 'all',
   isFirstPassDone: false,
@@ -18,6 +14,9 @@ export const initialState = {
   statsNewWordsCount: 0,
   statsMistakesCount: 0,
   statsRightAnswerSeries: 0,
+  isWordsRandomly: false,
+  userPage: 0,
+  userLevel: 0,
 };
 
 export const buttonsNames = {
@@ -27,8 +26,8 @@ export const buttonsNames = {
   SHOW_ANSWER: 'Показать ответ',
   PREV: 'пред.',
   NEXT: 'след.',
-  CONTINUE: ' Продолжить',
-  NEW_LESSON: 'Новый',
+  CONTINUE: 'Продолжить',
+  NEW_LESSON: 'Начать заново',
   CHECK_ANSWER: 'Проверить ответ',
   PLAY: 'Прослушать',
 };

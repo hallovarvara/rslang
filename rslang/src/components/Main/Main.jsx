@@ -17,6 +17,7 @@ import SprintGame from '../Sprint';
 import SavannahGame from '../Savannah';
 import UnmessGame from '../games/Unmess';
 import SpeakitGame from '../games/Speakit';
+import EnglishPuzzleGame from '../EnglishPuzzle';
 
 import Notification from '../../basicComponents/Notification';
 
@@ -30,7 +31,7 @@ const {
 
 const {
   audiocall, sprint, savannah,
-  unmess, speakit, // englishPuzzle,
+  unmess, speakit, englishPuzzle,
 } = gamesData;
 
 const Main = ({ username, authFailed }) => (
@@ -50,23 +51,20 @@ const Main = ({ username, authFailed }) => (
       <Route path={getPath(savannah.path)} component={SavannahGame} />
       <Route path={getPath(unmess.path)} component={UnmessGame} />
       <Route path={getPath(speakit.path)} component={SpeakitGame} />
-      {/*<Route path={getPath(englishPuzzle.path)} component={EnglishPuzzleGame} />*/}
+      <Route path={getPath(englishPuzzle.path)} component={EnglishPuzzleGame} />
     </Switch>
     {
       Boolean(username)
       && <Notification
+        className="notification_success"
         variant="success"
-        message={`${text.ru.welcome.replace('{username}', username)}`}
-        duration={5000}
-        position={{ vertical: 'top', horizontal: 'center' }}/>
+        message={`${text.ru.welcome.replace('{username}', username)}`}/>
     }
     {
       authFailed
       && <Notification
         variant="error"
-        message={`${text.ru.incorrectLoginData}`}
-        duration={5000}
-        position={{ vertical: 'top', horizontal: 'center' }}/>
+        message={`${text.ru.incorrectLoginData}`}/>
     }
   </main>
 );

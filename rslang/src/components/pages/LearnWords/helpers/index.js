@@ -1,3 +1,4 @@
+import React from 'react';
 import { RSLANG_SESSION_PROGRESS } from './constants';
 import { successColor, fewErrorsColor, manyErrorsColor } from './style-options';
 import { apiLinks } from '../../../../helpers/constants';
@@ -44,10 +45,7 @@ export const setSessionProgress = (progress) => {
   localStorage.setItem(RSLANG_SESSION_PROGRESS, JSON.stringify(progress));
 };
 
-export const checkSessionProgress = (words) => {
-  console.log('inside check');
-  return words.find((el) => el.progress.isGuessed === true);
-};
+export const checkSessionProgress = (words) => words.find((el) => !el.progress.isGuessed);
 
 export const clearSessionProgress = () => {
   localStorage.removeItem(RSLANG_SESSION_PROGRESS);
@@ -73,27 +71,38 @@ export const prepareWrongAnswerStyles = (isShownWord, isWordSemiOpacity) => {
   return styles;
 };
 
-export const playAudios = (audios) => {
-  const audio = new Audio();
-  if (!Array.isArray(audios)) {
-    audio.src = resourceUrl(audios);
-    audio.play();
-  } else {
-    let index = 0;
-    audio.src = resourceUrl(audios[index]);
-    audio.play();
-
-    audio.onended = () => {
-      if (index < audios.length) {
-        setTimeout(() => {
-          index += 1;
-          audio.src = resourceUrl(audios[index]);
-          audio.play();
-        }, 300);
-      }
-    };
+class AudioPlayer {
+  constructor() {
+    this.current = new Audio();
   }
-};
+
+  playAudios = (audios) => {
+    if (!Array.isArray(audios)) {
+      this.current.src = resourceUrl(audios);
+      this.current.play();
+    } else {
+      let index = 0;
+      this.current.src = resourceUrl(audios[index]);
+      this.current.play();
+
+      this.current.onended = () => {
+        if (index < audios.length - 1) {
+          setTimeout(() => {
+            index += 1;
+            this.current.src = resourceUrl(audios[index]);
+            this.current.play();
+          }, 300);
+        }
+      };
+    }
+  }
+
+  stopAudios = () => {
+    this.current.pause();
+  }
+}
+
+export const audioplayer = new AudioPlayer();
 
 export const calculatePrevWordCard = (words, current) => {
   let result;
@@ -131,4 +140,20 @@ export const calculateNextWordCard = (words, current) => {
     }
   }
   return result;
+};
+
+export const mapSentenceToSpanItems = (sentence) => (
+  sentence.split(' ').map((word, index) => <span key={index}>{word}</span>)
+);
+
+export const replaceElInArrayOfObject = (array, object) => {
+  const indexOfObject = array.findIndex((wordObj) => (
+    wordObj.id === object.id
+  ));
+
+  return [
+    ...array.slice(0, indexOfObject),
+    { ...object },
+    ...array.slice(indexOfObject + 1),
+  ].map((wordObj) => ({ ...wordObj }));
 };

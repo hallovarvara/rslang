@@ -6,12 +6,19 @@ import Varya from '../assets/images/team/varvara-deviaterikova.jpg';
 import Ksusha from '../assets/images/team/kseniya-yatskevich.jpeg';
 import Max from '../assets/images/team/maksym-kaspriv.jpg';
 import Artem from '../assets/images/team/artem-rimarchyk.jpeg';
-// import Dima from '../assets/images/team/dmitry-lebetsky.jpg'; // TODO add Dima's photo
+import Dima from '../assets/images/team/dmitry-lebetsky.jpg';
 import Lesha from '../assets/images/team/alexei-osipov.jpg';
+
+import SavannahIcon from '../assets/icons/icon-game-savannah.png';
+import SprintIcon from '../assets/icons/icon-game-sprint.png';
+import AudiocallIcon from '../assets/icons/icon-game-audiocall.png';
+import EnglishPuzzleIcon from '../assets/icons/icon-game-english-puzzle.png';
+import SpeakitIcon from '../assets/icons/icon-game-speakit.png';
+import UnmessIcon from '../assets/icons/icon-game-unmess.png';
 
 const apiLinks = {
   file: 'https://raw.githubusercontent.com/hallovarvara/rslang-data/master/',
-  base: 'https://afternoon-falls-25894.herokuapp.com/',
+  base: 'https://kagafon-learn-words.herokuapp.com/',
   paintings: 'https://raw.githubusercontent.com/hallovarvara/rslang_data_paintings/master/',
 };
 
@@ -43,7 +50,7 @@ export const userSettingsTemplate = {
 };
 
 const preloaderdefaultSettings = {
-  size: 150,
+  size: 100,
   color: '#843FDD',
 };
 
@@ -56,20 +63,27 @@ export const levelsOfDifficulty = {
 export const dateFormatTemplate = 'DD.MM.YYYY';
 
 const linkedinLink = 'https://www.linkedin.com/in/';
+const githubLink = 'https://github.com/';
 const promoVideoLink = 'https://www.w3schools.com/html/mov_bbb.mp4';
 
 const pagesData = {
   aboutUs: {
     title: 'Кто мы',
+    subtitle: 'Привет! Мы&nbsp;рады представить продукт нашей совместной работы&nbsp;&mdash; приложение по&nbsp;изучению английского языка',
     path: 'about-us',
     guest: { isVisible: true, index: 3 },
     user: { isVisible: true, index: 2 },
   },
   learnWords: {
-    title: 'Учить слова',
+    title: 'Изучение слов',
+    description: 'Расширяйте английский лексикон с помощью встроенных правил повторения слов',
+    rules: 'Впишите правильное слово в предложение',
+    rateDescription: 'Оцените, насколько легко было угадать слово:',
     path: 'learn',
     guest: { isVisible: true, index: 1 },
     user: { isVisible: true, index: 0 },
+    chooseLevel: 'Сложность слов',
+    choosePage: 'Набор слов',
   },
   play: {
     title: 'Играть',
@@ -81,18 +95,24 @@ const pagesData = {
     title: 'О проекте',
     path: '',
     guest: { isVisible: true, index: 0 },
-    user: { isVisible: true, index: 2 },
+    user: { isVisible: true, index: 3 },
   },
   settings: {
     title: 'Настройки',
     path: 'settings',
     guest: { isVisible: false },
-    user: { isVisible: true, index: 6 },
+    user: { isVisible: false, index: 5 },
   },
   signIn: {
     title: 'Войти',
     path: 'sign-in',
-    guest: { isVisible: true, index: 6 },
+    guest: { isVisible: false, index: 4 },
+    user: { isVisible: false },
+  },
+  signOut: {
+    title: 'Выйти',
+    path: 'sign-in',
+    guest: { isVisible: false },
     user: { isVisible: false },
   },
   register: {
@@ -104,14 +124,14 @@ const pagesData = {
   statistics: {
     title: 'Статистика',
     path: 'statistics',
-    guest: { isVisible: true, index: 4 },
+    guest: { isVisible: false },
     user: { isVisible: true, index: 4 },
   },
   vocabulary: {
     title: 'Словарь',
     path: 'vocabulary',
-    guest: { isVisible: true, index: 5 },
-    user: { isVisible: true, index: 5 },
+    guest: { isVisible: false },
+    user: { isVisible: false },
   },
 };
 
@@ -120,33 +140,39 @@ const gamesData = {
     title: 'Аудиовызов',
     description: 'Прокачивайте восприятие языка на&nbsp;слух, а&nbsp;также увеличивайте свой словарный запас',
     path: 'audiocall',
+    icon: AudiocallIcon,
   },
   savannah: {
     title: 'Саванна',
     description: 'Угадывайте, как переводятся слова, и&nbsp;вместе с&nbsp;этим пополняйте лексикон',
     path: 'savannah',
+    icon: SavannahIcon,
   },
   sprint: {
     title: 'Спринт',
     description: 'Играйте на&nbsp;время, чтобы точно знать, как много слов вы&nbsp;можете перевести за&nbsp;минуту',
     path: 'sprint',
+    icon: SprintIcon,
   },
   englishPuzzle: {
     title: 'English Puzzle',
     description: 'Учитесь строить предложения и&nbsp;знакомьтесь с&nbsp;величайшими произведениями искусства',
     path: 'english-puzzle',
+    icon: EnglishPuzzleIcon,
   },
   speakit: {
     title: 'SpeakIt',
     description: 'Вырабатывайте правильное произношение слов вместе с&nbsp;нашей космической игрой',
     path: 'speakit',
     startPath: 'speakit/home',
+    icon: SpeakitIcon,
   },
   unmess: {
     title: 'Unmess',
     description: 'Соединяйте слова и&nbsp;их&nbsp;значения, расширяя запас слов и&nbsp;улучшая понимание смысла фраз',
     path: 'unmess',
     startPath: 'unmess/home',
+    icon: UnmessIcon,
   },
 };
 
@@ -154,37 +180,42 @@ const teamMembers = [
   {
     name: 'Варвара',
     surname: 'Девятерикова',
-    role: 'Тимлид. Проектировала и оформляла, верстала, тестировала, стыковала команду и код. Настроила git, сделала доску задач и заполняла ее. Создала инструкции по Git и совместной работе, планировала, устраивала встречи и вела заметки по ним, помогала команде и презентовала проект',
+    role: 'Тимлид. Проектировала и&nbsp;оформляла, верстала, тестировала, стыковала команду и&nbsp;код. Настроила репозиторий в&nbsp;GitHub, сделала доску задач и&nbsp;заполняла&nbsp;ее. Создала инструкции по&nbsp;Git и&nbsp;совместной работе, планировала, устраивала встречи и&nbsp;вела заметки по&nbsp;ним, помогала команде, презентовала проект',
     image: Varya,
     linkedinUsername: 'hallovarvara',
+    githubUsername: 'hallovarvara',
   },
   {
     name: 'Максим',
     surname: 'Касприв',
-    role: 'Придумал, внедрил и презентовал алгоритм интервального повторения слов, реализовал изучение слов, настраиваемые сервисы для получения слов, модели данных для статистики, настроек и общую для проекта. Снял 2 обучающих видео, разобрался в устройстве бэкэнда и помогал команде',
+    role: 'Придумал, внедрил и&nbsp;презентовал алгоритм интервального повторения слов, реализовал изучение слов, сервисы для получения слов, модели данных: общую, для статистики и&nbsp;настроек. Снял 2&nbsp;обучающих видео, разобрался в&nbsp;устройстве бэкэнда и&nbsp;помогал команде',
     image: Max,
     linkedinUsername: 'maksym-kaspriv',
+    githubUsername: 'VestryOd',
   },
   {
     name: 'Дмитрий',
     surname: 'Лебецкий',
-    role: `Сделал игры ${gamesData.speakit.title} и ${gamesData.unmess.title} с уникальным дизайном, базовые компоненты и страницы, словарь. Верстал, стилизовал, структурировал код, помогал тимлиду и команде`,
-    // image: Dima,  // TODO add Dima's photo
+    role: `Сделал игры ${gamesData.speakit.title} и&nbsp;${gamesData.unmess.title} с&nbsp;уникальным дизайном, базовые компоненты и&nbsp;страницы, словарь. Верстал, стилизовал, структурировал код, активно брался за&nbsp;любые задачи в&nbsp;любых частях приложения, помогал тимлиду и&nbsp;команде`,
+    image: Dima,
     linkedinUsername: 'dmitry-lebetsky',
+    githubUsername: 'DmitryLebetsky',
   },
   {
     name: 'Артем',
     surname: 'Римарчук',
-    role: `Сделал игры ${gamesData.sprint.title} и ${gamesData.savannah.title}, статистику, авторизацию, регистрацию. Разработал сервисы для получения слов в модулях приложения, фильтрации данных пользователя для бэкэнда и отправки данных на бэкэнд, активно исправлял ошибки приложения`,
+    role: `Сделал игры ${gamesData.sprint.title} и&nbsp;${gamesData.savannah.title}, статистику, авторизацию, регистрацию. Разработал сервисы для получения слов в&nbsp;модулях приложения, фильтрации данных пользователя для бэкэнда и&nbsp;отправки данных на&nbsp;бэкэнд, активно исправлял ошибки приложения`,
     image: Artem,
     linkedinUsername: 'artemrimarchyk',
+    githubUsername: 'Kejno',
   },
   {
     name: 'Ксения',
     surname: 'Яцкевич',
-    role: `Сделала игры ${gamesData.audiocall.title} и ${gamesData.englishPuzzle.title}, настраивала окружение проекта, устанавливала необходимый для работы инструментарий`,
+    role: `Сделала игры ${gamesData.audiocall.title} и&nbsp;${gamesData.englishPuzzle.title}, настраивала окружение проекта, устанавливала необходимый для работы инструментарий`,
     image: Ksusha,
     linkedinUsername: 'ksenia-yatskevich',
+    githubUsername: 'KseniyaYatskevich',
   },
   {
     name: 'Алексей',
@@ -192,6 +223,7 @@ const teamMembers = [
     role: 'Разработал базовую структуру страницы словаря',
     image: Lesha,
     linkedinUsername: '',
+    githubUsername: 'algoritmiks',
   },
 ];
 
@@ -223,10 +255,11 @@ const text = {
     firstTimeOrForgotPassword: 'Впервые тут или забыли пароль?',
     incorrectLoginData: 'Вы ввели неправильный логин или пароль. Попробуйте снова',
     userUndefined: 'Емейл не зарегистрирован. Проверьте правильность его написания или зарегистрируйтесь',
-    welcome: 'Добро пожаловать, {username} :)',
+    welcome: 'Привет, {username} :)',
 
     /* Play page */
     chooseGame: 'Выберите игру',
+    everyGameImprove: 'Каждая игра улучшит отдельный набор знаний и&nbsp;умений',
 
     /* Vocabulary page */
     restoreForLearning: 'Вернуть к изучаемым',
@@ -300,23 +333,27 @@ const text = {
     howManyWords: 'Сколько слов хотите угадать',
     chooseLevel: 'Выберите уровень сложности',
     choosePage: 'Выберите набор слов',
+    selectOptionsForUsedWord: ['изученные слова', 'новые слова'],
+    studiedByYou: 'изученные слова',
+    newByComplexity: 'новые слова',
     newGame: 'Новая игра',
     restart: 'Сначала',
     speakPlease: 'Нажмите и произносите слова',
     results: 'Результаты',
     return: 'Назад',
-    latestRusults: 'Последние результаты',
     currentResults: 'Текущие результаты',
     notEnoughWords: '* Если в словаре недостаточно слов для игр, слова будут появляться из выбранного уровня',
-    selectOptionsForUsedWord: ['изученные вами', 'новые по сложности'],
-    studiedByYou: 'изученные вами',
-    newByComplexity: 'новые по сложности',
     loginPleaseToUseThisFeature: 'Войдите в систему, чтобы воспользоваться этим функционалом',
     backendCrashed: 'Извините, сервис временно недоступен',
 
     /* Unmess */
     unmess: {
       instruction: 'Схватите слово и отпустите над его значением',
+    },
+
+    /* Audiocall */
+    audioCall: {
+      instruction: 'Прослушайте слово и выберите его правильный перевод',
     },
 
     /* Speakit */
@@ -327,16 +364,26 @@ const text = {
       noResults: 'У вас еще нет результатов :(',
     },
 
+    /* Sprint */
+    sprint: {
+      translatedAs: 'переводится как',
+    },
+
     /* Buttons */
     button: {
       next: 'Далее',
       dontKnow: 'Не знаю',
+      right: 'да',
+      wrong: 'нет',
       startGame: 'Играть',
       newGame: 'Начать новую игру',
+      check: 'Проверить',
       learnWords: 'Изучать слова',
       learnEnglishWithUs: 'Учите английский с нами',
-      startLearningWithUs: 'Начать учиться с нами',
+      startLearningWithUs: 'Начать учиться с&nbsp;нами',
       playRightNow: 'Сыграть прямо сейчас',
+      lastResults: 'Последние результаты',
+      currentResults: 'Текущие результаты',
     },
 
     noVideoSupport: 'Извините, ваш браузер не поддерживает встроенное видео',
@@ -346,8 +393,8 @@ const text = {
 const formLabel = {
   level: 'Уровень',
   chooseLevel: 'Выберите уровень',
-  questions: 'Сколько слов хотите отгадать? (5—12)',
-  answers: 'Сколько показывать вариантов ответов? (2—5)',
+  questions: 'Сколько слов хотите отгадать?',
+  answers: 'Сколько показывать вариантов ответов?',
 };
 
 const questionStatus = {
@@ -371,6 +418,10 @@ const count = {
   groups: 6,
   pages: 29,
   words: 19,
+  maxCountQuestions: 12,
+  minCountQuestions: 5,
+  maxCountAnswers: 5,
+  minCountAnswers: 2,
 
   /* Time */
   minInHour: 60,
@@ -380,11 +431,6 @@ const count = {
 
   /* Defaults */
   elementsPerPage: 10,
-
-  /* Game Audiocall */
-  audiocall: {
-    maxLevels: 12,
-  },
 
   /* Game Savannah */
   savannah: {
@@ -403,12 +449,23 @@ const count = {
   },
 };
 
+const dateOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false,
+};
+
 export {
   pagesData,
   vocabularySelectorOptions,
   apiLinks,
   promoVideoLink,
   linkedinLink,
+  githubLink,
   gamesData,
   teamMembers,
   audio,
@@ -422,4 +479,5 @@ export {
   questionStatus,
   preloaderdefaultSettings,
   ratesScale,
+  dateOptions,
 };

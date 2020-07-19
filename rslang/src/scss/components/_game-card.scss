@@ -1,37 +1,61 @@
 .game-card {
-  position: relative;
-  width: 670px;
-  margin: 0px 20px 40px 20px;
-  padding: 40px;
-  @include flex(column, flex-start, flex-start);
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    filter: brightness(0.4) blur(1px);
-    content: '';
-    @include background-image(url('../../assets/images/game-card-bg.jpg'));
-  }
+  @extend %card-2-in-row;
 }
 
 .game-card > * {
   position: relative;
 }
 
+.game-card__icon {
+  margin: 0 auto;
+  width: 100px;
+  height: auto;
+}
+
 .game-card__title {
   margin-bottom: 10px;
-  color: $color-light;
-  font-size: 6rem;
+  width: 100%;
+
+  @include font(
+    $size: 6rem,
+    $weight: $font-weight-regular,
+    $family: $font-secondary,
+    $spacing: 0.04
+  );
 }
 
 .game-card__description {
   margin-bottom: 40px;
-  color: $color-light;
-  font-size: 3.4rem;
+
+  @include font(
+    $size: 3rem,
+    $weight: $font-weight-light,
+    $spacing: 0.06,
+    $line-height: 160%
+  );
+
+  @include media-tablet {
+    font-size: 2.4rem;
+  }
+
+  @include media-big-mobile {
+    font-size: 2rem;
+  }
+
+  @include media-mobile {
+    font-size: 1.6rem;
+  }
 }
 
-.game-card__link-button-container button {
-  font-size: 2.8rem;
+.game-card__link-button-container {
+  display: block;
+  width: 100%;
+
+  button {
+    @include button-secondary();
+
+    font-size: 3.4rem;
+    background-color: transparent;
+    box-shadow: none;
+  }
 }

@@ -5,6 +5,7 @@ import StartGame from './Components/StartGame';
 import PlayGame from './Components/PlayGame';
 import FinishGame from './Components/FinishGame';
 import UserService from '../../helpers/userService';
+import Select from '../games/components/Select'
 
 import {
   text,
@@ -41,11 +42,11 @@ const initialState = {
   activeQuestion: '',
   activeAnswer: '',
   activeCard: 0,
-  isTrue: false,
-  isAnswerQuiz: 'default',
+  isTrue: null,
+  isAnswerQuiz: 0,
   audio: [],
   answerState: null,
-  currentGroup: null,
+  currentGroup: 0,
   counter: {
     total: 0,
     multiplier: 1,
@@ -79,7 +80,7 @@ class Sprint extends Component {
 
   status = questionStatus;
 
-  state = initialState
+  state = JSON.parse(JSON.stringify(initialState))
 
   resultTitle = {
     success: text.ru.answersCorrect,
@@ -120,7 +121,7 @@ class Sprint extends Component {
       const activeCard = getRandomNumber(0, allCards.length - 1);
       const activeQuestion = words[0];
       const wordObject = allCards[0];
-      const activeAnswer = translateWords[Math.round(Math.random())];
+      const activeAnswer = translateWords[activeCard];
       if (translateWords[0] === activeAnswer) {
         isTrue = true;
       }
@@ -154,8 +155,8 @@ class Sprint extends Component {
     const {
       words, translate, total, audio,
     } = this.state[value];
-    translate.push(this.state.translateWords[this.state.activeCard]);
-    audio.push(this.state.audio[this.state.activeCard]);
+    translate.push(this.state.translateWords[0]);
+    audio.push(this.state.audio[0]);
     words.push(this.state.activeQuestion);
     this.setState({
       [value]: {
@@ -193,8 +194,9 @@ class Sprint extends Component {
     }, 1000);
     if (this.state.timer === 0) {
       clearTimeout(timerId);
-      this.setState({ isFinished: true });
+      this.setState({ isFinished: true, });
       saveSessionInfoToLocal(applicationThings.SPRINT);
+
     }
   }
 
@@ -238,24 +240,25 @@ class Sprint extends Component {
   }
 
   onReloadGame = () => {
-    const state = { ...initialState };
-    this.setState({ ...state });
-    this.updateState();
+    const state = JSON.parse(JSON.stringify(initialState))
+    this.setState({
+      ...state,
+    });
   }
 
-  isChangeUserWords = () => {
-    this.setState(({ checkedUserWords }) => ({
-      checkedUserWords: !checkedUserWords,
-    }));
+  isChangeUserWords = (checkedUserWords) => {
+    this.setState({
+      checkedUserWords,
+    });
   }
 
-  handleCurrentGroup = (event) => {
-    this.setState({ currentGroup: event.target.value });
+  handleCurrentGroup = (value) => {
+    this.setState({ currentGroup: value });
   }
 
   render() {
     const {
-      words, activeAnswer, translateWords, isAnswerQuiz, counter,
+      words, activeAnswer, translateWords, isAnswerQuiz, counter, currentGroup,
       volume, score, timer, isFinished, mistake, complete, isStarted,
     } = this.state;
 
@@ -264,9 +267,9 @@ class Sprint extends Component {
       page = <StartGame
         isStarted={isStarted}
         startGame={() => this.setState({ isStarted: true })}
-        handleChangeUserWords={this.isChangeUserWords}
         handleCurrentGroup={this.handleCurrentGroup}
         updateState={this.updateState}
+        currentGroup={currentGroup}
       />;
     } else if (isStarted && isFinished) {
       page = <FinishGame
@@ -295,14 +298,23 @@ class Sprint extends Component {
     }
 
     return (
-      <div className={'sprint__wrapper'}>
-        <div className={'sprint__container'}>
-          <h1>{gamesData.sprint.title}</h1>
+      <div className="sprint__wrapper">
+        <div className="sprint__container">
+          <div className="sprint__title">
+            <h1>{gamesData.sprint.title}</h1>
+            { this.props.token && (
+              <Select
+                className="sprint-start__select"
+                setUsingOfUserWords={this.isChangeUserWords}
+                useUserWords={this.state.checkedUserWords}
+                isUserLogged={this.props.token}
+              />)
+            }
+          </div>
           {page}
-
         </div>
+        <div className="sprint__background"></div>
       </div>
-
     );
   }
 }

@@ -38,7 +38,7 @@ const countQuestionsSets = (questionsNumber) => (
 
 const generateQuestionsArray = (
   data,
-  amountLevels = count.audiocall.maxLevels,
+  amountLevels = count.audiocall.countQuestionss,
 ) => (
   shuffleArray(data).slice(0, amountLevels)
 );
@@ -69,6 +69,11 @@ const generateStepperMarks = (stepsCount) => (
     }))
 );
 
+const handleError = (error) => {
+  console.error(error);
+  // TODO handle error
+};
+
 export {
   getFilePath,
   generateQuestionsArray,
@@ -82,4 +87,5 @@ export {
   getTokenLifetimeInMs,
   getPath,
   generateStepperMarks,
+  handleError,
 };

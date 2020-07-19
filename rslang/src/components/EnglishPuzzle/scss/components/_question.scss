@@ -1,0 +1,20 @@
+.question__container {
+  width: 80%;
+  margin: 0 auto;
+  @include flex(column, center, center);
+  & .icon {
+    font-size: 3rem;
+  }
+}
+
+div .disabled {
+  cursor: default;
+  opacity: 0;
+}
+
+.question__text {
+  color: $color-light;
+  font-size: 1.8rem;
+  text-align: center;
+  user-select: none;
+}

@@ -1,0 +1,39 @@
+.button__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 60px auto 30px;
+}
+
+body .button,
+body .button,
+.button__container .button {
+  margin: 0 20px;
+  color: $color-button-text;
+  font-family: 'Inter', sans-serif;
+  background-color: $color-light;
+  border: 1px solid $color-light;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.7s ease;
+  &_big {
+    padding: 10px 30px;
+    font-size: 2rem;
+    @include media-tablet {
+      font-size: 2rem;
+    }
+    @include media-mobile {
+      font-size: 1.6rem;
+    }
+  }
+  &_small {
+    margin: 10px 20px;
+    padding: 10px 20px;
+    font-size: 1.4rem;
+    @include media-mobile {
+      padding: 5px 10px;
+      font-size: 1.2rem;
+    }
+  }
+}
+

@@ -1,0 +1,24 @@
+// Abstacts from main
+@import '../../scss/abstracts/constants';
+@import '../../scss/abstracts/mixins';
+
+// Base
+@import '../../scss/base/base';
+@import '../../scss/base/typography';
+@import './scss/base/base';
+
+// Layouts
+@import './scss/layouts/start-page';
+@import './scss/layouts/game-page';
+@import './scss/layouts/finish-page';
+@import './scss/layouts/statistic-page';
+
+// Components
+@import './scss/components/question';
+@import './scss/components/button';
+@import './scss/components/levels-stepper';
+@import './scss/components/puzzle';
+@import './scss/components/helpers-button';
+
+// Vendors
+@import './scss/vendors/normalize';

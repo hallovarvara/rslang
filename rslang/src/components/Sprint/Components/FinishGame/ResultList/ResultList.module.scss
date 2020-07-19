@@ -1,33 +1,43 @@
-.ResultList{
+@import './src/scss/abstracts/constants';
+
+.ResultList {
   display: block;
-  }
-  .mistakeTitle{
-    color: gray;
-  }
-  .Total{
-    color: #ffffff;
-    padding: 0 10px;
-    border-radius: 10px;
-    margin-left: 10px;
-  }
-  
-  .error{
-    background: rgba(240, 87, 108, .7);
-  }
-  
-  .success {
-    background: rgba(161, 240, 69, .7);
-  }
-  
-  .Title{
-    color: rgb(82, 82, 82);
-    margin: 0 0 10px 35px;
-  }
-  
-  .Content{
-    display: flex;
-    flex-direction: column;
-    padding: 4px 0;
-    padding-right:40px;
-  }
-  
+}
+.mistakeTitle {
+  color: gray;
+}
+.Total {
+  margin-left: 10px;
+  padding: 0 10px;
+  color: $color-light;
+  border-radius: 10px;
+}
+
+.error {
+  background: $color-error;
+}
+
+.success {
+  background: $color-success;
+}
+
+.error,
+.success {
+  padding: 0 10px;
+  font-weight: $font-weight-black;
+  font-size: 2rem;
+  border-radius: 500px;
+}
+
+.Title {
+  margin: 0 0 10px 35px;
+  color: $color-dark;
+  font-weight: $font-weight-extralight;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+  padding-right: 40px;
+}

@@ -1,3 +1,343 @@
+/* Start page*/
+
 .learn-words {
+  padding-right: 50px;
+  padding-bottom: 90px;
+  padding-left: 50px;
   @extend %padding;
+  @include media-laptop {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+  @include media-tablet {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
+.lw-startview__wrapper {
+  max-width: 1048px;
+  margin: 0 auto;
+  overflow: hidden;
+  @extend %padding;
+  @include media-big-mobile {
+    padding: 160px 20px 90px 20px;
+  }
+  @include media-mobile {
+    padding: 160px 10px 90px 10px;
+  }
+}
+
+.lw-startview__wrapper__title {
+  margin: 0 0 40px 0;
+  @include font(9rem, 900, italic, $font-secondary);
+  @include media-tablet {
+    font-size: 8rem;
+  }
+  @include media-big-mobile {
+    font-size: 7rem;
+  }
+  @include media-mobile {
+    font-size: 6rem;
+  }
+}
+
+.lw-startview__wrapper__description {
+  margin-bottom: 50px;
+  @extend %subtitle;
+}
+
+.lw-icons-container {
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  @include flex(row, center, center);
+}
+
+.lw-icons-container__icon {
+  display: inline-block;
+  height: 150px;
+  margin: 0 25px;
+  background-position: center;
+  background-size: cover;
+  @include media-mobile {
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+  &.pencil {
+    width: 120.71px;
+    height: 130px;
+    background-image: url('../../assets/icons/icon-learn-words-1.svg');
+    @include media-tablet {
+      width: 100px;
+      height: 107.7px;
+    }
+  }
+  &.book {
+    width: 145.95px;
+    background-image: url('../../assets/icons/icon-learn-words-3.svg');
+    @include media-tablet {
+      width: 125px;
+      height: 128.47px;
+    }
+    @include media-big-mobile {
+      width: 105px;
+      height: 107.91px;
+    }
+  }
+  &.hat {
+    width: 145.45px;
+    background-image: url('../../assets/icons/icon-learn-words-2.svg');
+    @include media-tablet {
+      width: 125px;
+      height: 128.91px;
+    }
+    @include media-big-mobile {
+      width: 105px;
+      height: 108.28px;
+    }
+  }
+}
+
+.lw-startview__wrapper {
+  @include flex(column, center, center);
+}
+
+.lw-startview-title {
+  margin-bottom: 15px;
+  color: rgba($color: $color-dark, $alpha: 0.4);
+  text-align: center;
+  @include font(3.2rem, 600, normal);
+  @include media-laptop {
+    font-size: 3rem;
+  }
+  @include media-tablet {
+    font-size: 2.5rem;
+  }
+  @include media-big-mobile {
+    font-size: 2.2rem;
+  }
+  @include media-mobile {
+    font-size: 1.9rem;
+  }
+}
+
+.lw-startview__button-group {
+  @include flex(row, center, center);
+  @include media-tablet {
+    flex-direction: column;
+  }
+}
+
+.lw-startview__button-group__button {
+  width: 426px;
+  height: 94px;
+  margin: 0 15px;
+  color: $color-light;
+  text-transform: uppercase;
+  text-shadow: $btn-shadow;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  transition: $btn-transition;
+  @include background-image(url('../../assets/images/button-bg.png'));
+  @include font(3.4rem, 900, normal);
+  @include media-laptop {
+    width: 320px;
+    height: 70px;
+    font-size: 2.7rem;
+  }
+  @include media-tablet {
+    margin: 0 0 15px 0;
+  }
+  @include media-mobile {
+    width: 300px;
+    height: 65.63px;
+    font-size: 2.5rem;
+  }
+  &:hover {
+    box-shadow: $btn-shadow;
+  }
+}
+
+.lw-words-settings-container {
+  margin-bottom: 35px;
+  @include flex(column, flex-start, center);
+  & > * {
+    margin-bottom: 25px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.switch-container_lw {
+  width: 300px;
+  height: 43px;
+}
+
+.switch-container__slider_lw {
+  &:before {
+    width: 41px;
+    height: 41px;
+  }
+  &:after {
+    content: 'случайные слова';
+    @include font(1.3rem, 900);
+  }
+}
+
+.switch-container__input_lw:checked + .switch-container__slider_lw {
+  &:after {
+    content: 'случайные слова';
+  }
+}
+
+.stepper-container.lw-levels-stepper,
+.stepper-container.lw-pages-stepper {
+  .MuiTypography-root,
+  .MuiSlider-markLabel {
+    color: $color-dark;
+  }
+  .MuiSlider-rail {
+    background-color: rgba($color: $color-dark, $alpha: 0.26);
+  }
+}
+
+.stepper-container.lw-pages-stepper {
+  .MuiSlider-mark {
+    opacity: 0;
+  }
+  .MuiSlider-thumb:before {
+    color: $color-dark;
+  }
+}
+
+/* Card page*/
+
+.lw-question-icon {
+  margin-top: 19px;
+  cursor: pointer;
+  @include background-image(url('../../assets/icons/question-icon-dark.svg'));
+  @include media-laptop {
+    width: 33px;
+    height: 33px;
+  }
+  @include media-tablet {
+    width: 30px;
+    height: 30px;
+  }
+  @include media-mobile {
+    display: none;
+  }
+}
+
+.lw-header {
+  margin-bottom: 50px;
+  @include flex(row, space-between, center);
+  @include media-laptop {
+    @include flex(column, center, center);
+  }
+}
+
+.lw-title-container {
+  @include flex(row, center, center);
+  @include media-laptop {
+    margin-bottom: 10px;
+  }
+}
+
+.lw-title-container__title {
+  margin-right: 10px;
+  margin-bottom: 0px;
+  @include font(6rem, 900, italic, $font-secondary, 100%);
+  @include media-laptop {
+    font-size: 7rem;
+  }
+  @include media-tablet {
+    font-size: 5.5rem;
+  }
+  @include media-mobile {
+    margin-right: 0;
+  }
+}
+
+.lw-filter-container {
+  @include flex(row, center, center);
+  @include media-mobile {
+    flex-direction: column;
+  }
+}
+
+.lw-filter-container__autoplay {
+  margin: 0 40px 0 0;
+  color: rgba($color-dark, $alpha: 0.6);
+  background-color: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  @include flex(row, center, center);
+  @include font(2.7rem, 600, normal);
+  @include media-laptop {
+    margin: 0 10px;
+    font-size: 2.5rem;
+  }
+  @include media-mobile {
+    margin: 0;
+  }
+}
+
+.lw-filter-container__select {
+  @include media-laptop {
+    margin: 0 10px;
+  }
+  @include media-mobile {
+    margin: 0;
+  }
+  .select-input {
+    color: rgba($color: $color-dark, $alpha: 0.6);
+    @include font(2.7rem, 600, normal);
+    @include media-laptop {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+.lw-example-sentence-words-container {
+  display: flex;
+  flex-wrap: wrap;
+  @include media-mobile {
+    justify-content: center;
+  }
+  span {
+    margin-right: 6px;
+    @include media-tablet {
+      margin-right: 4px;
+    }
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+.lw-card-info__example-sentence {
+  margin-bottom: 26px;
+}
+
+.lw-word-card-sentence-words-container {
+  display: flex;
+  flex-wrap: wrap;
+  @include media-mobile {
+    justify-content: center;
+  }
+  & > * {
+    margin-right: 8px;
+    @include media-laptop {
+      margin-right: 4px;
+    }
+    &:last-child {
+      margin: 0;
+    }
+  }
 }

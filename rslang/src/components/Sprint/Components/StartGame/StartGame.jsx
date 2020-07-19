@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Parser from 'html-react-parser';
 import { connect } from 'react-redux';
-import Switcher from '../UI/switch';
 import StartGameForm from '../UI/StartGameForm';
-
-import { text } from '../../../../helpers/constants';
-
+import Stepper from '../../../../basicComponents/Stepper';
+import {count, gamesData} from '../../../../helpers/constants';
+import { generateStepperMarks } from '../../../../helpers/functions';
 import './StartGame.scss';
 
+const { groups } = count;
+
 const StartGame = ({
-  handleChangeUserWords, handleCurrentGroup, startGame, updateState, token,
+  handleChangeUserWords, handleCurrentGroup, startGame, updateState, token, currentGroup
 }) => {
   const onSubmitForm = (event) => {
     event.preventDefault();
@@ -18,13 +20,14 @@ const StartGame = ({
   };
 
   return (
-    <div className={'sprint-start__container'}>
+    <div className="sprint-start__container">
       <StartGameUserForm
         handleChangeUserWords={handleChangeUserWords}
         handleCurrentGroup={handleCurrentGroup}
         onSubmitForm={onSubmitForm}
         token={token}
         startGame={startGame}
+        currentGroup={currentGroup}
       />
     </div>
 
@@ -32,32 +35,39 @@ const StartGame = ({
 };
 
 const StartGameUserForm = ({
-  handleChangeUserWords, handleCurrentGroup, onSubmitForm, token,
-}) => (
+  handleCurrentGroup, onSubmitForm, token, currentGroup,
+}) => {
+  return (
     <div className={'sprint-start__container'}>
 
       <div className={'sprint-start__form-container'}>
-        {token
-          ? (<React.Fragment>
-            <span className={'sprint-start__explanation'}>
-              {text.ru.notEnoughWords}
-            </span>
-            <Switcher
-              handleChangeUserWords={handleChangeUserWords}
-            />
-          </React.Fragment>)
-          : null
+        {token && (
+          <>
+            <p className="sprint-start__explanation">
+              {Parser(gamesData.sprint.description)}
+            </p>
+          </>)
         }
-
-        <StartGameForm
-          classNameForm={'sprint-start__form'}
-          handleCurrentGroup={handleCurrentGroup}
-          onSubmitForm={onSubmitForm}
+        <Stepper
+          defaultValue={currentGroup + 1}
+          onChangeCommitted={(event, value, ...args) => handleCurrentGroup(value - 1, ...args)}
+          step={null}
+          max={count.groups}
+          marks={generateStepperMarks(groups)}
+          className="sprint-levels-stepper"
+          label="Выберите уровень:"
+          arrayOfColorsForTrack={['#65BC0D', '#98CE00', '#FFF73B', '#F8961E', '#F3722C', '#F94144']}
+          stickyLabel={false}
         />
       </div>
 
-    </div>
+      <StartGameForm
+        handleCurrentGroup={handleCurrentGroup}
+        onSubmitForm={onSubmitForm}
+      />
+    </div >
   );
+};
 
 StartGame.propTypes = {
   startGame: PropTypes.func,
@@ -67,6 +77,7 @@ StartGame.propTypes = {
   onSubmitForm: PropTypes.func,
   updateState: PropTypes.func,
   token: PropTypes.string,
+  currentGroup: PropTypes.number,
 };
 
 StartGameUserForm.propTypes = {
@@ -76,6 +87,7 @@ StartGameUserForm.propTypes = {
   handleCurrentGroup: PropTypes.func,
   onSubmitForm: PropTypes.func,
   token: PropTypes.string,
+  currentGroup: PropTypes.number,
 };
 
 function mapStateToProps(state) {

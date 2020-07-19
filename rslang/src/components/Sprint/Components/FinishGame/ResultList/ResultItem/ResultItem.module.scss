@@ -1,9 +1,11 @@
-.VolumeDownIcon{
+@import './src/scss/abstracts/constants';
+
+.VolumeDownIcon {
   color: #000000;
 }
-.Translate{
-  color: rgb(82, 82, 82);
+.Translate {
+  margin-left: 10px;
+  color: rgba($color-dark, $alpha: 0.4);
 }
-.Item{
-
+.Item {
 }

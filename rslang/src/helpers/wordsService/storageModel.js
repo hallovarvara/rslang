@@ -1,11 +1,14 @@
 import {
-  statsGameTemplate,
-  statsLearnTemplate,
-  generateStatsTemplate,
-  generateSettingsTemplate,
-  generateUserWordsTemplate,
+  // generateStatsTemplate,
+  // generateSettingsTemplate,
+  settingsTemplate,
 } from './dataModels';
 import { applicationThings } from '../constants';
+import {
+  statsTemplate,
+  statsLearnObjTemplate,
+  statsGameObjTemplate,
+} from './statsModel';
 
 export const storageThingNames = {
   STATISTICS: 'STATISTICS',
@@ -37,9 +40,9 @@ export const gameSessionThings = {
   unmess: 'rslangUnmessSession',
 };
 
-export const checkForLocalThing = (thingName, templateGenerator) => (
+export const checkForLocalThing = (thingName, template) => (
   !localStorage.getItem(thingName)
-    ? templateGenerator()
+    ? template
     : JSON.parse(localStorage.getItem(thingName))
 );
 
@@ -49,18 +52,19 @@ export const getSessionThing = (thingName, template) => (
     : JSON.parse(localStorage.getItem(thingName))
 );
 
-export const checkForessionThing = (thingName) => {
+export const checkForSessionThing = (thingName) => {
   let template;
   if (thingName === applicationThings.LEARN_WORDS) {
-    template = { ...statsLearnTemplate };
+    template = { ...statsLearnObjTemplate };
   } else {
-    template = { ...statsGameTemplate };
-    delete template.games;
+    template = { ...statsGameObjTemplate };
+    template.games = 1;
     if (thingName === applicationThings.PUZZLE) {
       delete template.right;
     }
   }
-  return getSessionThing(gameSessionThings[thingName], template);
+  const result = getSessionThing(gameSessionThings[thingName], template);
+  return result;
 };
 
 export const saveSessionThing = (thingName, thingValue) => {
@@ -68,7 +72,7 @@ export const saveSessionThing = (thingName, thingValue) => {
 };
 
 export const checkForStatistics = () => (
-  checkForLocalThing(localThings.STATISTICS, generateStatsTemplate)
+  checkForLocalThing(localThings.STATISTICS, statsTemplate)
 );
 
 export const saveLocalStatistics = (statsObject) => {
@@ -78,7 +82,9 @@ export const saveLocalStatistics = (statsObject) => {
 export const checkForUserWords = (
   storage = sessionThings,
   storageThing = storageThingNames.WORDS,
-) => checkForLocalThing(storage[storageThing], generateUserWordsTemplate);
+) => (
+  checkForLocalThing(storage[storageThing], [])
+);
 
 export const saveLocalUserWord = (
   wordObject,
@@ -109,7 +115,7 @@ export const saveLocalUserWord = (
 };
 
 export const checkForSettings = () => (
-  checkForLocalThing(localThings.SETTINGS, generateSettingsTemplate)
+  checkForLocalThing(localThings.SETTINGS, settingsTemplate)
 );
 
 export const saveLocalSettings = (settings) => {
@@ -122,6 +128,14 @@ export const clearStorageData = (storage) => {
   });
 };
 
+export const clearGamesStorageData = () => {
+  Object.values(gameSessionThings).forEach((el) => {
+    if (el !== gameSessionThings.learnWords) {
+      localStorage.removeItem(el);
+    }
+  });
+};
+
 export const clearLocalUserData = () => clearStorageData(localThings);
 
 export const getSessionData = (thingName) => (
@@ -129,7 +143,11 @@ export const getSessionData = (thingName) => (
 );
 
 export const clearSessionData = (thingName) => {
-  localStorage.removeItem(gameSessionThings[thingName]);
+  if (thingName !== applicationThings.LEARN_WORDS) {
+    clearGamesStorageData();
+  } else {
+    localStorage.removeItem(gameSessionThings[thingName]);
+  }
   clearStorageData(sessionThings);
 };
 
@@ -139,7 +157,9 @@ export const checkForNewUserWordsIds = () => (
     : JSON.parse(localStorage.getItem(sessionThings.NEW_WORDS))
 );
 
-export const saveNewUserWordId = (wordId) => {
+export const saveNewUserWordId = (wordObject) => {
+  const idTemplate = '_id';
+  const wordId = wordObject.id || wordObject[idTemplate];
   const words = checkForNewUserWordsIds();
   localStorage.setItem(sessionThings.NEW_WORDS, JSON.stringify([...words, wordId]));
 };

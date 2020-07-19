@@ -31,7 +31,8 @@
   transition: $properties $animation-time ease-in-out;
 }
 
-/* MEDIA */
+/* MEDIA
+  Media should be given from more to less */
 
 @mixin media-mobile {
   @media (max-width: $mobile-width) {
@@ -54,5 +55,89 @@
 @mixin media-laptop {
   @media (max-width: $laptop-width) {
     @content;
+  }
+}
+
+@mixin media-header-breakpoint {
+  @media (max-width: $header-breakpoint) {
+    @content;
+  }
+}
+
+@mixin media-hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin button(
+  $background-color: $color-primary-dark,
+  $text-color: $color-dark
+) {
+  padding: 25px 100px;
+
+  &.btn-primary,
+  & {
+    background-color: $background-color;
+  }
+
+  &:hover {
+    background-color: darken($background-color, 10%);
+  }
+
+  .MuiButton-label {
+    color: $text-color;
+    text-transform: uppercase;
+
+    text-shadow: 0px 4px 6px rgba($background-color, $alpha: 0.5),
+      0px 2px 1px rgba($background-color, $alpha: 0.5),
+      0px 1px 0px rgba($color-dark, $alpha: 0.8);
+
+    @include font(
+      $size: 3.2rem,
+      $weight: $font-weight-black,
+      $line-height: 120%,
+      $spacing: 0.2rem
+    );
+  }
+}
+
+@mixin button-secondary($isWidthSet: false) {
+  @if $isWidthSet {
+    padding: 20 0;
+  } @else {
+    padding: 20px 70px;
+  }
+
+  background-color: transparent;
+  border: 2px solid $color-dark;
+  outline: none;
+  cursor: pointer;
+  @include font(2.5rem, 400, normal, $font-secondary);
+  @include media-laptop {
+    font-size: 2rem;
+  }
+  @include media-tablet {
+    @if $isWidthSet {
+      padding: 7px 0;
+    } @else {
+      padding: 10px 40px;
+    }
+    font-size: 1.8rem;
+  }
+  @include media-mobile {
+    width: 48%;
+    margin-bottom: calc(0.04 * (100vw - 30px));
+    &:last-child {
+      margin: 0 auto;
+    }
+  }
+}
+
+@mixin set-button-background($color) {
+  background-color: $color;
+
+  &:hover {
+    background-color: darken($color, 10%);
   }
 }
