@@ -787,7 +787,7 @@ class VocabularyView extends React.Component {
       <div className="vocabulary-page vocabulary-page-container">
         <div className="vocabulary-settings-container">
           <h1 className="vocabulary-settings-container__page-title">{pagesData.vocabulary.title}</h1>
-          {filteredWords.length && <Select
+          {Boolean(filteredWords.length) && <Select
             className="vocabulary-selector"
             onChange={(event) => {
               const newSelectedOption = event.target.value;
