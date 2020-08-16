@@ -1,0 +1,36 @@
+.words-settings {
+  margin-bottom: 50px;
+  @include flex(column, center, center);
+}
+
+.words-settings__title {
+  margin-bottom: 30px;
+  letter-spacing: 0.7rem;
+  text-transform: uppercase;
+  @include font(
+    $size: 3.2rem,
+    $weight: $font-weight-black,
+    $family: $font-primary
+  );
+}
+
+.words-settings__title span {
+  text-decoration: underline;
+}
+
+.max-words-per-day-settings,
+.new-words-per-day-settings {
+  margin-bottom: 30px;
+  @include flex(row, center, center);
+}
+
+.max-words-per-day-settings__title,
+.new-words-per-day-settings__title {
+  margin-right: 40px;
+
+  @include font(
+    $size: 3.1rem,
+    $weight: $font-weight-light,
+    $family: $font-primary
+  );
+}

@@ -1,0 +1,65 @@
+.spot {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  z-index: 0 !important;
+  width: 118vw;
+  height: auto;
+  opacity: 0.3;
+  pointer-events: none;
+  path {
+    fill: url(#spot-top);
+  }
+  &_top {
+    top: -0.5%;
+    left: 11%;
+    transform: rotate(45deg);
+    path {
+      fill: url(#spot-top);
+    }
+  }
+  &_two-sixths {
+    top: 13.5%;
+    left: -101%;
+    width: 137.8vw;
+    transform: rotate(0.26deg);
+    path {
+      fill: url(#spot-two-sixths);
+    }
+  }
+  &_three-sixths {
+    top: 38%;
+    left: 29%;
+    width: 134.2vw;
+    transform: rotate(110.81deg);
+    path {
+      fill: url(#spot-three-sixths);
+    }
+  }
+  &_four-sixths {
+    top: 61.5%;
+    left: -86%;
+    width: 153.79vw;
+    transform: matrix(0.78, 0.62, 0.62, -0.78, 0, 0);
+    path {
+      fill: url(#spot-four-sixths);
+    }
+  }
+  &_five-sixths {
+    top: 80.7%;
+    left: 22%;
+    width: 134.27vw;
+    transform: rotate(118.79deg);
+    path {
+      fill: url(#spot-five-sixths);
+    }
+  }
+  &_bottom {
+    top: 97%;
+    left: -26%;
+    transform: rotate(180deg);
+    path {
+      fill: url(#spot-bottom);
+    }
+  }
+}

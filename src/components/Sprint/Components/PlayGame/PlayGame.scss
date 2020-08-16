@@ -1,0 +1,121 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+
+.sprint-play__container {
+  padding-bottom: 80px;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 500;
+  font-family: $font-secondary;
+}
+
+.sprint-play__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sprint-play__point-wrapper {
+  display: flex;
+}
+
+.sprint-play__timer-wrapper {
+  display: flex;
+}
+
+.sprint-play__timer,
+.sprint-play__point-score {
+  height: fit-content;
+  margin-top: 1px;
+  margin-left: 10px;
+  @include font(
+    $size: 2.4rem,
+    $weight: $font-weight-semibold,
+    $family: $font-secondary,
+    $line-height: 90%
+  );
+}
+
+.sprint-play__volume {
+  position: relative;
+  bottom: 12px;
+  color: #000000;
+}
+.sprint-play__board {
+  margin: 0 auto;
+  text-align: center;
+  background-color: $color-light;
+  border-radius: 0;
+}
+.sprint-play__rangs {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 30px;
+}
+.sprint-play__rang-item {
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  border-radius: 50%;
+}
+.sprint-play__icons {
+  position: relative;
+  top: 2.5px;
+  opacity: 0.5;
+}
+.sprint-play__word {
+  font-size: 5.6rem;
+  line-height: 1.334;
+  letter-spacing: 0em;
+}
+.sprint-play__translate {
+  padding-bottom: 50px;
+  color: #7c7c7c;
+  font-size: 3rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+}
+.sprint-play__control {
+  display: flex;
+  justify-content: center;
+
+  button {
+    width: 50%;
+    margin: 0;
+    padding: 20px 40px;
+    color: $color-light;
+    border-radius: 0;
+    box-shadow: none;
+
+    @include font(
+      $size: 3.2rem,
+      $weight: $font-weight-black,
+      $line-height: 100%,
+      $spacing: 0.2rem
+    );
+
+    &.sprint__button_wrong {
+      @include set-button-background($color-error);
+    }
+
+    &.sprint__button_right {
+      @include set-button-background($color-success);
+    }
+  }
+}
+.sprint-play__check {
+  background: #eede53;
+}
+
+.sprint-play__times {
+  background: #c986d6;
+}
+.sprint-play__default {
+  visibility: hidden;
+}
+
+@media (max-width: 400px) {
+  .sprint-play__word {
+    font-size: 4rem;
+  }
+}

@@ -1,0 +1,19 @@
+%hoverGlossButton {
+  &:before {
+    position: absolute;
+    top: -127%;
+    left: -21%;
+    display: block;
+    width: 10%;
+    height: 400%;
+    background-color: white;
+    transform: rotate(20deg);
+    content: '';
+  }
+  &:hover {
+    &:before {
+      left: 105%;
+      transition: left 0.7s, top 0.7s;
+    }
+  }
+}

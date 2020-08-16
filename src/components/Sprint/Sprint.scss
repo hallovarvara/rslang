@@ -1,0 +1,29 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+@import './src/scss/abstracts/placeholders';
+
+.sprint__wrapper {
+  flex-grow: 1;
+  width: 100%;
+  min-height: 100vh;
+  font-size: 24px;
+  background: linear-gradient(
+    $color-sprint-secondary 0%,
+    $color-sprint-primary 100%
+  );
+
+  @extend %padding;
+
+  .sprint__container {
+    position: relative;
+    z-index: 3;
+  }
+
+  .sprint__background {
+    @extend %fill-container;
+
+    @include background-image(
+      $url: url('../../assets/images/sprint-bg.jpg')
+    );
+  }
+}

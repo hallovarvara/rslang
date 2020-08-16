@@ -1,0 +1,114 @@
+.vocabulary-page {
+  .cards-container {
+    width: 80%;
+    margin: 0 auto;
+    cursor: default;
+    @include flex(column, center, center);
+  }
+
+  .word-card-container {
+    width: 100%;
+    height: 255px;
+    margin-bottom: 50px;
+    @include flex(row, center, center);
+  }
+
+  .word-card-preview-wrapper {
+    width: 45%;
+    height: 100%;
+    @include flex(column, center, center);
+  }
+
+  .word-card-preview {
+    width: 100%;
+    height: 65%;
+    @include flex(row, center, center);
+  }
+
+  .word-card-preview__img {
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .word-card-main-info {
+    width: 70%;
+    height: 100%;
+    background-color: $color-secondary;
+    @include flex(row, space-evenly, center);
+  }
+
+  .target-word-wrapper {
+    max-width: 75%;
+    @include flex(column, center, flex-start);
+  }
+
+  .target-word-wrapper__word {
+    max-width: 100%;
+    overflow: hidden;
+    color: $color-dark;
+    text-overflow: ellipsis;
+    @include font(6.2rem, 600, 400);
+  }
+
+  .target-word-wrapper__translation {
+    max-width: 100%;
+    overflow: hidden;
+    color: $color-dark;
+    text-overflow: ellipsis;
+    @include font(4rem, 300, normal);
+  }
+
+  .word-card-main-info__pronunciation-button {
+    width: 55px;
+    height: 66px;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    @include background-image(url('../../assets/images/volume_down_24px.png'));
+  }
+
+  .word-card-preview-wrapper__restore-button {
+    width: 100%;
+    height: 35%;
+    padding: 28px 0;
+    color: $color-light;
+    background-color: $color-primary-dark;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    @include font(2.8rem, 600, normal);
+  }
+
+  .word-card-additional-info {
+    width: 55%;
+    height: 100%;
+    padding: 0 40px;
+    background-color: $color-light;
+    @include flex(column, space-evenly, flex-start);
+    & > * {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .word-card-additional-info__transciption {
+    color: $color-dark;
+    @include font(3rem, 600, normal);
+  }
+
+  .word-card-additional-info__meaning {
+    color: $color-dark;
+    text-align: center;
+    @include font(3rem, 400, normal);
+  }
+
+  .word-card-additional-info__example-sentence {
+    color: rgba($color: $color-dark, $alpha: 0.4);
+    text-align: center;
+    @include font(3rem, 400, normal);
+  }
+}

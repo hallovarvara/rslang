@@ -1,0 +1,46 @@
+.vocabulary-page {
+  min-height: 100vh;
+  background-color: $color-primary;
+  @extend %padding;
+
+  .vocabulary-settings-container {
+    @include flex();
+
+    h1.vocabulary-settings-container__page-title {
+      width: fit-content;
+      margin: 0;
+      color: $color-light;
+    }
+
+    .vocabulary-selector {
+      margin-top: 18px;
+      margin-left: 20px;
+    }
+  }
+
+  .lw-no-words-found {
+    padding-bottom: 140px;
+    p {
+      width: 50%;
+      color: $color-light;
+
+      @include media-tablet {
+        width: 100%;
+        padding: 0 20px;
+      }
+    }
+  }
+
+  .vocabulary-settings-container {
+    margin-bottom: 50px;
+    @include flex(row, center, center);
+
+    @include media-big-mobile {
+      flex-direction: column;
+    }
+  }
+}
+
+.vocabulary-page__pagination {
+  @include flex(row, center, center);
+}

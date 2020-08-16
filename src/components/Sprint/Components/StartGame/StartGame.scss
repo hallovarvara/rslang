@@ -1,0 +1,55 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+@import './src/scss/abstracts/placeholders';
+
+.sprint-start__container{
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sprint-start__timer{
+  padding-top: 50%;
+  font-size: 50px;
+}
+
+.sprint-start__explanation {
+  display: block;
+  max-width: 700px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  color: $color-dark;
+  @include font(
+    $size: 2.6rem,
+    $weight: $font-weight-light,
+    $line-height: 150%,
+    $spacing: 0.02
+  );
+}
+
+.sprint-start__form-container{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+button.sprint-start__button {
+  margin-top: 50px;
+  @include button(
+    $background-color: $color-sprint-secondary,
+  );
+}
+
+.sprint-levels-stepper {
+  .MuiTypography-root,
+  .MuiSlider-mark {
+    @extend %hide;
+  }
+
+  .MuiSlider-rail {
+    background-color: $color-dark;
+  }
+
+  .MuiSlider-markLabel {
+    color: $color-dark;
+  }
+}

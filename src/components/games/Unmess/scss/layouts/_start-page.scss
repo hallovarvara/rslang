@@ -1,0 +1,56 @@
+.unmess-game-container {
+  .start-page {
+    width: 100%;
+    min-height: calc(100vh - #{$header-height});
+    padding: 30px 0;
+    overflow: hidden;
+    @include flex(column, center, center);
+  }
+
+  .start-page__title {
+    margin-bottom: 15px;
+  }
+
+  .start-page__description {
+    margin-bottom: 10px;
+    padding: 0 20px;
+    color: $color-light;
+    font-size: 4rem;
+    font-family: 'RuHandwrite', cursive;
+    text-align: center;
+    opacity: 0.8;
+  }
+
+  .start-page__start-button {
+    padding: 20px 100px;
+    color: $color-active-light;
+    font-size: 2.4rem;
+    font-family: 'Inter', sans-serif;
+    background-color: $color-light;
+    border: 1px solid $color-light;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.7s ease;
+    @include media-mobile {
+      padding: 20px 70px;
+    }
+  }
+
+  .unmess-settings-container {
+    margin: 50px 0;
+    @include flex(column, center, center);
+  }
+
+  .unmess-settings-container > * {
+    margin-bottom: 15px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .unmess-pages-stepper {
+    .MuiSlider-markLabel {
+      display: none;
+    }
+  }
+}

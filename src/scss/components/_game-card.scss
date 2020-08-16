@@ -1,0 +1,61 @@
+.game-card {
+  @extend %card-2-in-row;
+}
+
+.game-card > * {
+  position: relative;
+}
+
+.game-card__icon {
+  margin: 0 auto;
+  width: 100px;
+  height: auto;
+}
+
+.game-card__title {
+  margin-bottom: 10px;
+  width: 100%;
+
+  @include font(
+    $size: 6rem,
+    $weight: $font-weight-regular,
+    $family: $font-secondary,
+    $spacing: 0.04
+  );
+}
+
+.game-card__description {
+  margin-bottom: 40px;
+
+  @include font(
+    $size: 3rem,
+    $weight: $font-weight-light,
+    $spacing: 0.06,
+    $line-height: 160%
+  );
+
+  @include media-tablet {
+    font-size: 2.4rem;
+  }
+
+  @include media-big-mobile {
+    font-size: 2rem;
+  }
+
+  @include media-mobile {
+    font-size: 1.6rem;
+  }
+}
+
+.game-card__link-button-container {
+  display: block;
+  width: 100%;
+
+  button {
+    @include button-secondary();
+
+    font-size: 3.4rem;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}

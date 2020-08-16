@@ -1,0 +1,19 @@
+.learn-card-preview {
+  margin-bottom: 50px;
+  @include flex(column, center, center);
+}
+
+.learn-card-preview__title {
+  margin-bottom: 30px;
+  letter-spacing: 0.7rem;
+  text-transform: uppercase;
+  @include font(
+    $size: 3.2rem,
+    $weight: $font-weight-black,
+    $family: $font-primary
+  );
+}
+
+.learn-card-preview__title span {
+  text-decoration: underline;
+}

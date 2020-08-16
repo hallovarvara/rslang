@@ -1,0 +1,11 @@
+@import './src/scss/abstracts/constants';
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Icon {
+  color: $color-dark;
+}

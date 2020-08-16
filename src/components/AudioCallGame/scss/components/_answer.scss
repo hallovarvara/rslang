@@ -1,0 +1,26 @@
+.item {
+  margin: 10px auto;
+  padding: 15px;
+  color: $color-light;
+  font-size: 22px;
+  line-height: 1;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-audiocall-hover;
+  }
+}
+
+.disable {
+  color: $color-audiocall-hover;
+}
+.right {
+  color: $color-light;
+  background: $color-right-answer;
+}
+
+.wrong {
+  color: $color-light;
+  background: $color-wrong-answer;
+}

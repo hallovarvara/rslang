@@ -1,0 +1,200 @@
+.unmess-game-container {
+  .results-page {
+    min-height: calc(100vh - #{$header-height});
+    padding: 50px 0px;
+    color: $color-light;
+    @include flex(column, center, center);
+  }
+
+  .results-container {
+    margin-bottom: 50px;
+    word-break: normal;
+    @include flex(row, center, flex-start);
+    @include media-big-mobile {
+      flex-direction: column;
+    }
+  }
+
+  .right-container,
+  .wrong-container {
+    margin: 0px 15px;
+    @include flex(column, center, center);
+    @include media-big-mobile {
+      margin: 0px 0px;
+    }
+  }
+
+  .right-container {
+    @include media-big-mobile {
+      margin-bottom: 15px;
+    }
+  }
+
+  .right-container__count,
+  .wrong-container__count {
+    margin-bottom: 30px;
+    font-family: 'Inter', sans-serif;
+    @include font(4.2rem, 300, normal);
+    @include media-laptop {
+      font-size: 3.5rem;
+    }
+    @include media-tablet {
+      margin-bottom: 15px;
+      font-size: 2.7rem;
+    }
+    span {
+      font-weight: 900;
+    }
+  }
+
+  .right-container__count span {
+    color: $color-correct;
+  }
+
+  .wrong-container__count span {
+    color: $color-mistake;
+  }
+
+  .right-words-container,
+  .wrong-words-container {
+    @include flex(column, center, center);
+  }
+
+  .right-word-container,
+  .wrong-word-container {
+    width: 500px;
+    min-height: 80px;
+    margin-bottom: 20px;
+    padding: 15px 0px;
+    cursor: pointer;
+    @include flex(row, flex-start, center);
+    @include media-laptop {
+      width: 350px;
+    }
+    @include media-tablet {
+      flex-direction: column;
+      width: 250px;
+      padding: 5px 0px;
+    }
+    @include media-big-mobile {
+      width: 400px;
+    }
+    @include media-mobile {
+      width: 300px;
+    }
+    &:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+  .right-word-container {
+    background-color: $color-correct;
+  }
+
+  .wrong-word-container {
+    background-color: $color-mistake;
+  }
+
+  .right-word-container__word,
+  .wrong-word-container__word {
+    padding: 0px 20px;
+    @include font(3rem, 600, normal);
+    @include media-laptop {
+      font-size: 2.5rem;
+    }
+    @include media-tablet {
+      margin-bottom: 5px;
+      padding: 0px 0px;
+    }
+  }
+
+  .right-word-container__definition,
+  .wrong-word-container__definition {
+    flex-grow: 1;
+    @include font(1.6rem, 400, normal);
+    @include media-tablet {
+      margin-bottom: 5px;
+      padding: 0px 5px;
+      text-align: center;
+    }
+  }
+
+  .right-word-container__audio-icon,
+  .wrong-word-container__audio-icon {
+    min-width: 17%;
+    padding: 0px 20px;
+    text-align: center;
+    @include media-laptop {
+      padding: 0px 10px;
+    }
+    @include media-tablet {
+      padding: 0px 0px;
+    }
+  }
+
+  .results-page__play-again,
+  .results-page__latest-results,
+  .results-page__current-results {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+    transition: filter 0.7s ease;
+    @include font(4rem, 500, normal);
+    @include media-laptop {
+      font-size: 3rem;
+    }
+    @include media-mobile {
+      font-size: 2.3rem;
+    }
+    &:hover {
+      filter: invert(100%);
+    }
+  }
+
+  .results-page__play-again {
+    margin-bottom: 20px;
+    padding: 25px 125px;
+    @include media-big-mobile {
+      padding: 25px 100px;
+    }
+    @include media-mobile {
+      padding: 25px 74px;
+    }
+  }
+
+  .results-page__latest-results {
+    padding: 25px 28px;
+    @include media-laptop {
+      padding: 25px 51px;
+    }
+    @include media-big-mobile {
+      padding: 25px 27px;
+    }
+    @include media-mobile {
+      padding: 25px 17px;
+    }
+  }
+
+  .results-page__current-results {
+    padding: 25px 51px;
+    @include media-laptop {
+      padding: 25px 69px;
+    }
+    @include media-big-mobile {
+      padding: 25px 44px;
+    }
+    @include media-mobile {
+      padding: 25px 30px;
+    }
+  }
+
+  .results-container__date {
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid white;
+    @include font(4rem, 400, normal);
+    @include media-big-mobile {
+      font-size: 3rem;
+    }
+  }
+}

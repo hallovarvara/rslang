@@ -1,0 +1,18 @@
+@import './src/scss/abstracts/constants';
+@import './src/scss/abstracts/mixins';
+@import './src/scss/abstracts/placeholders';
+
+.Savannah {
+  flex-grow: 1;
+  width: 100%;
+  min-height: 100vh;
+  font-size: 24px;
+  background: linear-gradient(
+    $color-savannah-primary 0%,
+    $color-savannah-secondary 100%
+  );
+  @extend %padding;
+}
+
+.Container {
+}

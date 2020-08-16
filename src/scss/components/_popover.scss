@@ -1,0 +1,13 @@
+body .popover-description {
+  padding: 10px 15px;
+  text-align: center;
+  @include font(3.1rem, 300, normal);
+  @include media-laptop {
+    padding: 5px 12px;
+    font-size: 2.5rem;
+  }
+  @include media-tablet {
+    padding: 3px 9px;
+    font-size: 2rem;
+  }
+}

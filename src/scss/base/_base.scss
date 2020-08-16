@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  background-color: $color-secondary;
+}
+
+a {
+  color: $color-dark;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.App h1 {
+  @include media-tablet {
+    font-size: 7.8rem;
+  }
+
+  @include media-big-mobile {
+    font-size: 6.4rem;
+  }
+  @include media-mobile {
+    font-size: 5rem;
+  }
+}
+
+.margin-top-50 {
+  margin-top: 50px;
+}

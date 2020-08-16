@@ -1,0 +1,63 @@
+@import '../abstracts/constants';
+@import '../abstracts/mixins';
+
+.sign-in-page,
+.sign-up-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  @include flex(column, flex-start, center);
+  @extend %padding;
+}
+
+.sign-in-form,
+.sign-up-form {
+  z-index: 3;
+  margin-bottom: 30px;
+  @include flex(column, center, center);
+}
+
+.sign-in-form__email,
+.sign-up-form__email,
+.sign-up-form__password {
+  margin-bottom: 30px;
+}
+
+.sign-in-form__password,
+.sign-up-form__repeat-password {
+  margin-bottom: 60px;
+}
+
+.sign-in-form__button,
+.sign-up-form__button {
+  width: 100%;
+  height: 100px;
+  @include font(4rem, 500, normal);
+}
+
+.sign-in-page-additional-info,
+.sign-up-page-additional-info {
+  padding: 0 20px;
+  text-align: center;
+  @include font(
+      $size: 2.2rem,
+      $weight: $font-weight-regular
+  );
+}
+
+.sign-in-page-additional-info,
+.sign-in-page-additional-info__sign-up-link,
+.sign-up-page-additional-info,
+.sign-up-page-additional-info__sign-in-link {
+  color: rgba($color-dark, $alpha: 0.4);
+}
+
+.sign-in-page-additional-info__sign-up-link,
+.sign-up-page-additional-info__sign-in-link {
+  border-bottom: 1px solid rgba($color-dark, $alpha: 0.2);
+  @include transition(color);
+
+  &:hover {
+    color: $color-dark;
+  }
+}

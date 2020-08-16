@@ -1,0 +1,105 @@
+%hide {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(1px 1px 1px 1px); // IE6, IE7
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+%menu-item {
+  @include font($size: 2rem, $spacing: 0.04rem);
+}
+
+%padding {
+  padding-top: $header-height + 60px;
+}
+
+%hoverGlossButton {
+  &:before {
+    position: absolute;
+    top: -127%;
+    left: -21%;
+    display: block;
+    width: 10%;
+    height: 400%;
+    background-color: white;
+    transform: rotate(20deg);
+    content: '';
+  }
+  &:hover {
+    &:before {
+      left: 105%;
+      transition: left 0.7s, top 0.7s;
+    }
+  }
+}
+
+%disabled {
+  &:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+%subtitle {
+  margin-bottom: 60px;
+  text-align: center;
+
+  @include font(
+    $size: 3.2rem,
+    $weight: $font-weight-light,
+    $line-height: 150%
+  );
+
+  @include media-tablet {
+    font-size: 3rem;
+  }
+
+  @include media-big-mobile {
+    font-size: 2.7rem;
+  }
+
+  @include media-mobile {
+    font-size: 2.5rem;
+  }
+}
+
+%fill-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+%card-2-in-row {
+  position: relative;
+  max-width: 550px;
+  margin: 40px 30px;
+  text-align: center;
+
+  @include flex(column, flex-start, flex-start);
+
+  @include media-laptop {
+    max-width: 380px;
+  }
+
+  @include media-tablet {
+    max-width: 340px;
+    margin: 20px;
+  }
+
+  @include media-big-mobile {
+    max-width: 300px;
+  }
+
+  @include media-mobile {
+    max-width: 360px;
+    margin: 10px;
+  }
+}

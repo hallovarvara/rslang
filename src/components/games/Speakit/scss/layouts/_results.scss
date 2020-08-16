@@ -1,0 +1,170 @@
+.speakit-game-container {
+  .results-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - #{$header-height});
+  }
+
+  .results {
+    width: 80%;
+    height: calc(95vh - #{$header-height});
+    padding: 40px 100px;
+    overflow-y: scroll;
+    color: $color-text-dark;
+    font-family: 'Open Sans', sans-serif;
+    background-color: white;
+    border-radius: 15px;
+    @include font(2rem, 100);
+    @include media-laptop {
+      padding: 40px 15px;
+    }
+    @include media-tablet {
+      width: 95%;
+    }
+    @include media-big-mobile {
+      font-size: 1.8rem;
+    }
+  }
+
+  .results-container__data {
+    margin-bottom: 25px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid $color-text-dark;
+    @include font(3rem, 600);
+    @include media-laptop {
+      text-align: center;
+    }
+    @include media-big-mobile {
+      font-size: 2.8rem;
+    }
+  }
+
+  .word-card-row {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 15px 0;
+    cursor: pointer;
+    @include media-laptop {
+      justify-content: center;
+    }
+    @include media-big-mobile {
+      margin-bottom: 10px;
+    }
+  }
+
+  .word-card-row:last-child {
+    @include media-big-mobile {
+      margin-bottom: 0px;
+    }
+  }
+
+  .word-card-row span {
+    margin-left: 15px;
+    @include media-tablet {
+      margin-left: 10px;
+    }
+  }
+
+  .word-card-row span:first-child {
+    @include media-laptop {
+      margin-left: 0px;
+    }
+  }
+
+  .mistakes-container,
+  .know-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    @include media-laptop {
+      align-items: center;
+    }
+  }
+
+  .word-card-row__image {
+    z-index: 1;
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    background: url('../../assets/speaker.png');
+    background-size: cover;
+    @include media-tablet {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  .word-card-row__word-eng {
+    font-weight: 400;
+  }
+
+  .results-container__mistakes-count,
+  .results-container__know-count {
+    text-decoration: underline;
+    @include font(2.5rem, 900);
+    @include media-laptop {
+      text-align: center;
+    }
+    @include media-big-mobile {
+      font-size: 2.3rem;
+    }
+  }
+
+  .results-container__mistakes-count {
+    color: #da5b4c;
+  }
+
+  .results-container__know-count {
+    color: #01af61;
+  }
+
+  .results-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    @include media-laptop {
+      font-size: 1.8rem;
+      @include flex(column, center, center);
+    }
+  }
+}
+
+.speakit-game-container .results-buttons-container div {
+  position: relative;
+  flex-basis: 30%;
+  height: 49px;
+  text-align: center;
+  background-color: white;
+  border: 1px solid $color-text-dark;
+  cursor: pointer;
+  transition: color 0.5s, background-color 0.5s;
+  @include flex(row, center, center);
+  @include media-hover {
+    &:hover {
+      color: $color-light;
+      background-color: $color-text-dark;
+    }
+  }
+  @include media-laptop {
+    flex-basis: unset;
+    width: 300px;
+    margin-bottom: 15px;
+  }
+  @include media-mobile {
+    width: 270px;
+  }
+  a {
+    padding: 0px 10px;
+  }
+}
+
+.speakit-game-container .results-buttons-container div:last-child {
+  @include media-laptop {
+    margin-bottom: 0px;
+  }
+}
